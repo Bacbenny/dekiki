@@ -9,6 +9,7 @@ from datetime import datetime, timezone, timedelta
 
 import cloudscraper
 import requests
+from curl_cffi import requests as cf_requests
 from flask import Flask, Response, request
 
 app = Flask(__name__)
@@ -212,18 +213,20 @@ _HQ_HEADERS = {
 #  TieuLam TV — POST /matches/graph API (khác hoàn toàn với HQ/KDA)
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _discover_tieulam_api_base(scraper) -> str:
+def _discover_tieulam_api_base() -> str:
     """Quét JS bundle của frontend để tìm API base URL hiện tại."""
     try:
-        r = scraper.get(TIEULAM_FRONTEND_URL, timeout=10)
+        r = cf_requests.get(TIEULAM_FRONTEND_URL, impersonate="chrome124", timeout=10)
         js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
         for js_path in js_files[:3]:
-            js = scraper.get(TIEULAM_FRONTEND_URL.rstrip("/") + js_path, timeout=20).text
+            js = cf_requests.get(
+                TIEULAM_FRONTEND_URL.rstrip("/") + js_path,
+                impersonate="chrome124", timeout=20,
+            ).text
             # Tìm pattern: create({baseURL:"https://..."})
             hits = re.findall(r'create\(\{baseURL:"(https://[^"]+)"\}', js)
             if hits:
                 return hits[0].rstrip("/")
-            # Fallback: bất kỳ domain nào xuất hiện gần "baseURL"
             hits = re.findall(r'baseURL:"(https://[^"]{10,60})"', js)
             if hits:
                 return hits[0].rstrip("/")
@@ -232,11 +235,11 @@ def _discover_tieulam_api_base(scraper) -> str:
     return TIEULAM_KNOWN_API_BASE
 
 
-def _get_tieulam_api_base(scraper) -> str:
+def _get_tieulam_api_base() -> str:
     """Trả về API base URL, tự cập nhật khi TTL hết hoặc bị block."""
     now = time.time()
     if now - _tieulam_api_cache["discovered_at"] > API_DISCOVERY_TTL:
-        discovered = _discover_tieulam_api_base(scraper)
+        discovered = _discover_tieulam_api_base()
         _tieulam_api_cache["url"] = discovered + "/matches/graph"
         _tieulam_api_cache["discovered_at"] = now
     return _tieulam_api_cache["url"]
@@ -245,21 +248,11 @@ def _get_tieulam_api_base(scraper) -> str:
 def _fetch_tieulam_matches() -> list:
     """POST to TieuLam's matches/graph endpoint — fetches live + upcoming.
 
-    Dùng warm-up session (visit frontend trước) để bypass Cloudflare WAF,
-    sau đó POST đến API. Nếu bị 403, tự rediscover API domain và thử lại.
+    Dùng curl_cffi với impersonate='chrome124' để giả lập TLS fingerprint
+    của Chrome thật — vượt Cloudflare WAF kể cả từ IP datacenter (Render).
+    Nếu bị 403, tự rediscover API domain và thử lại.
     """
-    # Tạo scraper giả lập Chrome trên Windows (vượt CF tốt hơn default)
-    scraper = cloudscraper.create_scraper(
-        browser={"browser": "chrome", "platform": "windows", "mobile": False}
-    )
-
-    # ── Warm-up: visit frontend để có CF session cookies ──────────────────
-    try:
-        scraper.get(TIEULAM_FRONTEND_URL, timeout=10)
-    except Exception:
-        pass
-
-    api_url = _get_tieulam_api_base(scraper)
+    api_url = _get_tieulam_api_base()
 
     # Lấy trận từ MATCH_MAX_AGE_SECONDS trước đến 36h tới
     # (phải đồng bộ với bộ lọc tuổi trận trong _build_tieulam_lines)
@@ -267,23 +260,11 @@ def _fetch_tieulam_matches() -> list:
     cutoff_end = (datetime.now(timezone.utc) + timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M:%S")
 
     headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        ),
         "Accept": "application/json, text/plain, */*",
         "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
-        "Accept-Encoding": "gzip, deflate, br",
         "Content-Type": "application/json",
         "Referer": TIEULAM_FRONTEND_URL + "/",
         "Origin": TIEULAM_FRONTEND_URL,
-        "sec-ch-ua": '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "cross-site",
-        "Connection": "keep-alive",
     }
     payload = {
         "queries": [
@@ -297,13 +278,19 @@ def _fetch_tieulam_matches() -> list:
     }
 
     try:
-        resp = scraper.post(api_url, json=payload, headers=headers, timeout=15)
+        resp = cf_requests.post(
+            api_url, json=payload, headers=headers,
+            impersonate="chrome124", timeout=15,
+        )
         resp.raise_for_status()
     except Exception:
         # Nếu thất bại → buộc rediscover domain rồi thử lại
         _tieulam_api_cache["discovered_at"] = 0
-        api_url = _get_tieulam_api_base(scraper)
-        resp = scraper.post(api_url, json=payload, headers=headers, timeout=15)
+        api_url = _get_tieulam_api_base()
+        resp = cf_requests.post(
+            api_url, json=payload, headers=headers,
+            impersonate="chrome124", timeout=15,
+        )
         resp.raise_for_status()
 
     data = resp.json()
