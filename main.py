@@ -16,6 +16,8 @@ app = Flask(__name__)
 # ─── TieuLam TV config ────────────────────────────────────────────────────────
 TIEULAM_FRONTEND_URL  = os.environ.get("TIEULAM_FRONTEND", "https://sv1.tieulam1.live")
 TIEULAM_KNOWN_API_BASE= os.environ.get("TIEULAM_API",      "https://api.tlap12062026.xyz")
+# CDN phát stream — khi source_live=None, build từ stream_key
+TIEULAM_STREAM_CDN    = os.environ.get("TIEULAM_CDN",      "https://live.secufun.xyz")
 
 # ─── Hội Quán TV config ───────────────────────────────────────────────────────
 HOIQUAN_FRONTEND_URL  = os.environ.get("HOIQUAN_FRONTEND", "https://sv2.hoiquan4.live")
@@ -264,10 +266,23 @@ def _fetch_tieulam_matches() -> list:
     cutoff_end = (datetime.now(timezone.utc) + timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M:%S")
 
     headers = {
-        **_HQ_HEADERS,
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
         "Content-Type": "application/json",
         "Referer": TIEULAM_FRONTEND_URL + "/",
         "Origin": TIEULAM_FRONTEND_URL,
+        "sec-ch-ua": '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "cross-site",
+        "Connection": "keep-alive",
     }
     payload = {
         "queries": [
@@ -308,7 +323,11 @@ def _build_tieulam_lines(matches: list) -> list:
     for match in matches:
         stream_url = (match.get("source_live") or "").strip()
         if not stream_url:
-            continue
+            # Khi source_live=None (trận chưa live), xây URL từ stream_key
+            stream_key = (match.get("stream_key") or "").strip()
+            if not stream_key:
+                continue
+            stream_url = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
 
         # Bỏ qua trận đã kết thúc lâu (> MATCH_MAX_AGE_SECONDS sau start_date)
         start_str = match.get("start_date", "")
