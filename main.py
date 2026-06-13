@@ -261,8 +261,9 @@ def _fetch_tieulam_matches() -> list:
 
     api_url = _get_tieulam_api_base(scraper)
 
-    # Lấy thời điểm 4 giờ trước (UTC) — giống logic trang gốc
-    cutoff     = (datetime.now(timezone.utc) - timedelta(hours=4)).strftime("%Y-%m-%dT%H:%M:%S")
+    # Lấy trận từ MATCH_MAX_AGE_SECONDS trước đến 36h tới
+    # (phải đồng bộ với bộ lọc tuổi trận trong _build_tieulam_lines)
+    cutoff     = (datetime.now(timezone.utc) - timedelta(seconds=MATCH_MAX_AGE_SECONDS)).strftime("%Y-%m-%dT%H:%M:%S")
     cutoff_end = (datetime.now(timezone.utc) + timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M:%S")
 
     headers = {
