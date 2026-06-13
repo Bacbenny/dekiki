@@ -210,13 +210,57 @@ _HQ_HEADERS = {
 #  TieuLam TV — POST /matches/graph API (khác hoàn toàn với HQ/KDA)
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _fetch_tieulam_matches() -> list:
-    """POST to TieuLam's matches/graph endpoint — fetches live + upcoming."""
-    api_url = TIEULAM_KNOWN_API_BASE.rstrip("/") + "/matches/graph"
-    _tieulam_api_cache["url"] = api_url
+def _discover_tieulam_api_base(scraper) -> str:
+    """Quét JS bundle của frontend để tìm API base URL hiện tại."""
+    try:
+        r = scraper.get(TIEULAM_FRONTEND_URL, timeout=10)
+        js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
+        for js_path in js_files[:3]:
+            js = scraper.get(TIEULAM_FRONTEND_URL.rstrip("/") + js_path, timeout=20).text
+            # Tìm pattern: create({baseURL:"https://..."})
+            hits = re.findall(r'create\(\{baseURL:"(https://[^"]+)"\}', js)
+            if hits:
+                return hits[0].rstrip("/")
+            # Fallback: bất kỳ domain nào xuất hiện gần "baseURL"
+            hits = re.findall(r'baseURL:"(https://[^"]{10,60})"', js)
+            if hits:
+                return hits[0].rstrip("/")
+    except Exception:
+        pass
+    return TIEULAM_KNOWN_API_BASE
 
-    # Lấy thời điểm 4 giờ trước (UTC, bỏ Z) — giống logic của trang gốc
-    cutoff = (datetime.now(timezone.utc) - timedelta(hours=4)).strftime("%Y-%m-%dT%H:%M:%S")
+
+def _get_tieulam_api_base(scraper) -> str:
+    """Trả về API base URL, tự cập nhật khi TTL hết hoặc bị block."""
+    now = time.time()
+    if now - _tieulam_api_cache["discovered_at"] > API_DISCOVERY_TTL:
+        discovered = _discover_tieulam_api_base(scraper)
+        _tieulam_api_cache["url"] = discovered + "/matches/graph"
+        _tieulam_api_cache["discovered_at"] = now
+    return _tieulam_api_cache["url"]
+
+
+def _fetch_tieulam_matches() -> list:
+    """POST to TieuLam's matches/graph endpoint — fetches live + upcoming.
+
+    Dùng warm-up session (visit frontend trước) để bypass Cloudflare WAF,
+    sau đó POST đến API. Nếu bị 403, tự rediscover API domain và thử lại.
+    """
+    # Tạo scraper giả lập Chrome trên Windows (vượt CF tốt hơn default)
+    scraper = cloudscraper.create_scraper(
+        browser={"browser": "chrome", "platform": "windows", "mobile": False}
+    )
+
+    # ── Warm-up: visit frontend để có CF session cookies ──────────────────
+    try:
+        scraper.get(TIEULAM_FRONTEND_URL, timeout=10)
+    except Exception:
+        pass
+
+    api_url = _get_tieulam_api_base(scraper)
+
+    # Lấy thời điểm 4 giờ trước (UTC) — giống logic trang gốc
+    cutoff     = (datetime.now(timezone.utc) - timedelta(hours=4)).strftime("%Y-%m-%dT%H:%M:%S")
     cutoff_end = (datetime.now(timezone.utc) + timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M:%S")
 
     headers = {
@@ -235,9 +279,17 @@ def _fetch_tieulam_matches() -> list:
         "page": 1,
         "order_asc": "start_date",
     }
-    scraper = cloudscraper.create_scraper()
-    resp = scraper.post(api_url, json=payload, headers=headers, timeout=15)
-    resp.raise_for_status()
+
+    try:
+        resp = scraper.post(api_url, json=payload, headers=headers, timeout=15)
+        resp.raise_for_status()
+    except Exception:
+        # Nếu thất bại → buộc rediscover domain rồi thử lại
+        _tieulam_api_cache["discovered_at"] = 0
+        api_url = _get_tieulam_api_base(scraper)
+        resp = scraper.post(api_url, json=payload, headers=headers, timeout=15)
+        resp.raise_for_status()
+
     data = resp.json()
     return data.get("data", [])
 
