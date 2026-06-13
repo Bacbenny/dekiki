@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 # ─── TieuLam TV config ────────────────────────────────────────────────────────
 TIEULAM_FRONTEND_URL  = os.environ.get("TIEULAM_FRONTEND", "https://sv1.tieulam1.live")
-TIEULAM_KNOWN_API_BASE= os.environ.get("TIEULAM_API",      "https://sv1.tieulam1.live/api/v1/external")
+TIEULAM_KNOWN_API_BASE= os.environ.get("TIEULAM_API",      "https://api.tlap12062026.xyz")
 
 # ─── Hội Quán TV config ───────────────────────────────────────────────────────
 HOIQUAN_FRONTEND_URL  = os.environ.get("HOIQUAN_FRONTEND", "https://sv2.hoiquan4.live")
@@ -207,65 +207,97 @@ _HQ_HEADERS = {
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  TieuLam TV — API discovery + fetch
+#  TieuLam TV — POST /matches/graph API (khác hoàn toàn với HQ/KDA)
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _discover_tieulam_api(scraper) -> str:
-    try:
-        r = scraper.get(TIEULAM_FRONTEND_URL, timeout=10)
-        js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
-        if not js_files:
-            js_files = re.findall(r'src="(/assets/js/[^"]+\.js)"', r.text)
-        if not js_files:
-            return TIEULAM_KNOWN_API_BASE
-        for js_path in js_files[:3]:
-            js = scraper.get(TIEULAM_FRONTEND_URL.rstrip("/") + js_path, timeout=15).text
-            hits = re.findall(r'VITE_SERVER_API_BASE_URL:"(https://[^"]+)"', js)
-            if hits:
-                return hits[0]
-            hits = re.findall(r'https://[a-z0-9\-\.]+/api/v1/external', js)
-            if hits:
-                return hits[0]
-            chunk_paths = re.findall(r'assets/[^"\']+\.js', js)
-            for cp in chunk_paths[:3]:
-                try:
-                    chunk = scraper.get(TIEULAM_FRONTEND_URL.rstrip("/") + "/" + cp, timeout=15).text
-                    hits = re.findall(r'https://[a-z0-9\-\.]+/api/v1/external', chunk)
-                    if hits:
-                        return hits[0]
-                except Exception:
-                    pass
-    except Exception:
-        pass
-    return TIEULAM_KNOWN_API_BASE
+def _fetch_tieulam_matches() -> list:
+    """POST to TieuLam's matches/graph endpoint — fetches live + upcoming."""
+    api_url = TIEULAM_KNOWN_API_BASE.rstrip("/") + "/matches/graph"
+    _tieulam_api_cache["url"] = api_url
 
+    # Lấy thời điểm 4 giờ trước (UTC, bỏ Z) — giống logic của trang gốc
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=4)).strftime("%Y-%m-%dT%H:%M:%S")
+    cutoff_end = (datetime.now(timezone.utc) + timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M:%S")
 
-def _get_tieulam_api_base(scraper) -> str:
-    now = time.time()
-    if now - _tieulam_api_cache["discovered_at"] > API_DISCOVERY_TTL:
-        _tieulam_api_cache["url"] = _discover_tieulam_api(scraper)
-        _tieulam_api_cache["discovered_at"] = now
-    return _tieulam_api_cache["url"]
-
-
-def _fetch_tieulam_fixtures() -> list:
+    headers = {
+        **_HQ_HEADERS,
+        "Content-Type": "application/json",
+        "Referer": TIEULAM_FRONTEND_URL + "/",
+        "Origin": TIEULAM_FRONTEND_URL,
+    }
+    payload = {
+        "queries": [
+            {"field": "start_date", "type": "gte", "value": cutoff},
+            {"field": "start_date", "type": "lte", "value": cutoff_end},
+        ],
+        "query_and": True,
+        "limit": 100,
+        "page": 1,
+        "order_asc": "start_date",
+    }
     scraper = cloudscraper.create_scraper()
-    api_base = _get_tieulam_api_base(scraper)
-    url = api_base.rstrip("/") + "/fixtures/unfinished"
-    headers = {**_HQ_HEADERS, "Referer": TIEULAM_FRONTEND_URL + "/"}
-    try:
-        resp = scraper.get(url, headers=headers, timeout=15)
-        resp.raise_for_status()
-    except Exception:
-        _tieulam_api_cache["discovered_at"] = 0
-        api_base = _get_tieulam_api_base(scraper)
-        url = api_base.rstrip("/") + "/fixtures/unfinished"
-        resp = scraper.get(url, headers=headers, timeout=15)
-        resp.raise_for_status()
+    resp = scraper.post(api_url, json=payload, headers=headers, timeout=15)
+    resp.raise_for_status()
     data = resp.json()
-    if not data.get("success"):
-        return []
     return data.get("data", [])
+
+
+def _tieulam_logo(match: dict) -> str:
+    """Dùng logo đội nhà, fallback theo môn thể thao."""
+    logo = match.get("team_1_logo") or match.get("team_2_logo") or ""
+    if logo:
+        return logo
+    return _logo_from_text(match.get("desc", "") + " " + match.get("league", ""))
+
+
+def _build_tieulam_lines(matches: list) -> list:
+    """Chuyển dữ liệu TieuLam matches/graph sang M3U lines."""
+    lines = []
+    for match in matches:
+        stream_url = (match.get("source_live") or "").strip()
+        if not stream_url:
+            continue
+
+        # Bỏ qua trận đã kết thúc lâu (> MATCH_MAX_AGE_SECONDS sau start_date)
+        start_str = match.get("start_date", "")
+        is_live = bool(match.get("is_live"))
+        if start_str and not is_live:
+            try:
+                dt_start = datetime.fromisoformat(start_str.replace("Z", "+00:00"))
+                # start_date không có tz info → coi là UTC
+                if dt_start.tzinfo is None:
+                    dt_start = dt_start.replace(tzinfo=timezone.utc)
+                elapsed = time.time() - dt_start.timestamp()
+                if elapsed > MATCH_MAX_AGE_SECONDS:
+                    continue
+            except Exception:
+                pass
+
+        logo = _tieulam_logo(match)
+        team1  = match.get("team_1", "Home").strip()
+        team2  = match.get("team_2", "Away").strip()
+        league = match.get("league", "").strip()
+        blv    = (match.get("blv") or "").strip()
+
+        try:
+            dt_start = datetime.fromisoformat(start_str.replace("Z", "+00:00"))
+            if dt_start.tzinfo is None:
+                dt_start = dt_start.replace(tzinfo=timezone.utc)
+            dt_vn    = dt_start.astimezone(VN_TZ)
+            time_str = dt_vn.strftime("%H:%M")
+            date_str = dt_vn.strftime("%d/%m")
+        except Exception:
+            time_str = "--:--"
+            date_str = "--/--"
+
+        if blv:
+            display = f"{time_str} - {date_str} | {team1} VS {team2} ({league}) | {blv}"
+        else:
+            display = f"{time_str} - {date_str} | {team1} VS {team2} ({league})"
+
+        lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="TieuLam TV",{display}')
+        lines.append(stream_url)
+    return lines
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -490,7 +522,7 @@ def _refresh_all_playlists():
     errors = []
 
     def fetch_tieulam():
-        return _build_fixture_lines(_fetch_tieulam_fixtures(), "TieuLam TV")
+        return _build_tieulam_lines(_fetch_tieulam_matches())
 
     def fetch_hq():
         return _build_fixture_lines(_fetch_hoiquan_fixtures(), "Hội Quán TV")
