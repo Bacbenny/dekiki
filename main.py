@@ -8,8 +8,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone, timedelta
 
 import cloudscraper
+import httpx
 import requests
-from curl_cffi import requests as cf_requests
 from flask import Flask, Response, request
 
 app = Flask(__name__)
@@ -213,17 +213,27 @@ _HQ_HEADERS = {
 #  TieuLam TV — POST /matches/graph API (khác hoàn toàn với HQ/KDA)
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _discover_tieulam_api_base() -> str:
+_TIEULAM_HTTPX_HEADERS = {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
+    "Content-Type": "application/json",
+    "Referer": TIEULAM_FRONTEND_URL + "/",
+    "Origin": TIEULAM_FRONTEND_URL,
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "cross-site",
+}
+
+
+def _discover_tieulam_api_base(client: httpx.Client) -> str:
     """Quét JS bundle của frontend để tìm API base URL hiện tại."""
     try:
-        r = cf_requests.get(TIEULAM_FRONTEND_URL, impersonate="chrome124", timeout=10)
+        r = client.get(TIEULAM_FRONTEND_URL, timeout=10)
         js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
         for js_path in js_files[:3]:
-            js = cf_requests.get(
-                TIEULAM_FRONTEND_URL.rstrip("/") + js_path,
-                impersonate="chrome124", timeout=20,
+            js = client.get(
+                TIEULAM_FRONTEND_URL.rstrip("/") + js_path, timeout=20
             ).text
-            # Tìm pattern: create({baseURL:"https://..."})
             hits = re.findall(r'create\(\{baseURL:"(https://[^"]+)"\}', js)
             if hits:
                 return hits[0].rstrip("/")
@@ -235,11 +245,11 @@ def _discover_tieulam_api_base() -> str:
     return TIEULAM_KNOWN_API_BASE
 
 
-def _get_tieulam_api_base() -> str:
+def _get_tieulam_api_base(client: httpx.Client) -> str:
     """Trả về API base URL, tự cập nhật khi TTL hết hoặc bị block."""
     now = time.time()
     if now - _tieulam_api_cache["discovered_at"] > API_DISCOVERY_TTL:
-        discovered = _discover_tieulam_api_base()
+        discovered = _discover_tieulam_api_base(client)
         _tieulam_api_cache["url"] = discovered + "/matches/graph"
         _tieulam_api_cache["discovered_at"] = now
     return _tieulam_api_cache["url"]
@@ -248,24 +258,13 @@ def _get_tieulam_api_base() -> str:
 def _fetch_tieulam_matches() -> list:
     """POST to TieuLam's matches/graph endpoint — fetches live + upcoming.
 
-    Dùng curl_cffi với impersonate='chrome124' để giả lập TLS fingerprint
-    của Chrome thật — vượt Cloudflare WAF kể cả từ IP datacenter (Render).
-    Nếu bị 403, tự rediscover API domain và thử lại.
+    Dùng httpx với HTTP/2 — fingerprint TLS khác hẳn requests/curl_cffi,
+    vượt được Cloudflare WAF kể cả từ IP datacenter như Render.
+    Nếu bị lỗi, tự rediscover API domain và thử lại.
     """
-    api_url = _get_tieulam_api_base()
-
-    # Lấy trận từ MATCH_MAX_AGE_SECONDS trước đến 36h tới
-    # (phải đồng bộ với bộ lọc tuổi trận trong _build_tieulam_lines)
     cutoff     = (datetime.now(timezone.utc) - timedelta(seconds=MATCH_MAX_AGE_SECONDS)).strftime("%Y-%m-%dT%H:%M:%S")
     cutoff_end = (datetime.now(timezone.utc) + timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M:%S")
 
-    headers = {
-        "Accept": "application/json, text/plain, */*",
-        "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
-        "Content-Type": "application/json",
-        "Referer": TIEULAM_FRONTEND_URL + "/",
-        "Origin": TIEULAM_FRONTEND_URL,
-    }
     payload = {
         "queries": [
             {"field": "start_date", "type": "gte", "value": cutoff},
@@ -277,24 +276,19 @@ def _fetch_tieulam_matches() -> list:
         "order_asc": "start_date",
     }
 
-    try:
-        resp = cf_requests.post(
-            api_url, json=payload, headers=headers,
-            impersonate="chrome124", timeout=15,
-        )
-        resp.raise_for_status()
-    except Exception:
-        # Nếu thất bại → buộc rediscover domain rồi thử lại
-        _tieulam_api_cache["discovered_at"] = 0
-        api_url = _get_tieulam_api_base()
-        resp = cf_requests.post(
-            api_url, json=payload, headers=headers,
-            impersonate="chrome124", timeout=15,
-        )
-        resp.raise_for_status()
+    with httpx.Client(http2=True, timeout=15) as client:
+        api_url = _get_tieulam_api_base(client)
+        try:
+            resp = client.post(api_url, json=payload, headers=_TIEULAM_HTTPX_HEADERS)
+            resp.raise_for_status()
+        except Exception:
+            # Nếu thất bại → buộc rediscover domain rồi thử lại 1 lần
+            _tieulam_api_cache["discovered_at"] = 0
+            api_url = _get_tieulam_api_base(client)
+            resp = client.post(api_url, json=payload, headers=_TIEULAM_HTTPX_HEADERS)
+            resp.raise_for_status()
 
-    data = resp.json()
-    return data.get("data", [])
+    return resp.json().get("data", [])
 
 
 def _tieulam_logo(match: dict) -> str:
