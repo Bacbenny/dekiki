@@ -19,6 +19,9 @@ TIEULAM_FRONTEND_URL  = os.environ.get("TIEULAM_FRONTEND", "https://sv1.tieulam1
 TIEULAM_KNOWN_API_BASE= os.environ.get("TIEULAM_API",      "https://api.tlap12062026.xyz")
 # CDN phát stream — khi source_live=None, build từ stream_key
 TIEULAM_STREAM_CDN    = os.environ.get("TIEULAM_CDN",      "https://live.secufun.xyz")
+# Nếu IP bị chặn (Render), dùng GitHub cache do Actions cập nhật mỗi 5 phút
+TIEULAM_GITHUB_CACHE_URL = os.environ.get("TIEULAM_GITHUB_CACHE_URL", "")
+TIEULAM_GITHUB_TOKEN     = os.environ.get("TIEULAM_GITHUB_TOKEN", "")
 
 # ─── Hội Quán TV config ───────────────────────────────────────────────────────
 HOIQUAN_FRONTEND_URL  = os.environ.get("HOIQUAN_FRONTEND", "https://sv2.hoiquan4.live")
@@ -255,13 +258,45 @@ def _get_tieulam_api_base(client: httpx.Client) -> str:
     return _tieulam_api_cache["url"]
 
 
-def _fetch_tieulam_matches() -> list:
-    """POST to TieuLam's matches/graph endpoint — fetches live + upcoming.
+def _fetch_tieulam_from_github_cache() -> list:
+    """Đọc cache TieuLam từ GitHub repo (do Actions cập nhật mỗi 5 phút).
 
-    Dùng httpx với HTTP/2 — fingerprint TLS khác hẳn requests/curl_cffi,
-    vượt được Cloudflare WAF kể cả từ IP datacenter như Render.
-    Nếu bị lỗi, tự rediscover API domain và thử lại.
+    Dùng khi IP bị Cloudflare chặn (vd: Render). Set 2 env vars:
+      TIEULAM_GITHUB_CACHE_URL — GitHub Contents API URL của tieulam_cache.json
+      TIEULAM_GITHUB_TOKEN     — Personal Access Token có quyền đọc repo
     """
+    if not TIEULAM_GITHUB_CACHE_URL:
+        raise RuntimeError("TIEULAM_GITHUB_CACHE_URL not set")
+
+    headers = {
+        "Accept": "application/vnd.github.raw+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+    if TIEULAM_GITHUB_TOKEN:
+        headers["Authorization"] = f"token {TIEULAM_GITHUB_TOKEN}"
+
+    resp = requests.get(TIEULAM_GITHUB_CACHE_URL, headers=headers, timeout=10)
+    resp.raise_for_status()
+    data = resp.json()
+    return data.get("data", [])
+
+
+def _fetch_tieulam_matches() -> list:
+    """Fetch TieuLam matches — thử GitHub cache trước nếu env var được set.
+
+    Khi IP bị Cloudflare chặn (Render): đọc từ GitHub cache do Actions duy trì.
+    Khi không có env var (Replit, local): gọi trực tiếp TieuLam API qua httpx HTTP/2.
+    """
+    # 1. Thử GitHub cache (khi TIEULAM_GITHUB_CACHE_URL được set)
+    if TIEULAM_GITHUB_CACHE_URL:
+        try:
+            return _fetch_tieulam_from_github_cache()
+        except Exception as e:
+            # Log lỗi nhưng vẫn thử direct API làm fallback
+            import sys
+            print(f"⚠️ GitHub cache failed: {e}", file=sys.stderr)
+
+    # 2. Gọi trực tiếp TieuLam API (works từ Replit/local, bị block trên Render)
     cutoff     = (datetime.now(timezone.utc) - timedelta(seconds=MATCH_MAX_AGE_SECONDS)).strftime("%Y-%m-%dT%H:%M:%S")
     cutoff_end = (datetime.now(timezone.utc) + timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M:%S")
 
@@ -282,7 +317,6 @@ def _fetch_tieulam_matches() -> list:
             resp = client.post(api_url, json=payload, headers=_TIEULAM_HTTPX_HEADERS)
             resp.raise_for_status()
         except Exception:
-            # Nếu thất bại → buộc rediscover domain rồi thử lại 1 lần
             _tieulam_api_cache["discovered_at"] = 0
             api_url = _get_tieulam_api_base(client)
             resp = client.post(api_url, json=payload, headers=_TIEULAM_HTTPX_HEADERS)
