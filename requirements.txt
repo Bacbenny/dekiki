@@ -1,4 +1,5 @@
 flask>=3.0.0
 requests>=2.31.0
 cloudscraper>=1.2.71
+curl_cffi>=0.7.0
 gunicorn>=21.2.0
