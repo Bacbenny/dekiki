@@ -19,9 +19,11 @@ TIEULAM_FRONTEND_URL  = os.environ.get("TIEULAM_FRONTEND", "https://sv1.tieulam1
 TIEULAM_KNOWN_API_BASE= os.environ.get("TIEULAM_API",      "https://api.tlap12062026.xyz")
 # CDN phát stream — khi source_live=None, build từ stream_key
 TIEULAM_STREAM_CDN    = os.environ.get("TIEULAM_CDN",      "https://live.secufun.xyz")
-# Nếu IP bị chặn (Render), dùng GitHub cache do Actions cập nhật mỗi 5 phút
-TIEULAM_GITHUB_CACHE_URL = os.environ.get("TIEULAM_GITHUB_CACHE_URL", "")
-TIEULAM_GITHUB_TOKEN     = os.environ.get("TIEULAM_GITHUB_TOKEN", "")
+# Nếu IP bị chặn (Render), dùng relay endpoint trên Replit để lấy data TieuLam
+# Set TIEULAM_RELAY_URL=https://<replit-app>.replit.app/api/tieulam-relay
+# Set RELAY_SECRET=<shared-secret> (tuỳ chọn, để bảo vệ endpoint)
+TIEULAM_RELAY_URL    = os.environ.get("TIEULAM_RELAY_URL", "")
+TIEULAM_RELAY_SECRET = os.environ.get("RELAY_SECRET", "")
 
 # ─── Hội Quán TV config ───────────────────────────────────────────────────────
 HOIQUAN_FRONTEND_URL  = os.environ.get("HOIQUAN_FRONTEND", "https://sv2.hoiquan4.live")
@@ -258,43 +260,35 @@ def _get_tieulam_api_base(client: httpx.Client) -> str:
     return _tieulam_api_cache["url"]
 
 
-def _fetch_tieulam_from_github_cache() -> list:
-    """Đọc cache TieuLam từ GitHub repo (do Actions cập nhật mỗi 5 phút).
+def _fetch_tieulam_via_relay() -> list:
+    """Gọi relay endpoint trên Replit để lấy data TieuLam (bỏ qua IP block).
 
-    Dùng khi IP bị Cloudflare chặn (vd: Render). Set 2 env vars:
-      TIEULAM_GITHUB_CACHE_URL — GitHub Contents API URL của tieulam_cache.json
-      TIEULAM_GITHUB_TOKEN     — Personal Access Token có quyền đọc repo
+    Dùng khi IP bị Cloudflare chặn (vd: Render). Set env vars trên Render:
+      TIEULAM_RELAY_URL — https://<replit-app>.replit.app/api/tieulam-relay
+      RELAY_SECRET      — shared secret (tuỳ chọn)
     """
-    if not TIEULAM_GITHUB_CACHE_URL:
-        raise RuntimeError("TIEULAM_GITHUB_CACHE_URL not set")
+    headers: dict = {}
+    if TIEULAM_RELAY_SECRET:
+        headers["X-Relay-Token"] = TIEULAM_RELAY_SECRET
 
-    headers = {
-        "Accept": "application/vnd.github.raw+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-    }
-    if TIEULAM_GITHUB_TOKEN:
-        headers["Authorization"] = f"token {TIEULAM_GITHUB_TOKEN}"
-
-    resp = requests.get(TIEULAM_GITHUB_CACHE_URL, headers=headers, timeout=10)
+    resp = requests.get(TIEULAM_RELAY_URL, headers=headers, timeout=15)
     resp.raise_for_status()
-    data = resp.json()
-    return data.get("data", [])
+    return resp.json().get("data", [])
 
 
 def _fetch_tieulam_matches() -> list:
-    """Fetch TieuLam matches — thử GitHub cache trước nếu env var được set.
+    """Fetch TieuLam matches — dùng Replit relay nếu TIEULAM_RELAY_URL được set.
 
-    Khi IP bị Cloudflare chặn (Render): đọc từ GitHub cache do Actions duy trì.
+    Khi IP bị Cloudflare chặn (Render): gọi relay endpoint trên Replit.
     Khi không có env var (Replit, local): gọi trực tiếp TieuLam API qua httpx HTTP/2.
     """
-    # 1. Thử GitHub cache (khi TIEULAM_GITHUB_CACHE_URL được set)
-    if TIEULAM_GITHUB_CACHE_URL:
+    # 1. Dùng relay (khi TIEULAM_RELAY_URL được set — ví dụ trên Render)
+    if TIEULAM_RELAY_URL:
         try:
-            return _fetch_tieulam_from_github_cache()
+            return _fetch_tieulam_via_relay()
         except Exception as e:
-            # Log lỗi nhưng vẫn thử direct API làm fallback
             import sys
-            print(f"⚠️ GitHub cache failed: {e}", file=sys.stderr)
+            print(f"⚠️ Relay failed: {e}", file=sys.stderr)
 
     # 2. Gọi trực tiếp TieuLam API (works từ Replit/local, bị block trên Render)
     cutoff     = (datetime.now(timezone.utc) - timedelta(seconds=MATCH_MAX_AGE_SECONDS)).strftime("%Y-%m-%dT%H:%M:%S")
