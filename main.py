@@ -260,19 +260,28 @@ def _logo_from_desc(desc: str) -> str:
 def _build_tieulam_lines(matches: list) -> list:
     """
     Chỉ include những trận có source_live (đang phát sóng).
+    Sắp xếp: trận có BLV (blv != null) lên trước, trong mỗi nhóm sắp theo start_date.
     """
+    live = [m for m in matches if m.get("source_live")]
+    # Sort: (0=có BLV, 1=không BLV) rồi theo start_date
+    live.sort(key=lambda m: (
+        0 if m.get("blv") else 1,
+        m.get("start_date") or "",
+    ))
     lines = []
-    for m in sorted(matches, key=lambda x: x.get("start_date") or ""):
-        source = m.get("source_live")
-        if not source:
-            continue  # Chưa live → chưa có stream URL
+    for m in live:
         team1  = m.get("team_1", "Home")
         team2  = m.get("team_2", "Away")
         logo   = m.get("team_1_logo") or _logo_from_desc(m.get("desc", ""))
         league = m.get("league", "")
-        label  = f"{team1} VS {team2}" + (f" ({league})" if league else "")
+        blv    = m.get("blv") or ""
+        label  = f"{team1} VS {team2}"
+        if league:
+            label += f" ({league})"
+        if blv:
+            label += f" [{blv}]"
         lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="Tiểu Lam TV",{label}')
-        lines.append(source)
+        lines.append(m["source_live"])
     return lines
 
 # ─── API Discovery & Fetch (HoiQuan / KhanDaiA) ──────────────────────────────
@@ -364,18 +373,44 @@ def _pick_best_stream(streams: list) -> str:
                 return s["sourceUrl"]
     return streams[0].get("sourceUrl", "") if streams else ""
 
+def _has_commentator(fixture: dict) -> bool:
+    """Trả về True nếu fixture có ít nhất 1 bình luận viên với stream URL hợp lệ."""
+    for entry in fixture.get("fixtureCommentators", []):
+        streams = entry.get("commentator", {}).get("streams", [])
+        if _pick_best_stream(streams):
+            return True
+    return False
+
+def _blv_name(fixture: dict) -> str:
+    """Lấy tên BLV đầu tiên để hiển thị trong label kênh."""
+    for entry in fixture.get("fixtureCommentators", []):
+        name = entry.get("commentator", {}).get("name", "")
+        if name:
+            return name
+    return ""
+
 def _build_fixture_lines(fixtures: list, group_title: str) -> list:
+    """
+    Build M3U lines từ fixtures HQ/KDA.
+    Sắp xếp: trận có BLV lên trước, trong mỗi nhóm sắp theo giờ.
+    """
+    active = [f for f in fixtures if _fixture_is_active(f)]
+    # Sort key: (0=có BLV, 1=không BLV) rồi theo startTime
+    active.sort(key=lambda f: (
+        0 if _has_commentator(f) else 1,
+        f.get("startTime") or "",
+    ))
     lines = []
-    for fixture in sorted(fixtures, key=lambda f: f.get("startTime") or ""):
-        if not _fixture_is_active(fixture):
-            continue
+    for fixture in active:
         home = fixture.get("homeTeam", {}).get("name", "Home")
         away = fixture.get("awayTeam", {}).get("name", "Away")
         logo = _get_logo(fixture)
+        blv  = _blv_name(fixture)
+        label = f"{home} VS {away}" + (f" [{blv}]" if blv else "")
         for entry in fixture.get("fixtureCommentators", []):
             stream_url = _pick_best_stream(entry.get("commentator", {}).get("streams", []))
             if stream_url:
-                lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group_title}",{home} VS {away}')
+                lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group_title}",{label}')
                 lines.append(stream_url)
     return lines
 
@@ -481,6 +516,94 @@ def epg_xml():
         mimetype="application/xml",
         headers={"Content-Encoding": "gzip", "ETag": entry["etag"]},
     )
+
+@app.route("/debug/tieulam")
+def debug_tieulam():
+    """Hiển thị toàn bộ danh sách trận Tiểu Lam: live và sắp live, có BLV hay không."""
+    import json as _json
+    entry = _playlist_cache.get("tieulam", {})
+    raw = entry.get("content") or b""
+    content = raw.decode("utf-8") if isinstance(raw, (bytes, bytearray)) else ""
+    lines = content.splitlines()
+    channels = []
+    i = 0
+    while i < len(lines):
+        if lines[i].startswith("#EXTINF"):
+            url = lines[i + 1] if i + 1 < len(lines) else ""
+            has_blv = "[" in lines[i] and "]" in lines[i]
+            label = lines[i].split(",", 1)[-1] if "," in lines[i] else lines[i]
+            channels.append({"label": label, "url": url, "has_blv": has_blv})
+            i += 2
+        else:
+            i += 1
+
+    rows = "".join(
+        f"<tr style='background:{'#fffbe6' if c['has_blv'] else 'white'}'>"
+        f"<td>{'🎙️' if c['has_blv'] else '—'}</td>"
+        f"<td>{c['label']}</td>"
+        f"<td style='font-size:11px;word-break:break-all'>{c['url']}</td>"
+        f"</tr>"
+        for c in channels
+    )
+    last_refresh = _last_counts.get("refreshed_at", 0)
+    age = int(time.time() - last_refresh) if last_refresh else -1
+    return f"""<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><title>Debug – Tiểu Lam TV</title>
+<style>body{{font-family:sans-serif;max-width:1000px;margin:30px auto;padding:0 16px}}
+table{{border-collapse:collapse;width:100%}}td,th{{border:1px solid #ddd;padding:7px 10px;vertical-align:top}}
+th{{background:#f0f0f0;position:sticky;top:0}}</style>
+</head><body>
+<h2>Debug – Tiểu Lam TV ({len(channels)} kênh live)</h2>
+<p>Cập nhật {age}s trước &nbsp;|&nbsp; 🎙️ = có BLV (hiển thị trước)</p>
+<table><tr><th>BLV</th><th>Trận</th><th>Stream URL</th></tr>{rows}</table>
+</body></html>"""
+
+@app.route("/debug/hoiquan")
+def debug_hoiquan():
+    """Hiển thị danh sách kênh Hội Quán với BLV."""
+    return _debug_source("hoiquan", "Hội Quán TV")
+
+@app.route("/debug/khandaia")
+def debug_khandaia():
+    """Hiển thị danh sách kênh Khán Đài A với BLV."""
+    return _debug_source("khandaia", "Khán Đài A")
+
+def _debug_source(key: str, title: str) -> Response:
+    entry = _playlist_cache.get(key, {})
+    raw = entry.get("content") or b""
+    content = raw.decode("utf-8") if isinstance(raw, (bytes, bytearray)) else ""
+    lines = content.splitlines()
+    channels = []
+    i = 0
+    while i < len(lines):
+        if lines[i].startswith("#EXTINF"):
+            url = lines[i + 1] if i + 1 < len(lines) else ""
+            has_blv = "[" in lines[i] and "]" in lines[i]
+            label = lines[i].split(",", 1)[-1] if "," in lines[i] else lines[i]
+            channels.append({"label": label, "url": url, "has_blv": has_blv})
+            i += 2
+        else:
+            i += 1
+    rows = "".join(
+        f"<tr style='background:{'#fffbe6' if c['has_blv'] else 'white'}'>"
+        f"<td>{'🎙️' if c['has_blv'] else '—'}</td>"
+        f"<td>{c['label']}</td>"
+        f"<td style='font-size:11px;word-break:break-all'>{c['url']}</td>"
+        f"</tr>"
+        for c in channels
+    )
+    last_refresh = _last_counts.get("refreshed_at", 0)
+    age = int(time.time() - last_refresh) if last_refresh else -1
+    return Response(f"""<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><title>Debug – {title}</title>
+<style>body{{font-family:sans-serif;max-width:1000px;margin:30px auto;padding:0 16px}}
+table{{border-collapse:collapse;width:100%}}td,th{{border:1px solid #ddd;padding:7px 10px;vertical-align:top}}
+th{{background:#f0f0f0;position:sticky;top:0}}</style>
+</head><body>
+<h2>Debug – {title} ({len(channels)} kênh)</h2>
+<p>Cập nhật {age}s trước &nbsp;|&nbsp; 🎙️ = có BLV (hiển thị trước)</p>
+<table><tr><th>BLV</th><th>Trận</th><th>Stream URL</th></tr>{rows}</table>
+</body></html>""", mimetype="text/html")
 
 @app.route("/status")
 def status():
