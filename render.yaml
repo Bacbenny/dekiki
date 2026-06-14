@@ -3,20 +3,24 @@ services:
     name: iptv-server
     runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn main:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
-    plan: free
+    startCommand: gunicorn main:app --workers 2 --threads 4 --timeout 120 --bind 0.0.0.0:$PORT
     envVars:
-      - key: GAVANGTV_FRONTEND
-        value: https://sv1.tieulam1.live/trang-chu
-      - key: GAVANGTV_API
-        value: https://api.tieulam1.live/api/matches
-      - key: HOIQUAN_FRONTEND
-        value: https://sv2.hoiquan4.live
-      - key: HOIQUAN_API
-        value: https://sv.hoiquantv.xyz/api/v1/external
-      - key: KHANDAIA_FRONTEND
-        value: https://tructiep.khandaia.link
-      - key: KHANDAIA_API
-        value: https://sv.khandai-a.xyz/api/v1/external
-      - key: MATCH_MAX_DURATION
-        value: "7200"
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+      # Tuỳ chọn — điền vào nếu bị chặn IP:
+      # - key: PROXY_URL
+      #   value: http://user:pass@proxy-host:port
+      #
+      # Override URL nguồn nếu domain thay đổi:
+      # - key: HOIQUAN_FRONTEND
+      #   value: https://sv2.hoiquan4.live
+      # - key: HOIQUAN_API
+      #   value: https://sv.hoiquantv.xyz/api/v1/external
+      # - key: KHANDAIA_FRONTEND
+      #   value: https://tructiep.khandaia.link
+      # - key: KHANDAIA_API
+      #   value: https://sv.khandai-a.xyz/api/v1/external
+      # - key: TIEULAM_FRONTEND
+      #   value: https://sv2.tieulam1.live
+      # - key: TIEULAM_API
+      #   value: https://api.tlap12062026.xyz/api/v1/external
