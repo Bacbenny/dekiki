@@ -126,6 +126,10 @@ _epg_cache: dict = {"content": None, "gz": None, "etag": None, "built_at": 0}
 _epg_lock  = threading.Lock()
 EPG_CACHE_TTL = 3600
 
+# Event được set sau khi lần refresh đầu tiên hoàn thành
+# _m3u_response sẽ đợi event này thay vì trả về empty/503
+_first_refresh_done = threading.Event()
+
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def _get_public_url() -> str:
@@ -464,20 +468,35 @@ def _refresh_all_playlists():
     )
 
 def _prefetch_loop():
+    first = True
     while True:
         try:
             _refresh_all_playlists()
         except Exception as e:
             _last_counts["last_error"] = str(e)
             print(f"[PREFETCH] Lỗi: {e}")
+        finally:
+            if first:
+                _first_refresh_done.set()   # giải phóng các request đang đợi
+                first = False
         time.sleep(PREFETCH_INTERVAL)
 
 # ─── Response helper ──────────────────────────────────────────────────────────
 
 def _m3u_response(key: str) -> Response:
     entry = _playlist_cache[key]
+    # Nếu server vừa khởi động, đợi lần fetch đầu tiên hoàn thành (tối đa 30s)
     if entry["gz"] is None:
-        return Response("Đang tải dữ liệu, vui lòng thử lại sau...", status=503, mimetype="text/plain")
+        ready = _first_refresh_done.wait(timeout=30)
+        entry = _playlist_cache[key]   # đọc lại sau khi đợi
+    if entry["gz"] is None:
+        # Vẫn chưa có — trả về M3U rỗng hợp lệ thay vì 503
+        fallback = gzip.compress(b"#EXTM3U\n", compresslevel=1)
+        return Response(
+            fallback,
+            mimetype="application/x-mpegurl",
+            headers={"Content-Encoding": "gzip", "Cache-Control": "no-cache, max-age=10"},
+        )
     return Response(
         entry["gz"],
         mimetype="application/x-mpegurl",
