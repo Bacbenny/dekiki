@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import gzip
 import hashlib
 import os
@@ -6,6 +8,7 @@ import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone, timedelta
+from typing import Dict, Tuple, List, Any
 
 import cloudscraper
 from flask import Flask, Response, request
@@ -34,7 +37,7 @@ HOIQUAN_KNOWN_API_BASE = os.environ.get("HOIQUAN_API",      "https://sv.hoiquant
 KHANDAIA_FRONTEND_URL   = os.environ.get("KHANDAIA_FRONTEND", "https://tructiep.khandaia.link")
 KHANDAIA_KNOWN_API_BASE = os.environ.get("KHANDAIA_API",      "https://sv.khandai-a.xyz/api/v1/external")
 
-# ─── EPG ──────────────────────────────────────────────────────────────────────
+# ─── EPG ─────────────────────────────────────────────────────────────────────
 EPG_URL_OVERRIDE = os.environ.get("EPG_URL", "")
 
 # ─── Hằng số ──────────────────────────────────────────────────────────────────
@@ -59,31 +62,31 @@ SPORT_LOGOS = {
     "default":    f"{_CDN}/1f3c6.png",
 }
 
-# ─── API URL caches ───────────────────────────────────────────────────────────
+# ─── API URL caches ─────────────────────────────────────────────────────────────
 # discovered_at = time.time() → dùng hardcoded URL ngay khi startup, không crawl JS
 # (crawl JS mất 30-80s trên mỗi nguồn; sẽ re-discover sau 1 giờ hoặc khi lỗi)
 _NOW = time.time()
-_tieulam_api_cache  = {"url": TIEULAM_KNOWN_API_BASE + "/matches/graph", "discovered_at": _NOW}
-_hoiquan_api_cache  = {"url": HOIQUAN_KNOWN_API_BASE,  "discovered_at": _NOW}
-_khandaia_api_cache = {"url": KHANDAIA_KNOWN_API_BASE, "discovered_at": _NOW}
+_tieulam_api_cache: Dict[str, Any]  = {"url": TIEULAM_KNOWN_API_BASE + "/matches/graph", "discovered_at": _NOW}
+_hoiquan_api_cache: Dict[str, Any]  = {"url": HOIQUAN_KNOWN_API_BASE,  "discovered_at": _NOW}
+_khandaia_api_cache: Dict[str, Any] = {"url": KHANDAIA_KNOWN_API_BASE, "discovered_at": _NOW}
 
-# ─── Playlist cache ───────────────────────────────────────────────────────────
-def _empty_entry():
+# ─── Playlist cache ─────────────────────────────────────────────────────────────
+def _empty_entry() -> Dict[str, Any]:
     return {"content": None, "gz": None, "etag": None, "built_at": 0, "lock": threading.Lock()}
 
-_playlist_cache = {
+_playlist_cache: Dict[str, Dict[str, Any]] = {
     "combined": _empty_entry(),
     "tieulam":  _empty_entry(),
     "hoiquan":  _empty_entry(),
     "khandaia": _empty_entry(),
 }
 
-_last_counts = {
+_last_counts: Dict[str, Any] = {
     "tieulam": 0, "hoiquan": 0, "khandaia": 0,
     "refreshed_at": 0, "last_error": "",
 }
 
-_epg_cache: dict = {"content": None, "gz": None, "etag": None, "built_at": 0}
+_epg_cache: Dict[str, Any] = {"content": None, "gz": None, "etag": None, "built_at": 0}
 _epg_lock = threading.Lock()
 
 
@@ -120,14 +123,14 @@ def _logo_from_text(text: str) -> str:
         return SPORT_LOGOS["badminton"]
     return SPORT_LOGOS["football"]
 
-def _hq_kda_logo(fixture: dict) -> str:
+def _hq_kda_logo(fixture: Dict[str, Any]) -> str:
     sport = fixture.get("sport") or {}
     icon = sport.get("iconUrl", "")
     if icon:
         return icon
     return _logo_from_text(sport.get("name", "") + " " + sport.get("slug", ""))
 
-def _tieulam_logo(match: dict) -> str:
+def _tieulam_logo(match: Dict[str, Any]) -> str:
     logo = match.get("team_1_logo") or match.get("team_2_logo") or ""
     return logo if logo else _logo_from_text(match.get("league", "") + " " + match.get("desc", ""))
 
@@ -140,7 +143,7 @@ def _build_epg_xml() -> str:
     combined = _playlist_cache.get("combined", {})
     raw = combined.get("content") or b""
     content = raw.decode("utf-8") if isinstance(raw, (bytes, bytearray)) else ""
-    seen: dict[str, tuple[str, str]] = {}
+    seen: Dict[str, Tuple[str, str]] = {}
     for m in re.finditer(
         r'#EXTINF[^\n]*?(?:tvg-id="(?P<tid>[^"]*)")?[^\n]*?'
         r'(?:tvg-logo="(?P<tlogo>[^"]*)")?[^\n]*?,(?P<label>[^\n]*)', content
@@ -161,7 +164,7 @@ def _build_epg_xml() -> str:
     lines.append("</tv>")
     return "\n".join(lines)
 
-def _get_or_build_epg() -> dict:
+def _get_or_build_epg() -> Dict[str, Any]:
     with _epg_lock:
         now = time.time()
         if _epg_cache["content"] is None or (now - _epg_cache["built_at"]) > EPG_CACHE_TTL:
@@ -183,7 +186,7 @@ _HQ_HEADERS = {
     "Accept-Encoding": "gzip, deflate",
 }
 
-def _fetch_tieulam_matches() -> list:
+def _fetch_tieulam_matches() -> List[Dict[str, Any]]:
     api_url = _tieulam_api_cache["url"]
     cutoff     = (datetime.now(timezone.utc) - timedelta(hours=4)).strftime("%Y-%m-%dT%H:%M:%S")
     cutoff_end = (datetime.now(timezone.utc) + timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M:%S")
@@ -208,7 +211,7 @@ def _fetch_tieulam_matches() -> list:
     }
     proxies = {"http": PROXY_URL, "https": PROXY_URL} if PROXY_URL else None
 
-    def _post(url):
+    def _post(url: str) -> List[Dict[str, Any]]:
         if _HAS_CURL_CFFI:
             resp = cf_requests.post(url, json=payload, headers=headers,
                                     impersonate="chrome124", timeout=15, proxies=proxies)
@@ -224,12 +227,17 @@ def _fetch_tieulam_matches() -> list:
 
     try:
         return _post(api_url)
-    except Exception:
+    except Exception as e:
+        print(f"[FETCH] TieuLam lỗi lần đầu: {e}, thử re-discover...")
         _tieulam_api_cache["discovered_at"] = 0
-        return _post(api_url)
+        try:
+            return _post(api_url)
+        except Exception as e2:
+            print(f"[FETCH] TieuLam lỗi lần thứ 2: {e2}")
+            return []
 
 
-def _build_tieulam_lines(matches: list) -> list:
+def _build_tieulam_lines(matches: List[Dict[str, Any]]) -> List[str]:
     """BLV-first sort, sau đó theo start_date. Có stream_key fallback."""
     live = []
     for m in matches:
@@ -295,15 +303,19 @@ def _build_tieulam_lines(matches: list) -> list:
 
 def _discover_hoiquan_api(scraper) -> str:
     try:
-        r = scraper.get(HOIQUAN_FRONTEND_URL, timeout=10)
+        r = scraper.get(HOIQUAN_FRONTEND_URL, timeout=10, verify=True)
         js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
         for js_path in js_files[:5]:
-            js = scraper.get(HOIQUAN_FRONTEND_URL.rstrip("/") + js_path, timeout=20).text
-            hits = re.findall(r'https?://[a-z0-9][a-z0-9\-\.]+\.[a-z]{2,}/api/v1/external', js)
-            if hits:
-                return hits[0]
-    except Exception:
-        pass
+            try:
+                js = scraper.get(HOIQUAN_FRONTEND_URL.rstrip("/") + js_path, timeout=20, verify=True).text
+                hits = re.findall(r'https?://[a-z0-9][a-z0-9\-\.]+\.[a-z]{2,}/api/v1/external', js)
+                if hits:
+                    return hits[0]
+            except Exception as e:
+                print(f"[DISCOVER] HQ js_path error: {e}")
+                continue
+    except Exception as e:
+        print(f"[DISCOVER] HQ error: {e}")
     return HOIQUAN_KNOWN_API_BASE
 
 def _get_hoiquan_api_base(scraper) -> str:
@@ -313,7 +325,7 @@ def _get_hoiquan_api_base(scraper) -> str:
         _hoiquan_api_cache["discovered_at"] = now
     return _hoiquan_api_cache["url"]
 
-def _fetch_hoiquan_fixtures() -> list:
+def _fetch_hoiquan_fixtures() -> List[Dict[str, Any]]:
     proxies = {"http": PROXY_URL, "https": PROXY_URL} if PROXY_URL else None
     scraper = cloudscraper.create_scraper(
         browser={"browser": "chrome", "platform": "windows", "mobile": False}
@@ -324,14 +336,19 @@ def _fetch_hoiquan_fixtures() -> list:
     url = api_base.rstrip("/") + "/fixtures/unfinished"
     headers = {**_HQ_HEADERS, "Referer": HOIQUAN_FRONTEND_URL + "/"}
     try:
-        resp = scraper.get(url, headers=headers, timeout=15)
+        resp = scraper.get(url, headers=headers, timeout=15, verify=True)
         resp.raise_for_status()
-    except Exception:
+    except Exception as e:
+        print(f"[FETCH] HQ lỗi lần đầu: {e}, thử re-discover...")
         _hoiquan_api_cache["discovered_at"] = 0
         api_base = _get_hoiquan_api_base(scraper)
         url = api_base.rstrip("/") + "/fixtures/unfinished"
-        resp = scraper.get(url, headers=headers, timeout=15)
-        resp.raise_for_status()
+        try:
+            resp = scraper.get(url, headers=headers, timeout=15, verify=True)
+            resp.raise_for_status()
+        except Exception as e2:
+            print(f"[FETCH] HQ lỗi lần thứ 2: {e2}")
+            return []
     return resp.json().get("data", [])
 
 
@@ -341,21 +358,29 @@ def _fetch_hoiquan_fixtures() -> list:
 
 def _discover_khandaia_api(scraper) -> str:
     try:
-        r = scraper.get(KHANDAIA_FRONTEND_URL, timeout=10)
+        r = scraper.get(KHANDAIA_FRONTEND_URL, timeout=10, verify=True)
         js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
         for js_path in js_files[:5]:
-            js = scraper.get(KHANDAIA_FRONTEND_URL.rstrip("/") + js_path, timeout=20).text
-            chunk_paths = re.findall(r'assets/queries[^"\']+\.js', js)
-            for cp in chunk_paths[:2]:
-                chunk = scraper.get(KHANDAIA_FRONTEND_URL.rstrip("/") + "/" + cp, timeout=15).text
-                hits = re.findall(r'https://sv\.[a-z0-9\-\.]+/api/v1/external', chunk)
+            try:
+                js = scraper.get(KHANDAIA_FRONTEND_URL.rstrip("/") + js_path, timeout=20, verify=True).text
+                chunk_paths = re.findall(r'assets/queries[^"\']+\.js', js)
+                for cp in chunk_paths[:2]:
+                    try:
+                        chunk = scraper.get(KHANDAIA_FRONTEND_URL.rstrip("/") + "/" + cp, timeout=15, verify=True).text
+                        hits = re.findall(r'https://sv\.[a-z0-9\-\.]+/api/v1/external', chunk)
+                        if hits:
+                            return hits[0]
+                    except Exception as e:
+                        print(f"[DISCOVER] KDA chunk error: {e}")
+                        continue
+                hits = re.findall(r'https://[a-z0-9][a-z0-9\-\.]+\.[a-z]{2,}/api/v1/external', js)
                 if hits:
                     return hits[0]
-            hits = re.findall(r'https://[a-z0-9][a-z0-9\-\.]+\.[a-z]{2,}/api/v1/external', js)
-            if hits:
-                return hits[0]
-    except Exception:
-        pass
+            except Exception as e:
+                print(f"[DISCOVER] KDA js_path error: {e}")
+                continue
+    except Exception as e:
+        print(f"[DISCOVER] KDA error: {e}")
     return KHANDAIA_KNOWN_API_BASE
 
 def _get_khandaia_api_base(scraper) -> str:
@@ -365,7 +390,7 @@ def _get_khandaia_api_base(scraper) -> str:
         _khandaia_api_cache["discovered_at"] = now
     return _khandaia_api_cache["url"]
 
-def _fetch_khandaia_fixtures() -> list:
+def _fetch_khandaia_fixtures() -> List[Dict[str, Any]]:
     proxies = {"http": PROXY_URL, "https": PROXY_URL} if PROXY_URL else None
     scraper = cloudscraper.create_scraper(
         browser={"browser": "chrome", "platform": "windows", "mobile": False}
@@ -376,14 +401,19 @@ def _fetch_khandaia_fixtures() -> list:
     url = api_base.rstrip("/") + "/fixtures/unfinished"
     headers = {**_HQ_HEADERS, "Referer": KHANDAIA_FRONTEND_URL + "/"}
     try:
-        resp = scraper.get(url, headers=headers, timeout=15)
+        resp = scraper.get(url, headers=headers, timeout=15, verify=True)
         resp.raise_for_status()
-    except Exception:
+    except Exception as e:
+        print(f"[FETCH] KDA lỗi lần đầu: {e}, thử re-discover...")
         _khandaia_api_cache["discovered_at"] = 0
         api_base = _get_khandaia_api_base(scraper)
         url = api_base.rstrip("/") + "/fixtures/unfinished"
-        resp = scraper.get(url, headers=headers, timeout=15)
-        resp.raise_for_status()
+        try:
+            resp = scraper.get(url, headers=headers, timeout=15, verify=True)
+            resp.raise_for_status()
+        except Exception as e2:
+            print(f"[FETCH] KDA lỗi lần thứ 2: {e2}")
+            return []
     return resp.json().get("data", [])
 
 
@@ -391,7 +421,7 @@ def _fetch_khandaia_fixtures() -> list:
 #  Fixture helpers (HQ + KDA)
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _fixture_is_active(fixture: dict) -> bool:
+def _fixture_is_active(fixture: Dict[str, Any]) -> bool:
     status = str(fixture.get("status") or "").lower().strip()
     if status in FINISHED_STATUS_STRINGS:
         return False
@@ -408,7 +438,7 @@ def _fixture_is_active(fixture: dict) -> bool:
             pass
     return True
 
-def _pick_best_stream(streams: list) -> str:
+def _pick_best_stream(streams: List[Dict[str, Any]]) -> str:
     for quality in ("fhd", "hd", "sd"):
         for s in streams:
             if s.get("name", "").lower() == quality:
@@ -421,13 +451,13 @@ def _pick_best_stream(streams: list) -> str:
             return url
     return ""
 
-def _has_blv(fixture: dict) -> bool:
+def _has_blv(fixture: Dict[str, Any]) -> bool:
     for entry in fixture.get("fixtureCommentators", []):
         if _pick_best_stream(entry.get("commentator", {}).get("streams", [])):
             return True
     return False
 
-def _build_fixture_lines(fixtures: list, group_title: str) -> list:
+def _build_fixture_lines(fixtures: List[Dict[str, Any]], group_title: str) -> List[str]:
     """BLV-first sort, trong nhóm sắp theo startTime."""
     active = [f for f in fixtures if _fixture_is_active(f)]
     active.sort(key=lambda f: (
@@ -471,10 +501,10 @@ def _build_fixture_lines(fixtures: list, group_title: str) -> list:
 #  Cache helpers
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _pack(text: str) -> dict:
+def _pack(text: str) -> Dict[str, Any]:
     raw  = text.encode("utf-8")
     gz   = gzip.compress(raw, compresslevel=6)
-    etag = '"' + hashlib.md5(raw).hexdigest() + '"'
+    etag = '"' + hashlib.md5(gz).hexdigest() + '"'
     return {"content": raw, "gz": gz, "etag": etag, "built_at": time.time()}
 
 def _store(key: str, text: str):
@@ -483,12 +513,12 @@ def _store(key: str, text: str):
     with entry["lock"]:
         entry.update(packed)
 
-def _get_entry(key: str) -> dict:
+def _get_entry(key: str) -> Dict[str, Any]:
     entry = _playlist_cache[key]
     with entry["lock"]:
         return dict(entry)
 
-def _count_extinf(lines: list) -> int:
+def _count_extinf(lines: List[str]) -> int:
     return sum(1 for l in lines if l.startswith("#EXTINF"))
 
 
@@ -497,16 +527,31 @@ def _count_extinf(lines: list) -> int:
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _refresh_all_playlists():
-    errors = []
+    errors: List[str] = []
 
-    def fetch_tieulam():
-        return _build_tieulam_lines(_fetch_tieulam_matches())
+    def fetch_tieulam() -> List[str]:
+        try:
+            return _build_tieulam_lines(_fetch_tieulam_matches())
+        except Exception as e:
+            errors.append(f"tieulam: {e}")
+            print(f"[REFRESH] tieulam lỗi: {e}")
+            return []
 
-    def fetch_hq():
-        return _build_fixture_lines(_fetch_hoiquan_fixtures(), "Hội Quán TV")
+    def fetch_hq() -> List[str]:
+        try:
+            return _build_fixture_lines(_fetch_hoiquan_fixtures(), "Hội Quán TV")
+        except Exception as e:
+            errors.append(f"hoiquan: {e}")
+            print(f"[REFRESH] hoiquan lỗi: {e}")
+            return []
 
-    def fetch_kda():
-        return _build_fixture_lines(_fetch_khandaia_fixtures(), "Khán Đài A")
+    def fetch_kda() -> List[str]:
+        try:
+            return _build_fixture_lines(_fetch_khandaia_fixtures(), "Khán Đài A")
+        except Exception as e:
+            errors.append(f"khandaia: {e}")
+            print(f"[REFRESH] khandaia lỗi: {e}")
+            return []
 
     with ThreadPoolExecutor(max_workers=3) as ex:
         futures = {
@@ -514,14 +559,15 @@ def _refresh_all_playlists():
             ex.submit(fetch_hq):      "hoiquan",
             ex.submit(fetch_kda):     "khandaia",
         }
-        results = {}
+        results: Dict[str, List[str]] = {}
         for fut in as_completed(futures):
             key = futures[fut]
             try:
                 results[key] = fut.result()
             except Exception as e:
                 results[key] = []
-                errors.append(f"{key}: {e}")
+                if f"{key}: {e}" not in errors:
+                    errors.append(f"{key}: {e}")
                 print(f"[REFRESH] {key} lỗi: {e}")
 
     tl_lines  = results.get("tieulam",  [])
