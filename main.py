@@ -57,9 +57,12 @@ SPORT_LOGOS = {
 }
 
 # ─── API URL caches ───────────────────────────────────────────────────────────
-_tieulam_api_cache  = {"url": TIEULAM_KNOWN_API_BASE + "/matches/graph", "discovered_at": 0}
-_hoiquan_api_cache  = {"url": HOIQUAN_KNOWN_API_BASE,  "discovered_at": 0}
-_khandaia_api_cache = {"url": KHANDAIA_KNOWN_API_BASE, "discovered_at": 0}
+# discovered_at = time.time() → dùng hardcoded URL ngay khi startup, không crawl JS
+# (crawl JS mất 30-80s trên Render; sẽ re-discover sau API_DISCOVERY_TTL = 3600s)
+_NOW = time.time()
+_tieulam_api_cache  = {"url": TIEULAM_KNOWN_API_BASE + "/matches/graph", "discovered_at": _NOW}
+_hoiquan_api_cache  = {"url": HOIQUAN_KNOWN_API_BASE,  "discovered_at": _NOW}
+_khandaia_api_cache = {"url": KHANDAIA_KNOWN_API_BASE, "discovered_at": _NOW}
 
 # ─── Playlist cache ───────────────────────────────────────────────────────────
 def _empty_entry():
@@ -626,9 +629,9 @@ def _self_ping():
 
 def _m3u_response(key: str, filename: str) -> Response:
     entry = _get_entry(key)
-    # Đợi lần refresh đầu tiên nếu cache chưa có (tối đa 8s — tránh timeout IPTV app)
+    # Đợi lần refresh đầu tiên nếu cache chưa có (tối đa 12s)
     if entry["content"] is None:
-        _first_refresh_done.wait(timeout=8)
+        _first_refresh_done.wait(timeout=12)
         entry = _get_entry(key)
     # Fallback: M3U rỗng hợp lệ
     if entry["content"] is None:
