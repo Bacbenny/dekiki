@@ -186,8 +186,29 @@ _HQ_HEADERS = {
     "Accept-Encoding": "gzip, deflate",
 }
 
+def _discover_tieulam_api(scraper) -> str:
+    """Discover TieuLam API từ frontend JS."""
+    try:
+        r = scraper.get(TIEULAM_FRONTEND_URL, timeout=10, verify=True)
+        js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
+        
+        for js_path in js_files[:5]:
+            try:
+                js = scraper.get(TIEULAM_FRONTEND_URL.rstrip("/") + js_path, 
+                               timeout=20, verify=True).text
+                hits = re.findall(r'https?://[a-z0-9][a-z0-9\-\.]+\.[a-z]{2,}/matches/graph', js)
+                if hits:
+                    return hits[0]
+            except Exception as e:
+                print(f"[DISCOVER] TL js_path error: {e}")
+                continue
+    except Exception as e:
+        print(f"[DISCOVER] TL error: {e}")
+    
+    return TIEULAM_KNOWN_API_BASE + "/matches/graph"
+
 def _fetch_tieulam_matches() -> List[Dict[str, Any]]:
-    api_url = _tieulam_api_cache["url"]
+    """Fetch TieuLam matches với retry logic và fallback endpoints."""
     cutoff     = (datetime.now(timezone.utc) - timedelta(hours=4)).strftime("%Y-%m-%dT%H:%M:%S")
     cutoff_end = (datetime.now(timezone.utc) + timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M:%S")
     headers = {
@@ -223,18 +244,44 @@ def _fetch_tieulam_matches() -> List[Dict[str, Any]]:
                 sc.proxies = proxies
             resp = sc.post(url, json=payload, headers=headers, timeout=15)
         resp.raise_for_status()
-        return resp.json().get("data", [])
+        data = resp.json().get("data", [])
+        print(f"[FETCH] TieuLam POST {url} → {len(data)} matches")
+        return data
 
-    try:
-        return _post(api_url)
-    except Exception as e:
-        print(f"[FETCH] TieuLam lỗi lần đầu: {e}, thử re-discover...")
-        _tieulam_api_cache["discovered_at"] = 0
+    # Danh sách URL thử theo thứ tự ưu tiên
+    urls_to_try = [
+        _tieulam_api_cache["url"],
+        TIEULAM_KNOWN_API_BASE + "/matches/graph",
+        "https://api.tlap12062026.xyz/matches/graph",
+    ]
+
+    for api_url in urls_to_try:
         try:
+            print(f"[FETCH] TieuLam trying: {api_url}")
             return _post(api_url)
-        except Exception as e2:
-            print(f"[FETCH] TieuLam lỗi lần thứ 2: {e2}")
-            return []
+        except Exception as e:
+            print(f"[FETCH] TieuLam lỗi ({api_url}): {e}")
+            continue
+    
+    # Cuối cùng thử discover API mới từ frontend
+    try:
+        print(f"[FETCH] TieuLam discover API từ frontend...")
+        proxies = {"http": PROXY_URL, "https": PROXY_URL} if PROXY_URL else None
+        scraper = cloudscraper.create_scraper(
+            browser={"browser": "chrome", "platform": "windows", "mobile": False}
+        )
+        if PROXY_URL:
+            scraper.proxies = proxies
+        
+        new_api = _discover_tieulam_api(scraper)
+        if new_api and new_api not in urls_to_try:
+            _tieulam_api_cache["url"] = new_api
+            print(f"[FETCH] Discovered new TieuLam API: {new_api}")
+            return _post(new_api)
+    except Exception as e:
+        print(f"[FETCH] TieuLam discover lỗi: {e}")
+    
+    return []
 
 
 def _build_tieulam_lines(matches: List[Dict[str, Any]]) -> List[str]:
