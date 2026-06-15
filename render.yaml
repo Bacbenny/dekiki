@@ -6,10 +6,12 @@ services:
     startCommand: gunicorn main:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     plan: free
     envVars:
-      - key: GAVANGTV_FRONTEND
-        value: https://sv1.tieulam1.live/trang-chu
-      - key: GAVANGTV_API
-        value: https://api.tieulam1.live/api/matches
+      - key: TIEULAM_FRONTEND
+        value: https://sv2.tieulam1.live
+      - key: TIEULAM_API
+        value: https://api.tlap12062026.xyz
+      - key: TIEULAM_CDN
+        value: https://live.secufun.xyz
       - key: HOIQUAN_FRONTEND
         value: https://sv2.hoiquan4.live
       - key: HOIQUAN_API
