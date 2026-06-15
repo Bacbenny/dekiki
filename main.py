@@ -632,9 +632,9 @@ def _prefetch_loop():
         time.sleep(PREFETCH_INTERVAL)
 
 def _self_ping():
-    """Ping chính mình mỗi 4 phút để Render không ngủ."""
+    """Ping chính mình mỗi 4 phút để Render không ngủ. Lần đầu ping sau 60s."""
+    time.sleep(60)
     while True:
-        time.sleep(240)
         try:
             std_requests.get(
                 _get_public_url().replace("localhost", "127.0.0.1") + "/ping",
@@ -642,6 +642,7 @@ def _self_ping():
             )
         except Exception:
             pass
+        time.sleep(240)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -650,9 +651,9 @@ def _self_ping():
 
 def _m3u_response(key: str, filename: str) -> Response:
     entry = _get_entry(key)
-    # Đợi lần refresh đầu tiên nếu cache chưa có (tối đa 30s)
+    # Đợi lần refresh đầu tiên nếu cache chưa có (tối đa 8s — tránh timeout IPTV app)
     if entry["content"] is None:
-        _first_refresh_done.wait(timeout=30)
+        _first_refresh_done.wait(timeout=8)
         entry = _get_entry(key)
     # Fallback: M3U rỗng hợp lệ
     if entry["content"] is None:
@@ -854,7 +855,10 @@ def index():
     )
 
 
+# ── Khởi động background threads ──────────────────────────────────────────────
+# Chạy ở module level để hoạt động cả với `python main.py` lẫn `gunicorn main:app`
+threading.Thread(target=_prefetch_loop, daemon=True).start()
+threading.Thread(target=_self_ping,     daemon=True).start()
+
 if __name__ == "__main__":
-    threading.Thread(target=_prefetch_loop, daemon=True).start()
-    threading.Thread(target=_self_ping, daemon=True).start()
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
