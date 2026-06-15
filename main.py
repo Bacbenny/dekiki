@@ -34,11 +34,6 @@ HOIQUAN_KNOWN_API_BASE = os.environ.get("HOIQUAN_API",      "https://sv.hoiquant
 KHANDAIA_FRONTEND_URL   = os.environ.get("KHANDAIA_FRONTEND", "https://tructiep.khandaia.link")
 KHANDAIA_KNOWN_API_BASE = os.environ.get("KHANDAIA_API",      "https://sv.khandai-a.xyz/api/v1/external")
 
-DEKIKI_M3U_URL = os.environ.get(
-    "DEKIKI_M3U_URL",
-    "https://raw.githubusercontent.com/blvbatman/iptv/refs/heads/main/iptv.m3u",
-)
-
 EPG_URL_OVERRIDE = os.environ.get("EPG_URL", "")
 
 # ─── Hằng số ──────────────────────────────────────────────────────────────────
@@ -75,11 +70,10 @@ _playlist_cache = {
     "tieulam":  _empty_entry(),
     "hoiquan":  _empty_entry(),
     "khandaia": _empty_entry(),
-    "dekiki":   _empty_entry(),
 }
 
 _last_counts = {
-    "tieulam": 0, "hoiquan": 0, "khandaia": 0, "dekiki": 0,
+    "tieulam": 0, "hoiquan": 0, "khandaia": 0,
     "refreshed_at": 0, "last_error": "",
 }
 
@@ -436,17 +430,6 @@ def _fetch_khandaia_fixtures() -> list:
         resp.raise_for_status()
     return resp.json().get("data", [])
 
-def _fetch_dekiki_lines() -> list:
-    resp = std_requests.get(DEKIKI_M3U_URL, timeout=20)
-    resp.raise_for_status()
-    lines = []
-    for line in resp.text.splitlines():
-        stripped = line.rstrip()
-        if not stripped or stripped.startswith("#EXTM3U"):
-            continue
-        lines.append(stripped)
-    return lines
-
 def _fixture_is_active(fixture: dict) -> bool:
     status = str(fixture.get("status") or "").lower().strip()
     if status in FINISHED_STATUS_STRINGS:
@@ -565,15 +548,11 @@ def _refresh_all_playlists():
     def fetch_kda():
         return _build_fixture_lines(_fetch_khandaia_fixtures(), "Khán Đài A")
 
-    def fetch_dekiki():
-        return _fetch_dekiki_lines()
-
-    with ThreadPoolExecutor(max_workers=4) as ex:
+    with ThreadPoolExecutor(max_workers=3) as ex:
         futures = {
             ex.submit(fetch_tieulam): "tieulam",
             ex.submit(fetch_hq):      "hoiquan",
             ex.submit(fetch_kda):     "khandaia",
-            ex.submit(fetch_dekiki):  "dekiki",
         }
         results = {}
         for fut in as_completed(futures):
@@ -585,11 +564,10 @@ def _refresh_all_playlists():
                 errors.append(f"{key}: {e}")
                 print(f"[REFRESH] {key} lỗi: {e}")
 
-    tl_lines     = results.get("tieulam",  [])
-    hq_lines     = results.get("hoiquan",  [])
-    kda_lines    = results.get("khandaia", [])
-    dekiki_lines = results.get("dekiki",   [])
-    err_str      = "; ".join(errors)
+    tl_lines  = results.get("tieulam",  [])
+    hq_lines  = results.get("hoiquan",  [])
+    kda_lines = results.get("khandaia", [])
+    err_str   = "; ".join(errors)
 
     current_epg = _epg_url()
     epg_header  = f'#EXTM3U url-tvg="{current_epg}" x-tvg-url="{current_epg}"'
@@ -597,9 +575,8 @@ def _refresh_all_playlists():
     _store("tieulam",  epg_header + "\n" + "\n".join(tl_lines))
     _store("hoiquan",  epg_header + "\n" + "\n".join(hq_lines))
     _store("khandaia", epg_header + "\n" + "\n".join(kda_lines))
-    _store("dekiki",   epg_header + "\n" + "\n".join(dekiki_lines))
 
-    all_lines = tl_lines + hq_lines + kda_lines + dekiki_lines
+    all_lines = tl_lines + hq_lines + kda_lines
     combined  = epg_header + "\n" + "\n".join(all_lines)
     _store("combined", combined)
 
@@ -607,14 +584,12 @@ def _refresh_all_playlists():
         "tieulam":      _count_extinf(tl_lines),
         "hoiquan":      _count_extinf(hq_lines),
         "khandaia":     _count_extinf(kda_lines),
-        "dekiki":       _count_extinf(dekiki_lines),
         "refreshed_at": time.time(),
         "last_error":   err_str,
     })
     print(
         f"[REFRESH] HQ={_last_counts['hoiquan']} KDA={_last_counts['khandaia']} "
-        f"TL={_last_counts['tieulam']} Dekiki={_last_counts['dekiki']} "
-        f"curl_cffi={'yes' if _HAS_CURL_CFFI else 'NO'} | {time.strftime('%H:%M:%S')}"
+        f"TL={_last_counts['tieulam']} curl_cffi={'yes' if _HAS_CURL_CFFI else 'NO'} | {time.strftime('%H:%M:%S')}"
     )
 
 def _prefetch_loop():
@@ -697,10 +672,6 @@ def hoiquan_m3u():
 def khandaia_m3u():
     return _m3u_response("khandaia", "khandaia.m3u")
 
-@app.route("/dekiki.m3u")
-def dekiki_m3u():
-    return _m3u_response("dekiki", "dekiki.m3u")
-
 @app.route("/epg.xml")
 def epg_xml():
     entry = _get_or_build_epg()
@@ -730,7 +701,6 @@ def status():
             "hoiquan":            _last_counts.get("hoiquan", 0),
             "khandaia":           _last_counts.get("khandaia", 0),
             "tieulam":            _last_counts.get("tieulam", 0),
-            "dekiki":             _last_counts.get("dekiki", 0),
             "refreshed_ago_seconds": int(time.time() - _last_counts["refreshed_at"])
                                   if _last_counts["refreshed_at"] else -1,
             "last_error":         _last_counts.get("last_error", ""),
@@ -821,8 +791,7 @@ def index():
     tl_count  = _last_counts.get("tieulam", 0)
     hq_count  = _last_counts.get("hoiquan", 0)
     kda_count = _last_counts.get("khandaia", 0)
-    dk_count  = _last_counts.get("dekiki", 0)
-    total     = tl_count + hq_count + kda_count + dk_count
+    total     = tl_count + hq_count + kda_count
     cffi_badge = "✅ curl_cffi" if _HAS_CURL_CFFI else "⚠️ no curl_cffi (fallback)"
 
     return (
@@ -832,7 +801,6 @@ def index():
         "<li><a href='/tieulam.m3u'>/tieulam.m3u</a> — TieuLam TV</li>"
         "<li><a href='/hoiquan.m3u'>/hoiquan.m3u</a> — Hội Quán TV</li>"
         "<li><a href='/khandaia.m3u'>/khandaia.m3u</a> — Khán Đài A</li>"
-        "<li><a href='/dekiki.m3u'>/dekiki.m3u</a> — Kênh TV Việt</li>"
         "</ul>"
         "<h3>🔍 Debug</h3><ul>"
         "<li><a href='/debug/tieulam'>/debug/tieulam</a></li>"
@@ -845,11 +813,11 @@ def index():
         "</ul>"
         "<h3>📊 Trạng thái</h3>"
         f"<p>📺 Tổng: <strong>{total}</strong> kênh"
-        f" &nbsp;(🏆 Live: {tl_count + hq_count + kda_count} | 📡 TV: {dk_count})</p>"
+        f" &nbsp;(🏆 Live: {tl_count + hq_count + kda_count})</p>"
         f"<p>🕐 Cập nhật: <strong>{dt_str}</strong></p>"
         f"<p>⏳ Tiếp theo: <strong>{next_str}</strong></p>"
         f"<p>TL: <strong>{tl_count}</strong> | HQ: <strong>{hq_count}</strong>"
-        f" | KDA: <strong>{kda_count}</strong> | Dekiki: <strong>{dk_count}</strong></p>"
+        f" | KDA: <strong>{kda_count}</strong></p>"
         f"<p>{cffi_badge}</p>"
         f"{err_html}"
     )
