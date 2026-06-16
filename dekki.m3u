@@ -1,204 +1,108 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",06:30 - 16/06 | Ferroviaria SP VS Barra FC (Brazilian Serie C) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.lisport.eu.cc/live/a72c499ef2da8eb30597118b7411d244/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",06:30 - 16/06 | Ypiranga(RS) VS Botafogo PB (Brazilian Serie C) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.lisport.eu.cc/live/108ac1936531e0dac3ec51f678a58aef/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",07:00 - 16/06 | Londrina PR VS Avaí FC (Brazilian Serie B) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.lisport.eu.cc/live/5dca65486f7866c75d958e65893eec72/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",07:00 - 16/06 | Criciuma VS Ceara (Brazilian Serie B) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.lisport.eu.cc/live/0be5b42d4cb95812e67e65223091a1e3/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",07:30 - 16/06 | SV Dakota VS SV Sporting (Aruba Division Di Honor) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.lisport.eu.cc/live/9ff0e5af2e92746a2edbbd7fdecb4a63/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:00 - 16/06 | IR Iran VS New Zealand (FIFA World Cup) | BLV TRẠNG BÉO
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://pull1.asynccdn.xyz/live/3bff0a6002a3466b919c807d88ace9ab/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 08:00 - 16/06 | Real Colorado Foxes VS Atletico Union (USL League Two) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/19e09c084c7d4c6990dbf40a441e30e3/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:00 - 16/06 | IR Iran VS New Zealand (FIFA World Cup) | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://live.lisport.eu.cc/live/49f43b0929f677ecd522a406b3ca6145/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 15:45 - 16/06 | Terengganu U20 VS Touch Electronics U20 (Malaysian President Cup) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/82defeb7d50e4f06a3bfd330a0c2449f/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 16:00 - 16/06 | Yangon United FC (W) VS Yadanarbon FC (W) (MML W) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/180eb6f84dcd4d7c99bf625062474fc4/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:15 - 16/06 | Rochedale Rovers VS Moreton City Excelsior FC (Australia National Premier Leagues Queensland) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.lisport.eu.cc/live/4acff6414b0559ddaed0917df000d458/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 16:30 - 16/06 | Eastern Suburbs SC Women VS Brisbane Olympic Women (Australia Queensland State Women's League) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/263af1abb21e4e1aa97987405ff56151/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 16:30 - 16/06 | Wynnum Wolves VS Eastern Suburbs Brisbane (Australia National Premier Leagues Queensland) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/7f824e5f7f0d4ddeb29e169563f53931/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 16:30 - 16/06 | Redlands United FC VS Sunshine Coast Wanderers FC (Australia Queensland State League 1) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/8499ff924fbf4a65b1f4bb0febfa7b9d/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 16:30 - 16/06 | Brunswick Juventus VS FC Bulleen Lions (Australia FFA Cup) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/0789cc31bcf34dad971a6a0d9f15fe86/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:30 - 16/06 | Gold Coast Knights VS Queensland Lions SC (Australia National Premier Leagues Queensland) | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://live.lisport.eu.cc/live/b57e726844e3a54e197588e0fd0ddb3d/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 17:00 - 16/06 | Bahir Dar Kenema FC VS Sidama Bunna (Ethiopia Premier League) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/1e9659d261ae4e83b55451be2545d758/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 17:00 - 16/06 | Ugyen Academy VS Thimphu Raven FC (Bhutan Premier League) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/ab7640458f5e498193cc9ae066e73149/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 17:00 - 16/06 | Ethio Electric FC VS Mekelle 70 Enderta (Ethiopia Premier League) | BLV TRẠNG NGỐ
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",17:00 - 16/06 | Ethio Electric FC VS Mekelle 70 Enderta (Ethiopia Premier League) | BLV TRẠNG NGỐ
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://live.secufun.xyz/live/845650edc7344f91800cdfda14d19f4e/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 18:00 - 16/06 | Bayswater City VS Perth RedStar (Australia FFA Cup) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/3494af8223ef4eed824fd6500ee993a0/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 18:00 - 16/06 | Irtysh Pavlodar Women VS ZhFC Astana (W) (Kazakhstan Women's Super League) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/15673577835549f789c6fcebd69d4f72/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 18:00 - 16/06 | Altay FK Woman VS Yelimay Semey W (Kazakhstan Women's Super League) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/2a8632b14e584cb0963e7f308f67462c/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 18:00 - 16/06 | Fremantle City VS Olympic Kingsway SC (Australia FFA Cup) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/2d05be7a89554917ba6383f5ef532573/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 19:00 - 16/06 | Bafmeng United VS Tonnerre Yaounde (Cameroon Elite two) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/d7e28820a7d54436b91f287c08ad1dc6/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 19:30 - 16/06 | Al Ahed SC VS CS Sagesse (Lebanese Premier League) | BLV TRẠNG BÉO
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",19:30 - 16/06 | Al Ahed SC VS CS Sagesse (Lebanese Premier League) | BLV TRẠNG BÉO
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://live.secufun.xyz/live/7abff6e9c3674c12befd4c1026777d83/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 20:00 - 16/06 | Sheger Ketema VS Defence Force ETH (Ethiopia Premier League) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/cd8a6433609e41848df3c249ace4d712/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 20:00 - 16/06 | Sheger Ketema VS Welwalo Adigrat (Ethiopia Premier League) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/4a3df0acba364062b0de480f5d6c022a/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 20:00 - 16/06 | Bahir Dar Kenema FC VS Wolaita Dicha (Ethiopia Premier League) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/222e301bc81c46499bedcf0f3883020e/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 20:00 - 16/06 | Costa do Sol Maputo VS Chingale de Tete (Mozambique Championship) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/28ea1ba07d054cd4abacb58ba81dd30f/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 20:00 - 16/06 | Tadamon SC Sour VS Al Mabarrah SC (Lebanese Premier League) | BLV TRẠNG TÍ
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",20:00 - 16/06 | Tadamon SC Sour VS Al Mabarrah SC (Lebanese Premier League) | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://live.secufun.xyz/live/edc827ca001140eba32bf9907f40aa4d/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 20:00 - 16/06 | Ethio Electric FC VS Hawassa City (Ethiopia Premier League) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/fd32643ce6134c1681fe5e62f034bb76/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 20:00 - 16/06 | Namungo FC VS Tabora United FC (Tanzanian Premier League) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/26925c6c05f441199470fcef4b638107/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 20:30 - 16/06 | Shahrdari Noshahr VS Navad Urmia (Iran Azadegan League) | BLV TRẠNG TÍ
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",20:30 - 16/06 | Shahrdari Noshahr VS Navad Urmia (Iran Azadegan League) | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://live.secufun.xyz/live/4d3ed71ac327433cadfd55ab719e2b79/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 21:30 - 16/06 | Ario Eslamshahr VS Naft Bandar Abbas (Iran Azadegan League) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/d357b36e997242ec81a050bea36a365f/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 22:00 - 16/06 | Transinvest VS FK Riteriai (Lithuanian A Lyga) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/5e9f7696d69e4d9b8f9fe99c7b331f9b/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 22:00 - 16/06 | Viking Women VS Honefoss Women (Norwegian Women's Cup) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/44549331659c43c6b9986982eb16c1f9/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 22:00 - 16/06 | Yafoot FC Yaounde II VS Bamboutos de (Cameroon Elite two) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/ce7fc8a0ac5043c981e8847c26e484c0/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 22:00 - 16/06 | BFC Daugavpils VS Super Nova (Latvian Higher League) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/51835d8d56ed484b8d4c36b1c718e3f6/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 22:00 - 16/06 | Lyn Women VS SK Brann Women (Norwegian Women's Cup) | BLV TRẠNG TỒ
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",22:00 - 16/06 | Lyn Women VS SK Brann Women (Norwegian Women's Cup) | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://live.secufun.xyz/live/4422053d4e3047c09b5197adfd4b0927/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 22:00 - 16/06 | Narva U19 VS FCI Tallinn U19 (Estonian U19 league) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/8967bebd11d845aaa63a4bed45ef69e0/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 22:00 - 16/06 | AS Fap VS Union Douala (Cameroon Elite two) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/b1db890a1205451ab0930cfa5b3aee12/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 22:30 - 16/06 | Suduva VS Siauliai (Lithuanian A Lyga) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/cdfdb369b0744d98b2a6f06e8844ffb7/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 23:00 - 16/06 | PonPa VS JS Hercules II (Finnish Kolmonen) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/c90193b5df4e4ae8ad8aa3c8a7c1e1df/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 23:00 - 16/06 | FC Haka Juniors VS NOPS (Finnish Kolmonen) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/9b098adddc964bf7b7fe7047686c0c8b/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 23:00 - 16/06 | FC Kose VS Kummik (Estonian Cup) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/809c66ec11ca4b52a084299e3669f8f1/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 23:00 - 16/06 | FC Kuressaare VS Trans Narva (Estonian Premium Liiga) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/e1fb29ca2f434e3087b4ac40c584e04e/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 23:00 - 16/06 | FC Metso VS FC Jyvaskyla Blackbird (Finnish Kolmonen) | ⚽ Bóng đá
-#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/e774ff01dbb3445c9d829a24521397a8/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 23:00 - 16/06 | Dila Gori VS Spaeri FC (Georgia Erovnuli Liga) | BLV TRẠNG BỊP
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 16/06 | Dila Gori VS Spaeri FC (Georgia Erovnuli Liga) | BLV TRẠNG BỊP
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://live.secufun.xyz/live/32162b99ebf44b669513a12c8ff2a3b5/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 23:00 - 16/06 | Azam VS Mashujaa FC (Tanzanian Premier League) | ⚽ Bóng đá
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:00 - 17/06 | Landskrona BoIS VS Nordic United FC (Sweden Superettan) | BLV TRẠNG NGỐ
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/3282066847914f428885c62a6f4c38e1/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",📅 23:00 - 16/06 | Grobina VS FK Liepaja (Latvian Higher League) | ⚽ Bóng đá
+https://live.secufun.xyz/live/8a9628caa44c4707a85d8921c41c3b11/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",02:00 - 17/06 | France VS Senegal (FIFA World Cup) | BLV TRẠNG PHỆ
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/6641f54e92ab459ba468f431f02d4a15/playlist.m3u8
+https://live.secufun.xyz/live/0fafc8fbb71640ecb892d3fa41a868f1/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",02:00 - 17/06 | France VS Senegal (FIFA World Cup) | BLV TRẠNG TỒ
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/82b340148029460abc8b38914c90c533/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",05:00 - 17/06 | Iraq VS Norway (FIFA World Cup) | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/c3616e1ee9814fe7958d39cb22e09b26/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",05:00 - 17/06 | Iraq VS Norway (FIFA World Cup) | BLV TRẠNG NGỐ
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/d4df3fc1faab44d29b08c04c35fc062d/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",06:00 - 17/06 | Fortaleza VS America MG (Brazilian Serie B) | BLV TRẠNG BÉO
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/c0e02f31df5043da841f4fe2ab6a4dff/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:00 - 17/06 | Argentina VS Algeria (FIFA World Cup) | BLV TRẠNG TÈO
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/138d9a99e7a048c78210d96377c7664b/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:00 - 17/06 | Argentina VS Algeria (FIFA World Cup) | BLV TRẠNG PHỆ
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/9079489f6d374c039f8b92e37e15d93b/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",11:00 - 17/06 | Austria VS Jordan (FIFA World Cup) | BLV TRẠNG BÉO
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/3c897f17441a4cfeacc3421d3f2b22d5/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",11:00 - 17/06 | Austria VS Jordan (FIFA World Cup) | BLV TRẠNG TỒ
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/e5343e009e1e4b3486caff02ea058b6f/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",15:00 - 17/06 | Czech Republic W VS Italy W (Nations League Women) | BLV TRẠNG TÈO
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/57c086f2776e4893b1f1e1e6e47c8836/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",16:30 - 17/06 | Germany W VS China W (Nations League Women) | BLV TRẠNG NGỐ
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/2585ac9ed7124170a2d1f6faa6015de8/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",19:00 - 17/06 | Japan Women VS Serbia W (Nations League Women) | BLV TRẠNG TỒ
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/6fd3946c210545ff98e691a800f7b1ec/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",20:00 - 17/06 | France W VS Brazil W (Nations League Women) | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/4f1d5c0a8b794b23b1a53ae536e1a279/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",20:00 - 17/06 | FC Molodechno VS BATE Borisov (Belarusian Cup) | BLV TRẠNG BÉO
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/351a692561544bb89f9fd51b13505615/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:00 - 17/06 | FC Kairat Almaty VS Kyzylzhar Petropavlovsk (Kazakhstan Premier League) | BLV TRẠNG NGỐ
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/d1a45f2550204173aadb105dc1f76113/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",22:00 - 17/06 | HJK Helsinki VS Inter Turku (Finnish Veikkausliiga) | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/51c90f1ea17f480b9d21e429e11f276d/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",07:00 - 16/06 | Criciuma VS Ceara (Serie B) | BLV PHAN ANH
 https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",08:00 - 16/06 | Iran VS New Zealand (World Cup) | BLV LƯƠNG BỔNG
