@@ -231,64 +231,94 @@ def _tieulam_sport_label(match: dict) -> str:
 
 
 def _build_tieulam_lines(matches: list) -> list:
-    lines = []
+    # Sắp xếp theo giờ bắt đầu
+    try:
+        matches = sorted(matches, key=lambda m: m.get("start_date") or "")
+    except Exception:
+        pass
+
+    now_ts = time.time()
+    lines  = []
+
     for match in matches:
         source_live = (match.get("source_live") or "").strip()
         blv         = (match.get("blv") or "").strip()
         stream_key  = (match.get("stream_key") or "").strip()
+        start_str   = match.get("start_date", "")
+        is_live     = bool(match.get("is_live"))
 
-        if source_live:
-            stream_url = source_live
-        elif blv and stream_key:
-            stream_url = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
-        else:
-            continue
-
-        start_str = match.get("start_date", "")
-        is_live   = bool(match.get("is_live"))
-        if start_str and not is_live:
+        # ── Tính elapsed (giây từ giờ bắt đầu, âm = chưa diễn ra) ──
+        dt_start = None
+        elapsed  = None
+        if start_str:
             try:
                 dt_start = datetime.fromisoformat(start_str.replace("Z", "+00:00"))
                 if dt_start.tzinfo is None:
                     dt_start = dt_start.replace(tzinfo=timezone.utc)
-                elapsed = time.time() - dt_start.timestamp()
-                if blv:
-                    if elapsed < -259200:
-                        continue
-                else:
-                    if elapsed < 0:
-                        continue
-                if elapsed > MATCH_MAX_AGE_SECONDS:
-                    continue
+                elapsed = now_ts - dt_start.timestamp()
             except Exception:
                 pass
 
+        # ── Lọc quá cũ ──
+        if elapsed is not None and elapsed > MATCH_MAX_AGE_SECONDS:
+            continue
+
+        # ── Xác định stream URL và trạng thái ──
+        is_upcoming = False  # True = chưa phát, chỉ hiện lịch
+
+        if source_live:
+            # Confirmed live — luôn dùng URL này
+            stream_url  = source_live
+            is_upcoming = False
+
+        elif blv and stream_key:
+            # BLV được assign — chỉ phát thật sự khi is_live=True hoặc sắp bắt đầu (<15 phút)
+            stream_url = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
+            if is_live or (elapsed is not None and elapsed >= -900):
+                is_upcoming = False   # stream đang sống hoặc chuẩn bị sống
+            elif elapsed is not None and elapsed >= -172800:
+                is_upcoming = True    # trong 48h → hiện lịch
+            else:
+                continue              # > 48h tới → bỏ qua
+
+        elif stream_key:
+            # Chỉ có stream_key, chưa có BLV/source_live
+            stream_url = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
+            if is_live or (elapsed is not None and elapsed >= 0):
+                is_upcoming = False   # đã bắt đầu, CDN có thể đang phát
+            elif elapsed is not None and elapsed >= -172800:
+                is_upcoming = True    # trong 48h → hiện lịch
+            else:
+                continue              # > 48h tới → bỏ qua
+
+        else:
+            continue  # không có gì để phát
+
+        # ── Format hiển thị ──
         logo   = _tieulam_logo(match)
         team1  = match.get("team_1", "Home").strip()
         team2  = match.get("team_2", "Away").strip()
         league = match.get("league", "").strip()
-        blv    = (match.get("blv") or "").strip()
         sport  = _tieulam_sport_label(match)
+        suffix = blv if blv else sport
 
-        try:
-            dt_start = datetime.fromisoformat(start_str.replace("Z", "+00:00"))
-            if dt_start.tzinfo is None:
-                dt_start = dt_start.replace(tzinfo=timezone.utc)
+        if dt_start:
             dt_vn    = dt_start.astimezone(VN_TZ)
             time_str = dt_vn.strftime("%H:%M")
             date_str = dt_vn.strftime("%d/%m")
-        except Exception:
+        else:
             time_str = "--:--"
             date_str = "--/--"
 
-        suffix = blv if blv else sport
+        prefix = "📅 " if is_upcoming else ""
         if suffix:
-            display = f"{time_str} - {date_str} | {team1} VS {team2} ({league}) | {suffix}"
+            display = f"{prefix}{time_str} - {date_str} | {team1} VS {team2} ({league}) | {suffix}"
         else:
-            display = f"{time_str} - {date_str} | {team1} VS {team2} ({league})"
+            display = f"{prefix}{time_str} - {date_str} | {team1} VS {team2} ({league})"
 
         lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="TieuLam TV",{display}')
         lines.append(stream_url)
+
     return lines
 
 
