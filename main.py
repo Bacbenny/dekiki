@@ -34,7 +34,7 @@ KHANDAIA_KNOWN_API_BASE = os.environ.get("KHANDAIA_API",      "https://sv.khanda
 # ─── Shared config ────────────────────────────────────────────────────────────
 VN_TZ                 = timezone(timedelta(hours=7))
 API_DISCOVERY_TTL     = 3600
-MATCH_MAX_AGE_SECONDS = int(os.environ.get("MATCH_MAX_DURATION", 7200))
+MATCH_MAX_AGE_SECONDS = int(os.environ.get("MATCH_MAX_DURATION") or 7200)
 
 FINISHED_STATUS_STRINGS = {"finished", "end", "ended", "complete", "completed"}
 
