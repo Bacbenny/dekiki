@@ -7,6 +7,10 @@ https://pull1.asynccdn.xyz/live/3bff0a6002a3466b919c807d88ace9ab/index.m3u8
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://live.lisport.eu.cc/live/49f43b0929f677ecd522a406b3ca6145/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:00 - 16/06 | IR Iran VS New Zealand (FIFA World Cup) | BLV TRẠNG TỒ [Dự phòng]
+#EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://pull1.asynccdn.xyz/live/66a39473f9ae47dab1841c5f3c0bf838/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:30 - 16/06 | Gold Coast Knights VS Queensland Lions SC (Australia National Premier Leagues Queensland) | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv1.tieulam1.live/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
