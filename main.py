@@ -19,8 +19,7 @@ TIEULAM_FRONTEND_URL   = os.environ.get("TIEULAM_FRONTEND", "https://sv1.tieulam
 TIEULAM_KNOWN_API_BASE = os.environ.get("TIEULAM_API",      "https://api.tlap12062026.xyz")
 TIEULAM_STREAM_CDN     = os.environ.get("TIEULAM_CDN",      "https://live.secufun.xyz")
 VTV_M3U_URL            = os.environ.get("VTV_M3U_URL", "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/VTV.m3u")
-_DEFAULT_RELAY         = "https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/tieulam-relay-public"
-TIEULAM_RELAY_URL      = os.environ.get("TIEULAM_RELAY_URL", _DEFAULT_RELAY)
+TIEULAM_RELAY_URL      = os.environ.get("TIEULAM_RELAY_URL", "")
 TIEULAM_RELAY_SECRET   = os.environ.get("RELAY_SECRET", "")
 
 # ─── Hội Quán TV config ───────────────────────────────────────────────────────
