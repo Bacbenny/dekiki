@@ -190,11 +190,13 @@ def _fetch_tieulam_matches() -> list:
 
     payload = {
         "queries": [
-            {"field": "start_date", "type": "gte", "value": cutoff},
-            {"field": "start_date", "type": "lte", "value": cutoff_end},
+            {"field": "start_date",  "type": "gte",       "value": cutoff},
+            {"field": "start_date",  "type": "lte",       "value": cutoff_end},
+            {"field": "blv",         "type": "not_equal", "value": None},
+            {"field": "blv",         "type": "not_equal", "value": ""},
         ],
         "query_and": True,
-        "limit": 100,
+        "limit": 50,
         "page": 1,
         "order_asc": "start_date",
     }
@@ -369,11 +371,10 @@ def _build_tieulam_lines(matches: list) -> list:
             time_str = "--:--"
             date_str = "--/--"
 
-        prefix = "📅 " if is_upcoming else ""
         if suffix:
-            display = f"{prefix}{time_str} - {date_str} | {team1} VS {team2} ({league}) | {suffix}"
+            display = f"{time_str} - {date_str} | {team1} VS {team2} ({league}) | {suffix}"
         else:
-            display = f"{prefix}{time_str} - {date_str} | {team1} VS {team2} ({league})"
+            display = f"{time_str} - {date_str} | {team1} VS {team2} ({league})"
 
         lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="TieuLam TV",{display}')
         # #EXTVLCOPT: VLC / Kodi / TiviMate dùng Referer khi request stream
