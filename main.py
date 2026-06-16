@@ -142,14 +142,16 @@ def _get_tieulam_api_url(scraper=None) -> str:
     return _get_tieulam_api_base(scraper) + "/matches/graph"
 
 
-def _fetch_tieulam_live_url(match_id: str) -> str:
+def _fetch_tieulam_live_urls(match_id: str) -> tuple[str, str]:
     """
     Gọi GET /match/{id}/live để lấy URL stream thực từ asynccdn.xyz.
-    Endpoint này cần Referer đúng — không cần auth.
-    Trả về URL hd_1 (hoặc hd_2 nếu hd_1 trống), "" nếu thất bại.
+    Trả về (primary_url, fallback_url):
+      - primary = hd_1 (asynccdn.xyz) — cần Referer TieuLam
+      - fallback = source (lisport/secufun) — nếu primary lỗi
+    Cả hai đều "" nếu thất bại.
     """
     api_base = _get_tieulam_api_base()
-    url = f"{api_base}/match/{match_id}/live"
+    endpoint = f"{api_base}/match/{match_id}/live"
     hdrs = {
         "Accept":   "application/json, text/plain, */*",
         "Referer":  TIEULAM_FRONTEND_URL + "/",
@@ -157,16 +159,21 @@ def _fetch_tieulam_live_url(match_id: str) -> str:
     }
     try:
         if _CURL_CFFI:
-            r = curl_requests.get(url, headers=hdrs, timeout=8, impersonate="chrome110")
+            r = curl_requests.get(endpoint, headers=hdrs, timeout=8, impersonate="chrome110")
         else:
             sc = cloudscraper.create_scraper()
-            r  = sc.get(url, headers=hdrs, timeout=8)
+            r  = sc.get(endpoint, headers=hdrs, timeout=8)
         if r.status_code != 200:
-            return ""
-        data = r.json()
-        return (data.get("hd_1") or data.get("hd_2") or data.get("source") or "").strip()
+            return ("", "")
+        data     = r.json()
+        primary  = (data.get("hd_1") or data.get("hd_2") or "").strip()
+        fallback = (data.get("source") or "").strip()
+        # Không dùng fallback nếu trùng primary
+        if fallback == primary:
+            fallback = ""
+        return (primary, fallback)
     except Exception:
-        return ""
+        return ("", "")
 
 
 def _fetch_tieulam_via_relay() -> list:
@@ -308,19 +315,19 @@ def _build_tieulam_lines(matches: list) -> list:
         if not source_live and live_integrated and stream_key and match_id:
             needs_live_url.append(idx)
 
-    resolved: dict[int, str] = {}
+    resolved: dict[int, tuple[str, str]] = {}  # (primary, fallback)
     if needs_live_url:
         with ThreadPoolExecutor(max_workers=min(len(needs_live_url), 8)) as ex:
             fut_map = {
-                ex.submit(_fetch_tieulam_live_url, valid[idx][0]["id"]): idx
+                ex.submit(_fetch_tieulam_live_urls, valid[idx][0]["id"]): idx
                 for idx in needs_live_url
             }
             for fut in as_completed(fut_map):
                 idx = fut_map[fut]
                 try:
-                    resolved[idx] = fut.result() or ""
+                    resolved[idx] = fut.result() or ("", "")
                 except Exception:
-                    resolved[idx] = ""
+                    resolved[idx] = ("", "")
 
     # ── Pass 3: build M3U8 lines ──────────────────────────────────────────────
     lines: list[str] = []
@@ -331,29 +338,42 @@ def _build_tieulam_lines(matches: list) -> list:
         live_integrated = bool(match.get("live_integrated"))
         is_live         = bool(match.get("is_live"))
 
-        # ── Chọn stream URL ──
+        # ── Chọn stream URL (primary + optional fallback) ──
+        primary_url  = ""
+        fallback_url = ""
+
         if source_live:
             # ✅ URL trực tiếp từ server TieuLam → tin cậy nhất
-            stream_url  = source_live
-            is_upcoming = False
+            primary_url = source_live
+            # Fallback: thử resolve asynccdn nếu có live_integrated
+            if live_integrated and match.get("id") and idx in resolved:
+                fb_primary, _ = resolved.get(idx, ("", ""))
+                if fb_primary and fb_primary != source_live:
+                    fallback_url = fb_primary   # asynccdn làm backup
 
-        elif idx in resolved and resolved[idx]:
-            # ✅ Resolve từ /match/{id}/live → asynccdn.xyz (cần Referer)
-            stream_url  = resolved[idx]
-            is_upcoming = False
+        elif idx in resolved:
+            pri, fb = resolved[idx]
+            if pri:
+                # ✅ asynccdn là primary, source là fallback
+                primary_url  = pri
+                fallback_url = fb  # "" nếu không có hoặc trùng
+            elif fb:
+                # asynccdn trống, dùng source làm primary
+                primary_url = fb
 
         elif stream_key and is_live:
-            # ⚠️  Fallback: CDN URL secufun (ít tin cậy hơn, nhưng vẫn thử)
-            stream_url  = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
-            is_upcoming = False
+            # ⚠️  Fallback: CDN URL secufun (ít tin cậy hơn)
+            primary_url = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
 
         elif stream_key:
-            # 📅 Chưa live — hiển thị lịch (stream_url placeholder)
-            stream_url  = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
-            is_upcoming = True
+            # Chưa live — placeholder để cập nhật giờ tới
+            primary_url = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
 
         else:
             continue  # không có gì hữu ích
+
+        if not primary_url:
+            continue
 
         # ── Format hiển thị ──
         logo   = _tieulam_logo(match)
@@ -372,15 +392,22 @@ def _build_tieulam_lines(matches: list) -> list:
             date_str = "--/--"
 
         if suffix:
-            display = f"{time_str} - {date_str} | {team1} VS {team2} ({league}) | {suffix}"
+            base_display = f"{time_str} - {date_str} | {team1} VS {team2} ({league}) | {suffix}"
         else:
-            display = f"{time_str} - {date_str} | {team1} VS {team2} ({league})"
+            base_display = f"{time_str} - {date_str} | {team1} VS {team2} ({league})"
 
-        lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="TieuLam TV",{display}')
-        # #EXTVLCOPT: VLC / Kodi / TiviMate dùng Referer khi request stream
-        lines.append(f'#EXTVLCOPT:http-referrer={_REFERER}')
-        lines.append(f'#EXTVLCOPT:http-user-agent={_UA}')
-        lines.append(stream_url)
+        def _entry(display: str, url: str) -> list[str]:
+            return [
+                f'#EXTINF:-1 tvg-logo="{logo}" group-title="TieuLam TV",{display}',
+                f'#EXTVLCOPT:http-referrer={_REFERER}',
+                f'#EXTVLCOPT:http-user-agent={_UA}',
+                url,
+            ]
+
+        lines.extend(_entry(base_display, primary_url))
+        # Thêm entry dự phòng nếu có URL khác
+        if fallback_url and fallback_url != primary_url:
+            lines.extend(_entry(f"{base_display} [Dự phòng]", fallback_url))
 
     return lines
 
