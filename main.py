@@ -304,15 +304,14 @@ def _build_tieulam_lines(matches: list) -> list:
             continue
         valid.append((match, elapsed, dt_start))
 
-    # ── Pass 2: resolve live_integrated matches qua /match/{id}/live ──────────
-    # Chạy song song để tránh chờ lần lượt
+    # ── Pass 2: resolve stream URLs qua /match/{id}/live ──────────────────────
+    # Gọi cho TẤT CẢ BLV matches có match_id — không chỉ live_integrated
+    # Chạy song song tối đa 8 workers để nhanh nhất
     needs_live_url: list[int] = []
     for idx, (match, elapsed, _) in enumerate(valid):
-        source_live      = (match.get("source_live") or "").strip()
-        live_integrated  = bool(match.get("live_integrated"))
-        stream_key       = (match.get("stream_key") or "").strip()
-        match_id         = (match.get("id") or "").strip()
-        if not source_live and live_integrated and stream_key and match_id:
+        match_id = (match.get("id") or "").strip()
+        is_live  = bool(match.get("is_live"))
+        if match_id and is_live:   # chỉ gọi khi trận đang live
             needs_live_url.append(idx)
 
     resolved: dict[int, tuple[str, str]] = {}  # (primary, fallback)
