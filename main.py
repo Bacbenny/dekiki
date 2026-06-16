@@ -240,6 +240,10 @@ def _build_tieulam_lines(matches: list) -> list:
     now_ts = time.time()
     lines  = []
 
+    # Header Referer để IPTV player (VLC, Kodi, TiviMate...) gửi kèm request
+    _REFERER    = TIEULAM_FRONTEND_URL + "/"
+    _UA         = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
+
     for match in matches:
         source_live = (match.get("source_live") or "").strip()
         blv         = (match.get("blv") or "").strip()
@@ -247,7 +251,7 @@ def _build_tieulam_lines(matches: list) -> list:
         start_str   = match.get("start_date", "")
         is_live     = bool(match.get("is_live"))
 
-        # ── Tính elapsed (giây từ giờ bắt đầu, âm = chưa diễn ra) ──
+        # ── Tính elapsed ──
         dt_start = None
         elapsed  = None
         if start_str:
@@ -263,36 +267,30 @@ def _build_tieulam_lines(matches: list) -> list:
         if elapsed is not None and elapsed > MATCH_MAX_AGE_SECONDS:
             continue
 
-        # ── Xác định stream URL và trạng thái ──
-        is_upcoming = False  # True = chưa phát, chỉ hiện lịch
+        # ── Phân loại: chỉ source_live mới là stream đáng tin ──
+        # CDN URL xây từ stream_key (secufun.xyz) thường trả 404 ngay cả khi is_live=True
+        # → chỉ dùng làm lịch 📅, KHÔNG dùng làm stream phát thật
 
         if source_live:
-            # Confirmed live — luôn dùng URL này
+            # ✅ Confirmed stream từ server — có thể phát ngay
             stream_url  = source_live
             is_upcoming = False
 
-        elif blv and stream_key:
-            # BLV được assign — chỉ phát thật sự khi is_live=True hoặc sắp bắt đầu (<15 phút)
-            stream_url = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
-            if is_live or (elapsed is not None and elapsed >= -900):
-                is_upcoming = False   # stream đang sống hoặc chuẩn bị sống
-            elif elapsed is not None and elapsed >= -172800:
-                is_upcoming = True    # trong 48h → hiện lịch
-            else:
-                continue              # > 48h tới → bỏ qua
-
         elif stream_key:
-            # Chỉ có stream_key, chưa có BLV/source_live
-            stream_url = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
-            if is_live or (elapsed is not None and elapsed >= 0):
-                is_upcoming = False   # đã bắt đầu, CDN có thể đang phát
-            elif elapsed is not None and elapsed >= -172800:
-                is_upcoming = True    # trong 48h → hiện lịch
-            else:
-                continue              # > 48h tới → bỏ qua
+            # 📅 Có stream_key nhưng chưa có source_live → chưa thể phát đáng tin
+            # Chỉ hiển thị trong lịch 48h tới, dùng CDN URL làm best-effort
+            if elapsed is None:
+                continue
+            if elapsed > MATCH_MAX_AGE_SECONDS:
+                continue
+            if elapsed < -172800:          # > 48h tới → bỏ
+                continue
+            stream_url  = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
+            # Nếu is_live=True nhưng vẫn không có source_live → CDN có thể chưa sẵn sàng
+            is_upcoming = not is_live      # is_live=True: thử phát; is_live=False: lịch
 
         else:
-            continue  # không có gì để phát
+            continue  # không có gì
 
         # ── Format hiển thị ──
         logo   = _tieulam_logo(match)
@@ -317,6 +315,9 @@ def _build_tieulam_lines(matches: list) -> list:
             display = f"{prefix}{time_str} - {date_str} | {team1} VS {team2} ({league})"
 
         lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="TieuLam TV",{display}')
+        # #EXTVLCOPT giúp VLC/Kodi/một số IPTV players gửi Referer + UA đúng
+        lines.append(f'#EXTVLCOPT:http-referrer={_REFERER}')
+        lines.append(f'#EXTVLCOPT:http-user-agent={_UA}')
         lines.append(stream_url)
 
     return lines
