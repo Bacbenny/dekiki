@@ -18,6 +18,7 @@ except ImportError:
 TIEULAM_FRONTEND_URL   = os.environ.get("TIEULAM_FRONTEND", "https://sv1.tieulam1.live")
 TIEULAM_KNOWN_API_BASE = os.environ.get("TIEULAM_API",      "https://api.tlap12062026.xyz")
 TIEULAM_STREAM_CDN     = os.environ.get("TIEULAM_CDN",      "https://live.secufun.xyz")
+TIEULAM_ASYNC_CDN      = os.environ.get("TIEULAM_ASYNC_CDN", "https://pull1.asynccdn.xyz")
 VTV_M3U_URL            = os.environ.get("VTV_M3U_URL", "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/VTV.m3u")
 TIEULAM_RELAY_URL      = os.environ.get("TIEULAM_RELAY_URL", "")
 TIEULAM_RELAY_SECRET   = os.environ.get("RELAY_SECRET", "")
@@ -125,14 +126,47 @@ def _discover_tieulam_api_base(scraper) -> str:
     return TIEULAM_KNOWN_API_BASE
 
 
-def _get_tieulam_api_url(scraper=None) -> str:
+def _get_tieulam_api_base(scraper=None) -> str:
+    """Trả về base URL (không có endpoint path) của TieuLam API."""
     now = time.time()
     if now - _tieulam_api_cache["discovered_at"] > API_DISCOVERY_TTL:
         sc = scraper or cloudscraper.create_scraper()
         discovered = _discover_tieulam_api_base(sc)
-        _tieulam_api_cache["url"] = discovered + "/matches/graph"
+        _tieulam_api_cache["url"] = discovered
         _tieulam_api_cache["discovered_at"] = now
     return _tieulam_api_cache["url"]
+
+
+def _get_tieulam_api_url(scraper=None) -> str:
+    """Backward-compat: trả về full /matches/graph endpoint."""
+    return _get_tieulam_api_base(scraper) + "/matches/graph"
+
+
+def _fetch_tieulam_live_url(match_id: str) -> str:
+    """
+    Gọi GET /match/{id}/live để lấy URL stream thực từ asynccdn.xyz.
+    Endpoint này cần Referer đúng — không cần auth.
+    Trả về URL hd_1 (hoặc hd_2 nếu hd_1 trống), "" nếu thất bại.
+    """
+    api_base = _get_tieulam_api_base()
+    url = f"{api_base}/match/{match_id}/live"
+    hdrs = {
+        "Accept":   "application/json, text/plain, */*",
+        "Referer":  TIEULAM_FRONTEND_URL + "/",
+        "Origin":   TIEULAM_FRONTEND_URL,
+    }
+    try:
+        if _CURL_CFFI:
+            r = curl_requests.get(url, headers=hdrs, timeout=8, impersonate="chrome110")
+        else:
+            sc = cloudscraper.create_scraper()
+            r  = sc.get(url, headers=hdrs, timeout=8)
+        if r.status_code != 200:
+            return ""
+        data = r.json()
+        return (data.get("hd_1") or data.get("hd_2") or data.get("source") or "").strip()
+    except Exception:
+        return ""
 
 
 def _fetch_tieulam_via_relay() -> list:
@@ -238,22 +272,15 @@ def _build_tieulam_lines(matches: list) -> list:
         pass
 
     now_ts = time.time()
-    lines  = []
+    _REFERER = TIEULAM_FRONTEND_URL + "/"
+    _UA      = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
 
-    # Header Referer để IPTV player (VLC, Kodi, TiviMate...) gửi kèm request
-    _REFERER    = TIEULAM_FRONTEND_URL + "/"
-    _UA         = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
-
+    # ── Pass 1: tính elapsed, loại bỏ quá cũ / quá xa tương lai ──────────────
+    valid: list[tuple[dict, float | None, datetime | None]] = []
     for match in matches:
-        source_live = (match.get("source_live") or "").strip()
-        blv         = (match.get("blv") or "").strip()
-        stream_key  = (match.get("stream_key") or "").strip()
-        start_str   = match.get("start_date", "")
-        is_live     = bool(match.get("is_live"))
-
-        # ── Tính elapsed ──
-        dt_start = None
-        elapsed  = None
+        start_str = match.get("start_date", "")
+        dt_start  = None
+        elapsed   = None
         if start_str:
             try:
                 dt_start = datetime.fromisoformat(start_str.replace("Z", "+00:00"))
@@ -262,35 +289,69 @@ def _build_tieulam_lines(matches: list) -> list:
                 elapsed = now_ts - dt_start.timestamp()
             except Exception:
                 pass
-
-        # ── Lọc quá cũ ──
         if elapsed is not None and elapsed > MATCH_MAX_AGE_SECONDS:
             continue
+        if elapsed is not None and elapsed < -172800:  # > 48h tương lai → bỏ
+            continue
+        valid.append((match, elapsed, dt_start))
 
-        # ── Phân loại: chỉ source_live mới là stream đáng tin ──
-        # CDN URL xây từ stream_key (secufun.xyz) thường trả 404 ngay cả khi is_live=True
-        # → chỉ dùng làm lịch 📅, KHÔNG dùng làm stream phát thật
+    # ── Pass 2: resolve live_integrated matches qua /match/{id}/live ──────────
+    # Chạy song song để tránh chờ lần lượt
+    needs_live_url: list[int] = []
+    for idx, (match, elapsed, _) in enumerate(valid):
+        source_live      = (match.get("source_live") or "").strip()
+        live_integrated  = bool(match.get("live_integrated"))
+        stream_key       = (match.get("stream_key") or "").strip()
+        match_id         = (match.get("id") or "").strip()
+        if not source_live and live_integrated and stream_key and match_id:
+            needs_live_url.append(idx)
 
+    resolved: dict[int, str] = {}
+    if needs_live_url:
+        with ThreadPoolExecutor(max_workers=min(len(needs_live_url), 8)) as ex:
+            fut_map = {
+                ex.submit(_fetch_tieulam_live_url, valid[idx][0]["id"]): idx
+                for idx in needs_live_url
+            }
+            for fut in as_completed(fut_map):
+                idx = fut_map[fut]
+                try:
+                    resolved[idx] = fut.result() or ""
+                except Exception:
+                    resolved[idx] = ""
+
+    # ── Pass 3: build M3U8 lines ──────────────────────────────────────────────
+    lines: list[str] = []
+    for idx, (match, elapsed, dt_start) in enumerate(valid):
+        source_live     = (match.get("source_live") or "").strip()
+        blv             = (match.get("blv") or "").strip()
+        stream_key      = (match.get("stream_key") or "").strip()
+        live_integrated = bool(match.get("live_integrated"))
+        is_live         = bool(match.get("is_live"))
+
+        # ── Chọn stream URL ──
         if source_live:
-            # ✅ Confirmed stream từ server — có thể phát ngay
+            # ✅ URL trực tiếp từ server TieuLam → tin cậy nhất
             stream_url  = source_live
             is_upcoming = False
 
-        elif stream_key:
-            # 📅 Có stream_key nhưng chưa có source_live → chưa thể phát đáng tin
-            # Chỉ hiển thị trong lịch 48h tới, dùng CDN URL làm best-effort
-            if elapsed is None:
-                continue
-            if elapsed > MATCH_MAX_AGE_SECONDS:
-                continue
-            if elapsed < -172800:          # > 48h tới → bỏ
-                continue
+        elif idx in resolved and resolved[idx]:
+            # ✅ Resolve từ /match/{id}/live → asynccdn.xyz (cần Referer)
+            stream_url  = resolved[idx]
+            is_upcoming = False
+
+        elif stream_key and is_live:
+            # ⚠️  Fallback: CDN URL secufun (ít tin cậy hơn, nhưng vẫn thử)
             stream_url  = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
-            # Nếu is_live=True nhưng vẫn không có source_live → CDN có thể chưa sẵn sàng
-            is_upcoming = not is_live      # is_live=True: thử phát; is_live=False: lịch
+            is_upcoming = False
+
+        elif stream_key:
+            # 📅 Chưa live — hiển thị lịch (stream_url placeholder)
+            stream_url  = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
+            is_upcoming = True
 
         else:
-            continue  # không có gì
+            continue  # không có gì hữu ích
 
         # ── Format hiển thị ──
         logo   = _tieulam_logo(match)
@@ -315,7 +376,7 @@ def _build_tieulam_lines(matches: list) -> list:
             display = f"{prefix}{time_str} - {date_str} | {team1} VS {team2} ({league})"
 
         lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="TieuLam TV",{display}')
-        # #EXTVLCOPT giúp VLC/Kodi/một số IPTV players gửi Referer + UA đúng
+        # #EXTVLCOPT: VLC / Kodi / TiviMate dùng Referer khi request stream
         lines.append(f'#EXTVLCOPT:http-referrer={_REFERER}')
         lines.append(f'#EXTVLCOPT:http-user-agent={_UA}')
         lines.append(stream_url)
