@@ -15,26 +15,26 @@ except ImportError:
     _CURL_CFFI = False
 
 # ─── TieuLam TV config ────────────────────────────────────────────────────────
-TIEULAM_FRONTEND_URL   = os.environ.get("TIEULAM_FRONTEND") or "https://sv1.tieulam1.live"
-TIEULAM_KNOWN_API_BASE = os.environ.get("TIEULAM_API")      or "https://api.tlap12062026.xyz"
-TIEULAM_STREAM_CDN     = os.environ.get("TIEULAM_CDN")      or "https://live.secufun.xyz"
-TIEULAM_ASYNC_CDN      = os.environ.get("TIEULAM_ASYNC_CDN") or "https://pull1.asynccdn.xyz"
-VTV_M3U_URL            = os.environ.get("VTV_M3U_URL", "https://raw.githubusercontent.com/Bacbenny/Truyenhinhiptv/refs/heads/main/dekiki.m3u")
+TIEULAM_FRONTEND_URL   = os.environ.get("TIEULAM_FRONTEND", "https://sv1.tieulam1.live")
+TIEULAM_KNOWN_API_BASE = os.environ.get("TIEULAM_API",      "https://api.tlap12062026.xyz")
+TIEULAM_STREAM_CDN     = os.environ.get("TIEULAM_CDN",      "https://live.secufun.xyz")
+TIEULAM_ASYNC_CDN      = os.environ.get("TIEULAM_ASYNC_CDN", "https://pull1.asynccdn.xyz")
+VTV_M3U_URL            = os.environ.get("VTV_M3U_URL", "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/VTV.m3u")
 TIEULAM_RELAY_URL      = os.environ.get("TIEULAM_RELAY_URL", "")
 TIEULAM_RELAY_SECRET   = os.environ.get("RELAY_SECRET", "")
 
 # ─── Hội Quán TV config ───────────────────────────────────────────────────────
 HOIQUAN_FRONTEND_URL   = os.environ.get("HOIQUAN_FRONTEND", "https://sv2.hoiquan4.live")
-HOIQUAN_KNOWN_API_BASE = os.environ.get("HOIQUAN_API")      or "https://sv.hoiquantv.xyz/api/v1/external"
+HOIQUAN_KNOWN_API_BASE = os.environ.get("HOIQUAN_API",      "https://sv.hoiquantv.xyz/api/v1/external")
 
 # ─── Khán Đài A config ───────────────────────────────────────────────────────
 KHANDAIA_FRONTEND_URL   = os.environ.get("KHANDAIA_FRONTEND", "https://tructiep.khandaia.link")
-KHANDAIA_KNOWN_API_BASE = os.environ.get("KHANDAIA_API")      or "https://sv.khandai-a.xyz/api/v1/external"
+KHANDAIA_KNOWN_API_BASE = os.environ.get("KHANDAIA_API",      "https://sv.khandai-a.xyz/api/v1/external")
 
 # ─── Shared config ────────────────────────────────────────────────────────────
 VN_TZ                 = timezone(timedelta(hours=7))
 API_DISCOVERY_TTL     = 3600
-MATCH_MAX_AGE_SECONDS = int(os.environ.get("MATCH_MAX_DURATION") or 7200)
+MATCH_MAX_AGE_SECONDS = int(os.environ.get("MATCH_MAX_DURATION", 7200))
 
 FINISHED_STATUS_STRINGS = {"finished", "end", "ended", "complete", "completed"}
 
