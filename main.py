@@ -19,7 +19,7 @@ TIEULAM_FRONTEND_URL   = os.environ.get("TIEULAM_FRONTEND", "https://sv1.tieulam
 TIEULAM_KNOWN_API_BASE = os.environ.get("TIEULAM_API",      "https://api.tlap12062026.xyz")
 TIEULAM_STREAM_CDN     = os.environ.get("TIEULAM_CDN",      "https://live.secufun.xyz")
 TIEULAM_ASYNC_CDN      = os.environ.get("TIEULAM_ASYNC_CDN", "https://pull1.asynccdn.xyz")
-VTV_M3U_URL            = os.environ.get("VTV_M3U_URL", "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/VTV.m3u")
+VTV_M3U_URL            = os.environ.get("VTV_M3U_URL", "https://raw.githubusercontent.com/Bacbenny/Truyenhinhiptv/refs/heads/main/dekiki.m3u")
 TIEULAM_RELAY_URL      = os.environ.get("TIEULAM_RELAY_URL", "")
 TIEULAM_RELAY_SECRET   = os.environ.get("RELAY_SECRET", "")
 
