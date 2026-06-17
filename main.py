@@ -683,22 +683,39 @@ def _build_fixture_lines(fixtures: list, group_title: str) -> list:
 # ══════════════════════════════════════════════════════════════════════════════
 
 def fetch_tieulam() -> list:
-    if TIEULAM_RELAY_URL:
-        try:
-            hdrs: dict = {}
-            if TIEULAM_RELAY_SECRET:
-                hdrs["X-Relay-Token"] = TIEULAM_RELAY_SECRET
-            r = requests.get(TIEULAM_RELAY_URL, headers=hdrs, timeout=15)
-            r.raise_for_status()
-            rdata    = r.json()
-            fixtures = rdata.get("fixtures", [])
-            if fixtures:
-                return _build_lines_from_fixtures(fixtures)
-            return _build_tieulam_lines(rdata.get("data", []))
-        except Exception as e:
-            print(f"⚠️  TieuLam relay thất bại: {e}", file=sys.stderr)
-    return _build_tieulam_lines(_fetch_tieulam_matches())
-
+      """Lấy dữ liệu TieuLam TV.
+      Thứ tự ưu tiên:
+        1. Relay URL (nếu được cấu hình) → nhưng kiểm tra freshness
+        2. Nếu relay trả về < 3 kênh hợp lệ (do data cũ) → dùng API trực tiếp
+        3. Nếu không có relay → dùng API trực tiếp
+      """
+      if TIEULAM_RELAY_URL:
+          try:
+              hdrs: dict = {}
+              if TIEULAM_RELAY_SECRET:
+                  hdrs["X-Relay-Token"] = TIEULAM_RELAY_SECRET
+              r = requests.get(TIEULAM_RELAY_URL, headers=hdrs, timeout=15)
+              r.raise_for_status()
+              rdata    = r.json()
+              fixtures = rdata.get("fixtures", [])
+              if fixtures:
+                  lines = _build_lines_from_fixtures(fixtures)
+                  channel_count = sum(1 for l in lines if l.startswith("#EXTINF"))
+                  if channel_count >= 3:
+                      print(f"  [relay] TieuLam: {channel_count} kênh hợp lệ", file=sys.stderr)
+                      return lines
+                  # Relay có data nhưng quá ít → data cũ, dùng API trực tiếp
+                  print(f"  [relay] TieuLam chỉ có {channel_count} kênh → dùng API trực tiếp", file=sys.stderr)
+              elif rdata.get("data"):
+                  lines = _build_tieulam_lines(rdata.get("data", []))
+                  channel_count = sum(1 for l in lines if l.startswith("#EXTINF"))
+                  if channel_count >= 3:
+                      return lines
+                  print(f"  [relay data] TieuLam chỉ có {channel_count} kênh → dùng API trực tiếp", file=sys.stderr)
+          except Exception as e:
+              print(f"⚠️  TieuLam relay thất bại: {e}", file=sys.stderr)
+      # API trực tiếp
+      return _build_tieulam_lines(_fetch_tieulam_matches())
 
 def fetch_hoiquan() -> list:
     return _build_fixture_lines(_fetch_hoiquan_fixtures(), "Hội Quán TV")
