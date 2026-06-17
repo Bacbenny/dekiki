@@ -49,4 +49,4 @@ https://live.lisport.eu.cc/live/351a692561544bb89f9fd51b13505615/playlist.m3u8
 https://live.lisport.eu.cc/live/d1a45f2550204173aadb105dc1f76113/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://img.sports-data.online/football/team/fd1a9c51505300dec9c26e5847114851.png" group-title="TieuLam TV",22:00 - 17/06 | HJK Helsinki VS Inter Turku (Finnish Veikkausliiga) | BLV TRẠNG TÍ
 https://live.lisport.eu.cc/live/51c90f1ea17f480b9d21e429e11f276d/playlist.m3u8
-# Errors: khandaia: Invalid URL '/fixtures/unfinished': No scheme supplied. Perhaps you meant https:///fixtures/unfinished?; hoiquan: Invalid URL '/fixtures/unfinished': No scheme supplied. Perhaps you meant https:///fixtures/unfinished?
+# Errors: hoiquan: Invalid URL '/fixtures/unfinished': No scheme supplied. Perhaps you meant https:///fixtures/unfinished?; khandaia: Invalid URL '/fixtures/unfinished': No scheme supplied. Perhaps you meant https:///fixtures/unfinished?
