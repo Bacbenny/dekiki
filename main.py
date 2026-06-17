@@ -15,21 +15,21 @@ except ImportError:
     _CURL_CFFI = False
 
 # ─── TieuLam TV config ────────────────────────────────────────────────────────
-TIEULAM_FRONTEND_URL   = os.environ.get("TIEULAM_FRONTEND", "https://sv1.tieulam1.live")
-TIEULAM_KNOWN_API_BASE = os.environ.get("TIEULAM_API",      "https://api.tlap12062026.xyz")
-TIEULAM_STREAM_CDN     = os.environ.get("TIEULAM_CDN",      "https://live.secufun.xyz")
-TIEULAM_ASYNC_CDN      = os.environ.get("TIEULAM_ASYNC_CDN", "https://pull1.asynccdn.xyz")
-VTV_M3U_URL            = os.environ.get("VTV_M3U_URL", "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/VTV.m3u")
+TIEULAM_FRONTEND_URL   = (os.environ.get("TIEULAM_FRONTEND") or "https://sv1.tieulam1.live")
+TIEULAM_KNOWN_API_BASE = (os.environ.get("TIEULAM_API") or "https://api.tlap12062026.xyz")
+TIEULAM_STREAM_CDN     = (os.environ.get("TIEULAM_CDN") or "https://live.secufun.xyz")
+TIEULAM_ASYNC_CDN      = (os.environ.get("TIEULAM_ASYNC_CDN") or "https://pull1.asynccdn.xyz")
+VTV_M3U_URL            = (os.environ.get("VTV_M3U_URL") or "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/VTV.m3u")
 TIEULAM_RELAY_URL      = os.environ.get("TIEULAM_RELAY_URL", "")
 TIEULAM_RELAY_SECRET   = os.environ.get("RELAY_SECRET", "")
 
 # ─── Hội Quán TV config ───────────────────────────────────────────────────────
-HOIQUAN_FRONTEND_URL   = os.environ.get("HOIQUAN_FRONTEND", "https://sv2.hoiquan4.live")
-HOIQUAN_KNOWN_API_BASE = os.environ.get("HOIQUAN_API",      "https://sv.hoiquantv.xyz/api/v1/external")
+HOIQUAN_FRONTEND_URL   = (os.environ.get("HOIQUAN_FRONTEND") or "https://sv2.hoiquan4.live")
+HOIQUAN_KNOWN_API_BASE = (os.environ.get("HOIQUAN_API") or "https://sv.hoiquantv.xyz/api/v1/external")
 
 # ─── Khán Đài A config ───────────────────────────────────────────────────────
-KHANDAIA_FRONTEND_URL   = os.environ.get("KHANDAIA_FRONTEND", "https://tructiep.khandaia.link")
-KHANDAIA_KNOWN_API_BASE = os.environ.get("KHANDAIA_API",      "https://sv.khandai-a.xyz/api/v1/external")
+KHANDAIA_FRONTEND_URL   = (os.environ.get("KHANDAIA_FRONTEND") or "https://tructiep.khandaia.link")
+KHANDAIA_KNOWN_API_BASE = (os.environ.get("KHANDAIA_API") or "https://sv.khandai-a.xyz/api/v1/external")
 
 # ─── Shared config ────────────────────────────────────────────────────────────
 VN_TZ                 = timezone(timedelta(hours=7))
@@ -426,17 +426,33 @@ def _build_tieulam_lines(matches: list) -> list:
 
 
 def _build_lines_from_fixtures(fixtures: list) -> list:
-    lines = []
-    for f in fixtures:
-        stream_url = (f.get("streamUrl") or "").strip()
-        if not stream_url:
-            continue
-        logo  = f.get("logo") or f.get("sportLogo", "")
-        group = f.get("groupTitle", "TieuLam TV")
-        title = f.get("title", "")
-        lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group}",{title}')
-        lines.append(stream_url)
-    return lines
+      """Dùng cho relay trả về pre-built fixtures. Lọc theo startTime để loại trận cũ."""
+      now_ts = time.time()
+      lines = []
+      for f in fixtures:
+          stream_url = (f.get("streamUrl") or "").strip()
+          if not stream_url:
+              continue
+          # Lọc theo thời gian nếu fixture có startTime / start_date
+          start_str = f.get("startTime") or f.get("start_date") or ""
+          if start_str:
+              try:
+                  dt = datetime.fromisoformat(start_str.replace("Z", "+00:00"))
+                  if dt.tzinfo is None:
+                      dt = dt.replace(tzinfo=timezone.utc)
+                  elapsed = now_ts - dt.timestamp()
+                  if elapsed > MATCH_MAX_AGE_SECONDS:
+                      continue
+                  if elapsed < -172800:
+                      continue
+              except Exception:
+                  pass
+          logo  = f.get("logo") or f.get("sportLogo", "")
+          group = f.get("groupTitle", "TieuLam TV")
+          title = f.get("title", "")
+          lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group}",{title}')
+          lines.append(stream_url)
+      return lines
 
 
 # ══════════════════════════════════════════════════════════════════════════════
