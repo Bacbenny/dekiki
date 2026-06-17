@@ -127,7 +127,7 @@ def _discover_tieulam_api_base(scraper) -> str:
               patterns = [
                   r'create\(\{baseURL:"(https://[^"]+)"\}',
                   r'baseURL:"(https://[^"]{10,80})"',
-                  r'baseURL:\s*["\'\']+(https://[^\"\'']+)["\'\'']+',
+                   r'baseURL:[^"]*"(https://[^"]{10,80})"',
                   r'"(https://api\.[a-z0-9\-]+\.[a-z]{2,6}(?:/[\w/]*)?)"',
               ]
               for pat in patterns:
