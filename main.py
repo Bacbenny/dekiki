@@ -34,7 +34,7 @@ KHANDAIA_KNOWN_API_BASE = os.environ.get("KHANDAIA_API",      "https://sv.khanda
 # ─── Shared config ────────────────────────────────────────────────────────────
 VN_TZ                 = timezone(timedelta(hours=7))
 API_DISCOVERY_TTL     = 3600
-MATCH_MAX_AGE_SECONDS = int(os.environ.get("MATCH_MAX_DURATION", 7200))
+MATCH_MAX_AGE_SECONDS = int(os.environ.get("MATCH_MAX_DURATION") or 7200)
 
 FINISHED_STATUS_STRINGS = {"finished", "end", "ended", "complete", "completed"}
 
@@ -108,24 +108,37 @@ def _hq_kda_logo(fixture: dict) -> str:
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _discover_tieulam_api_base(scraper) -> str:
-    try:
-        r = scraper.get(TIEULAM_FRONTEND_URL, timeout=10)
-        js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
-        for js_path in js_files[:3]:
-            js = scraper.get(
-                TIEULAM_FRONTEND_URL.rstrip("/") + js_path, timeout=20
-            ).text
-            hits = re.findall(r'create\(\{baseURL:"(https://[^"]+)"\}', js)
-            if hits:
-                return hits[0].rstrip("/")
-            hits = re.findall(r'baseURL:"(https://[^"]{10,60})"', js)
-            if hits:
-                return hits[0].rstrip("/")
-    except Exception:
-        pass
-    return TIEULAM_KNOWN_API_BASE
-
-
+      """Tự động tìm API base URL từ trang frontend TieuLam.
+      Thử nhiều pattern regex để chống thay đổi JS bundling."""
+      try:
+          r = scraper.get(TIEULAM_FRONTEND_URL, timeout=12)
+          # Thu thập cả assets/*.js lẫn /*.js
+          js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
+          if not js_files:
+              js_files = re.findall(r'src="(/[^"]+\.js)"', r.text)
+          for js_path in js_files[:5]:
+              try:
+                  js = scraper.get(
+                      TIEULAM_FRONTEND_URL.rstrip("/") + js_path, timeout=20
+                  ).text
+              except Exception:
+                  continue
+              # Thử lần lượt các pattern theo độ ưu tiên
+              patterns = [
+                  r'create\(\{baseURL:"(https://[^"]+)"\}',
+                  r'baseURL:"(https://[^"]{10,80})"',
+                  r'baseURL:\s*["\'\']+(https://[^\"\'']+)["\'\'']+',
+                  r'"(https://api\.[a-z0-9\-]+\.[a-z]{2,6}(?:/[\w/]*)?)"',
+              ]
+              for pat in patterns:
+                  for hit in re.findall(pat, js):
+                      # Bỏ qua CDN/stream URL, chỉ lấy API URL
+                      if any(x in hit for x in ["cdn", "/live", "pull", "stream", "secufun", "asynccdn"]):
+                          continue
+                      return hit.rstrip("/")
+      except Exception:
+          pass
+      return TIEULAM_KNOWN_API_BASE
 def _get_tieulam_api_base(scraper=None) -> str:
     """Trả về base URL (không có endpoint path) của TieuLam API."""
     now = time.time()
