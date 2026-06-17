@@ -15,8 +15,8 @@ except ImportError:
     _CURL_CFFI = False
 
 # ─── TieuLam TV config ────────────────────────────────────────────────────────
-TIEULAM_FRONTEND_URL   = (os.environ.get("TIEULAM_FRONTEND") or "https://sv1.tieulam1.live")
-TIEULAM_KNOWN_API_BASE = (os.environ.get("TIEULAM_API") or "https://api.tlap12062026.xyz")
+TIEULAM_FRONTEND_URL   = (os.environ.get("TIEULAM_FRONTEND") or "https://sv2.tieulam.info")
+TIEULAM_KNOWN_API_BASE = (os.environ.get("TIEULAM_API") or "https://api.tlap17062026.com")
 TIEULAM_STREAM_CDN     = (os.environ.get("TIEULAM_CDN") or "https://live.secufun.xyz")
 TIEULAM_ASYNC_CDN      = (os.environ.get("TIEULAM_ASYNC_CDN") or "https://pull1.asynccdn.xyz")
 VTV_M3U_URL            = (os.environ.get("VTV_M3U_URL") or "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/VTV.m3u")
