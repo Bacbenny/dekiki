@@ -1,6 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 17/06 | Turku PS VS KuPS (Veikkausliiga) | BLV PHAN ANH
-https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",22:30 - 17/06 | Terence Atmane VS Daniil Medvedev (ATP500 Halle) | BLV PHAN BÁCH
 https://hqlive.yarncdn.live/live/hqtv_blv_phanchuot/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 17/06 | Riga VS Rīgas FS (Virsliga) | BLV TÁO GIÀ
@@ -13,8 +11,6 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanma/playlist.m3u8
 https://hqlive.yarncdn.live/live/hqtv_blv_phanchop/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 18/06 | Portugal VS Congo DR (World Cup) | BLV PHAN QUẨY
 https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:30 - 18/06 | Rågsved VS Enköping (Svenska Cupen) | BLV TÁO GIÀ
-https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",03:00 - 18/06 | England VS Croatia (World Cup) | BLV PHAN MÃ
 https://hqlive.yarncdn.live/live/hqtv_blv_phanma/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",03:00 - 18/06 | England VS Croatia (World Cup) | BLV PHAN QUẨY
@@ -103,8 +99,6 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanchop/playlist.m3u8
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 19/06 | Naftan VS Baranovichi (VĐQG Belarus) | BLV PHAN ANH
 https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:00 - 17/06 | HJK Helsinki VS Inter Turku (Veikkausliiga) | Isco
-https://q9kh24w2ba.yarncdn.live/live/kda-blv-isco/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 17/06 | Riga VS Rīgas FS (Virsliga) | Mơ
 https://q9kh24w2ba.yarncdn.live/live/kda-blv-mo/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",23:30 - 17/06 | Thổ Nhĩ Kỳ Nữ VS Bỉ Nữ (Nations League 2026) | Kaka
@@ -970,3 +964,4 @@ https://play.vovgiaothong.vn/live/gthcm/playlist.m3u8
 https://play.vovgiaothong.vn/live/mekong/playlist.m3u8
 #EXTINF:-1 tvg-name="VOV GIAO THÔNG DUYÊN HẢI" tvg-logo="https://i.postimg.cc/t43J2yhN/Duyenhai.png" group-title="KÊNH VOV",VOV GIAO THÔNG DUYÊN HẢI
 https://play.vovgiaothong.vn/live/duyenhai/playlist.m3u8
+# Errors: tieulam: 403 Client Error: Forbidden for url: https://api.tlap17062026.com/matches/graph
