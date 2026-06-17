@@ -426,15 +426,19 @@ def _build_tieulam_lines(matches: list) -> list:
 
 
 def _build_lines_from_fixtures(fixtures: list) -> list:
-      """Dùng cho relay trả về pre-built fixtures. Lọc theo startTime để loại trận cũ."""
+      """Dùng cho relay trả về pre-built fixtures.
+      Lọc theo startTime nếu có; nếu không thì phân tích ngày từ tiêu đề (HH:MM - DD/MM | ...)."""
+      now = datetime.now(VN_TZ)
       now_ts = time.time()
       lines = []
       for f in fixtures:
           stream_url = (f.get("streamUrl") or "").strip()
           if not stream_url:
               continue
-          # Lọc theo thời gian nếu fixture có startTime / start_date
+
+          # ── Ưu tiên 1: lọc qua startTime / start_date ───────────────────────
           start_str = f.get("startTime") or f.get("start_date") or ""
+          filtered  = False
           if start_str:
               try:
                   dt = datetime.fromisoformat(start_str.replace("Z", "+00:00"))
@@ -445,8 +449,32 @@ def _build_lines_from_fixtures(fixtures: list) -> list:
                       continue
                   if elapsed < -172800:
                       continue
+                  filtered = True
               except Exception:
                   pass
+
+          # ── Ưu tiên 2: nếu không có startTime, phân tích từ title ───────────
+          # Định dạng tiêu đề: "HH:MM - DD/MM | TeamA VS TeamB ..."
+          if not filtered:
+              title_str = f.get("title", "")
+              import re as _re
+              m = _re.search(r'(\d{1,2}):(\d{2})\s*-\s*(\d{1,2})/(\d{1,2})', title_str)
+              if m:
+                  try:
+                      hour, minute, day, month = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4))
+                      year = now.year
+                      # Nếu tháng > tháng hiện tại nhiều => năm trước
+                      if month > now.month + 1:
+                          year -= 1
+                      dt_vn = datetime(year, month, day, hour, minute, tzinfo=VN_TZ)
+                      elapsed = now_ts - dt_vn.timestamp()
+                      if elapsed > MATCH_MAX_AGE_SECONDS:
+                          continue
+                      if elapsed < -172800:
+                          continue
+                  except Exception:
+                      pass
+
           logo  = f.get("logo") or f.get("sportLogo", "")
           group = f.get("groupTitle", "TieuLam TV")
           title = f.get("title", "")
