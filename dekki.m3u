@@ -1,10 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",03:00 - 18/06 | England VS Croatia (World Cup) | BLV PHAN MÃ
-https://hqlive.yarncdn.live/live/hqtv_blv_phanma/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",03:00 - 18/06 | England VS Croatia (World Cup) | BLV PHAN QUẨY
-https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",03:00 - 18/06 | England VS Croatia (World Cup) | BLV THẦN THÔNG
-https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",06:00 - 18/06 | Ghana VS Panama (World Cup) | BLV THẦN THÔNG
 https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",06:00 - 18/06 | Ghana VS Panama (World Cup) | BLV LƯƠNG BỔNG
@@ -101,14 +95,6 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanchop/playlist.m3u8
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 19/06 | Naftan VS Baranovichi (VĐQG Belarus) | BLV PHAN ANH
 https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",03:00 - 18/06 | England VS Croatia (World Cup) | Nhật Tinh Ngao
-https://q9kh24w2ba.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",03:00 - 18/06 | England VS Croatia (World Cup) | Dế Lửa
-https://q9kh24w2ba.yarncdn.live/live/kda-blv-delua/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",03:00 - 18/06 | England VS Croatia (World Cup) | Mơ
-https://q9kh24w2ba.yarncdn.live/live/kda-blv-mo/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",03:00 - 18/06 | England VS Croatia (World Cup) | Isco
-https://q9kh24w2ba.yarncdn.live/live/kda-blv-isco/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",06:00 - 18/06 | Ghana VS Panama (World Cup) | Nhật Tinh Ngao
 https://q9kh24w2ba.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",06:00 - 18/06 | Ghana VS Panama (World Cup) | Dế Lửa
