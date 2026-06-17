@@ -1,10 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 18/06 | Portugal VS Congo DR (World Cup) | BLV PHAN MÃ
-https://hqlive.yarncdn.live/live/hqtv_blv_phanma/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 18/06 | Portugal VS Congo DR (World Cup) | BLV PHAN CHỚP
-https://hqlive.yarncdn.live/live/hqtv_blv_phanchop/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 18/06 | Portugal VS Congo DR (World Cup) | BLV PHAN QUẨY
-https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",03:00 - 18/06 | England VS Croatia (World Cup) | BLV PHAN MÃ
 https://hqlive.yarncdn.live/live/hqtv_blv_phanma/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",03:00 - 18/06 | England VS Croatia (World Cup) | BLV PHAN QUẨY
@@ -23,10 +17,16 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8
 https://hqlive.yarncdn.live/live/hqtv_blv_phanliem/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",15:00 - 18/06 | CH Séc VS Mỹ (Nation League Women) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://fifa.discorddata.site/pingpong_1_cfu9el.png" group-title="Hội Quán TV",16:00 - 18/06 | Tay Vợt 1 VS Tay Vợt 2 (WTT Star Contender Ljubljana 2026) | BLV PHAN BÁCH
+https://hqlive.yarncdn.live/live/hqtv_blv_phanchuot/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",16:30 - 18/06 | Fabian Marozsan VS Taylor Fritz (ATP500 Halle) | BLV PHAN CA
+https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",16:59 - 18/06 | AC Oulu VS Mariehamn (Veikkausliiga) | BLV PHAN ANH
 https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",17:00 - 18/06 | Ukraina VS Ba Lan (Nation League Women) | BLV PHAN BỐNG
 https://hqlive.yarncdn.live/live/hqtv_blv_phanbong/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",18:30 - 18/06 | Ben Shelton VS Ethan Quinn (ATP500 Halle) | BLV PHAN PHÉP
+https://hqlive.yarncdn.live/live/hqtv_blv_phanphep/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",19:00 - 18/06 | Akademiya Ontustik VS Yelimay Semey 2 (1. Division) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",19:00 - 18/06 | Serbia VS Italy (Nation League Women) | BLV LƯƠNG BỔNG
@@ -37,8 +37,16 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8
 https://hqlive.yarncdn.live/live/hqtv_blv_phanbong/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",20:30 - 18/06 | Thái Lan VS Bulgaria (Nation League Women) | BLV PHAN PHÉP
 https://hqlive.yarncdn.live/live/hqtv_blv_phanphep/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",20:30 - 18/06 | Alexandet Zverev VS Yannick Hanfmann (ATP500 Halle) | BLV PHAN BÁCH
+https://hqlive.yarncdn.live/live/hqtv_blv_phanchuot/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",21:30 - 18/06 | Rinky Hijikata VS Jiri Lehecka (ATP500 London) | BLV PHAN BỐNG
+https://hqlive.yarncdn.live/live/hqtv_blv_phanbong/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 18/06 | Turan Turkistan VS Aktobe Jas (1. Division) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://fifa.discorddata.site/pingpong_1_cfu9el.png" group-title="Hội Quán TV",22:00 - 18/06 | Tay Vợt 1 VS Tay Vợt 2 (WTT Star Contender Ljubljana 2026) | BLV PHAN CA
+https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",22:30 - 18/06 | Alexandra Eala VS Elena Rybakina (ATP500 London) | BLV PHAN BÁCH
+https://hqlive.yarncdn.live/live/hqtv_blv_phanchuot/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 18/06 | Czech Republic VS South Africa (World Cup) | BLV PHAN MÃ
 https://hqlive.yarncdn.live/live/hqtv_blv_phanma/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 18/06 | Czech Republic VS South Africa (World Cup) | BLV PHAN CHỚP
@@ -93,14 +101,6 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanchop/playlist.m3u8
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 19/06 | Naftan VS Baranovichi (VĐQG Belarus) | BLV PHAN ANH
 https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 18/06 | Portugal VS Congo DR (World Cup) | Nhật Tinh Ngao
-https://q9kh24w2ba.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 18/06 | Portugal VS Congo DR (World Cup) | Dế Lửa
-https://q9kh24w2ba.yarncdn.live/live/kda-blv-delua/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 18/06 | Portugal VS Congo DR (World Cup) | Núi
-https://q9kh24w2ba.yarncdn.live/live/kda-blv-nui/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 18/06 | Portugal VS Congo DR (World Cup) | T-Rex
-https://q9kh24w2ba.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",03:00 - 18/06 | England VS Croatia (World Cup) | Nhật Tinh Ngao
 https://q9kh24w2ba.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",03:00 - 18/06 | England VS Croatia (World Cup) | Dế Lửa
