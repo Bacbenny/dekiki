@@ -2,7 +2,6 @@ name: Tự động cập nhật IPTV
 
   on:
     schedule:
-      # Tự động chạy mỗi 30 phút (UTC)
       - cron: '*/30 * * * *'
     workflow_dispatch:
 
