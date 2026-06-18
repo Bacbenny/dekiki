@@ -1,4 +1,52 @@
 #EXTM3U
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",06:00 - 18/06 | Ghana VS Panama (FIFA World Cup) | BLV TRẠNG TÈO
+#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/b628bd1b7f7b9d1923a5e0d55697c5aa/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",09:00 - 18/06 | Uzbekistan VS Colombia (FIFA World Cup) | BLV TRẠNG BÉO
+#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/43a842551b664e1c98bd4ada3895de1a/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",09:00 - 18/06 | Uzbekistan VS Colombia (FIFA World Cup) | BLV TRẠNG TÈO
+#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/c8f70419be3646a1a5a1d056192285cd/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",15:00 - 18/06 | Czech Republic W VS USA W (Nations League Women) | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/51b28aad76b14bb983c1da7b7c3d23b5/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",17:00 - 18/06 | Ukraine W VS Poland W (Nations League Women) | BLV TRẠNG NGỐ
+#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/223e33bee3874c9bae612bc0238ef82b/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",19:00 - 18/06 | Serbia W VS Italy W (Nations League Women) | BLV TRẠNG BỊP
+#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/f938b80301f54842a7982bf1fc97df5f/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",20:30 - 18/06 | Thailand W VS Bulgaria W (Nations League Women) | BLV TRẠNG TỒ
+#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/43373f6069be46d69b20de89012f124e/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",20:30 - 18/06 | Fc Meshakhte Tkibuli VS Gagra FC (Georgia Erovnuli Liga) | BLV TRẠNG BÉO
+#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/131e48d53f224d2783546d4c5ae14f64/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:00 - 18/06 | Olympique Dcheira VS AS FAR Rabat (The Botola Pro) | BLV TRẠNG BỊP
+#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/bb449f02186649a4ad6967318c65b422/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 18/06 | Czechia VS South Africa (FIFA World Cup) | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/fc0fdb8883a5482982bff0d4f0cbcda0/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 18/06 | Czechia VS South Africa (FIFA World Cup) | BLV TRẠNG NGỐ
+#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/2eada80599c94109a6828eaa689c18de/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",23:30 - 18/06 | Turkey W VS France W (Nations League Women) | BLV TRẠNG BỊP
+#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
+https://live.secufun.xyz/live/eb338fe1f21540309800ac9199ddee8d/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",06:00 - 18/06 | Ghana VS Panama (World Cup) | BLV THẦN THÔNG
 https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",06:00 - 18/06 | Ghana VS Panama (World Cup) | BLV LƯƠNG BỔNG
@@ -940,4 +988,3 @@ https://play.vovgiaothong.vn/live/gthcm/playlist.m3u8
 https://play.vovgiaothong.vn/live/mekong/playlist.m3u8
 #EXTINF:-1 tvg-name="VOV GIAO THÔNG DUYÊN HẢI" tvg-logo="https://i.postimg.cc/t43J2yhN/Duyenhai.png" group-title="KÊNH VOV",VOV GIAO THÔNG DUYÊN HẢI
 https://play.vovgiaothong.vn/live/duyenhai/playlist.m3u8
-# Errors: tieulam: 403 Client Error: Forbidden for url: https://api.tlap17062026.com/matches/graph
