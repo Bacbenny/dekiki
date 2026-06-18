@@ -1,136 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:00 - 18/06 | Olympique Dcheira VS AS FAR Rabat (The Botola Pro) | BLV TRẠNG BÉO
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvNGMzNDI1NGIwM2JiZDM1NmQ0NThmYjY1MDdlMmY4MmUvcGxheWxpc3QubTN1OA==&s=56293657b91ceacc
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 18/06 | Czechia VS South Africa (FIFA World Cup) | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZmMwZmRiODg4M2E1NDgyOTgyYmZmMGQ0ZjBjYmNkYTAvcGxheWxpc3QubTN1OA==&s=863501e287bcef40
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 18/06 | Czechia VS South Africa (FIFA World Cup) | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvNjc3NDIzNmIxOTZlYjAwZGQ5MjBmNGVjM2UzNjcxYWEvcGxheWxpc3QubTN1OA==&s=2ca4ddf5d2588b66
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",23:30 - 18/06 | Turkey W VS France W (Nations League Women) | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZWIzMzhmZTFmMjE1NDAzMDk4MDBhYzkxOTlkZGVlOGQvcGxheWxpc3QubTN1OA==&s=7378705d9f805bfb
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",02:00 - 19/06 | Switzerland VS Bosnia and Herzegovina (FIFA World Cup) | BLV TRẠNG BÉO
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMTcyMzY2ZTJhNGE0NGJjZTk5YWU4MzJhOWM5MGNkMDAvcGxheWxpc3QubTN1OA==&s=078fa8a693aa89f7
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",02:00 - 19/06 | Switzerland VS Bosnia and Herzegovina (FIFA World Cup) | BLV TRẠNG QUỶ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvNDg3YzgxMWFkZjdkMWUyOGJjNGZlZWFlZjUyYWExNDQvcGxheWxpc3QubTN1OA==&s=6a2b234f79d7e8fa
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",05:00 - 19/06 | Canada VS Qatar (FIFA World Cup) | BLV TRẠNG QUỶ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZTE2ZDE1OWU3ZDBmODNmYTU4OTFjMWE2ZmE4MWQyZjQvcGxheWxpc3QubTN1OA==&s=7cbd51e10dc1e4f2
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",05:00 - 19/06 | Canada VS Qatar (FIFA World Cup) | BLV TRẠNG BÉO
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvYWU5MDI3YzJkZWNkNDk5ZmEwNTdkNWIwYzU3NzljMTMvcGxheWxpc3QubTN1OA==&s=d3a58c579400e8e2
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",07:00 - 19/06 | Universidad de Chile VS O.Higgins (CHI Liga de Primera) | BLV TRẠNG TÍ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZDBkODE0ZjAyNDkxZmIxMjgwZWRmMWUwYTJjZGFmMDMvcGxheWxpc3QubTN1OA==&s=6a0a0266e8110743
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:00 - 19/06 | Mexico VS South Korea (FIFA World Cup) | BLV TRẠNG TÈO
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvNDI3OWNiMGQzZmRhNGNlMjkyZDk3OTBiODlhZmNlNDYvcGxheWxpc3QubTN1OA==&s=dbae6d4ead705542
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:00 - 19/06 | Mexico VS South Korea (FIFA World Cup) | BLV TRẠNG PHỆ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvYTIyZGE0YmFiZTAwNDA3Mjg3MzQwMjAwMzgyM2NjYTEvcGxheWxpc3QubTN1OA==&s=b232b6a1faa1363c
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",14:30 - 19/06 | Shanghai Second VS Shanghai Port (Chinese FA Cup) | BLV TRẠNG QUỶ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMDA0ZGU0OWI4YjhkNDM4YjhlYzE2NTdiMjVlYjlkNWYvcGxheWxpc3QubTN1OA==&s=6020947509844ac7
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",15:00 - 19/06 | Dominican Republic W VS Serbia W (Nations League Women) | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMjE3ZTE5ZGVjNmQxNDk2OWI1YzI2MWIzOWQ5ZmI1ZDcvcGxheWxpc3QubTN1OA==&s=b7bdb9932f5eb49a
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:30 - 19/06 | Gold Coast Knights VS Magic United TFA (Australia National Premier Leagues Queensland) | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZjU1NGZhZDBmNzg2NDY2ODk2NzYyNTg5NThjMzg3OGUvcGxheWxpc3QubTN1OA==&s=44d97c16b4973548
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",17:00 - 19/06 | Ukraine W VS Netherlands W (Nations League Women) | BLV TRẠNG TÍ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZmYxZjY0Y2EwMTU2NDNhNjhjMWQxYzQyYzEwYjk1NzcvcGxheWxpc3QubTN1OA==&s=a5b2ef5f2cd0076f
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",18:30 - 19/06 | Guangdong Guangzhou Power VS Beijing Guoan (Chinese FA Cup) | BLV TRẠNG BÉO
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMmFiZjIzYjRiNmRhNGZjNzk0YTQ5N2ZhNjI1NWQ0ZjkvcGxheWxpc3QubTN1OA==&s=ee3945f54ce9520a
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",19:00 - 19/06 | Japan W VS Czech Republic W (Nations League Women) | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvYmU1OTdlYzhiNDZlNGZkOGFlMGU0ZDI3MmYzYTIyNTAvcGxheWxpc3QubTN1OA==&s=e52f6dcd65c97147
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",19:00 - 19/06 | Spain VS Georgia (Euro) | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMThlM2E2ODU4NTcxNDg2ZThkY2Y0MmY2NWRlMjNmYmYvcGxheWxpc3QubTN1OA==&s=98e7fbbdf21c2d7a
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",20:00 - 19/06 | France W VS China W (Nations League Women) | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMmRkYmFhNWE4NTk3NDMzMjlhOWU2MWQyZDFkZWI4OWYvcGxheWxpc3QubTN1OA==&s=298c9caadb063b77
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",21:00 - 19/06 | Hungary VS Azerbaijan (EURO) | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMzE0MDk1YzRmYWM0NGY1M2E2ZWEyYWQ2NjNkNWQ5YWUvcGxheWxpc3QubTN1OA==&s=a635745ebe9294a9
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",22:00 - 19/06 | Croatia VS Bosnia & Herzegovina (Euro) | BLV TRẠNG TÍ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMTk0ZDE5MTU2ZDBhNDBlOTg1Y2M3NTM5MjRiNzQ5ZjAvcGxheWxpc3QubTN1OA==&s=90f860f56606616b
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",23:00 - 19/06 | Sweden VS Montenegro (EURO) | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMDhkNTA4OTUzYmQ2NGQ0YmI2NDgxYmZmZmVmNDZhMzAvcGxheWxpc3QubTN1OA==&s=cea3fd0e02aef097
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",23:30 - 19/06 | Belgium W VS Germany W (Nations League Women) | BLV TRẠNG QUỶ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMDI0Zjg0Mjk1ZmVlNGJlMWJjOTQ2ZWM4ZWJlMDE5ZDQvcGxheWxpc3QubTN1OA==&s=1378457e4132c5c3
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",02:00 - 20/06 | USA VS Australia (FIFA World Cup) | BLV TRẠNG QUỶ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZGQ1MGVhNTFjYTVkNGE3ZmFmYzc3ZjMxZDFiNDRkZGQvcGxheWxpc3QubTN1OA==&s=099d5f30cd7526d0
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",02:00 - 20/06 | USA VS Australia (FIFA World Cup) | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZDhhY2Y1ZjdhNjcxNGFiYmFkMzRiMmYyZTVhYmNkMjIvcGxheWxpc3QubTN1OA==&s=7bbb45c517aac9a2
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",05:00 - 20/06 | Scotland VS Morocco (FIFA World Cup) | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvYmJhNjRjNGVhYTNjNDI3OTk4MTdiZjc5MGRmMTljYzAvcGxheWxpc3QubTN1OA==&s=b726bd3287768c5e
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",05:00 - 20/06 | Scotland VS Morocco (FIFA World Cup) | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZWNmMDA0NTQ4NjVjNDMxYmEwZDkzNjY0ZjEwYTkyMTYvcGxheWxpc3QubTN1OA==&s=7d8b6642ebec333f
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",06:00 - 20/06 | Westchester SC VS Portland Hearts of Pine (USL League One) | BLV TRẠNG TÍ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvNGMzNjI4ZmFjNWY5NGZmN2I5ZTAxYTlmM2JjMmEyNmQvcGxheWxpc3QubTN1OA==&s=6aaff224a704e112
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",07:30 - 20/06 | Brazil VS Haiti (FIFA World Cup) | BLV TRẠNG QUỶ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvY2FiZDRjZmRhZDQyNDdhZWEwMjUyNTBjMTA1YzJiOTMvcGxheWxpc3QubTN1OA==&s=f63927bffac0bc01
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",07:30 - 20/06 | Brazil VS Haiti (FIFA World Cup) | BLV TRẠNG PHỆ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZDQ1NjA3ZDAwYzg5NDBhNjkzZGNmNmM0NDliMWYxNTcvcGxheWxpc3QubTN1OA==&s=725ed20e88751070
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",10:00 - 20/06 | Turkiye VS Paraguay (FIFA World Cup) | BLV TRẠNG TÈO
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvOTNlZDQ0MjYwMTA0NGVkZmFlNWQzNDA3YzQ2MmU0YzcvcGxheWxpc3QubTN1OA==&s=51dfc1bbc2c0f2c2
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",10:00 - 20/06 | Turkiye VS Paraguay (FIFA World Cup) | BLV TRẠNG PHỆ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZDcwODZjZGY2ZTJiNGQxNzliNjRlYTQ2ZmU4NjI0OGYvcGxheWxpc3QubTN1OA==&s=d8183a01bcf0f67a
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",20:00 - 18/06 | Bỉ VS Brazil (Nation League Women) | BLV PHAN BỐNG
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmJvbmcvcGxheWxpc3QubTN1OA==&s=03ac7877212fa0a6
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 18/06 | Turan Turkistan VS Aktobe Jas (1. Division) | BLV TÁO GIÀ
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly90ZGxpdmUueWFybmNkbi5saXZlL2xpdmUvdGR0dl9ibHZfdGFvdGluaHRhby9wbGF5bGlzdC5tM3U4&s=03169d00575c96d9
 #EXTINF:-1 tvg-logo="https://fifa.discorddata.site/pingpong_1_cfu9el.png" group-title="Hội Quán TV",22:00 - 18/06 | Tay Vợt 1 VS Tay Vợt 2 (WTT Star Contender Ljubljana 2026) | BLV PHAN CA
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmNhL3BsYXlsaXN0Lm0zdTg=&s=02328f036393bdec
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 18/06 | Czech Republic VS South Africa (World Cup) | BLV PHAN MÃ
@@ -139,8 +7,6 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbnF1YXkvcGxheWxpc3QubTN1OA==&s=bad575e1855ad304
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",23:30 - 18/06 | Thổ Nhĩ Kỳ VS Pháp (Nation League Women) | BLV LƯƠNG BỔNG
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmxpZW0vcGxheWxpc3QubTN1OA==&s=ba4f56a89a5f2169
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:30 - 19/06 | Sollentuna VS FBK Karlstad (Ettan - Norra) | BLV TÁO GIÀ
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly90ZGxpdmUueWFybmNkbi5saXZlL2xpdmUvdGR0dl9ibHZfdGFvdGluaHRhby9wbGF5bGlzdC5tM3U4&s=03169d00575c96d9
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",02:00 - 19/06 | Switzerland VS Bosnia & Herzegovina (World Cup) | BLV PHAN MÃ
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbm1hL3BsYXlsaXN0Lm0zdTg=&s=4ccba1e7e2f2bdc0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",02:00 - 19/06 | Switzerland VS Bosnia & Herzegovina (World Cup) | BLV PHAN QUẨY
@@ -235,8 +101,6 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmJvbmcvcGxheWxpc3QubTN1OA==&s=03ac7877212fa0a6
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",09:00 - 26/06 | Paraguay VS Australia (World Cup) | BLV PHAN MÃ
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbm1hL3BsYXlsaXN0Lm0zdTg=&s=4ccba1e7e2f2bdc0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:00 - 18/06 | Turan Turkistan VS Aktobe Jas (1. Division) | Mơ
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtbW8vcGxheWxpc3QubTN1OA==&s=775953112d46307b
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 18/06 | Czech Republic VS South Africa (World Cup) | Nhật Tinh Ngao
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtbmhhdHRpbmhuZ2FvL3BsYXlsaXN0Lm0zdTg=&s=6a6a6e7e50baded9
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 18/06 | Czech Republic VS South Africa (World Cup) | Dế Lửa
@@ -785,6 +649,8 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cDovL3VhLm9ubGluZTI0LnBtL3BsYXkvMTEwMy8zNTBCMzI2RkIzNEY0QjgvdmlkZW8ubTN1OA==&s=d4685d3c6ed552f0
 #EXTINF:-1 tvg-id="" group-title="Thể thao quốc tế" tvg-logo="https://ip-tv.dev/images/ico/bein-sport-4.png",BeIN Sport 4 HD Serbia
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cDovL3VhLm9ubGluZTI0LnBtL3BsYXkvMTEwNC8zNTBCMzI2RkIzNEY0QjgvdmlkZW8ubTN1OA==&s=1c0a93329a3781a6
+#EXTINF:-1 tvg-id="" tvg-logo="https://schedulesdirect-api20141201-logos.s3.dualstack.us-east-1.amazonaws.com/stationLogos/s131810_dark_360w_270h.png" group-title="Thể thao quốc tế",DAZN
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly8xbnlhbGVyLnN0cmVhbWhvc3RpbmdjZG4udG9wL3N0cmVhbS85NC9pbmRleC5tM3U4&s=1ea8f7a3e9d7841b
 #EXTINF:-1 tvg-name="DAZN 1" tvg-logo="http://51.158.145.100/picons/logos/PPV/DAZN.png" group-title="Thể thao quốc tế",DAZN 1
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cDovL2xpbmUubWFpbjRrLmNvbTo4MC84ZDFkMDAzNzg0LzlmZGJiN2I4MjFmNS8xOTE4MTky&s=0b38e2a14aadfe81
 #EXTINF:-1 tvg-name="DAZN 2" tvg-logo="http://51.158.145.100/picons/logos/PPV/DAZN.png" group-title="Thể thao quốc tế",DAZN 2
@@ -1084,3 +950,4 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9wbGF5LnZvdmdpYW90aG9uZy52bi9saXZlL21la29uZy9wbGF5bGlzdC5tM3U4&s=4f7a2f469af690e0
 #EXTINF:-1 tvg-name="VOV GIAO THÔNG DUYÊN HẢI" tvg-logo="https://i.postimg.cc/t43J2yhN/Duyenhai.png" group-title="KÊNH VOV",VOV GIAO THÔNG DUYÊN HẢI
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9wbGF5LnZvdmdpYW90aG9uZy52bi9saXZlL2R1eWVuaGFpL3BsYXlsaXN0Lm0zdTg=&s=1678d0ad37e54a5e
+# Errors: tieulam: 403 Client Error: Forbidden for url: https://api.tlap17062026.com/matches/graph
