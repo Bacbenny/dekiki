@@ -14,7 +14,7 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 18/06 | Czechia VS South Africa (FIFA World Cup) | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMmVhZGE4MDU5OWM5NDEwOWE2ODI4ZWFhNjg5YzE4ZGUvcGxheWxpc3QubTN1OA==&s=27bb1acd3bdd9d56
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvNjc3NDIzNmIxOTZlYjAwZGQ5MjBmNGVjM2UzNjcxYWEvcGxheWxpc3QubTN1OA==&s=2ca4ddf5d2588b66
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",23:30 - 18/06 | Turkey W VS France W (Nations League Women) | BLV TRẠNG NGỐ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
@@ -131,10 +131,6 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZDcwODZjZGY2ZTJiNGQxNzliNjRlYTQ2ZmU4NjI0OGYvcGxheWxpc3QubTN1OA==&s=d8183a01bcf0f67a
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",19:00 - 18/06 | Akademiya Ontustik VS Yelimay Semey 2 (1. Division) | BLV TÁO GIÀ
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly90ZGxpdmUueWFybmNkbi5saXZlL2xpdmUvdGR0dl9ibHZfdGFvdGluaHRhby9wbGF5bGlzdC5tM3U4&s=03169d00575c96d9
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",19:00 - 18/06 | Serbia VS Italy (Nation League Women) | BLV LƯƠNG BỔNG
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmxpZW0vcGxheWxpc3QubTN1OA==&s=ba4f56a89a5f2169
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",20:00 - 18/06 | Arys VS Kaspij Aktau 2 (1. Division) | BLV PHAN ANH
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmFuaC9wbGF5bGlzdC5tM3U4&s=669e92f0954f92f8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",20:00 - 18/06 | Bỉ VS Brazil (Nation League Women) | BLV PHAN BỐNG
@@ -253,10 +249,6 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmJvbmcvcGxheWxpc3QubTN1OA==&s=03ac7877212fa0a6
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",09:00 - 26/06 | Paraguay VS Australia (World Cup) | BLV PHAN MÃ
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbm1hL3BsYXlsaXN0Lm0zdTg=&s=4ccba1e7e2f2bdc0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",19:00 - 18/06 | Serbia Nữ VS Ý Nữ (Nations League 2026) | Núi
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtbnVpL3BsYXlsaXN0Lm0zdTg=&s=bbb2d74642f2ca3d
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",19:00 - 18/06 | Akademiya Ontustik VS Yelimay Semey 2 (1. Division) | Mơ
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtbW8vcGxheWxpc3QubTN1OA==&s=775953112d46307b
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",20:00 - 18/06 | Bỉ Nữ VS Brazil Nữ (Nations League 2026) | T-Rex
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtdC1yZXgvcGxheWxpc3QubTN1OA==&s=b09695d8a6893511
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",20:30 - 18/06 | Thái Lan Nữ VS Bulgaria Nữ (Nations League 2026) | Kaka
