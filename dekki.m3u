@@ -1,12 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://fifa.discorddata.site/pingpong_1_cfu9el.png" group-title="Hội Quán TV",22:00 - 18/06 | Tay Vợt 1 VS Tay Vợt 2 (WTT Star Contender Ljubljana 2026) | BLV PHAN CA
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmNhL3BsYXlsaXN0Lm0zdTg=&s=02328f036393bdec
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 18/06 | Czech Republic VS South Africa (World Cup) | BLV PHAN MÃ
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbm1hL3BsYXlsaXN0Lm0zdTg=&s=4ccba1e7e2f2bdc0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 18/06 | Czech Republic VS South Africa (World Cup) | BLV PHAN QUẨY
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbnF1YXkvcGxheWxpc3QubTN1OA==&s=bad575e1855ad304
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",23:30 - 18/06 | Thổ Nhĩ Kỳ VS Pháp (Nation League Women) | BLV LƯƠNG BỔNG
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmxpZW0vcGxheWxpc3QubTN1OA==&s=ba4f56a89a5f2169
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",02:00 - 19/06 | Switzerland VS Bosnia & Herzegovina (World Cup) | BLV PHAN MÃ
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbm1hL3BsYXlsaXN0Lm0zdTg=&s=4ccba1e7e2f2bdc0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",02:00 - 19/06 | Switzerland VS Bosnia & Herzegovina (World Cup) | BLV PHAN QUẨY
@@ -29,6 +21,8 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmhhaS9wbGF5bGlzdC5tM3U4&s=bb171ee2b3d4e619
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",16:30 - 19/06 | Bentleigh Greens VS South Melbourne (Victoria NPL) | BLV PHAN CA
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmNhL3BsYXlsaXN0Lm0zdTg=&s=02328f036393bdec
+#EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",16:30 - 19/06 | Ben Shelton VS Taylor Fritz (ATP500 Halle) | BLV PHAN PHÉP
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbnBoZXAvcGxheWxpc3QubTN1OA==&s=a613c7b12fd44cab
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",17:00 - 19/06 | Ukraina VS Hà Lan (Nation League Women) | BLV PHAN BỐNG
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmJvbmcvcGxheWxpc3QubTN1OA==&s=03ac7877212fa0a6
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",18:00 - 19/06 | Shaanxi Union VS Hangzhou Greentown (FA Cup) | BLV TÁO GIÀ
@@ -53,6 +47,8 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly90ZGxpdmUueWFybmNkbi5saXZlL2xpdmUvdGR0dl9ibHZfdGFvdGluaHRhby9wbGF5bGlzdC5tM3U4&s=03169d00575c96d9
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 19/06 | Naftan VS Baranovichi (VĐQG Belarus) | BLV PHAN ANH
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmFuaC9wbGF5bGlzdC5tM3U4&s=669e92f0954f92f8
+#EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",22:30 - 19/06 | Elina Svitolina VS Alexandra Eala (WTA500 Berlin) | BLV PHAN CA
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmNhL3BsYXlsaXN0Lm0zdTg=&s=02328f036393bdec
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 20/06 | Ranheim VS Lyn (1. Division) | BLV TÁO GIÀ
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly90ZGxpdmUueWFybmNkbi5saXZlL2xpdmUvdGR0dl9ibHZfdGFvdGluaHRhby9wbGF5bGlzdC5tM3U4&s=03169d00575c96d9
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",02:00 - 20/06 | USA VS Australia (World Cup) | BLV PHAN MÃ
@@ -101,12 +97,6 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmJvbmcvcGxheWxpc3QubTN1OA==&s=03ac7877212fa0a6
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",09:00 - 26/06 | Paraguay VS Australia (World Cup) | BLV PHAN MÃ
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbm1hL3BsYXlsaXN0Lm0zdTg=&s=4ccba1e7e2f2bdc0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 18/06 | Czech Republic VS South Africa (World Cup) | Nhật Tinh Ngao
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtbmhhdHRpbmhuZ2FvL3BsYXlsaXN0Lm0zdTg=&s=6a6a6e7e50baded9
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 18/06 | Czech Republic VS South Africa (World Cup) | Dế Lửa
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtZGVsdWEvcGxheWxpc3QubTN1OA==&s=065738e5046fe80d
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",23:30 - 18/06 | Pháp Nữ VS Thổ Nhĩ Kỳ Nữ (Nations League 2026) | Kaka
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYta2svcGxheWxpc3QubTN1OA==&s=89bbe62b5e63c828
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",02:00 - 19/06 | Switzerland VS Bosnia & Herzegovina (World Cup) | Nhật Tinh Ngao
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtbmhhdHRpbmhuZ2FvL3BsYXlsaXN0Lm0zdTg=&s=6a6a6e7e50baded9
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",02:00 - 19/06 | Switzerland VS Bosnia & Herzegovina (World Cup) | Dế Lửa
