@@ -138,6 +138,26 @@ def _discover_tieulam_api_base(scraper) -> str:
                       return hit.rstrip("/")
       except Exception:
           pass
+
+      # Fallback: tự tính domain theo pattern api.tlap{DDMMYYYY}.com
+      # Domain xoay không đều, thử hôm nay và vài ngày gần nhất
+      try:
+          from datetime import date as _date
+          today = datetime.now(VN_TZ).date()
+          for delta in range(0, 7):
+              d = today - timedelta(days=delta)
+              candidate = f"https://api.tlap{d.strftime('%d%m%Y')}.com"
+              if candidate == TIEULAM_KNOWN_API_BASE:
+                  continue
+              try:
+                  test_r = scraper.get(candidate, timeout=5)
+                  if test_r.status_code in (200, 405):  # 405 = domain sống, chỉ cần POST
+                      return candidate
+              except Exception:
+                  pass
+      except Exception:
+          pass
+
       return TIEULAM_KNOWN_API_BASE
 def _get_tieulam_api_base(scraper=None) -> str:
     """Trả về base URL (không có endpoint path) của TieuLam API."""
@@ -195,7 +215,9 @@ def _fetch_tieulam_via_relay() -> list:
         headers["X-Relay-Token"] = TIEULAM_RELAY_SECRET
     resp = requests.get(TIEULAM_RELAY_URL, headers=headers, timeout=15)
     resp.raise_for_status()
-    return resp.json().get("data", [])
+    rdata = resp.json()
+    # Worker mới trả về {data:[...]}, relay cũ có thể trả {fixtures:[...]}
+    return rdata.get("data") or rdata.get("fixtures") or []
 
 
 def _fetch_tieulam_matches() -> list:
