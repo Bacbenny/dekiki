@@ -1,3 +1,6 @@
+import base64
+import hashlib
+import hmac
 import os
 import re
 import sys
@@ -23,6 +26,18 @@ VTV_M3U_URL            = (os.environ.get("VTV_M3U_URL") or "https://raw.githubus
 TIEULAM_RELAY_URL        = os.environ.get("TIEULAM_RELAY_URL", "")
 TIEULAM_REPLIT_RELAY_URL = os.environ.get("TIEULAM_REPLIT_RELAY_URL", "")
 TIEULAM_RELAY_SECRET     = os.environ.get("RELAY_SECRET", "")
+REPLIT_PROXY_BASE        = os.environ.get("REPLIT_PROXY_BASE", "").rstrip("/")
+
+# ─── Stream URL proxy helper ─────────────────────────────────────────────────
+def _proxy_stream_url(url: str) -> str:
+    """Ẩn URL stream thật sau /api/stream?u=<b64>&s=<hmac16>.
+    Nếu REPLIT_PROXY_BASE chưa set, trả về URL gốc không thay đổi."""
+    if not REPLIT_PROXY_BASE or not url.startswith("http"):
+        return url
+    b64 = base64.urlsafe_b64encode(url.encode()).decode()
+    secret = (TIEULAM_RELAY_SECRET or "ballball").encode()
+    sig = hmac.new(secret, b64.encode(), hashlib.sha256).hexdigest()[:16]
+    return f"{REPLIT_PROXY_BASE}/api/stream?u={b64}&s={sig}"
 
 # ─── Hội Quán TV config ───────────────────────────────────────────────────────
 HOIQUAN_FRONTEND_URL   = (os.environ.get("HOIQUAN_FRONTEND") or "https://sv2.hoiquan4.live")
@@ -812,17 +827,24 @@ def main():
     vtv_lines      = results.get("vtv",      [])
 
     all_lines = tieulam_lines + hoiquan_lines + khandaia_lines + vtv_lines
-    total     = sum(1 for l in all_lines if l.startswith("#EXTINF"))
 
+    # ── Ẩn URL stream thật sau proxy (nếu REPLIT_PROXY_BASE được cấu hình) ────
+    if REPLIT_PROXY_BASE:
+        all_lines = [
+            _proxy_stream_url(line) if (line and not line.startswith("#")) else line
+            for line in all_lines
+        ]
+        print(f"  🔒 URL stream đã được proxy qua {REPLIT_PROXY_BASE}/api/stream")
+
+    total   = sum(1 for l in all_lines if l.startswith("#EXTINF"))
     content = "#EXTM3U\n" + "\n".join(all_lines)
     if errors:
         content += "\n# Errors: " + "; ".join(errors)
 
-    output_file = "dekki.m3u"
-    with open(output_file, "w", encoding="utf-8") as f:
+    with open("dekki.m3u", "w", encoding="utf-8") as f:
         f.write(content)
 
-    print(f"\n✅ Hoàn thành! Đã lưu {total} kênh vào '{output_file}'")
+    print(f"\n✅ Hoàn thành! Đã lưu {total} kênh vào 'dekki.m3u'")
     if errors:
         print(f"⚠️  Lỗi xảy ra: {'; '.join(errors)}", file=sys.stderr)
 

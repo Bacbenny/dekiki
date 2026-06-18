@@ -50,6 +50,7 @@ jobs:
           TIEULAM_RELAY_URL: ${{ secrets.TIEULAM_RELAY_URL }}
           TIEULAM_REPLIT_RELAY_URL: ${{ secrets.TIEULAM_REPLIT_RELAY_URL }}
           RELAY_SECRET: ${{ secrets.RELAY_SECRET }}
+          REPLIT_PROXY_BASE: ${{ secrets.REPLIT_PROXY_BASE }}
           HOIQUAN_FRONTEND: ${{ secrets.HOIQUAN_FRONTEND }}
           HOIQUAN_API: ${{ secrets.HOIQUAN_API }}
           KHANDAIA_FRONTEND: ${{ secrets.KHANDAIA_FRONTEND }}
