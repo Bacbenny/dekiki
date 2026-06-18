@@ -20,8 +20,9 @@ TIEULAM_KNOWN_API_BASE = (os.environ.get("TIEULAM_API") or "https://api.tlap1706
 TIEULAM_STREAM_CDN     = (os.environ.get("TIEULAM_CDN") or "https://live.secufun.xyz")
 TIEULAM_ASYNC_CDN      = (os.environ.get("TIEULAM_ASYNC_CDN") or "https://pull1.asynccdn.xyz")
 VTV_M3U_URL            = (os.environ.get("VTV_M3U_URL") or "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/VTV.m3u")
-TIEULAM_RELAY_URL      = os.environ.get("TIEULAM_RELAY_URL", "")
-TIEULAM_RELAY_SECRET   = os.environ.get("RELAY_SECRET", "")
+TIEULAM_RELAY_URL        = os.environ.get("TIEULAM_RELAY_URL", "")
+TIEULAM_REPLIT_RELAY_URL = os.environ.get("TIEULAM_REPLIT_RELAY_URL", "")
+TIEULAM_RELAY_SECRET     = os.environ.get("RELAY_SECRET", "")
 
 # ─── Hội Quán TV config ───────────────────────────────────────────────────────
 HOIQUAN_FRONTEND_URL   = (os.environ.get("HOIQUAN_FRONTEND") or "https://sv2.hoiquan4.live")
@@ -209,23 +210,31 @@ def _fetch_tieulam_live_urls(match_id: str) -> tuple[str, str]:
         return ("", "")
 
 
-def _fetch_tieulam_via_relay() -> list:
+def _fetch_tieulam_via_relay(url: str) -> list:
     headers: dict = {}
     if TIEULAM_RELAY_SECRET:
         headers["X-Relay-Token"] = TIEULAM_RELAY_SECRET
-    resp = requests.get(TIEULAM_RELAY_URL, headers=headers, timeout=15)
+    resp = requests.get(url, headers=headers, timeout=20)
     resp.raise_for_status()
     rdata = resp.json()
-    # Worker mới trả về {data:[...]}, relay cũ có thể trả {fixtures:[...]}
+    # Worker/Replit trả về {data:[...]}, relay cũ có thể trả {fixtures:[...]}
     return rdata.get("data") or rdata.get("fixtures") or []
 
 
 def _fetch_tieulam_matches() -> list:
+    # 1) Thử relay chính (Cloudflare Worker / URL tuỳ chỉnh)
     if TIEULAM_RELAY_URL:
         try:
-            return _fetch_tieulam_via_relay()
+            return _fetch_tieulam_via_relay(TIEULAM_RELAY_URL)
         except Exception as e:
-            print(f"⚠️  Relay failed: {e}", file=sys.stderr)
+            print(f"⚠️  TieuLam relay thất bại: {e}", file=sys.stderr)
+
+    # 2) Fallback: Replit relay (chạy 24/7)
+    if TIEULAM_REPLIT_RELAY_URL:
+        try:
+            return _fetch_tieulam_via_relay(TIEULAM_REPLIT_RELAY_URL)
+        except Exception as e:
+            print(f"⚠️  Replit relay thất bại: {e}", file=sys.stderr)
 
     cutoff     = (datetime.now(timezone.utc) - timedelta(seconds=MATCH_MAX_AGE_SECONDS)).strftime("%Y-%m-%dT%H:%M:%S")
     cutoff_end = (datetime.now(timezone.utc) + timedelta(hours=72)).strftime("%Y-%m-%dT%H:%M:%S")
@@ -704,40 +713,56 @@ def _build_fixture_lines(fixtures: list, group_title: str) -> list:
 #  Main — fetch 4 nguồn, gộp, lưu file
 # ══════════════════════════════════════════════════════════════════════════════
 
+def _try_relay(url: str, label: str) -> list | None:
+    """
+    Gọi một relay URL, xử lý cả 2 format trả về:
+      - {data: [...]}     → raw TieuLam matches → _build_tieulam_lines
+      - {fixtures: [...]} → pre-built fixtures  → _build_lines_from_fixtures
+    Trả về danh sách lines nếu >= 3 kênh, None nếu thất bại/ít kênh.
+    """
+    try:
+        hdrs: dict = {}
+        if TIEULAM_RELAY_SECRET:
+            hdrs["X-Relay-Token"] = TIEULAM_RELAY_SECRET
+        r = requests.get(url, headers=hdrs, timeout=20)
+        r.raise_for_status()
+        rdata = r.json()
+
+        lines: list = []
+        if rdata.get("data"):
+            lines = _build_tieulam_lines(rdata["data"])
+        elif rdata.get("fixtures"):
+            lines = _build_lines_from_fixtures(rdata["fixtures"])
+
+        count = sum(1 for l in lines if l.startswith("#EXTINF"))
+        if count >= 3:
+            print(f"  ✅ [{label}] TieuLam: {count} kênh", file=sys.stderr)
+            return lines
+        print(f"  ⚠️  [{label}] TieuLam chỉ có {count} kênh → thử tiếp", file=sys.stderr)
+    except Exception as e:
+        print(f"  ⚠️  [{label}] thất bại: {e}", file=sys.stderr)
+    return None
+
+
 def fetch_tieulam() -> list:
-      """Lấy dữ liệu TieuLam TV.
-      Thứ tự ưu tiên:
-        1. Relay URL (nếu được cấu hình) → nhưng kiểm tra freshness
-        2. Nếu relay trả về < 3 kênh hợp lệ (do data cũ) → dùng API trực tiếp
-        3. Nếu không có relay → dùng API trực tiếp
-      """
-      if TIEULAM_RELAY_URL:
-          try:
-              hdrs: dict = {}
-              if TIEULAM_RELAY_SECRET:
-                  hdrs["X-Relay-Token"] = TIEULAM_RELAY_SECRET
-              r = requests.get(TIEULAM_RELAY_URL, headers=hdrs, timeout=15)
-              r.raise_for_status()
-              rdata    = r.json()
-              fixtures = rdata.get("fixtures", [])
-              if fixtures:
-                  lines = _build_lines_from_fixtures(fixtures)
-                  channel_count = sum(1 for l in lines if l.startswith("#EXTINF"))
-                  if channel_count >= 3:
-                      print(f"  [relay] TieuLam: {channel_count} kênh hợp lệ", file=sys.stderr)
-                      return lines
-                  # Relay có data nhưng quá ít → data cũ, dùng API trực tiếp
-                  print(f"  [relay] TieuLam chỉ có {channel_count} kênh → dùng API trực tiếp", file=sys.stderr)
-              elif rdata.get("data"):
-                  lines = _build_tieulam_lines(rdata.get("data", []))
-                  channel_count = sum(1 for l in lines if l.startswith("#EXTINF"))
-                  if channel_count >= 3:
-                      return lines
-                  print(f"  [relay data] TieuLam chỉ có {channel_count} kênh → dùng API trực tiếp", file=sys.stderr)
-          except Exception as e:
-              print(f"⚠️  TieuLam relay thất bại: {e}", file=sys.stderr)
-      # API trực tiếp
-      return _build_tieulam_lines(_fetch_tieulam_matches())
+    """Lấy dữ liệu TieuLam TV.
+    Thứ tự ưu tiên:
+      1. TIEULAM_RELAY_URL      — Cloudflare Worker (hoặc URL tuỳ chỉnh)
+      2. TIEULAM_REPLIT_RELAY_URL — Replit API relay (/api/tieulam) — chạy 24/7
+      3. Gọi trực tiếp TieuLam API (thường bị 403 từ GitHub Actions)
+    """
+    if TIEULAM_RELAY_URL:
+        result = _try_relay(TIEULAM_RELAY_URL, "CF Worker")
+        if result is not None:
+            return result
+
+    if TIEULAM_REPLIT_RELAY_URL:
+        result = _try_relay(TIEULAM_REPLIT_RELAY_URL, "Replit relay")
+        if result is not None:
+            return result
+
+    print("  ⚠️  Tất cả relay thất bại → gọi trực tiếp TieuLam API", file=sys.stderr)
+    return _build_tieulam_lines(_fetch_tieulam_matches())
 
 def fetch_hoiquan() -> list:
     return _build_fixture_lines(_fetch_hoiquan_fixtures(), "Hội Quán TV")

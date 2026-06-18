@@ -13,52 +13,60 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Cache pip dependencies
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Run IPTV updater
-      env:
-        TIEULAM_FRONTEND:   ${{ secrets.TIEULAM_FRONTEND }}
-        TIEULAM_API:        ${{ secrets.TIEULAM_API }}
-        TIEULAM_CDN:        ${{ secrets.TIEULAM_CDN }}
-        TIEULAM_ASYNC_CDN:  ${{ secrets.TIEULAM_ASYNC_CDN }}
-        TIEULAM_RELAY_URL:  ${{ secrets.TIEULAM_RELAY_URL }}
-        RELAY_SECRET:       ${{ secrets.RELAY_SECRET }}
-        HOIQUAN_FRONTEND:   ${{ secrets.HOIQUAN_FRONTEND }}
-        HOIQUAN_API:        ${{ secrets.HOIQUAN_API }}
-        KHANDAIA_FRONTEND:  ${{ secrets.KHANDAIA_FRONTEND }}
-        KHANDAIA_API:       ${{ secrets.KHANDAIA_API }}
-        VTV_M3U_URL:        ${{ secrets.VTV_M3U_URL }}
-        MATCH_MAX_DURATION: ${{ secrets.MATCH_MAX_DURATION }}
-      run: python main.py
+      - name: Diagnose relay
+        env:
+          TIEULAM_RELAY_URL: ${{ secrets.TIEULAM_RELAY_URL }}
+          TIEULAM_REPLIT_RELAY_URL: ${{ secrets.TIEULAM_REPLIT_RELAY_URL }}
+          RELAY_SECRET: ${{ secrets.RELAY_SECRET }}
+        run: python diagnose_relay.py
 
-    - name: Commit and Push changes
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "GitHub Action Bot"
-        git add dekki.m3u
-        if git diff --staged --quiet; then
-          echo "Khong co thay doi. Bo qua commit."
-        else
-          TIMESTAMP=$(TZ='Asia/Ho_Chi_Minh' date '+%Y-%m-%d %H:%M:%S ICT')
-          git commit -m "cap nhat dekki.m3u luc ${TIMESTAMP} [skip ci]"
-          git push origin Bac || git push -f origin Bac
-        fi
+      - name: Run IPTV updater
+        env:
+          TIEULAM_FRONTEND: ${{ secrets.TIEULAM_FRONTEND }}
+          TIEULAM_API: ${{ secrets.TIEULAM_API }}
+          TIEULAM_CDN: ${{ secrets.TIEULAM_CDN }}
+          TIEULAM_ASYNC_CDN: ${{ secrets.TIEULAM_ASYNC_CDN }}
+          TIEULAM_RELAY_URL: ${{ secrets.TIEULAM_RELAY_URL }}
+          TIEULAM_REPLIT_RELAY_URL: ${{ secrets.TIEULAM_REPLIT_RELAY_URL }}
+          RELAY_SECRET: ${{ secrets.RELAY_SECRET }}
+          HOIQUAN_FRONTEND: ${{ secrets.HOIQUAN_FRONTEND }}
+          HOIQUAN_API: ${{ secrets.HOIQUAN_API }}
+          KHANDAIA_FRONTEND: ${{ secrets.KHANDAIA_FRONTEND }}
+          KHANDAIA_API: ${{ secrets.KHANDAIA_API }}
+          VTV_M3U_URL: ${{ secrets.VTV_M3U_URL }}
+          MATCH_MAX_DURATION: ${{ secrets.MATCH_MAX_DURATION }}
+        run: python main.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add dekki.m3u
+          if git diff --staged --quiet; then
+            echo "Khong co thay doi. Bo qua commit."
+          else
+            TIMESTAMP=$(TZ='Asia/Ho_Chi_Minh' date '+%Y-%m-%d %H:%M:%S ICT')
+            git commit -m "cap nhat dekki.m3u luc ${TIMESTAMP} [skip ci]"
+            git push origin main
+          fi
