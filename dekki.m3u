@@ -1,8 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",02:00 - 19/06 | Switzerland VS Bosnia & Herzegovina (World Cup) | BLV PHAN MÃ
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbm1hL3BsYXlsaXN0Lm0zdTg=&s=4ccba1e7e2f2bdc0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",02:00 - 19/06 | Switzerland VS Bosnia & Herzegovina (World Cup) | BLV PHAN QUẨY
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbnF1YXkvcGxheWxpc3QubTN1OA==&s=bad575e1855ad304
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",05:00 - 19/06 | Canada VS Qatar (World Cup) | BLV PHAN QUẨY
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbnF1YXkvcGxheWxpc3QubTN1OA==&s=bad575e1855ad304
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",05:00 - 19/06 | Canada VS Qatar (World Cup) | BLV LƯƠNG BỔNG
@@ -97,12 +93,6 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmJvbmcvcGxheWxpc3QubTN1OA==&s=03ac7877212fa0a6
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",09:00 - 26/06 | Paraguay VS Australia (World Cup) | BLV PHAN MÃ
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbm1hL3BsYXlsaXN0Lm0zdTg=&s=4ccba1e7e2f2bdc0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",02:00 - 19/06 | Switzerland VS Bosnia & Herzegovina (World Cup) | Nhật Tinh Ngao
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtbmhhdHRpbmhuZ2FvL3BsYXlsaXN0Lm0zdTg=&s=6a6a6e7e50baded9
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",02:00 - 19/06 | Switzerland VS Bosnia & Herzegovina (World Cup) | Dế Lửa
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtZGVsdWEvcGxheWxpc3QubTN1OA==&s=065738e5046fe80d
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",02:00 - 19/06 | Switzerland VS Bosnia & Herzegovina (World Cup) | Núi
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtbnVpL3BsYXlsaXN0Lm0zdTg=&s=bbb2d74642f2ca3d
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",05:00 - 19/06 | Canada VS Qatar (World Cup) | Nhật Tinh Ngao
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtbmhhdHRpbmhuZ2FvL3BsYXlsaXN0Lm0zdTg=&s=6a6a6e7e50baded9
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",05:00 - 19/06 | Canada VS Qatar (World Cup) | Dế Lửa
