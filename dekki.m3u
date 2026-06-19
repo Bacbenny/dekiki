@@ -1,12 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",18:30 - 19/06 | Guangdong Guangzhou Power VS Beijing Guoan (Chinese FA Cup) | BLV TRẠNG BÉO
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvNzhiNzc1NGJmNTEwMzQ2ZWJjMDk5YjNkZTNjOTE5YjQvcGxheWxpc3QubTN1OA==&s=cb9f30da895d01f4
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",19:00 - 19/06 | Japan W VS Czech Republic W (Nations League Women) | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvYmU1OTdlYzhiNDZlNGZkOGFlMGU0ZDI3MmYzYTIyNTAvcGxheWxpc3QubTN1OA==&s=e52f6dcd65c97147
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",20:00 - 19/06 | FC Shakhtyor Karagandy VS Jaiyq (Kazakhstan Division 1) | BLV TRẠNG TÈO
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
@@ -26,7 +18,7 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",22:00 - 19/06 | Naftan Novopolotsk VS FC Baranovichi (Belarusian Premier League) | BLV TRẠNG QUỶ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMjQ3YTFjN2NjYTEwNDNiNTg5MjExZDU3MGY0ZjU4NGUvcGxheWxpc3QubTN1OA==&s=77c5c72deb8a257e
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMmEwNDhhMGRiZjcyYWMzNjRjYjEyN2Q1ZWZiNDc1MTIvcGxheWxpc3QubTN1OA==&s=5f1e9680abae1684
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="TieuLam TV",23:00 - 19/06 | Sweden VS Montenegro (EURO) | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
@@ -38,7 +30,7 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:00 - 20/06 | Ranheim IL VS Lyn Oslo (Norwegian 1.Divisjon) | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvMDBlN2NiZjMyMGEzNGY3ZmI2MTAzMjBjMjJmNzgzMGUvcGxheWxpc3QubTN1OA==&s=1d467d296656663d
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvNDM4ZjE3ZDIwNGVhN2U2OGFmNDExZjExN2VjNDQzOTcvcGxheWxpc3QubTN1OA==&s=1a82d61ef1066e67
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",02:00 - 20/06 | USA VS Australia (FIFA World Cup) | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
@@ -50,7 +42,7 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",02:00 - 20/06 | USA VS Australia (FIFA World Cup) | BLV TRẠNG NGỐ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZDhhY2Y1ZjdhNjcxNGFiYmFkMzRiMmYyZTVhYmNkMjIvcGxheWxpc3QubTN1OA==&s=7bbb45c517aac9a2
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvN2M4NmM4MTk5ZWNhYzJjZGNhYjcxYjUzZmI1YzI1ZjgvcGxheWxpc3QubTN1OA==&s=62233276df83bf89
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",05:00 - 20/06 | Scotland VS Morocco (FIFA World Cup) | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
@@ -58,7 +50,7 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",05:00 - 20/06 | Scotland VS Morocco (FIFA World Cup) | BLV TRẠNG NGỐ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvZWNmMDA0NTQ4NjVjNDMxYmEwZDkzNjY0ZjEwYTkyMTYvcGxheWxpc3QubTN1OA==&s=7d8b6642ebec333f
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvNTEzODM0M2VlYzhjMGYwMzI1YzU4ZTRlMTE1YTI0MmUvcGxheWxpc3QubTN1OA==&s=8b011b91a41113e4
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",05:00 - 20/06 | Scotland VS Morocco (FIFA World Cup) | BLV TRẠNG BÉO
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
@@ -155,22 +147,16 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9saXZlLnNlY3VmdW4ueHl6L2xpdmUvYjM3ZGI4ZmJmYzVhNDg3ZWI1MTdlZjc1NWVkYWVmN2UvcGxheWxpc3QubTN1OA==&s=6aec2bf671cb3e01
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",18:30 - 19/06 | Guangzhou E-Power VS Beijing Guoan (FA Cup) | BLV THẦN THÔNG
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly90ZGxpdmUueWFybmNkbi5saXZlL2xpdmUvdGR0dl9ibHZfdGFvdmFubmdoZS9wbGF5bGlzdC5tM3U4&s=6c8bfd3a0baa1ebe
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",18:30 - 19/06 | Rizhao Yuqi VS Tianjin Teda (FA Cup) | BLV PHAN QUẨY
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbnF1YXkvcGxheWxpc3QubTN1OA==&s=bad575e1855ad304
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",19:00 - 19/06 | Nhật Bản VS CH Séc (Nation League Women) | BLV PHAN BỐNG
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmJvbmcvcGxheWxpc3QubTN1OA==&s=03ac7877212fa0a6
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",20:00 - 19/06 | Pháp VS Trung Quốc (Nation League Women) | BLV TÁO GIÀ
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly90ZGxpdmUueWFybmNkbi5saXZlL2xpdmUvdGR0dl9ibHZfdGFvdGluaHRhby9wbGF5bGlzdC5tM3U4&s=03169d00575c96d9
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",20:30 - 19/06 | Bulgaria VS Canada (Nation League Women) | BLV LƯƠNG BỔNG
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmxpZW0vcGxheWxpc3QubTN1OA==&s=ba4f56a89a5f2169
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",20:30 - 19/06 | Bỉ VS Đức (Nation League Women) | BLV PHAN CHỚP
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmNob3AvcGxheWxpc3QubTN1OA==&s=b7968282242231fe
+#EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",20:30 - 19/06 | Arthur Fery VS Francisco Cerundolo (WTA500 Berlin) | BLV PHAN BỐNG
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmJvbmcvcGxheWxpc3QubTN1OA==&s=03ac7877212fa0a6
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",21:00 - 19/06 | Khan Tengri VS Taraz (1. Division) | BLV THẦN THÔNG
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly90ZGxpdmUueWFybmNkbi5saXZlL2xpdmUvdGR0dl9ibHZfdGFvdmFubmdoZS9wbGF5bGlzdC5tM3U4&s=6c8bfd3a0baa1ebe
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 19/06 | Naftan VS Baranovichi (VĐQG Belarus) | BLV PHAN ANH
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmFuaC9wbGF5bGlzdC5tM3U4&s=669e92f0954f92f8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",23:30 - 19/06 | Bỉ VS Đức (Nation League Women) | BLV PHAN CHỚP
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmNob3AvcGxheWxpc3QubTN1OA==&s=b7968282242231fe
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 20/06 | Ranheim VS Lyn (1. Division) | BLV TÁO GIÀ
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly90ZGxpdmUueWFybmNkbi5saXZlL2xpdmUvdGR0dl9ibHZfdGFvdGluaHRhby9wbGF5bGlzdC5tM3U4&s=03169d00575c96d9
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",02:00 - 20/06 | USA VS Australia (World Cup) | BLV PHAN MÃ
@@ -277,10 +263,6 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbmNob3AvcGxheWxpc3QubTN1OA==&s=b7968282242231fe
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",23:30 - 21/06 | Thổ Nhĩ Kỳ VS Trung Quốc (Nation League Women) | BLV PHAN PHÉP
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9ocWxpdmUueWFybmNkbi5saXZlL2xpdmUvaHF0dl9ibHZfcGhhbnBoZXAvcGxheWxpc3QubTN1OA==&s=a613c7b12fd44cab
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",19:00 - 19/06 | Nhật Bản Nữ VS Cộng hòa Séc Nữ (Nations League 2026) | Kaka
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYta2svcGxheWxpc3QubTN1OA==&s=89bbe62b5e63c828
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",20:00 - 19/06 | Pháp Nữ VS Trung Quốc Nữ (Nations League 2026) | Núi
-https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtbnVpL3BsYXlsaXN0Lm0zdTg=&s=bbb2d74642f2ca3d
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",20:00 - 19/06 | Shakhter Karagandy VS Jaiyq (1. Division) | Mơ
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtbW8vcGxheWxpc3QubTN1OA==&s=775953112d46307b
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",20:30 - 19/06 | Bulgaria Nữ VS Canada Nữ (Nations League 2026) | T-Rex
@@ -399,6 +381,40 @@ https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/ap
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtZGVsdWEvcGxheWxpc3QubTN1OA==&s=065738e5046fe80d
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",08:00 - 22/06 | New Zealand VS Egypt (World Cup) | Nhật Tinh Ngao
 https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9xOWtoMjR3MmJhLnlhcm5jZG4ubGl2ZS9saXZlL2tkYS1ibHYtbmhhdHRpbmhuZ2FvL3BsYXlsaXN0Lm0zdTg=&s=6a6a6e7e50baded9
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",21:00 - 19/06 | Khan Tengri VS Taraz (1. Division) | BLV Tiểu Mèo
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfdGlldW1lby9wbGF5bGlzdC5tM3U4&s=ad645f3ae99d6f98
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",23:00 - 19/06 | Mārupe VS Aliance (Cup) | BLV Pháo
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfcGhhb3RoYW4vcGxheWxpc3QubTN1OA==&s=809e3138f4368416
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",23:30 - 19/06 | Belgium W VS Germany W (Nations League Women's) | BLV Tiểu Mèo
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfdGlldW1lby9wbGF5bGlzdC5tM3U4&s=ad645f3ae99d6f98
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",02:00 - 20/06 | USA VS Australia (World Cup) | BLV Chim Nhỏ
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfY3VjY3UvcGxheWxpc3QubTN1OA==&s=9ad86bf101f7ea0a
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",02:00 - 20/06 | USA VS Australia (World Cup) | BLV Mao Từn
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfbWFzb24vcGxheWxpc3QubTN1OA==&s=8577147aff6e8ff0
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",05:00 - 20/06 | Scotland VS Morocco (World Cup) | BLV Tiểu Trà Đá
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfdHJhZGEvcGxheWxpc3QubTN1OA==&s=59cc5f425c411896
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",05:00 - 20/06 | Scotland VS Morocco (World Cup) | BLV Mao Từn
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfbWFzb24vcGxheWxpc3QubTN1OA==&s=8577147aff6e8ff0
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",07:30 - 20/06 | Brazil VS Haiti (World Cup) | BLV Tiểu Trà Đá
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfdHJhZGEvcGxheWxpc3QubTN1OA==&s=59cc5f425c411896
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",07:30 - 20/06 | Brazil VS Haiti (World Cup) | BLV Lềnh
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfbGVuaC9wbGF5bGlzdC5tM3U4&s=2e3d10bdd8874eca
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",07:30 - 20/06 | Brazil VS Haiti (World Cup) | BLV Phi MC
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfcGhpbWMvcGxheWxpc3QubTN1OA==&s=b01b274b5f5e938b
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",10:00 - 20/06 | Türkiye VS Paraguay (World Cup) | BLV Phi MC
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfcGhpbWMvcGxheWxpc3QubTN1OA==&s=b01b274b5f5e938b
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",10:00 - 20/06 | Türkiye VS Paraguay (World Cup) | BLV Lềnh
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfbGVuaC9wbGF5bGlzdC5tM3U4&s=2e3d10bdd8874eca
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",15:00 - 20/06 | USA W VS Italy W (Nations League Women's) | BLV Pháo
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfcGhhb3RoYW4vcGxheWxpc3QubTN1OA==&s=809e3138f4368416
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",18:30 - 20/06 | Hebei Kungfu VS Shanghai Shenhua (FA Cup) | BLV Phi MC
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfcGhpbWMvcGxheWxpc3QubTN1OA==&s=b01b274b5f5e938b
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",19:00 - 20/06 | Japan W VS Dominican W (Nations League Women's) | BLV Pháo
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfcGhhb3RoYW4vcGxheWxpc3QubTN1OA==&s=809e3138f4368416
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",20:30 - 20/06 | Thailand W VS Canada W (Nations League Women's) | BLV Chim Nhỏ
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfY3VjY3UvcGxheWxpc3QubTN1OA==&s=9ad86bf101f7ea0a
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",23:30 - 20/06 | Turkey W VS Germany W (Nations League Women's) | BLV Tiểu Mèo
+https://73bb652b-12fb-44bf-887d-1901eebd4860-00-1984s5mdeovkx.pike.replit.dev/api/stream?u=aHR0cHM6Ly9iZ2xpdmUueWFybmNkbi5saXZlL2xpdmUvYmd0dl9ibHZfdGlldW1lby9wbGF5bGlzdC5tM3U4&s=ad645f3ae99d6f98
 #EXTINF:-1 tvg-id="vtv1hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv1.png",VTV1
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36
 #EXTVLCOPT:adaptive-variant=max
