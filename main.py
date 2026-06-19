@@ -191,13 +191,12 @@ def _get_tieulam_api_url(scraper=None) -> str:
     return _get_tieulam_api_base(scraper) + "/matches/graph"
 
 
-def _fetch_tieulam_live_urls(match_id: str) -> tuple[str, str]:
+def _fetch_tieulam_live_urls(match_id: str) -> tuple[str, str, str, str]:
     """
     Gọi GET /match/{id}/live để lấy URL stream thực từ asynccdn.xyz.
-    Trả về (primary_url, fallback_url):
-      - primary = hd_1 (asynccdn.xyz) — cần Referer TieuLam
-      - fallback = source (lisport/secufun) — nếu primary lỗi
-    Cả hai đều "" nếu thất bại.
+    Trả về (hd_1, hd_2, hd_3, nhà_đài) — ưu tiên HD1→HD2→HD3→Nhà đài.
+    Tất cả BLV stream đều là tiếng Việt (API không có field ngôn ngữ riêng).
+    Chuỗi rỗng "" nếu không có hoặc thất bại.
     """
     api_base = _get_tieulam_api_base()
     endpoint = f"{api_base}/match/{match_id}/live"
@@ -206,6 +205,7 @@ def _fetch_tieulam_live_urls(match_id: str) -> tuple[str, str]:
         "Referer":  TIEULAM_FRONTEND_URL + "/",
         "Origin":   TIEULAM_FRONTEND_URL,
     }
+    _empty: tuple[str, str, str, str] = ("", "", "", "")
     try:
         if _CURL_CFFI:
             r = curl_requests.get(endpoint, headers=hdrs, timeout=8, impersonate="chrome110")
@@ -213,16 +213,25 @@ def _fetch_tieulam_live_urls(match_id: str) -> tuple[str, str]:
             sc = cloudscraper.create_scraper()
             r  = sc.get(endpoint, headers=hdrs, timeout=8)
         if r.status_code != 200:
-            return ("", "")
-        data     = r.json()
-        primary  = (data.get("hd_1") or data.get("hd_2") or "").strip()
-        fallback = (data.get("source") or "").strip()
-        # Không dùng fallback nếu trùng primary
-        if fallback == primary:
-            fallback = ""
-        return (primary, fallback)
+            return _empty
+        data = r.json()
+        # Thứ tự ưu tiên: HD1 → HD2 → HD3 → Nhà đài (source/broadcaster)
+        def _u(k: str) -> str:
+            return (data.get(k) or "").strip()
+        seen: set[str] = set()
+        result: list[str] = []
+        for key in ("hd_1", "hd_2", "hd_3", "source"):
+            url = _u(key)
+            if url and url not in seen:
+                seen.add(url)
+                result.append(url)
+            else:
+                result.append("")
+        while len(result) < 4:
+            result.append("")
+        return (result[0], result[1], result[2], result[3])
     except Exception:
-        return ("", "")
+        return _empty
 
 
 def _fetch_tieulam_via_relay(url: str) -> list:
@@ -374,7 +383,7 @@ def _build_tieulam_lines(matches: list) -> list:
         if not source_live and live_integrated and stream_key and match_id:
             needs_live_url.append(idx)
 
-    resolved: dict[int, tuple[str, str]] = {}  # (primary, fallback)
+    resolved: dict[int, tuple[str, str, str, str]] = {}  # (hd_1, hd_2, hd_3, nhà_đài)
     if needs_live_url:
         with ThreadPoolExecutor(max_workers=min(len(needs_live_url), 8)) as ex:
             fut_map = {
@@ -384,9 +393,9 @@ def _build_tieulam_lines(matches: list) -> list:
             for fut in as_completed(fut_map):
                 idx = fut_map[fut]
                 try:
-                    resolved[idx] = fut.result() or ("", "")
+                    resolved[idx] = fut.result() or ("", "", "", "")
                 except Exception:
-                    resolved[idx] = ("", "")
+                    resolved[idx] = ("", "", "", "")
 
     # ── Pass 3: build M3U8 lines ──────────────────────────────────────────────
     lines: list[str] = []
@@ -404,21 +413,22 @@ def _build_tieulam_lines(matches: list) -> list:
         if source_live:
             # ✅ URL trực tiếp từ server TieuLam → tin cậy nhất
             primary_url = source_live
-            # Fallback: thử resolve asynccdn nếu có live_integrated
+            # Thêm asynccdn làm dự phòng nếu có
             if live_integrated and match.get("id") and idx in resolved:
-                fb_primary, _ = resolved.get(idx, ("", ""))
-                if fb_primary and fb_primary != source_live:
-                    fallback_url = fb_primary   # asynccdn làm backup
+                hd1, hd2, hd3, nha_dai = resolved.get(idx, ("", "", "", ""))
+                fb_candidate = hd1 or hd2 or hd3
+                if fb_candidate and fb_candidate != source_live:
+                    fallback_url = fb_candidate
 
         elif idx in resolved:
-            pri, fb = resolved[idx]
-            if pri:
-                # ✅ asynccdn là primary, source là fallback
-                primary_url  = pri
-                fallback_url = fb  # "" nếu không có hoặc trùng
-            elif fb:
-                # asynccdn trống, dùng source làm primary
-                primary_url = fb
+            # Thứ tự ưu tiên: HD1 → HD2 → HD3 → Nhà đài
+            hd1, hd2, hd3, nha_dai = resolved[idx]
+            candidates = [u for u in (hd1, hd2, hd3, nha_dai) if u]
+            if candidates:
+                primary_url  = candidates[0]
+                fallback_url = candidates[1] if len(candidates) > 1 else ""
+            else:
+                primary_url = ""
 
         elif stream_key and is_live:
             # ⚠️  Fallback: CDN URL secufun (ít tin cậy hơn)
@@ -528,6 +538,141 @@ def _build_lines_from_fixtures(fixtures: list) -> list:
           lines.append(stream_url)
       return lines
 
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  Vòng Cấm TV — bugiotv API + static token (re-discover từ JS nếu đổi)
+#  Frontend : https://sv2.vongcam3.live
+#  API      : https://sv.bugiotv.xyz/internal/api/matches
+#  Auth     : Header Access-Token (static, re-discover mỗi 1h nếu đổi)
+#  Timezone : startTime từ bugiotv là giờ VN (UTC+7), không phải UTC
+# ══════════════════════════════════════════════════════════════════════════════
+
+_vongcam_token_cache  = {"token": VONGCAM_ACCESS_TOKEN, "discovered_at": 0.0}
+
+
+def _discover_vongcam_token(scraper) -> str:
+    """Re-discover Access-Token từ JS bundle của Vòng Cấm TV frontend."""
+    try:
+        r = scraper.get(VONGCAM_FRONTEND_URL, timeout=10)
+        js_files = re.findall(r'src="(/[^"]+\.js)"', r.text)
+        for js_path in js_files[:6]:
+            try:
+                js = scraper.get(
+                    VONGCAM_FRONTEND_URL.rstrip("/") + js_path, timeout=20
+                ).text
+            except Exception:
+                continue
+            # Tìm Access-Token trong bundle
+            for pat in [
+                r'[Aa]ccess[-_]?[Tt]oken["']?\s*:\s*["']([A-Z0-9]{4,32})["']',
+                r'["']Access-Token["']\s*:\s*["']([A-Z0-9]{4,32})["']',
+                r'Authorization["']?\s*:\s*["']([A-Z0-9]{4,32})["']',
+            ]:
+                hits = re.findall(pat, js)
+                for hit in hits:
+                    if hit and hit != "null":
+                        return hit
+    except Exception:
+        pass
+    return VONGCAM_ACCESS_TOKEN
+
+
+def _get_vongcam_token(scraper=None) -> str:
+    now = time.time()
+    if now - _vongcam_token_cache["discovered_at"] > API_DISCOVERY_TTL:
+        sc = scraper or cloudscraper.create_scraper()
+        _vongcam_token_cache["token"] = _discover_vongcam_token(sc)
+        _vongcam_token_cache["discovered_at"] = now
+    return _vongcam_token_cache["token"]
+
+
+def _fetch_vongcam_matches() -> list:
+    """Gọi bugiotv API, trả về list matches."""
+    token = _get_vongcam_token()
+    headers = {
+        "Access-Token": token,
+        "Referer":      VONGCAM_FRONTEND_URL + "/",
+        "Origin":       VONGCAM_FRONTEND_URL,
+        "Accept":       "application/json, text/plain, */*",
+        "User-Agent":   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    }
+    sc = cloudscraper.create_scraper()
+    try:
+        resp = sc.get(VONGCAM_KNOWN_API_BASE, headers=headers, timeout=15)
+        if resp.status_code in (401, 403):
+            # Token đã đổi → re-discover
+            _vongcam_token_cache["discovered_at"] = 0
+            token = _get_vongcam_token(sc)
+            headers["Access-Token"] = token
+            resp = sc.get(VONGCAM_KNOWN_API_BASE, headers=headers, timeout=15)
+        resp.raise_for_status()
+        return resp.json().get("data", [])
+    except Exception as e:
+        print(f"⚠️  Vòng Cấm TV thất bại: {e}", file=sys.stderr)
+        return []
+
+
+def _vongcam_is_active(match: dict) -> bool:
+    if bool(match.get("isLive")):
+        return True
+    start_str = match.get("startTime", "")
+    if start_str:
+        try:
+            # bugiotv trả startTime theo giờ VN (UTC+7), không có timezone marker
+            if "+" not in start_str and not start_str.endswith("Z"):
+                start_str += "+07:00"
+            dt      = datetime.fromisoformat(start_str)
+            elapsed = time.time() - dt.timestamp()
+            if elapsed < MATCH_MAX_AGE_SECONDS:
+                return True
+        except Exception:
+            pass
+    return False
+
+
+def _build_vongcam_lines(matches: list) -> list:
+    try:
+        matches = sorted(matches, key=lambda m: m.get("startTime") or "")
+    except Exception:
+        pass
+    lines: list[str] = []
+    for match in matches:
+        if not _vongcam_is_active(match):
+            continue
+        home       = match.get("homeClub", {}).get("name", "Home").strip()
+        away       = match.get("awayClub", {}).get("name", "Away").strip()
+        tournament = match.get("tournamentName", "")
+        logo       = _logo_from_text(tournament)
+        start_str  = match.get("startTime", "")
+        try:
+            # startTime từ bugiotv là giờ VN (UTC+7) — append +07:00 nếu bare
+            if "+" not in start_str and not start_str.endswith("Z"):
+                start_str += "+07:00"
+            dt       = datetime.fromisoformat(start_str)
+            dt_vn    = dt.astimezone(VN_TZ)
+            time_str = dt_vn.strftime("%H:%M")
+            date_str = dt_vn.strftime("%d/%m")
+        except Exception:
+            time_str = "--:--"
+            date_str = "--/--"
+        commentator = match.get("commentator")
+        if not commentator:
+            continue
+        # Ưu tiên FHD → HD → SD
+        stream_url = ""
+        for key in ("streamSourceFhd", "streamSourceHd", "streamSourceSd"):
+            url = (commentator.get(key) or "").strip()
+            if url:
+                stream_url = url
+                break
+        if not stream_url:
+            continue
+        nickname = (commentator.get("nickname") or "").strip()
+        display  = f"{time_str} - {date_str} | {home} VS {away} ({tournament}) | {nickname}"
+        lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="Vòng Cấm TV",{display}')
+        lines.append(stream_url)
+    return lines
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  VTV tĩnh
@@ -728,6 +873,39 @@ def _build_fixture_lines(fixtures: list, group_title: str) -> list:
 #  Main — fetch 4 nguồn, gộp, lưu file
 # ══════════════════════════════════════════════════════════════════════════════
 
+# ── Cache dự phòng 24/7: lưu lần lấy thành công cuối cùng ───────────────────
+# File /tmp/tieulam_last_good.json được GitHub Actions tạo mỗi 30 phút.
+# Nếu tất cả relay thất bại, đọc cache này thay vì trả [] rỗng.
+_LAST_GOOD_CACHE_PATH = "/tmp/tieulam_last_good.json"
+_LAST_GOOD_CACHE_TTL  = 14400  # 4 tiếng — đủ để qua đêm nếu TieuLam chặn GitHub IP
+
+
+def _save_last_good(lines: list) -> None:
+    try:
+        import json as _json
+        with open(_LAST_GOOD_CACHE_PATH, "w", encoding="utf-8") as _f:
+            _json.dump({"ts": time.time(), "lines": lines}, _f)
+    except Exception:
+        pass
+
+
+def _load_last_good() -> list:
+    try:
+        import json as _json
+        with open(_LAST_GOOD_CACHE_PATH, encoding="utf-8") as _f:
+            d = _json.load(_f)
+        age = time.time() - float(d.get("ts", 0))
+        if age < _LAST_GOOD_CACHE_TTL:
+            lines = d.get("lines", [])
+            count = sum(1 for l in lines if l.startswith("#EXTINF"))
+            if count >= 3:
+                print(f"  ♻️  Dùng cache dự phòng TieuLam ({int(age//60)} phút trước, {count} kênh)", file=sys.stderr)
+                return lines
+    except Exception:
+        pass
+    return []
+
+
 def _try_relay(url: str, label: str) -> list | None:
     """
     Gọi một relay URL, xử lý cả 2 format trả về:
@@ -752,6 +930,7 @@ def _try_relay(url: str, label: str) -> list | None:
         count = sum(1 for l in lines if l.startswith("#EXTINF"))
         if count >= 3:
             print(f"  ✅ [{label}] TieuLam: {count} kênh", file=sys.stderr)
+            _save_last_good(lines)
             return lines
         print(f"  ⚠️  [{label}] TieuLam chỉ có {count} kênh → thử tiếp", file=sys.stderr)
     except Exception as e:
@@ -762,9 +941,10 @@ def _try_relay(url: str, label: str) -> list | None:
 def fetch_tieulam() -> list:
     """Lấy dữ liệu TieuLam TV.
     Thứ tự ưu tiên:
-      1. TIEULAM_RELAY_URL      — Cloudflare Worker (hoặc URL tuỳ chỉnh)
-      2. TIEULAM_REPLIT_RELAY_URL — Replit API relay (/api/tieulam) — chạy 24/7
+      1. TIEULAM_RELAY_URL        — Cloudflare Worker (hoặc URL tuỳ chỉnh)
+      2. TIEULAM_REPLIT_RELAY_URL — Replit API relay chạy 24/7
       3. Gọi trực tiếp TieuLam API (thường bị 403 từ GitHub Actions)
+      4. Cache dự phòng /tmp/tieulam_last_good.json (TTL 4h) — không bao giờ trả rỗng
     """
     if TIEULAM_RELAY_URL:
         result = _try_relay(TIEULAM_RELAY_URL, "CF Worker")
@@ -776,8 +956,23 @@ def fetch_tieulam() -> list:
         if result is not None:
             return result
 
-    print("  ⚠️  Tất cả relay thất bại → gọi trực tiếp TieuLam API", file=sys.stderr)
-    return _build_tieulam_lines(_fetch_tieulam_matches())
+    print("  ⚠️  Relay thất bại → gọi trực tiếp TieuLam API…", file=sys.stderr)
+    try:
+        lines = _build_tieulam_lines(_fetch_tieulam_matches())
+        count = sum(1 for l in lines if l.startswith("#EXTINF"))
+        if count >= 3:
+            _save_last_good(lines)
+            return lines
+    except Exception as e:
+        print(f"  ⚠️  Trực tiếp thất bại: {e}", file=sys.stderr)
+
+    # ── Phương án cuối: cache dự phòng (không bao giờ trả rỗng) ──
+    fallback = _load_last_good()
+    if fallback:
+        return fallback
+
+    print("  ❌ TieuLam: tất cả phương án đều thất bại, không có cache", file=sys.stderr)
+    return []
 
 def fetch_hoiquan() -> list:
     return _build_fixture_lines(_fetch_hoiquan_fixtures(), "Hội Quán TV")
@@ -785,6 +980,10 @@ def fetch_hoiquan() -> list:
 
 def fetch_khandaia() -> list:
     return _build_fixture_lines(_fetch_khandaia_fixtures(), "Khán Đài A")
+
+
+def fetch_vongcam() -> list:
+    return _build_vongcam_lines(_fetch_vongcam_matches())
 
 
 def fetch_vtv() -> list:
@@ -796,12 +995,13 @@ def fetch_vtv() -> list:
 
 
 def main():
-    print("🔄 Đang fetch dữ liệu từ 4 nguồn song song…")
+    print("🔄 Đang fetch dữ liệu từ 5 nguồn song song…")
 
     tasks = {
         "tieulam":  fetch_tieulam,
         "hoiquan":  fetch_hoiquan,
         "khandaia": fetch_khandaia,
+        "vongcam":  fetch_vongcam,
         "vtv":      fetch_vtv,
     }
 
@@ -824,9 +1024,10 @@ def main():
     tieulam_lines  = results.get("tieulam",  [])
     hoiquan_lines  = results.get("hoiquan",  [])
     khandaia_lines = results.get("khandaia", [])
+    vongcam_lines  = results.get("vongcam",  [])
     vtv_lines      = results.get("vtv",      [])
 
-    all_lines = tieulam_lines + hoiquan_lines + khandaia_lines + vtv_lines
+    all_lines = tieulam_lines + hoiquan_lines + khandaia_lines + vongcam_lines + vtv_lines
 
     # ── Ẩn URL stream thật sau proxy (nếu REPLIT_PROXY_BASE được cấu hình) ────
     if REPLIT_PROXY_BASE:
@@ -844,7 +1045,8 @@ def main():
     with open("dekki.m3u", "w", encoding="utf-8") as f:
         f.write(content)
 
-    print(f"\n✅ Hoàn thành! Đã lưu {total} kênh vào 'dekki.m3u'")
+    vc_count = sum(1 for l in vongcam_lines if l.startswith("#EXTINF"))
+    print(f"\n✅ Hoàn thành! Đã lưu {total} kênh vào 'dekki.m3u' (Vòng Cấm: {vc_count})")
     if errors:
         print(f"⚠️  Lỗi xảy ra: {'; '.join(errors)}", file=sys.stderr)
 
