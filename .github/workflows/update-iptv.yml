@@ -55,6 +55,9 @@ jobs:
           HOIQUAN_API: ${{ secrets.HOIQUAN_API }}
           KHANDAIA_FRONTEND: ${{ secrets.KHANDAIA_FRONTEND }}
           KHANDAIA_API: ${{ secrets.KHANDAIA_API }}
+          VONGCAM_FRONTEND: ${{ secrets.VONGCAM_FRONTEND }}
+          VONGCAM_API: ${{ secrets.VONGCAM_API }}
+          VONGCAM_TOKEN: ${{ secrets.VONGCAM_TOKEN }}
           VTV_M3U_URL: ${{ secrets.VTV_M3U_URL }}
           MATCH_MAX_DURATION: ${{ secrets.MATCH_MAX_DURATION }}
         run: python main.py
