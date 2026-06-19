@@ -47,6 +47,11 @@ HOIQUAN_KNOWN_API_BASE = (os.environ.get("HOIQUAN_API") or "https://sv.hoiquantv
 KHANDAIA_FRONTEND_URL   = (os.environ.get("KHANDAIA_FRONTEND") or "https://tructiep.khandaia.link")
 KHANDAIA_KNOWN_API_BASE = (os.environ.get("KHANDAIA_API") or "https://sv.khandai-a.xyz/api/v1/external")
 
+# ─── Vòng Cấm TV config ──────────────────────────────────────────────────────
+VONGCAM_FRONTEND_URL   = (os.environ.get("VONGCAM_FRONTEND") or "https://sv2.vongcam3.live")
+VONGCAM_KNOWN_API_BASE = (os.environ.get("VONGCAM_API") or "https://sv.bugiotv.xyz/internal/api/matches")
+VONGCAM_ACCESS_TOKEN   = os.environ.get("VONGCAM_ACCESS_TOKEN", "AB321C")
+
 # ─── Shared config ────────────────────────────────────────────────────────────
 VN_TZ                 = timezone(timedelta(hours=7))
 API_DISCOVERY_TTL     = 3600
@@ -124,57 +129,54 @@ def _hq_kda_logo(fixture: dict) -> str:
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _discover_tieulam_api_base(scraper) -> str:
-      """Tự động tìm API base URL từ trang frontend TieuLam.
-      Thử nhiều pattern regex để chống thay đổi JS bundling."""
-      try:
-          r = scraper.get(TIEULAM_FRONTEND_URL, timeout=12)
-          # Thu thập cả assets/*.js lẫn /*.js
-          js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
-          if not js_files:
-              js_files = re.findall(r'src="(/[^"]+\.js)"', r.text)
-          for js_path in js_files[:5]:
-              try:
-                  js = scraper.get(
-                      TIEULAM_FRONTEND_URL.rstrip("/") + js_path, timeout=20
-                  ).text
-              except Exception:
-                  continue
-              # Thử lần lượt các pattern theo độ ưu tiên
-              patterns = [
-                  r'create\(\{baseURL:"(https://[^"]+)"\}',
-                  r'baseURL:"(https://[^"]{10,80})"',
-                   r'baseURL:[^"]*"(https://[^"]{10,80})"',
-                  r'"(https://api\.[a-z0-9\-]+\.[a-z]{2,6}(?:/[\w/]*)?)"',
-              ]
-              for pat in patterns:
-                  for hit in re.findall(pat, js):
-                      # Bỏ qua CDN/stream URL, chỉ lấy API URL
-                      if any(x in hit for x in ["cdn", "/live", "pull", "stream", "secufun", "asynccdn"]):
-                          continue
-                      return hit.rstrip("/")
-      except Exception:
-          pass
+    """Tự động tìm API base URL từ trang frontend TieuLam.
+    Thử nhiều pattern regex để chống thay đổi JS bundling."""
+    try:
+        r = scraper.get(TIEULAM_FRONTEND_URL, timeout=12)
+        js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
+        if not js_files:
+            js_files = re.findall(r'src="(/[^"]+\.js)"', r.text)
+        for js_path in js_files[:5]:
+            try:
+                js = scraper.get(
+                    TIEULAM_FRONTEND_URL.rstrip("/") + js_path, timeout=20
+                ).text
+            except Exception:
+                continue
+            patterns = [
+                r'create\(\{baseURL:"(https://[^"]+)"\}',
+                r'baseURL:"(https://[^"]{10,80})"',
+                r'baseURL:[^"]*"(https://[^"]{10,80})"',
+                r'"(https://api\.[a-z0-9\-]+\.[a-z]{2,6}(?:/[\w/]*)?)"',
+            ]
+            for pat in patterns:
+                for hit in re.findall(pat, js):
+                    if any(x in hit for x in ["cdn", "/live", "pull", "stream", "secufun", "asynccdn"]):
+                        continue
+                    return hit.rstrip("/")
+    except Exception:
+        pass
 
-      # Fallback: tự tính domain theo pattern api.tlap{DDMMYYYY}.com
-      # Domain xoay không đều, thử hôm nay và vài ngày gần nhất
-      try:
-          from datetime import date as _date
-          today = datetime.now(VN_TZ).date()
-          for delta in range(0, 7):
-              d = today - timedelta(days=delta)
-              candidate = f"https://api.tlap{d.strftime('%d%m%Y')}.com"
-              if candidate == TIEULAM_KNOWN_API_BASE:
-                  continue
-              try:
-                  test_r = scraper.get(candidate, timeout=5)
-                  if test_r.status_code in (200, 405):  # 405 = domain sống, chỉ cần POST
-                      return candidate
-              except Exception:
-                  pass
-      except Exception:
-          pass
+    try:
+        from datetime import date as _date
+        today = datetime.now(VN_TZ).date()
+        for delta in range(0, 7):
+            d = today - timedelta(days=delta)
+            candidate = f"https://api.tlap{d.strftime('%d%m%Y')}.com"
+            if candidate == TIEULAM_KNOWN_API_BASE:
+                continue
+            try:
+                test_r = scraper.get(candidate, timeout=5)
+                if test_r.status_code in (200, 405):
+                    return candidate
+            except Exception:
+                pass
+    except Exception:
+        pass
 
-      return TIEULAM_KNOWN_API_BASE
+    return TIEULAM_KNOWN_API_BASE
+
+
 def _get_tieulam_api_base(scraper=None) -> str:
     """Trả về base URL (không có endpoint path) của TieuLam API."""
     now = time.time()
@@ -195,7 +197,6 @@ def _fetch_tieulam_live_urls(match_id: str) -> tuple[str, str, str, str]:
     """
     Gọi GET /match/{id}/live để lấy URL stream thực từ asynccdn.xyz.
     Trả về (hd_1, hd_2, hd_3, nhà_đài) — ưu tiên HD1→HD2→HD3→Nhà đài.
-    Tất cả BLV stream đều là tiếng Việt (API không có field ngôn ngữ riêng).
     Chuỗi rỗng "" nếu không có hoặc thất bại.
     """
     api_base = _get_tieulam_api_base()
@@ -215,7 +216,6 @@ def _fetch_tieulam_live_urls(match_id: str) -> tuple[str, str, str, str]:
         if r.status_code != 200:
             return _empty
         data = r.json()
-        # Thứ tự ưu tiên: HD1 → HD2 → HD3 → Nhà đài (source/broadcaster)
         def _u(k: str) -> str:
             return (data.get(k) or "").strip()
         seen: set[str] = set()
@@ -241,19 +241,16 @@ def _fetch_tieulam_via_relay(url: str) -> list:
     resp = requests.get(url, headers=headers, timeout=20)
     resp.raise_for_status()
     rdata = resp.json()
-    # Worker/Replit trả về {data:[...]}, relay cũ có thể trả {fixtures:[...]}
     return rdata.get("data") or rdata.get("fixtures") or []
 
 
 def _fetch_tieulam_matches() -> list:
-    # 1) Thử relay chính (Cloudflare Worker / URL tuỳ chỉnh)
     if TIEULAM_RELAY_URL:
         try:
             return _fetch_tieulam_via_relay(TIEULAM_RELAY_URL)
         except Exception as e:
             print(f"⚠️  TieuLam relay thất bại: {e}", file=sys.stderr)
 
-    # 2) Fallback: Replit relay (chạy 24/7)
     if TIEULAM_REPLIT_RELAY_URL:
         try:
             return _fetch_tieulam_via_relay(TIEULAM_REPLIT_RELAY_URL)
@@ -342,7 +339,6 @@ def _tieulam_sport_label(match: dict) -> str:
 
 
 def _build_tieulam_lines(matches: list) -> list:
-    # Sắp xếp theo giờ bắt đầu
     try:
         matches = sorted(matches, key=lambda m: m.get("start_date") or "")
     except Exception:
@@ -352,7 +348,6 @@ def _build_tieulam_lines(matches: list) -> list:
     _REFERER = TIEULAM_FRONTEND_URL + "/"
     _UA      = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
 
-    # ── Pass 1: tính elapsed, loại bỏ quá cũ / quá xa tương lai ──────────────
     valid: list[tuple[dict, float | None, datetime | None]] = []
     for match in matches:
         start_str = match.get("start_date", "")
@@ -368,12 +363,10 @@ def _build_tieulam_lines(matches: list) -> list:
                 pass
         if elapsed is not None and elapsed > MATCH_MAX_AGE_SECONDS:
             continue
-        if elapsed is not None and elapsed < -172800:  # > 48h tương lai → bỏ
+        if elapsed is not None and elapsed < -172800:
             continue
         valid.append((match, elapsed, dt_start))
 
-    # ── Pass 2: resolve live_integrated matches qua /match/{id}/live ──────────
-    # Chạy song song để tránh chờ lần lượt
     needs_live_url: list[int] = []
     for idx, (match, elapsed, _) in enumerate(valid):
         source_live      = (match.get("source_live") or "").strip()
@@ -383,7 +376,7 @@ def _build_tieulam_lines(matches: list) -> list:
         if not source_live and live_integrated and stream_key and match_id:
             needs_live_url.append(idx)
 
-    resolved: dict[int, tuple[str, str, str, str]] = {}  # (hd_1, hd_2, hd_3, nhà_đài)
+    resolved: dict[int, tuple[str, str, str, str]] = {}
     if needs_live_url:
         with ThreadPoolExecutor(max_workers=min(len(needs_live_url), 8)) as ex:
             fut_map = {
@@ -397,7 +390,6 @@ def _build_tieulam_lines(matches: list) -> list:
                 except Exception:
                     resolved[idx] = ("", "", "", "")
 
-    # ── Pass 3: build M3U8 lines ──────────────────────────────────────────────
     lines: list[str] = []
     for idx, (match, elapsed, dt_start) in enumerate(valid):
         source_live     = (match.get("source_live") or "").strip()
@@ -406,14 +398,11 @@ def _build_tieulam_lines(matches: list) -> list:
         live_integrated = bool(match.get("live_integrated"))
         is_live         = bool(match.get("is_live"))
 
-        # ── Chọn stream URL (primary + optional fallback) ──
         primary_url  = ""
         fallback_url = ""
 
         if source_live:
-            # ✅ URL trực tiếp từ server TieuLam → tin cậy nhất
             primary_url = source_live
-            # Thêm asynccdn làm dự phòng nếu có
             if live_integrated and match.get("id") and idx in resolved:
                 hd1, hd2, hd3, nha_dai = resolved.get(idx, ("", "", "", ""))
                 fb_candidate = hd1 or hd2 or hd3
@@ -421,7 +410,6 @@ def _build_tieulam_lines(matches: list) -> list:
                     fallback_url = fb_candidate
 
         elif idx in resolved:
-            # Thứ tự ưu tiên: HD1 → HD2 → HD3 → Nhà đài
             hd1, hd2, hd3, nha_dai = resolved[idx]
             candidates = [u for u in (hd1, hd2, hd3, nha_dai) if u]
             if candidates:
@@ -431,20 +419,17 @@ def _build_tieulam_lines(matches: list) -> list:
                 primary_url = ""
 
         elif stream_key and is_live:
-            # ⚠️  Fallback: CDN URL secufun (ít tin cậy hơn)
             primary_url = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
 
         elif stream_key:
-            # Chưa live — placeholder để cập nhật giờ tới
             primary_url = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
 
         else:
-            continue  # không có gì hữu ích
+            continue
 
         if not primary_url:
             continue
 
-        # ── Format hiển thị ──
         logo   = _tieulam_logo(match)
         team1  = match.get("team_1", "Home").strip()
         team2  = match.get("team_2", "Away").strip()
@@ -474,7 +459,6 @@ def _build_tieulam_lines(matches: list) -> list:
             ]
 
         lines.extend(_entry(base_display, primary_url))
-        # Thêm entry dự phòng nếu có URL khác
         if fallback_url and fallback_url != primary_url:
             lines.extend(_entry(f"{base_display} [Dự phòng]", fallback_url))
 
@@ -482,62 +466,55 @@ def _build_tieulam_lines(matches: list) -> list:
 
 
 def _build_lines_from_fixtures(fixtures: list) -> list:
-      """Dùng cho relay trả về pre-built fixtures.
-      Lọc theo startTime nếu có; nếu không thì phân tích ngày từ tiêu đề (HH:MM - DD/MM | ...)."""
-      now = datetime.now(VN_TZ)
-      now_ts = time.time()
-      lines = []
-      for f in fixtures:
-          stream_url = (f.get("streamUrl") or "").strip()
-          if not stream_url:
-              continue
+    """Dùng cho relay trả về pre-built fixtures."""
+    now = datetime.now(VN_TZ)
+    now_ts = time.time()
+    lines = []
+    for f in fixtures:
+        stream_url = (f.get("streamUrl") or "").strip()
+        if not stream_url:
+            continue
 
-          # ── Ưu tiên 1: lọc qua startTime / start_date ───────────────────────
-          start_str = f.get("startTime") or f.get("start_date") or ""
-          filtered  = False
-          if start_str:
-              try:
-                  dt = datetime.fromisoformat(start_str.replace("Z", "+00:00"))
-                  if dt.tzinfo is None:
-                      dt = dt.replace(tzinfo=timezone.utc)
-                  elapsed = now_ts - dt.timestamp()
-                  if elapsed > MATCH_MAX_AGE_SECONDS:
-                      continue
-                  if elapsed < -172800:
-                      continue
-                  filtered = True
-              except Exception:
-                  pass
+        start_str = f.get("startTime") or f.get("start_date") or ""
+        filtered  = False
+        if start_str:
+            try:
+                dt = datetime.fromisoformat(start_str.replace("Z", "+00:00"))
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+                elapsed = now_ts - dt.timestamp()
+                if elapsed > MATCH_MAX_AGE_SECONDS:
+                    continue
+                if elapsed < -172800:
+                    continue
+                filtered = True
+            except Exception:
+                pass
 
-          # ── Ưu tiên 2: nếu không có startTime, phân tích từ title ───────────
-          # Định dạng tiêu đề: "HH:MM - DD/MM | TeamA VS TeamB ..."
-          if not filtered:
-              title_str = f.get("title", "")
-              import re as _re
-              m = _re.search(r'(\d{1,2}):(\d{2})\s*-\s*(\d{1,2})/(\d{1,2})', title_str)
-              if m:
-                  try:
-                      hour, minute, day, month = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4))
-                      year = now.year
-                      # Nếu tháng > tháng hiện tại nhiều => năm trước
-                      if month > now.month + 1:
-                          year -= 1
-                      dt_vn = datetime(year, month, day, hour, minute, tzinfo=VN_TZ)
-                      elapsed = now_ts - dt_vn.timestamp()
-                      if elapsed > MATCH_MAX_AGE_SECONDS:
-                          continue
-                      if elapsed < -172800:
-                          continue
-                  except Exception:
-                      pass
+        if not filtered:
+            title_str = f.get("title", "")
+            m = re.search(r'(\d{1,2}):(\d{2})\s*-\s*(\d{1,2})/(\d{1,2})', title_str)
+            if m:
+                try:
+                    hour, minute, day, month = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4))
+                    year = now.year
+                    if month > now.month + 1:
+                        year -= 1
+                    dt_vn = datetime(year, month, day, hour, minute, tzinfo=VN_TZ)
+                    elapsed = now_ts - dt_vn.timestamp()
+                    if elapsed > MATCH_MAX_AGE_SECONDS:
+                        continue
+                    if elapsed < -172800:
+                        continue
+                except Exception:
+                    pass
 
-          logo  = f.get("logo") or f.get("sportLogo", "")
-          group = f.get("groupTitle", "TieuLam TV")
-          title = f.get("title", "")
-          lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group}",{title}')
-          lines.append(stream_url)
-      return lines
-
+        logo  = f.get("logo") or f.get("sportLogo", "")
+        group = f.get("groupTitle", "TieuLam TV")
+        title = f.get("title", "")
+        lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group}",{title}')
+        lines.append(stream_url)
+    return lines
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -548,7 +525,7 @@ def _build_lines_from_fixtures(fixtures: list) -> list:
 #  Timezone : startTime từ bugiotv là giờ VN (UTC+7), không phải UTC
 # ══════════════════════════════════════════════════════════════════════════════
 
-_vongcam_token_cache  = {"token": VONGCAM_ACCESS_TOKEN, "discovered_at": 0.0}
+_vongcam_token_cache = {"token": VONGCAM_ACCESS_TOKEN, "discovered_at": 0.0}
 
 
 def _discover_vongcam_token(scraper) -> str:
@@ -563,11 +540,10 @@ def _discover_vongcam_token(scraper) -> str:
                 ).text
             except Exception:
                 continue
-            # Tìm Access-Token trong bundle
             for pat in [
-                r'[Aa]ccess[-_]?[Tt]oken["']?\s*:\s*["']([A-Z0-9]{4,32})["']',
-                r'["']Access-Token["']\s*:\s*["']([A-Z0-9]{4,32})["']',
-                r'Authorization["']?\s*:\s*["']([A-Z0-9]{4,32})["']',
+                r"""[Aa]ccess[-_]?[Tt]oken["']?\s*:\s*["']([A-Z0-9]{4,32})["']""",
+                r"""["']Access-Token["']\s*:\s*["']([A-Z0-9]{4,32})["']""",
+                r"""Authorization["']?\s*:\s*["']([A-Z0-9]{4,32})["']""",
             ]:
                 hits = re.findall(pat, js)
                 for hit in hits:
@@ -601,7 +577,6 @@ def _fetch_vongcam_matches() -> list:
     try:
         resp = sc.get(VONGCAM_KNOWN_API_BASE, headers=headers, timeout=15)
         if resp.status_code in (401, 403):
-            # Token đã đổi → re-discover
             _vongcam_token_cache["discovered_at"] = 0
             token = _get_vongcam_token(sc)
             headers["Access-Token"] = token
@@ -619,7 +594,6 @@ def _vongcam_is_active(match: dict) -> bool:
     start_str = match.get("startTime", "")
     if start_str:
         try:
-            # bugiotv trả startTime theo giờ VN (UTC+7), không có timezone marker
             if "+" not in start_str and not start_str.endswith("Z"):
                 start_str += "+07:00"
             dt      = datetime.fromisoformat(start_str)
@@ -646,7 +620,6 @@ def _build_vongcam_lines(matches: list) -> list:
         logo       = _logo_from_text(tournament)
         start_str  = match.get("startTime", "")
         try:
-            # startTime từ bugiotv là giờ VN (UTC+7) — append +07:00 nếu bare
             if "+" not in start_str and not start_str.endswith("Z"):
                 start_str += "+07:00"
             dt       = datetime.fromisoformat(start_str)
@@ -659,7 +632,6 @@ def _build_vongcam_lines(matches: list) -> list:
         commentator = match.get("commentator")
         if not commentator:
             continue
-        # Ưu tiên FHD → HD → SD
         stream_url = ""
         for key in ("streamSourceFhd", "streamSourceHd", "streamSourceSd"):
             url = (commentator.get(key) or "").strip()
@@ -673,6 +645,7 @@ def _build_vongcam_lines(matches: list) -> list:
         lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="Vòng Cấm TV",{display}')
         lines.append(stream_url)
     return lines
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  VTV tĩnh
@@ -870,14 +843,11 @@ def _build_fixture_lines(fixtures: list, group_title: str) -> list:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  Main — fetch 4 nguồn, gộp, lưu file
+#  Main — fetch 5 nguồn, gộp, lưu file
 # ══════════════════════════════════════════════════════════════════════════════
 
-# ── Cache dự phòng 24/7: lưu lần lấy thành công cuối cùng ───────────────────
-# File /tmp/tieulam_last_good.json được GitHub Actions tạo mỗi 30 phút.
-# Nếu tất cả relay thất bại, đọc cache này thay vì trả [] rỗng.
 _LAST_GOOD_CACHE_PATH = "/tmp/tieulam_last_good.json"
-_LAST_GOOD_CACHE_TTL  = 14400  # 4 tiếng — đủ để qua đêm nếu TieuLam chặn GitHub IP
+_LAST_GOOD_CACHE_TTL  = 14400
 
 
 def _save_last_good(lines: list) -> None:
@@ -966,13 +936,13 @@ def fetch_tieulam() -> list:
     except Exception as e:
         print(f"  ⚠️  Trực tiếp thất bại: {e}", file=sys.stderr)
 
-    # ── Phương án cuối: cache dự phòng (không bao giờ trả rỗng) ──
     fallback = _load_last_good()
     if fallback:
         return fallback
 
     print("  ❌ TieuLam: tất cả phương án đều thất bại, không có cache", file=sys.stderr)
     return []
+
 
 def fetch_hoiquan() -> list:
     return _build_fixture_lines(_fetch_hoiquan_fixtures(), "Hội Quán TV")
@@ -1029,7 +999,6 @@ def main():
 
     all_lines = tieulam_lines + hoiquan_lines + khandaia_lines + vongcam_lines + vtv_lines
 
-    # ── Ẩn URL stream thật sau proxy (nếu REPLIT_PROXY_BASE được cấu hình) ────
     if REPLIT_PROXY_BASE:
         all_lines = [
             _proxy_stream_url(line) if (line and not line.startswith("#")) else line
