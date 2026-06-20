@@ -738,25 +738,61 @@ def _fetch_vtv_lines() -> list:
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _discover_hoiquan_api(scraper) -> str:
+    """Tự động tìm HoiQuan API base từ frontend JS bundle."""
+    _js_patterns = [
+        r'VITE_SERVER_API_BASE_URL:\s*"(https://[^"]+)"',
+        r'VITE_API_BASE(?:_URL)?:\s*"(https://[^"]+)"',
+        r'baseURL:\s*"(https://sv\.[^"]+)"',
+        r'"(https://sv\.[a-z0-9\-]+\.[a-z]+/api/v\d+/external)"',
+        r'"(https://[a-z0-9\-]+\.[a-z]+/api/v\d+/external)"',
+        r'https://sv\.[a-z0-9\-\.]+/api/v1/external',
+    ]
+    _probe_hosts = [
+        "sv.hoiquantv.xyz", "sv2.hoiquantv.xyz", "sv3.hoiquantv.xyz",
+        "api.hoiquantv.xyz", "sv.hoiquan4.live",
+    ]
+    _probe_paths = [
+        "/api/v1/external", "/api/v2/external",
+        "/api/v1/fixtures/unfinished", "/api/v2/fixtures/unfinished",
+        "/external", "/fixtures/unfinished",
+    ]
     try:
-        r = scraper.get(HOIQUAN_FRONTEND_URL, timeout=10)
-        js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
-        if not js_files:
-            js_files = re.findall(r'src="(/assets/js/[^"]+\.js)"', r.text)
-        if not js_files:
-            return HOIQUAN_KNOWN_API_BASE
-        js = scraper.get(HOIQUAN_FRONTEND_URL.rstrip("/") + js_files[0], timeout=15).text
-        hits = re.findall(r'VITE_SERVER_API_BASE_URL:"(https://[^"]+)"', js)
-        if hits:
-            return hits[0]
-        hits = re.findall(r'https://sv\.[a-z0-9\-\.]+/api/v1/external', js)
-        if hits:
-            return hits[0]
+        html = scraper.get(HOIQUAN_FRONTEND_URL, timeout=10).text
+        js_files = (re.findall(r'src="(/assets/[^"]+\.js)"', html) or
+                    re.findall(r'src="(/[^"]+\.js)"', html))
+        for js_path in js_files[:5]:
+            try:
+                js = scraper.get(HOIQUAN_FRONTEND_URL.rstrip("/") + js_path, timeout=15).text
+                for pat in _js_patterns:
+                    hits = re.findall(pat, js)
+                    for hit in hits:
+                        if any(x in hit for x in ["cdn","pull","stream","secufun","asynccdn"]):
+                            continue
+                        # Probe that it actually responds
+                        try:
+                            probe_url = hit.rstrip("/") + "/fixtures/unfinished"
+                            pr = scraper.get(probe_url, headers={"Referer": HOIQUAN_FRONTEND_URL+"/"}, timeout=5)
+                            if pr.ok:
+                                return hit.rstrip("/")
+                        except Exception:
+                            pass
+                        return hit.rstrip("/")  # Return even if probe fails — JS is authoritative
+            except Exception:
+                pass
     except Exception:
         pass
+    # Probe fallback hosts
+    for host in _probe_hosts:
+        for path in _probe_paths:
+            try:
+                url = f"https://{host}{path}"
+                pr  = scraper.get(url, headers={"Referer": HOIQUAN_FRONTEND_URL+"/"}, timeout=4)
+                if pr.ok and "application/json" in pr.headers.get("content-type",""):
+                    base = f"https://{host}" + path.rsplit("/",1)[0]
+                    return base
+            except Exception:
+                pass
     return HOIQUAN_KNOWN_API_BASE
-
-
 def _get_hoiquan_api_base(scraper) -> str:
     now = time.time()
     if now - _hoiquan_api_cache["discovered_at"] > API_DISCOVERY_TTL:
@@ -790,27 +826,70 @@ def _fetch_hoiquan_fixtures() -> list:
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _discover_khandaia_api(scraper) -> str:
+    """Tự động tìm KhanDai A API base từ frontend JS bundle."""
+    _js_patterns = [
+        r'VITE_SERVER_API_BASE_URL:\s*"(https://[^"]+)"',
+        r'VITE_API_BASE(?:_URL)?:\s*"(https://[^"]+)"',
+        r'baseURL:\s*"(https://sv\.[^"]+)"',
+        r'"(https://sv\.[a-z0-9\-]+\.[a-z]+/api/v\d+/external)"',
+        r'"(https://[a-z0-9\-]+\.[a-z]+/api/v\d+/external)"',
+        r'https://sv\.[a-z0-9\-\.]+/api/v1/external',
+    ]
+    _probe_hosts = [
+        "sv.khandai-a.xyz", "sv2.khandai-a.xyz", "sv3.khandai-a.xyz",
+        "api.khandaia.link", "sv.khandaia.link",
+    ]
+    _probe_paths = [
+        "/api/v1/external", "/api/v2/external",
+        "/api/v1/fixtures/unfinished", "/api/v2/fixtures/unfinished",
+        "/external", "/fixtures/unfinished",
+    ]
     try:
-        r = scraper.get(KHANDAIA_FRONTEND_URL, timeout=10)
-        js_files = re.findall(r'src="(/assets/[^"]+\.js)"', r.text)
-        if not js_files:
-            return KHANDAIA_KNOWN_API_BASE
-        for js_path in js_files:
-            js = scraper.get(KHANDAIA_FRONTEND_URL.rstrip("/") + js_path, timeout=20).text
-            chunk_paths = re.findall(r'assets/queries[^"\']+\.js', js)
-            for cp in chunk_paths[:2]:
-                chunk = scraper.get(KHANDAIA_FRONTEND_URL.rstrip("/") + "/" + cp, timeout=15).text
-                hits = re.findall(r'https://sv\.[a-z0-9\-\.]+/api/v1/external', chunk)
-                if hits:
-                    return hits[0]
-            hits = re.findall(r'https://sv\.[a-z0-9\-\.]+/api/v1/external', js)
-            if hits:
-                return hits[0]
+        html = scraper.get(KHANDAIA_FRONTEND_URL, timeout=10).text
+        js_files = (re.findall(r'src="(/assets/[^"]+\.js)"', html) or
+                    re.findall(r'src="(/[^"]+\.js)"', html))
+        for js_path in js_files[:5]:
+            try:
+                js = scraper.get(KHANDAIA_FRONTEND_URL.rstrip("/") + js_path, timeout=20).text
+                # Also scan chunk files
+                chunk_paths = re.findall(r'assets/[^"'\s]+\.js', js)
+                extra_js = []
+                for cp in chunk_paths[:3]:
+                    try:
+                        cjs = scraper.get(KHANDAIA_FRONTEND_URL.rstrip("/") + "/" + cp, timeout=15).text
+                        extra_js.append(cjs)
+                    except Exception:
+                        pass
+                for source in [js] + extra_js:
+                    for pat in _js_patterns:
+                        hits = re.findall(pat, source)
+                        for hit in hits:
+                            if any(x in hit for x in ["cdn","pull","stream","secufun","asynccdn"]):
+                                continue
+                            try:
+                                probe_url = hit.rstrip("/") + "/fixtures/unfinished"
+                                pr = scraper.get(probe_url, headers={"Referer": KHANDAIA_FRONTEND_URL+"/"}, timeout=5)
+                                if pr.ok:
+                                    return hit.rstrip("/")
+                            except Exception:
+                                pass
+                            return hit.rstrip("/")
+            except Exception:
+                pass
     except Exception:
         pass
+    # Probe fallback hosts
+    for host in _probe_hosts:
+        for path in _probe_paths:
+            try:
+                url = f"https://{host}{path}"
+                pr  = scraper.get(url, headers={"Referer": KHANDAIA_FRONTEND_URL+"/"}, timeout=4)
+                if pr.ok and "application/json" in pr.headers.get("content-type",""):
+                    base = f"https://{host}" + path.rsplit("/",1)[0]
+                    return base
+            except Exception:
+                pass
     return KHANDAIA_KNOWN_API_BASE
-
-
 def _get_khandaia_api_base(scraper) -> str:
     now = time.time()
     if now - _khandaia_api_cache["discovered_at"] > API_DISCOVERY_TTL:
