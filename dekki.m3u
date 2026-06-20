@@ -3,10 +3,6 @@
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
 https://live.secufun.xyz/live/ca9ce02076aa91f4393d16ecc219c671/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",07:30 - 20/06 | Brazil VS Haiti (FIFA World Cup) | BLV TRẠNG TÈO
-#EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/a712bda10fe24089a3c69fe9bcd06d1b/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",07:30 - 20/06 | Brazil VS Haiti (FIFA World Cup) | BLV TRẠNG PHỆ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam.info/
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36
