@@ -1,10 +1,6 @@
 #EXTM3U
 #EXTINF:-1 tvg-logo="https://fifa.discorddata.site/pingpong_1_cfu9el.png" group-title="Hội Quán TV",22:00 - 20/06 | Tay Vợt 1 VS Tay Vợt 2 (WTT Star Contender Ljubljana 2026) | BLV PHAN CA
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",22:00 - 20/06 | Daniel Altmaier VS Frances Tiafoe (WTA500 Berlin) | BLV PHAN PHÉP
-https://hqlive.yarncdn.live/live/hqtv_blv_phanphep/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:30 - 20/06 | FC Vitebsk VS Dinamo Brest (VĐQG Belarus) | BLV TÁO GIÀ
-https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",23:30 - 20/06 | Thổ Nhĩ Kỳ VS Đức (Nation League Women) | BLV LƯƠNG BỔNG
 https://hqlive.yarncdn.live/live/hqtv_blv_phanliem/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 21/06 | Netherlands VS Sweden (World Cup) | BLV PHAN MÃ
@@ -101,8 +97,6 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8
 https://hqlive.yarncdn.live/live/hqtv_blv_phanbong/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 22/06 | Rīgas FS VS Ogre United (Virsliga) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:30 - 20/06 | FC Vitebsk VS Dinamo Brest (Premier League) | Mơ
-https://q9kh24w2ba.yarncdn.live/live/kda-blv-mo/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",23:30 - 20/06 | Thổ Nhĩ Kỳ Nữ VS Đức Nữ (Nations League Women) | Kaka
 https://q9kh24w2ba.yarncdn.live/live/kda-blv-kk/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 21/06 | Netherlands VS Sweden (World Cup) | Núi
@@ -205,8 +199,6 @@ https://bglive.yarncdn.live/live/bgtv_blv_tieumeo/playlist.m3u8
 https://bglive.yarncdn.live/live/bgtv_blv_trada/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",23:00 - 21/06 | Tây Ban Nha VS Ả Rập Xê Út (World Cup) | BLV Phi MC
 https://bglive.yarncdn.live/live/bgtv_blv_phimc/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",23:00 - 21/06 | Tây Ban Nha VS Ả Rập Xê Út (World Cup) | BLV Mao Từn
-https://bglive.yarncdn.live/live/bgtv_blv_mason/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",23:30 - 21/06 | Nữ Thổ Nhĩ Kỳ VS Nữ Trung Quốc (Nations League Women's) | BLV Tiểu Mèo
 https://bglive.yarncdn.live/live/bgtv_blv_tieumeo/playlist.m3u8
 #EXTINF:-1 tvg-id="vtv1hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv1.png",VTV1
