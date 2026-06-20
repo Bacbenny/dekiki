@@ -852,7 +852,7 @@ def _discover_khandaia_api(scraper) -> str:
             try:
                 js = scraper.get(KHANDAIA_FRONTEND_URL.rstrip("/") + js_path, timeout=20).text
                 # Also scan chunk files
-                chunk_paths = re.findall(r'assets/[^"'\s]+\.js', js)
+                chunk_paths = re.findall(r"assets/\S+\.js", js)
                 extra_js = []
                 for cp in chunk_paths[:3]:
                     try:
