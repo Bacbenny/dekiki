@@ -62,13 +62,22 @@ FINISHED_STATUS_STRINGS = {"finished", "end", "ended", "complete", "completed"}
 # ─── Sport logos (Twemoji via jsDelivr) ───────────────────────────────────────
 _CDN = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72"
 SPORT_LOGOS = {
-    "football":   f"{_CDN}/26bd.png",
-    "tennis":     f"{_CDN}/1f3be.png",
-    "basketball": f"{_CDN}/1f3c0.png",
-    "volleyball": f"{_CDN}/1f3d0.png",
-    "billiards":  f"{_CDN}/1f3b1.png",
-    "badminton":  f"{_CDN}/1f3f8.png",
-    "default":    f"{_CDN}/1f3c6.png",
+    "football":    f"{_CDN}/26bd.png",
+    "tennis":      f"{_CDN}/1f3be.png",
+    "basketball":  f"{_CDN}/1f3c0.png",
+    "volleyball":  f"{_CDN}/1f3d0.png",
+    "billiards":   f"{_CDN}/1f3b1.png",
+    "badminton":   f"{_CDN}/1f3f8.png",
+    "boxing":      f"{_CDN}/1f94a.png",
+    "golf":        f"{_CDN}/26f3.png",
+    "esport":      f"{_CDN}/1f3ae.png",
+    "motorsport":  f"{_CDN}/1f3ce.png",
+    "athletics":   f"{_CDN}/1f3c3.png",
+    "swimming":    f"{_CDN}/1f3ca.png",
+    "martialarts": f"{_CDN}/1f94b.png",
+    "cycling":     f"{_CDN}/1f6b4.png",
+    "hockey":      f"{_CDN}/1f3d2.png",
+    "default":     f"{_CDN}/1f3c6.png",
 }
 
 # ─── API URL caches (dùng để tránh re-discover liên tục trong 1 lần chạy) ────
@@ -112,6 +121,24 @@ def _logo_from_text(text: str) -> str:
         return SPORT_LOGOS["billiards"]
     if any(k in t for k in ["badminton", "cầu lông", "cau long"]):
         return SPORT_LOGOS["badminton"]
+    if any(k in t for k in ["boxing", "kickbox", "muay", "quyền anh", "quyen anh", "ufc", "mma"]):
+        return SPORT_LOGOS["boxing"]
+    if any(k in t for k in ["golf"]):
+        return SPORT_LOGOS["golf"]
+    if any(k in t for k in ["esport", "e-sport", "gaming", "lol", "dota", "valorant", "fifa online"]):
+        return SPORT_LOGOS["esport"]
+    if any(k in t for k in ["formula", "f1 ", " f1", "motogp", "moto gp", "đua xe", "dua xe", "motorsport", "superbike", "wtcc"]):
+        return SPORT_LOGOS["motorsport"]
+    if any(k in t for k in ["athletics", "điền kinh", "dien kinh", "marathon", "chạy", "cha y"]):
+        return SPORT_LOGOS["athletics"]
+    if any(k in t for k in ["swim", "bơi lội", "boi loi", "aquatic"]):
+        return SPORT_LOGOS["swimming"]
+    if any(k in t for k in ["karate", "judo", "taekwondo", "wushu", "võ thuật", "vo thuat", "wrestling", "kung fu"]):
+        return SPORT_LOGOS["martialarts"]
+    if any(k in t for k in ["cycl", "xe đạp", "xe dap", "velo"]):
+        return SPORT_LOGOS["cycling"]
+    if any(k in t for k in ["hockey", "khúc côn", "khuc con"]):
+        return SPORT_LOGOS["hockey"]
     return SPORT_LOGOS["football"]
 
 
@@ -401,20 +428,28 @@ def _build_tieulam_lines(matches: list) -> list:
         primary_url  = ""
         fallback_url = ""
 
-        if source_live:
+        if source_live and live_integrated and idx in resolved:
+            # Ưu tiên stream TieuLam CDN (có BLV tiếng Việt), dùng Nhà đài làm dự phòng
+            hd1, hd2, hd3, nha_dai = resolved.get(idx, ("", "", "", ""))
+            vi_stream = hd1 or hd2 or hd3
+            if vi_stream:
+                primary_url  = vi_stream    # VIE commentary FIRST
+                fallback_url = source_live  # Nhà đài as backup (may lack VIE)
+            else:
+                primary_url = source_live   # TieuLam CDN chưa có stream, dùng Nhà đài
+
+        elif source_live:
             primary_url = source_live
-            if live_integrated and match.get("id") and idx in resolved:
-                hd1, hd2, hd3, nha_dai = resolved.get(idx, ("", "", "", ""))
-                fb_candidate = hd1 or hd2 or hd3
-                if fb_candidate and fb_candidate != source_live:
-                    fallback_url = fb_candidate
 
         elif idx in resolved:
             hd1, hd2, hd3, nha_dai = resolved[idx]
-            candidates = [u for u in (hd1, hd2, hd3, nha_dai) if u]
-            if candidates:
-                primary_url  = candidates[0]
-                fallback_url = candidates[1] if len(candidates) > 1 else ""
+            # VIE streams only first, nhà đài last resort
+            vi_streams = [u for u in (hd1, hd2, hd3) if u]
+            if vi_streams:
+                primary_url  = vi_streams[0]
+                fallback_url = vi_streams[1] if len(vi_streams) > 1 else ""
+            elif nha_dai:
+                primary_url = nha_dai
             else:
                 primary_url = ""
 
@@ -605,6 +640,24 @@ def _vongcam_is_active(match: dict) -> bool:
     return False
 
 
+def _vongcam_logo(match: dict) -> str:
+    """Logo cho Vòng Cấm TV — ưu tiên sportType/sport từ API, fallback tournamentName."""
+    # bugiotv API có thể trả về field sport hoặc sportType
+    for key in ("sportType", "sport", "sportName", "sportSlug"):
+        val = match.get(key)
+        if isinstance(val, dict):
+            icon = val.get("iconUrl") or val.get("icon", "")
+            if icon:
+                return icon
+            val = val.get("name") or val.get("slug") or val.get("type", "")
+        if val and isinstance(val, str):
+            logo = _logo_from_text(val)
+            if logo != SPORT_LOGOS["football"]:  # tìm được sport cụ thể
+                return logo
+    # Fallback: dùng tên giải đấu
+    return _logo_from_text(match.get("tournamentName", ""))
+
+
 def _build_vongcam_lines(matches: list) -> list:
     try:
         matches = sorted(matches, key=lambda m: m.get("startTime") or "")
@@ -617,7 +670,7 @@ def _build_vongcam_lines(matches: list) -> list:
         home       = match.get("homeClub", {}).get("name", "Home").strip()
         away       = match.get("awayClub", {}).get("name", "Away").strip()
         tournament = match.get("tournamentName", "")
-        logo       = _logo_from_text(tournament)
+        logo       = _vongcam_logo(match)
         start_str  = match.get("startTime", "")
         try:
             if "+" not in start_str and not start_str.endswith("Z"):
