@@ -400,9 +400,11 @@ def _build_tieulam_lines(matches: list) -> list:
     for idx, (match, elapsed, _) in enumerate(valid):
         source_live      = (match.get("source_live") or "").strip()
         live_integrated  = bool(match.get("live_integrated"))
+        is_live_pre      = bool(match.get("is_live"))
         stream_key       = (match.get("stream_key") or "").strip()
         match_id         = (match.get("id") or "").strip()
-        if not source_live and live_integrated and stream_key and match_id:
+        # Ưu tiên VN BLV: gọi /match/{id}/live cho mọi trận live hoặc live_integrated
+        if stream_key and match_id and (live_integrated or is_live_pre):
             needs_live_url.append(idx)
 
     resolved: dict[int, tuple[str, str, str, str]] = {}
@@ -445,15 +447,20 @@ def _build_tieulam_lines(matches: list) -> list:
 
         elif idx in resolved:
             hd1, hd2, hd3, nha_dai = resolved[idx]
-            # VIE streams only first, nhà đài last resort
+            # Ưu tiên: VN BLV (hd1→hd2→hd3) → Nhà đài → CDN stream_key
             vi_streams = [u for u in (hd1, hd2, hd3) if u]
+            cdn_fallback = (f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
+                            if stream_key else "")
             if vi_streams:
                 primary_url  = vi_streams[0]
-                fallback_url = vi_streams[1] if len(vi_streams) > 1 else ""
+                fallback_url = vi_streams[1] if len(vi_streams) > 1 else cdn_fallback
             elif nha_dai:
-                primary_url = nha_dai
+                primary_url  = nha_dai
+                fallback_url = cdn_fallback
+            elif cdn_fallback:
+                primary_url  = cdn_fallback
             else:
-                primary_url = ""
+                primary_url  = ""
 
         elif stream_key and is_live:
             primary_url = f"{TIEULAM_STREAM_CDN}/live/{stream_key}/playlist.m3u8"
