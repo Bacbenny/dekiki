@@ -1,0 +1,52 @@
+name: Auto-Discover APIs
+
+on:
+  schedule:
+    - cron: '0 0,6,12,18 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  auto-discover:
+    name: Discover & Update APIs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: $2{{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests cloudscraper --quiet
+
+      - name: Run auto-discover
+        env:
+          CF_API_TOKEN:         ${{ secrets.CF_API_TOKEN }}
+          CLOUDFCLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          RELAY_SECRET:         ${{ secrets.RELAY_SECRET }}
+          TIEULAM_API:          ${{ secrets.TIEULAM_API }}
+          HOIQUAN_API:          ${{ secrets.HOIQUAM_API }}
+          KHANDAIA_API:         ${{ secrets.KHANDAIA _API }}
+          VONGCAM_ACCESS_TOKEN: ${{ secrets.VONGCAM_ACCESS_TOKEN }}
+        run: python auto_discover.py
+
+      - name: Commit changes if any
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name  "BallBall Auto-Discover Bot"
+          git add main.py
+          if git diff --staged --quiet; then
+            echo "Khong co thay doi."
+          else
+            git commit -m "auto: cap nhat API URLs [$(date -u '%Y-%m-%d %H:%M UTC')]"
+            git push
+          fi
