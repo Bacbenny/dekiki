@@ -19,25 +19,25 @@ UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
 
 SOURCES = {
     "tieulam": {
-        "frontend":  os.environ.get("TIEULAM_FRONTEND", "https://sv2.tieulam.info"),
-        "known_api": os.environ.get("TIEULAM_API",      "https://api.tlap17062026.com"),
+        "frontend":  (os.environ.get("TIEULAM_FRONTEND") or "https://sv2.tieulam.info"),
+        "known_api": (os.environ.get("TIEULAM_API")      or "https://api.tlap17062026.com"),
         "env_key":   "TIEULAM_API",
     },
     "hoiquan": {
-        "frontend":  os.environ.get("HOIQUAN_FRONTEND", "https://sv2.hoiquan4.live"),
-        "known_api": os.environ.get("HOIQUAN_API",      "https://sv.hoiquantv.xyz/api/v1/external"),
+        "frontend":  (os.environ.get("HOIQUAN_FRONTEND") or "https://sv2.hoiquan4.live"),
+        "known_api": (os.environ.get("HOIQUAN_API")      or "https://sv.hoiquantv.xyz/api/v1/external"),
         "env_key":   "HOIQUAN_API",
         "probe_path": "/fixtures/unfinished",
     },
     "khandaia": {
-        "frontend":  os.environ.get("KHANDAIA_FRONTEND", "https://tructiep.khandaia.link"),
-        "known_api": os.environ.get("KHANDAIA_API",      "https://sv.khandai-a.xyz/api/v1/external"),
+        "frontend":  (os.environ.get("KHANDAIA_FRONTEND") or "https://tructiep.khandaia.link"),
+        "known_api": (os.environ.get("KHANDAIA_API")      or "https://sv.khandai-a.xyz/api/v1/external"),
         "env_key":   "KHANDAIA_API",
         "probe_path": "/fixtures/unfinished",
     },
     "vongcam": {
-        "frontend":  os.environ.get("VONGCAM_FRONTEND", "https://sv2.vongcam3.live"),
-        "known_api": os.environ.get("VONGCAM_API",      "https://sv.bugiotv.xyz/internal/api/matches"),
+        "frontend":  (os.environ.get("VONGCAM_FRONTEND") or "https://sv2.vongcam3.live"),
+        "known_api": (os.environ.get("VONGCAM_API")      or "https://sv.bugiotv.xyz/internal/api/matches"),
         "env_key":   "VONGCAM_API",
     },
 }
@@ -319,7 +319,7 @@ def main():
         ("tieulam",  discover_tieulam,       SOURCES["tieulam"]["known_api"]),
         ("hoiquan",  discover_hoiquan,        SOURCES["hoiquan"]["known_api"]),
         ("khandaia", discover_khandaia,       SOURCES["khandaia"]["known_api"]),
-        ("vongcam",  discover_vongcam_token,  os.environ.get("VONGCAM_ACCESS_TOKEN","AB321C")),
+        ("vongcam",  discover_vongcam_token,  (os.environ.get("VONGCAM_ACCESS_TOKEN") or "AB321C")),
     ]
 
     results = {}
