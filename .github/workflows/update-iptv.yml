@@ -5,6 +5,11 @@ on:
     - cron: '*/30 * * * *'
   workflow_dispatch:
 
+# Only 1 run at a time; cancel the older run if a new one starts
+concurrency:
+  group: update-iptv
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -82,5 +87,6 @@ jobs:
           else
             TIMESTAMP=$(TZ='Asia/Ho_Chi_Minh' date '+%Y-%m-%d %H:%M:%S ICT')
             git commit -m "cap nhat dekki.m3u luc ${TIMESTAMP} [skip ci]"
+            git pull --rebase origin xemtv
             git push origin xemtv
           fi
