@@ -264,13 +264,17 @@ def _fetch_tieulam_live_urls(match_id: str) -> tuple[str, str, str, str]:
 
 
 def _fetch_tieulam_via_relay(url: str) -> list:
-    headers: dict = {}
+    """Gọi CF Worker relay bằng POST (Worker không xử lý GET body).
+    Header X-Relay-Token phải khớp RELAY_SECRET trên Worker.
+    """
+    headers: dict = {"Content-Type": "application/json"}
     if TIEULAM_RELAY_SECRET:
         headers["X-Relay-Token"] = TIEULAM_RELAY_SECRET
-    resp = requests.get(url, headers=headers, timeout=20)
+    # POST với body rỗng → Worker dùng default payload {queries:[], limit:50, page:1}
+    resp = requests.post(url, headers=headers, json={}, timeout=25)
     resp.raise_for_status()
     rdata = resp.json()
-    return rdata.get("data") or rdata.get("fixtures") or []
+    return rdata.get("data") or rdata.get("fixtures") or rdata.get("matches") or []
 
 
 def _fetch_tieulam_matches() -> list:
