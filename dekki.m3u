@@ -1,6 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",19:30 - 22/06 | Qatar VS Indonesia (AVC Nations Cup 2026) | BLV PHAN BỐNG
-https://hqlive.yarncdn.live/live/hqtv_blv_phanbong/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 22/06 | Rīgas FS VS Ogre United (Virsliga) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 23/06 | Argentina VS Austria (World Cup ( Râu Con ) ) | BLV LƯƠNG BỔNG
@@ -115,14 +113,26 @@ https://kdalive.yarncdn.live/live/Kda-blv-delua/playlist.m3u8
 https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",13:00 - 23/06 | Úc VS Indonesia (U18 Đông Nam Á) | Núi
 https://kdalive.yarncdn.live/live/kda-blv-nui/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",13:30 - 23/06 | New Zealand VS Úc (AVC Nations Cup 2026) | T-Rex
+https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",15:00 - 23/06 | Qingdao Red Lions VS Dalian Kewei (League Two) | Isco
 https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",16:00 - 23/06 | Philippines VS Malaysia (U18 Đông Nam Á) | Núi
+https://kdalive.yarncdn.live/live/kda-blv-nui/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",16:30 - 23/06 | Robina City VS Capalaba (Queensland Premier League) | Bệu
 https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",16:30 - 23/06 | Đài Loan VS Kazakhstan (AVC Nations Cup 2026) | T-Rex
+https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",18:30 - 23/06 | Guangdong Mingtu VS Guizhou Zhucheng (League Two) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",19:00 - 23/06 | Thái Lan VS HongKong (U18 Đông Nam Á) | Kaka
+https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",19:30 - 23/06 | Indonesia VS Thái Lan (AVC Nations Cup 2026) | Bệu
+https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:00 - 23/06 | KuPS VS Ilves (Veikkausliiga) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",22:30 - 23/06 | Ấn Độ VS Bahrain (AVC Nations Cup 2026) | Bệu
+https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 23/06 | Inter Turku VS SJK (Veikkausliiga) | Isco
 https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 24/06 | Portugal VS Uzbekistan (World Cup) | Siêu Gáy
@@ -145,6 +155,26 @@ https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8
 https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",09:00 - 24/06 | Colombia VS Congo DR (World Cup) | Isco
 https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",10:00 - 24/06 | Kyrgyzstan VS Malaysia (U18 Đông Nam Á) | T-Rex
+https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",13:00 - 24/06 | HongKong VS Indonesia (U18 Đông Nam Á) | Núi
+https://kdalive.yarncdn.live/live/kda-blv-nui/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",16:00 - 24/06 | Việt Nam VS Philippines (U18 Đông Nam Á) | Kaka
+https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",18:00 - 24/06 | Bulgaria VS Ý (Nations League 2026) | Bệu
+https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",18:00 - 24/06 | Trung Quốc VS Thổ Nhĩ Kỳ (Nations League 2026) | T-Rex
+https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",18:30 - 24/06 | Serbia VS Nhật Bản (Nations League 2026) | Kaka
+https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",19:00 - 24/06 | Thái Lan VS Úc (Nations League 2026) | Bệu
+https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",21:30 - 24/06 | Argentina VS Đức (Nations League 2026) | Núi
+https://kdalive.yarncdn.live/live/kda-blv-nui/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",21:30 - 24/06 | Ukraine VS Brazil (Nations League 2026) | Kaka
+https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",22:00 - 24/06 | Cuba VS Mỹ (Nations League 2026) | Núi
+https://kdalive.yarncdn.live/live/kda-blv-nui/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",21:30 - 22/06 | Alay VS OshMU Aldier (Premier League) | BLV Mao Từn
 https://bglive.yarncdn.live/live/bgtv_blv_mason/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",23:05 - 22/06 | Al Salmiyah VS Al Fahaheel (Premier League) | BLV Tiểu Mèo
