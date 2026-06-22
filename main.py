@@ -17,14 +17,22 @@ try:
 except ImportError:
     _CURL_CFFI = False
 
+def _normalize_workers_url(url: str) -> str:
+    """Sửa URL thiếu .dev (vd: dekki.bacbenny95.workers → .workers.dev)."""
+    url = (url or "").strip().rstrip("/")
+    if url.endswith(".workers") and not url.endswith(".workers.dev"):
+        url += ".dev"
+    return url
+
+
 # ─── TieuLam TV config ────────────────────────────────────────────────────────
 TIEULAM_FRONTEND_URL   = (os.environ.get("TIEULAM_FRONTEND") or "https://sv2.tieulam.info")
 TIEULAM_KNOWN_API_BASE = (os.environ.get("TIEULAM_API") or "https://api.tlap17062026.com")
 TIEULAM_STREAM_CDN     = (os.environ.get("TIEULAM_CDN") or "https://live.secufun.xyz")
 TIEULAM_ASYNC_CDN      = (os.environ.get("TIEULAM_ASYNC_CDN") or "https://pull1.asynccdn.xyz")
 VTV_M3U_URL            = (os.environ.get("VTV_M3U_URL") or "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/VTV.m3u")
-TIEULAM_RELAY_URL        = os.environ.get("TIEULAM_RELAY_URL", "https://dekki.bacbenny95.workers.dev")
-TIEULAM_REPLIT_RELAY_URL = os.environ.get("TIEULAM_REPLIT_RELAY_URL", "https://tieulam-relay.bacbenny95.workers.dev")
+TIEULAM_RELAY_URL        = _normalize_workers_url(os.environ.get("TIEULAM_RELAY_URL", "https://dekki.bacbenny95.workers.dev"))
+TIEULAM_REPLIT_RELAY_URL = _normalize_workers_url(os.environ.get("TIEULAM_REPLIT_RELAY_URL", "https://tieulam-relay.bacbenny95.workers.dev"))
 TIEULAM_RELAY_SECRET     = os.environ.get("RELAY_SECRET", "Bac12345@")
 REPLIT_PROXY_BASE        = os.environ.get("REPLIT_PROXY_BASE", "").rstrip("/")
 

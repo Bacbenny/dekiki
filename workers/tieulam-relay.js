@@ -214,6 +214,30 @@ export default {
       });
     }
 
+    // ── Proxy route: dekki gọi POST /tieulam { api_base, body } ─────────────
+    if (path === "/tieulam") {
+      let wrap = {};
+      try { wrap = await req.clone().json(); } catch (_) {}
+      const apiBase = (wrap.api_base || await getBase(env)).replace(/\/$/, "");
+      const body    = wrap.body || { queries: [], limit: 50, page: 1 };
+      try {
+        const pr = await fetch(`${apiBase}/matches/graph`, {
+          method: "POST",
+          headers: TIEULAM_HDR,
+          body: JSON.stringify(body),
+          signal: AbortSignal.timeout(20_000),
+        });
+        if (!pr.ok) return jsonResp({ data: [], error: `upstream_${pr.status}`, api_base: apiBase }, pr.status);
+        const pd = await pr.json();
+        const pdata = Array.isArray(pd) ? pd : (pd.data || pd.matches || []);
+        _cache = pdata; _cacheTs = Date.now();
+        await cfCachePut(pdata, apiBase);
+        return jsonResp({ data: pdata, count: pdata.length, api_base: apiBase, via: "tieulam-proxy" });
+      } catch (err) {
+        return jsonResp({ data: [], error: err.message }, 502);
+      }
+    }
+
     // ── Memory cache ─────────────────────────────────────────────────────────
     if (_cache.length && Date.now() - _cacheTs < CACHE_MS)
       return jsonResp({ data: _cache, count: _cache.length, cached: true });

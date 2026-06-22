@@ -42,6 +42,10 @@ jobs:
       - name: Auto-redeploy CF Workers (if workers/ changed)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          TIEULAM_API: ${{ secrets.TIEULAM_API }}
+          RELAY_SECRET: ${{ secrets.RELAY_SECRET }}
+          TIEULAM_REPLIT_RELAY_URL: ${{ secrets.TIEULAM_REPLIT_RELAY_URL }}
         run: python deploy_workers.py || echo "Worker deploy skipped"
 
       - name: Test CF Worker health (/healthz)

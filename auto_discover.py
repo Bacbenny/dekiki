@@ -233,21 +233,63 @@ def _get_worker_script(name: str) -> str:
     return text
 
 
+OBSOLETE_BINDINGS = {"GITHUB_RAW_URL", "PLAYLIST_KEY"}
+REPLIT_RELAY_URL = (
+    os.environ.get("TIEULAM_REPLIT_RELAY_URL")
+    or os.environ.get("REPLIT_RELAY_URL")
+    or "https://tieulam-relay.bacbenny95.workers.dev"
+)
+RELAY_SECRET = os.environ.get("RELAY_SECRET", "")
+
+
+def _get_existing_bindings(name: str) -> list:
+    try:
+        r = requests.get(
+            f"https://api.cloudflare.com/client/v4/accounts/{CF_ACCOUNT}/workers/scripts/{name}/settings",
+            headers={"Authorization": f"Bearer {CF_TOKEN}"},
+            timeout=15,
+        )
+        if r.ok:
+            return r.json().get("result", {}).get("bindings", []) or []
+    except Exception:
+        pass
+    return []
+
+
+def _build_worker_bindings(name: str, tieulam_api: str, existing: list) -> list:
+    bindings, seen = [], set()
+    for b in existing:
+        bname, btype = b.get("name", ""), b.get("type", "")
+        if not bname or bname in OBSOLETE_BINDINGS:
+            continue
+        if btype == "secret_text":
+            bindings.append({"name": bname, "type": "secret_text"})
+            seen.add(bname)
+    if tieulam_api:
+        bindings.append({"name": "TIEULAM_API", "type": "plain_text", "text": tieulam_api})
+        seen.add("TIEULAM_API")
+    if name == "dekki" and REPLIT_RELAY_URL:
+        bindings.append({"name": "REPLIT_RELAY_URL", "type": "plain_text", "text": REPLIT_RELAY_URL.rstrip("/")})
+        seen.add("REPLIT_RELAY_URL")
+    if "RELAY_SECRET" not in seen and RELAY_SECRET:
+        bindings.append({"name": "RELAY_SECRET", "type": "secret_text", "text": RELAY_SECRET})
+    return bindings
+
+
 def _deploy_worker(name: str, script: str, tieulam_api: str = "") -> bool:
     """Deploy worker lên CF bằng multipart/form-data đúng chuẩn.
 
-    FIX: Field name "index.js" phải khớp với main_module trong metadata.
-    FIX: Inject TIEULAM_API binding nếu tieulam_api được cung cấp.
+    FIX: Giữ secret_text bindings (RELAY_SECRET) khi redeploy.
+    FIX: Inject TIEULAM_API + REPLIT_RELAY_URL plain_text bindings.
     """
-    bindings = []
-    if tieulam_api:
-        bindings.append({"name": "TIEULAM_API", "type": "plain_text", "text": tieulam_api})
+    existing = _get_existing_bindings(name)
+    bindings = _build_worker_bindings(name, tieulam_api, existing)
 
     metadata = json.dumps({
         "main_module": "index.js",
         "compatibility_date": "2024-09-23",
         "usage_model": "standard",
-        **({"bindings": bindings} if bindings else {}),
+        "bindings": bindings,
     })
 
     r = requests.put(

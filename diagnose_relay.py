@@ -7,9 +7,15 @@ import os, sys, time, json, requests
 from datetime import datetime, timezone, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+def _normalize_workers_url(url: str) -> str:
+    url = (url or "").strip().rstrip("/")
+    if url.endswith(".workers") and not url.endswith(".workers.dev"):
+        url += ".dev"
+    return url
+
 # ── Config từ env ──────────────────────────────────────────────────────────
-RELAY_URL        = os.environ.get("TIEULAM_RELAY_URL", "https://dekki.bacbenny95.workers.dev/")
-REPLIT_RELAY_URL = os.environ.get("TIEULAM_REPLIT_RELAY_URL", "https://tieulam-relay.bacbenny95.workers.dev/")
+RELAY_URL        = _normalize_workers_url(os.environ.get("TIEULAM_RELAY_URL", "https://dekki.bacbenny95.workers.dev"))
+REPLIT_RELAY_URL = _normalize_workers_url(os.environ.get("TIEULAM_REPLIT_RELAY_URL", "https://tieulam-relay.bacbenny95.workers.dev"))
 RELAY_SECRET     = os.environ.get("RELAY_SECRET", "")
 TIEULAM_API      = os.environ.get("TIEULAM_API", "https://api.tlap17062026.com")
 TIEULAM_FRONT    = os.environ.get("TIEULAM_FRONTEND", "https://sv2.tieulam.info")
