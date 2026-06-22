@@ -23,9 +23,9 @@ TIEULAM_KNOWN_API_BASE = (os.environ.get("TIEULAM_API") or "https://api.tlap1706
 TIEULAM_STREAM_CDN     = (os.environ.get("TIEULAM_CDN") or "https://live.secufun.xyz")
 TIEULAM_ASYNC_CDN      = (os.environ.get("TIEULAM_ASYNC_CDN") or "https://pull1.asynccdn.xyz")
 VTV_M3U_URL            = (os.environ.get("VTV_M3U_URL") or "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/VTV.m3u")
-TIEULAM_RELAY_URL        = os.environ.get("TIEULAM_RELAY_URL", "")
-TIEULAM_REPLIT_RELAY_URL = os.environ.get("TIEULAM_REPLIT_RELAY_URL", "")
-TIEULAM_RELAY_SECRET     = os.environ.get("RELAY_SECRET", "")
+TIEULAM_RELAY_URL        = os.environ.get("TIEULAM_RELAY_URL", "https://dekki.bacbenny95.workers.dev")
+TIEULAM_REPLIT_RELAY_URL = os.environ.get("TIEULAM_REPLIT_RELAY_URL", "https://tieulam-relay.bacbenny95.workers.dev")
+TIEULAM_RELAY_SECRET     = os.environ.get("RELAY_SECRET", "Bac12345@")
 REPLIT_PROXY_BASE        = os.environ.get("REPLIT_PROXY_BASE", "").rstrip("/")
 
 # ─── Stream URL proxy helper ─────────────────────────────────────────────────
@@ -1040,7 +1040,7 @@ def _try_relay(url: str, label: str) -> list | None:
         hdrs: dict = {}
         if TIEULAM_RELAY_SECRET:
             hdrs["X-Relay-Token"] = TIEULAM_RELAY_SECRET
-        r = requests.get(url, headers=hdrs, timeout=20)
+        r = requests.post(url, headers=hdrs, json={}, timeout=20)
         r.raise_for_status()
         rdata = r.json()
 
