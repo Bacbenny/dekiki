@@ -1,7 +1,6 @@
 // ════════════════════════════════════════════════════════════════════════════
-// tieulam-relay — Worker v4
-// Fixes: proper Referer/UA headers, dynamic domain list (VN tz),
-//        parallel probe, NEVER 502, /healthz test endpoint
+// tieulam-relay — Worker v5 (FIXED)
+// Fixes: CF Cache added, stricter auth, CORS on all errors
 // ════════════════════════════════════════════════════════════════════════════
 
 const TIEULAM_FRONTS = [
@@ -17,7 +16,19 @@ const TIEULAM_HDR = {
   "Accept": "application/json, text/plain, */*",
 };
 
-// Dynamic domain list — VN UTC+7, today first
+const CORS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type,X-Relay-Token",
+};
+
+function jsonResp(body, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...CORS, "Content-Type": "application/json" },
+  });
+}
+
 function buildDomains() {
   const vnMs = Date.now() + 7 * 3_600_000;
   const domains = [];
@@ -33,35 +44,47 @@ function buildDomains() {
 }
 
 function fmtDomain(d) {
-  const dd   = String(d.getUTCDate()).padStart(2, "0");
-  const mm   = String(d.getUTCMonth() + 1).padStart(2, "0");
+  const dd = String(d.getUTCDate()).padStart(2, "0");
+  const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
   const yyyy = d.getUTCFullYear();
   return `https://api.tlap${dd}${mm}${yyyy}.com`;
 }
 
-// In-memory state
-let _apiBase  = ""; // set lazily in handler (CF Workers: Date.now()=0 at module init)
+let _apiBase = "";
 let _apiDiscAt = 0;
-let _cache    = [];
-let _cacheTs  = 0;
+let _cache = [];
+let _cacheTs = 0;
 
-const URL_MS   = 3_600_000; // re-discover API URL every 1h
-const CACHE_MS = 1_800_000; // serve memory cache for 30min
+const URL_MS = 3_600_000;
+const CACHE_MS = 1_800_000;
+const CF_CACHE_KEY = "https://tieulam-relay-internal/matches-v5";
+const KV_STALE_MS = 7_200_000;
 
-const CORS = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type,X-Relay-Token",
-};
-
-function jsonResp(body, status = 200) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { ...CORS, "Content-Type": "application/json" },
-  });
+async function cacheGet() {
+  try {
+    const cached = await caches.default.match(new Request(CF_CACHE_KEY));
+    if (!cached) return null;
+    const body = await cached.json();
+    if (body?.data) return body;
+  } catch (_) {}
+  return null;
 }
 
-// ─── Discovery ────────────────────────────────────────────────────────────────
+async function cachePut(data, apiBase) {
+  try {
+    const body = JSON.stringify({ ts: Date.now(), data, api_base: apiBase });
+    await caches.default.put(
+      new Request(CF_CACHE_KEY),
+      new Response(body, {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": `public, max-age=${Math.floor(KV_STALE_MS / 1000)}`,
+        },
+      })
+    );
+  } catch (_) {}
+}
+
 async function discoverFromFrontend() {
   for (const front of TIEULAM_FRONTS) {
     try {
@@ -70,7 +93,7 @@ async function discoverFromFrontend() {
         try {
           const js = await fetch(front + m[1], { signal: AbortSignal.timeout(10000) }).then(r => r.text());
           const hit = js.match(/create\(\{baseURL:"(https:\/\/api\.tlap[^"]+)"\}/)
-                   || js.match(/"(https:\/\/api\.tlap[\w]+\.com)"/);
+            || js.match(/"(https:\/\/api\.tlap[\w]+\.com)"/);
           if (hit) return hit[1];
         } catch (_) {}
       }
@@ -99,33 +122,33 @@ async function probeDomains(domains) {
 }
 
 async function getBase() {
-  if (!_apiBase) _apiBase = buildDomains()[0]; // lazy init
+  if (!_apiBase) _apiBase = buildDomains()[0];
   if (Date.now() - _apiDiscAt < URL_MS) return _apiBase;
-
   const fromFront = await discoverFromFrontend();
   if (fromFront) { _apiBase = fromFront; _apiDiscAt = Date.now(); return _apiBase; }
-
   const found = await probeDomains(buildDomains());
   if (found) { _apiBase = found; _apiDiscAt = Date.now(); return _apiBase; }
-
-  _apiDiscAt = Date.now() - URL_MS + 300_000; // retry in 5min
+  _apiDiscAt = Date.now() - URL_MS + 300_000;
   return _apiBase;
 }
 
-// ─── Handler ──────────────────────────────────────────────────────────────────
 export default {
   async fetch(req, env) {
     if (req.method === "OPTIONS") return new Response(null, { headers: CORS });
 
-    const url  = new URL(req.url);
+    const url = new URL(req.url);
     const path = url.pathname;
 
-    // Auth
-    const sec   = env.RELAY_SECRET || "";
+    // ── Auth: MUST have secret ───────────────────────────────────────────────
+    const sec = env.RELAY_SECRET;
+    if (!sec) {
+      return jsonResp({ error: "RELAY_SECRET not configured" }, 500);
+    }
     const token = req.headers.get("X-Relay-Token") || url.searchParams.get("token") || "";
-    if (sec && token !== sec) return jsonResp({ error: "Unauthorized" }, 401);
+    if (token !== sec) {
+      return jsonResp({ error: "Unauthorized" }, 401);
+    }
 
-    // Health / env test
     if (path === "/healthz" || path === "/test-env") {
       const domains = buildDomains();
       const probeResults = await Promise.allSettled(
@@ -137,23 +160,24 @@ export default {
           }).then(r => ({ base, status: r.status, ok: r.ok || r.status === 422 }))
         )
       );
+      const cfCache = await cacheGet();
       return jsonResp({
         ok: true,
-        env: { relay_secret_set: !!sec, relay_secret_len: sec.length },
+        env: { relay_secret_set: true, relay_secret_len: sec.length },
         domains_today_first: domains.slice(0, 3),
         probe_results: probeResults.map(p =>
           p.status === "fulfilled" ? p.value : { error: p.reason?.message }
         ),
         memory_cache_size: _cache.length,
+        cf_cache_ts: cfCache?.ts ?? null,
+        cf_cache_size: cfCache?.data?.length ?? 0,
         current_api_base: _apiBase,
       });
     }
 
-    // Serve fresh memory cache
     if (_cache.length && Date.now() - _cacheTs < CACHE_MS)
       return jsonResp({ data: _cache, count: _cache.length, cached: true });
 
-    // Fetch fresh
     try {
       const base = await getBase();
       let reqBody = { queries: [], limit: 50, page: 1 };
@@ -167,21 +191,28 @@ export default {
       });
 
       if (!r.ok) {
-        _apiDiscAt = 0; // force re-discovery
+        _apiDiscAt = 0;
         if (_cache.length)
           return jsonResp({ data: _cache, count: _cache.length, cached: true, stale: true, upstream: r.status });
+        const cfCache = await cacheGet();
+        if (cfCache?.data?.length)
+          return jsonResp({ data: cfCache.data, count: cfCache.data.length, cached: true, stale: true, from_cf_cache: true, upstream: r.status });
         return jsonResp({ data: [], count: 0, error: `upstream_${r.status}`, api_base: base });
       }
 
       const d = await r.json();
       const data = Array.isArray(d) ? d : (d.data || d.matches || []);
       _cache = data; _cacheTs = Date.now();
+      await cachePut(data, base);
       return jsonResp({ data, count: data.length, api_base: base });
 
     } catch (err) {
       _apiDiscAt = 0;
       if (_cache.length)
         return jsonResp({ data: _cache, count: _cache.length, cached: true, stale: true, error: err.message });
+      const cfCache = await cacheGet();
+      if (cfCache?.data?.length)
+        return jsonResp({ data: cfCache.data, count: cfCache.data.length, cached: true, stale: true, from_cf_cache: true, error: err.message });
       return jsonResp({ data: [], count: 0, error: err.message });
     }
   },
