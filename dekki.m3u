@@ -1,6 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 23/06 | KuPS VS Ilves (Veikkausliiga) | BLV PHAN BÁCH
-https://hqlive.yarncdn.live/live/hqtv_blv_phanchuot/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 23/06 | Inter Turku VS SJK (Veikkausliiga) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 24/06 | Portugal VS Uzbekistan (World CupW ( ĐẦU CẦU TRUNG LẬP )) | BLV PHAN MÃ
@@ -69,10 +67,6 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanchop/playlist.m3u8
 https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",08:00 - 25/06 | South Africa VS South Korea (World Cup) | BLV PHAN MÃ
 https://hqlive.yarncdn.live/live/hqtv_blv_phanma/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:00 - 23/06 | KuPS VS Ilves (Veikkausliiga) | Isco
-https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",22:30 - 23/06 | Ấn Độ VS Bahrain (AVC Nations Cup 2026) | Bệu
-https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 24/06 | Portugal VS Uzbekistan (World Cup) | Siêu Gáy
 https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 24/06 | Portugal VS Uzbekistan (World Cup) | Dế Lửa
@@ -139,8 +133,6 @@ https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8
 https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",08:00 - 25/06 | South Africa VS South Korea (World Cup) | Dế Lửa
 https://kdalive.yarncdn.live/live/kda-blv-delua/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",22:00 - 23/06 | Lahti VS Turku PS (Veikkausliiga) | BLV Mao Từn
-https://bglive.yarncdn.live/live/bgtv_blv_mason/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",00:00 - 24/06 | Portugal VS Uzbekistan (World Cup) | BLV Tiểu Trà Đá
 https://bglive.yarncdn.live/live/bgtv_blv_trada/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",00:00 - 24/06 | Portugal VS Uzbekistan (World Cup) | BLV Phi MC
@@ -155,6 +147,10 @@ https://bglive.yarncdn.live/live/bgtv_blv_max/playlist.m3u8
 https://bglive.yarncdn.live/live/bgtv_blv_cuccu/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",03:00 - 24/06 | England VS Ghana (World Cup) | BLV Phi MC
 https://bglive.yarncdn.live/live/bgtv_blv_phimc/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",06:00 - 24/06 | Panama VS Croatia (World Cup) | BLV Tiểu Trà Đá
+https://bglive.yarncdn.live/live/bgtv_blv_trada/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",06:00 - 24/06 | Panama VS Croatia (World Cup) | BLV Lềnh
+https://bglive.yarncdn.live/live/bgtv_blv_lenh/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3b1.png" group-title="Vòng Cấm TV",09:00 - 24/06 | Colombia VS Congo DR (World Cup) | BLV Mao Từn
 https://bglive.yarncdn.live/live/bgtv_blv_mason/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="Vòng Cấm TV",16:00 - 24/06 | U18 Việt Nam VS U18 Philippines (Bóng Chuyền U18 Đông Nam Á) | BLV Chim Nhỏ
