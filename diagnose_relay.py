@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-diagnose_relay.py — Kiểm tra đồng thời tất cả nguồn dữ liệu BallBall
-Chạy: python diagnose_relay.py
+diagnose_relay.py — Kiem tra dong thoi tat ca nguon du lieu BallBall
+Chay: python diagnose_relay.py
 """
 import os, sys, time, json, requests
 from datetime import datetime, timezone, timedelta
@@ -13,20 +13,27 @@ def _normalize_workers_url(url: str) -> str:
         url += ".dev"
     return url
 
-# ── Config từ env ──────────────────────────────────────────────────────────
+# ── Config tu env ──────────────────────────────────────────────────────────
 RELAY_URL        = _normalize_workers_url(os.environ.get("TIEULAM_RELAY_URL", "https://dekki.bacbenny95.workers.dev"))
 REPLIT_RELAY_URL = _normalize_workers_url(os.environ.get("TIEULAM_REPLIT_RELAY_URL", "https://tieulam-relay.bacbenny95.workers.dev"))
 RELAY_SECRET     = os.environ.get("RELAY_SECRET", "")
 TIEULAM_API      = os.environ.get("TIEULAM_API", "https://api.tlap17062026.com")
 TIEULAM_FRONT    = os.environ.get("TIEULAM_FRONTEND", "https://sv2.tieulam.info")
-VONGCAM_TOKEN    = os.environ.get("VONGCAM_ACCESS_TOKEN", "AB321C")
+HOIQUAN_API      = os.environ.get("HOIQUAN_API", "https://sv.hoiquantv.xyz/api/v1/external")
+HOIQUAN_FRONT    = os.environ.get("HOIQUAN_FRONTEND", "https://sv2.hoiquan4.live")
+KHANDAIA_API     = os.environ.get("KHANDAIA_API", "https://sv.khandai-a.xyz/api/v1/external")
+KHANDAIA_FRONT   = os.environ.get("KHANDAIA_FRONTEND", "https://tructiep.khandaia.link")
+VONGCAM_TOKEN    = os.environ.get("VONGCAM_ACCESS_TOKEN") or os.environ.get("VONGCAM_TOKEN", "AB321C")
+VONGCAM_API      = os.environ.get("VONGCAM_API", "https://sv.bugiotv.xyz/internal/api/matches")
 VTV_M3U_URL      = os.environ.get("VTV_M3U_URL",
     "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/VTV.m3u")
+
+UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/125 Safari/537.36"
 
 # ── Payload TieuLam ─────────────────────────────────────────────────────────
 def _tl_payload():
     now        = datetime.now(timezone.utc)
-    cutoff     = (now - timedelta(hours=2)).strftime("%Y-%m-%dT%H:%M:%S")
+    cutoff     = (now - timedelta(hours=3)).strftime("%Y-%m-%dT%H:%M:%S")
     cutoff_end = (now + timedelta(hours=72)).strftime("%Y-%m-%dT%H:%M:%S")
     return {
         "queries": [
@@ -40,7 +47,10 @@ def _tl_payload():
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 def _relay_headers():
-    return {"X-Relay-Token": RELAY_SECRET} if RELAY_SECRET else {}
+    h = {"Content-Type": "application/json"}
+    if RELAY_SECRET:
+        h["X-Relay-Token"] = RELAY_SECRET
+    return h
 
 def _run(name, fn):
     t0 = time.time()
@@ -53,60 +63,58 @@ def _run(name, fn):
 # ── Checks ───────────────────────────────────────────────────────────────────
 
 def check_dekki():
-    r = requests.get(RELAY_URL, headers=_relay_headers(), timeout=15)
+    # FIX: POST (not GET) — matches main.py behavior; Workers use POST body
+    r = requests.post(RELAY_URL, headers=_relay_headers(), json={}, timeout=20)
+    r.raise_for_status()
+    d = r.json()
+    matches    = d.get("data", [])
+    vi_streams = sum(1 for m in matches if m.get("source_live") or m.get("stream_key"))
+    cached     = r.headers.get("X-Cache", d.get("cached", "?"))
+    return len(matches), "api=%s vi=%d cache=%s" % (
+        d.get("api_base", "?"), vi_streams, cached)
+
+def check_tieulam_relay():
+    # FIX: POST (not GET)
+    r = requests.post(REPLIT_RELAY_URL, headers=_relay_headers(), json={}, timeout=20)
     r.raise_for_status()
     d = r.json()
     matches = d.get("data", [])
-    vi_streams = sum(1 for m in matches if m.get("source_live") or m.get("stream_key"))
-    return len(matches), "api=%s vi_streams=%d cached=%s" % (
-        d.get("api_base", "?"), vi_streams, d.get("cached", False))
-
-def check_tieulam_relay():
-    r = requests.get(REPLIT_RELAY_URL, headers=_relay_headers(), timeout=15)
-    r.raise_for_status()
-    d = r.json()
-    return d.get("count", len(d.get("data", []))), "api=%s" % d.get("api_base", "?")
+    return len(matches), "api=%s" % d.get("api_base", "?")
 
 def check_tieulam_direct():
     hdrs = {
-        "Accept": "application/json, text/plain, */*",
+        "Accept":       "application/json, text/plain, */*",
         "Content-Type": "application/json",
-        "Referer": TIEULAM_FRONT + "/",
-        "Origin": TIEULAM_FRONT,
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
-        ),
+        "Referer":      TIEULAM_FRONT + "/",
+        "Origin":       TIEULAM_FRONT,
+        "User-Agent":   UA,
     }
     r = requests.post(TIEULAM_API + "/matches/graph",
                       json=_tl_payload(), headers=hdrs, timeout=15)
     r.raise_for_status()
-    matches = r.json().get("data", [])
+    matches    = r.json().get("data", [])
     blv        = sum(1 for m in matches if m.get("blv"))
     integrated = sum(1 for m in matches if m.get("live_integrated"))
     is_live    = sum(1 for m in matches if m.get("is_live"))
     stream_key = sum(1 for m in matches if m.get("stream_key"))
     src_live   = sum(1 for m in matches if m.get("source_live"))
-    # VN priority: bất kỳ trận live hoặc live_integrated có stream_key → gọi /match/{id}/live
     vi_eligible = sum(1 for m in matches
                       if m.get("stream_key") and (m.get("live_integrated") or m.get("is_live")))
     return len(matches), (
-        "blv=%d live=%d integrated=%d stream_key=%d src_live=%d vi_eligible=%d"
+        "blv=%d live=%d integrated=%d sk=%d src=%d vi=%d"
         % (blv, is_live, integrated, stream_key, src_live, vi_eligible)
     )
 
 def check_tieulam_live_url():
-    """Thử lấy VN stream URL từ /match/{id}/live cho trận đầu tiên có stream_key"""
     hdrs = {
         "Accept": "application/json", "Content-Type": "application/json",
         "Referer": TIEULAM_FRONT + "/", "Origin": TIEULAM_FRONT,
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/125.0.0.0",
+        "User-Agent": UA,
     }
     r = requests.post(TIEULAM_API + "/matches/graph",
                       json=_tl_payload(), headers=hdrs, timeout=10)
     r.raise_for_status()
-    matches = r.json().get("data", [])
-    # Tìm trận live có stream_key
+    matches   = r.json().get("data", [])
     candidate = next(
         (m for m in matches if m.get("stream_key") and (m.get("is_live") or m.get("live_integrated"))),
         None,
@@ -115,30 +123,30 @@ def check_tieulam_live_url():
         candidate = next((m for m in matches if m.get("stream_key")), None)
     if not candidate:
         return 0, "khong co tran nao co stream_key"
-
     mid  = candidate.get("id", "")
     team = "%s vs %s" % (candidate.get("team_1","?"), candidate.get("team_2","?"))
     live_r = requests.get(
         TIEULAM_API + "/match/%s/live" % mid,
         headers={"Accept": "application/json", "Referer": TIEULAM_FRONT + "/",
-                 "Origin": TIEULAM_FRONT,
-                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/125.0.0.0"},
+                 "Origin": TIEULAM_FRONT, "User-Agent": UA},
         timeout=8,
     )
     if live_r.status_code != 200:
         return 0, "match=%s HTTP %d" % (team, live_r.status_code)
-    ld = live_r.json()
+    ld      = live_r.json()
     streams = {k: v for k, v in ld.items() if v and isinstance(v, str) and v.startswith("http")}
     hd_count = sum(1 for k in streams if k.startswith("hd_"))
     return hd_count, "match=%s streams=%s" % (team, list(streams.keys())[:4])
 
 def check_vongcam():
-    r = requests.get("https://sv.bugiotv.xyz/internal/api/matches",
-                     headers={"Access-Token": VONGCAM_TOKEN}, timeout=15)
+    # FIX: doi ten bien VONGCAM_TOKEN da duoc update o tren (doc ca 2 env var)
+    r = requests.get(VONGCAM_API,
+                     headers={"Access-Token": VONGCAM_TOKEN, "User-Agent": UA},
+                     timeout=15)
     r.raise_for_status()
     d = r.json()
     m = d if isinstance(d, list) else d.get("data", d.get("matches", []))
-    return (len(m) if isinstance(m, list) else 0), "ok"
+    return (len(m) if isinstance(m, list) else 0), "token=%s" % ("set" if VONGCAM_TOKEN else "missing")
 
 def check_vtv():
     r = requests.get(VTV_M3U_URL, timeout=10)
@@ -147,18 +155,26 @@ def check_vtv():
     return len(ch), "kenh"
 
 def check_hoiquan():
-    r = requests.get("https://sv.hoiquantv.xyz/api/v1/external", timeout=10)
+    # FIX: Them /fixtures/unfinished — base URL tra 404, chi endpoint moi tra data
+    url = HOIQUAN_API.rstrip("/") + "/fixtures/unfinished"
+    r = requests.get(url,
+                     headers={"Referer": HOIQUAN_FRONT + "/", "User-Agent": UA},
+                     timeout=12)
     r.raise_for_status()
-    d = r.json()
-    items = d.get("data", d) if isinstance(d, dict) else d
-    return (len(items) if isinstance(items, list) else 0), "ok"
+    d     = r.json()
+    items = d.get("data", []) if isinstance(d, dict) else d
+    return (len(items) if isinstance(items, list) else 0), "api=%s" % HOIQUAN_API
 
 def check_khandaia():
-    r = requests.get("https://sv.khandai-a.xyz/api/v1/external", timeout=10)
+    # FIX: Them /fixtures/unfinished — base URL tra 404, chi endpoint moi tra data
+    url = KHANDAIA_API.rstrip("/") + "/fixtures/unfinished"
+    r = requests.get(url,
+                     headers={"Referer": KHANDAIA_FRONT + "/", "User-Agent": UA},
+                     timeout=12)
     r.raise_for_status()
-    d = r.json()
-    items = d.get("data", d) if isinstance(d, dict) else d
-    return (len(items) if isinstance(items, list) else 0), "ok"
+    d     = r.json()
+    items = d.get("data", []) if isinstance(d, dict) else d
+    return (len(items) if isinstance(items, list) else 0), "api=%s" % KHANDAIA_API
 
 # ── Main ─────────────────────────────────────────────────────────────────────
 
@@ -184,6 +200,12 @@ def main():
     print("  REPLIT_RELAY_URL: %s" % (REPLIT_RELAY_URL or "(chua set)"))
     print("  RELAY_SECRET:     %s" % ("***" if RELAY_SECRET else "(chua set)"))
     print("  TIEULAM_API:      %s" % TIEULAM_API)
+    print("  HOIQUAN_API:      %s" % HOIQUAN_API)
+    print("  HOIQUAN_FRONT:    %s" % HOIQUAN_FRONT)
+    print("  KHANDAIA_API:     %s" % KHANDAIA_API)
+    print("  KHANDAIA_FRONT:   %s" % KHANDAIA_FRONT)
+    print("  VONGCAM_API:      %s" % VONGCAM_API)
+    print("  VONGCAM_TOKEN:    %s" % ("***" if VONGCAM_TOKEN else "(chua set, dung AB321C)"))
     print()
 
     results = [None] * len(CHECKS)
@@ -201,13 +223,14 @@ def main():
         if ok:
             print("         %d items | %s | %.2fs" % (count, detail, elapsed))
         else:
-            print("         LỖII: %s | %.2fs" % (detail, elapsed))
+            print("         LOI: %s | %.2fs" % (detail, elapsed))
         print()
 
     print("=" * 65)
     print("  Tong: %d/%d nguon hoat dong" % (ok_count, len(CHECKS)))
     print("=" * 65)
     print()
+    sys.exit(0 if ok_count >= 5 else 1)
 
 if __name__ == "__main__":
     main()
