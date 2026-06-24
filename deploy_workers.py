@@ -1,24 +1,21 @@
 #!/usr/bin/env python3
-"""deploy_workers.py — Auto-redeploy CF Workers (multipart form đúng chuẩn CF API v4)
+"""deploy_workers.py — Auto-redeploy CF Workers (multipart form CF API v4)
 
 Fixes:
-  1. Dùng multipart/form-data (requests.files) thay vì json=
-  2. Field name "index.js" phải khớp với main_module trong metadata
-  3. Inject TIEULAM_API, REPLIT_RELAY_URL bindings
-  4. Giữ secret_text bindings hiện có (RELAY_SECRET) — tránh wipe khi redeploy
-  5. Tách CF_API_TOKEN / CLOUDFLARE_API_TOKEN
+  1. Dung multipart/form-data (requests.files) thay vi json=
+  2. Field name "index.js" phai khop voi main_module trong metadata
+  3. Inject TIEULAM_API, REPLIT_RELAY_URL plain_text bindings
+  4. FIX code 10021: Khong add secret_text binding khong co gia tri text
+     (CF API yeu cau text property cho secret_text — neu khong co gia tri
+      thi skip deploy de tranh wipe binding hien tai)
 """
-import os
-import sys
-import hashlib
-import json
-import requests
+import os, sys, hashlib, json, requests
 from pathlib import Path
 
-CF_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN") or os.environ.get("CF_API_TOKEN", "")
-ACCOUNT = "1c17b9b516c9a00478f2e538883c7e3b"
-TIEULAM_API = os.environ.get("TIEULAM_API", "https://api.tlap17062026.com")
-RELAY_SECRET = os.environ.get("RELAY_SECRET", "")
+CF_TOKEN  = os.environ.get("CLOUDFLARE_API_TOKEN") or os.environ.get("CF_API_TOKEN", "")
+ACCOUNT   = "1c17b9b516c9a00478f2e538883c7e3b"
+TIEULAM_API   = os.environ.get("TIEULAM_API", "https://api.tlap17062026.com")
+RELAY_SECRET  = os.environ.get("RELAY_SECRET", "").strip()
 REPLIT_RELAY_URL = (
     os.environ.get("TIEULAM_REPLIT_RELAY_URL")
     or os.environ.get("REPLIT_RELAY_URL")
@@ -30,20 +27,17 @@ if not CF_TOKEN:
     sys.exit(0)
 
 WORKERS = {
-    "dekki": "workers/dekki.js",
+    "dekki":         "workers/dekki.js",
     "tieulam-relay": "workers/tieulam-relay.js",
 }
-
-# Bindings cũ không còn dùng — loại bỏ khi redeploy
-OBSOLETE_BINDINGS = {"GITHUB_RAW_URL", "PLAYLIST_KEY"}
 
 
 def _cf_headers() -> dict:
     return {"Authorization": f"Bearer {CF_TOKEN}"}
 
 
-def get_existing_bindings(name: str) -> list[dict]:
-    """Lấy bindings hiện tại từ CF (secret values không trả về)."""
+def get_existing_bindings(name: str) -> list:
+    """Lay bindings hien tai tu CF (secret values khong duoc tra ve)."""
     try:
         r = requests.get(
             f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/workers/scripts/{name}/settings",
@@ -57,33 +51,38 @@ def get_existing_bindings(name: str) -> list[dict]:
     return []
 
 
-def build_bindings(name: str, existing: list[dict]) -> list[dict]:
-    """Merge bindings: giữ secret_text, cập nhật plain_text, bỏ obsolete."""
-    bindings: list[dict] = []
-    seen: set[str] = set()
+def build_bindings(name: str) -> list | None:
+    """
+    Tao bindings list de deploy.
 
-    for b in existing:
-        bname = b.get("name", "")
-        btype = b.get("type", "")
-        if not bname or bname in OBSOLETE_BINDINGS:
-            continue
-        if btype == "secret_text":
-            bindings.append({"name": bname, "type": "secret_text"})
-            seen.add(bname)
+    FIX (code 10021): KHONG bao gio add secret_text binding ma khong co text value.
+    Cloudflare bat buoc text property cho secret_text.
+    Neu RELAY_SECRET khong co trong env → tra ve None → skip deploy de giu binding cu.
+    """
+    # Kiem tra RELAY_SECRET truoc khi bat dau
+    if not RELAY_SECRET:
+        existing = get_existing_bindings(name)
+        has_secret = any(b.get("name") == "RELAY_SECRET" for b in existing)
+        if has_secret:
+            print(f"  {name}: SKIP — RELAY_SECRET missing in env, redeploy would WIPE existing binding")
+            return None
+        print(f"  {name}: WARN — RELAY_SECRET not set, deploying without it")
 
-    # plain_text bindings — luôn cập nhật
+    bindings: list = []
+
+    # Plain text bindings (luon cap nhat gia tri moi nhat)
     bindings.append({"name": "TIEULAM_API", "type": "plain_text", "text": TIEULAM_API})
-    seen.add("TIEULAM_API")
 
     if name == "dekki" and REPLIT_RELAY_URL:
-        bindings.append({"name": "REPLIT_RELAY_URL", "type": "plain_text", "text": REPLIT_RELAY_URL.rstrip("/")})
-        seen.add("REPLIT_RELAY_URL")
+        bindings.append({
+            "name": "REPLIT_RELAY_URL",
+            "type": "plain_text",
+            "text": REPLIT_RELAY_URL.rstrip("/"),
+        })
 
-    if "RELAY_SECRET" not in seen:
-        if RELAY_SECRET:
-            bindings.append({"name": "RELAY_SECRET", "type": "secret_text", "text": RELAY_SECRET})
-        else:
-            print(f"  {name}: WARN — RELAY_SECRET not in CF and not in env")
+    # Secret bindings — CHI add neu co gia tri (tranh CF error 10021)
+    if RELAY_SECRET:
+        bindings.append({"name": "RELAY_SECRET", "type": "secret_text", "text": RELAY_SECRET})
 
     return bindings
 
@@ -94,10 +93,12 @@ def deploy(name: str, path: str) -> bool:
         print(f"  {name}: {path} not found — skip")
         return False
 
-    code = p.read_text(encoding="utf-8")
+    code     = p.read_text(encoding="utf-8")
     local_md = hashlib.md5(code.encode()).hexdigest()
-    existing = get_existing_bindings(name)
-    bindings = build_bindings(name, existing)
+    bindings = build_bindings(name)
+
+    if bindings is None:
+        return False  # Skip deploy (would wipe secret binding)
 
     print(f"  {name}: deploying ({len(code)} chars, md5={local_md[:8]})...")
     print(f"  {name}: bindings={[b['name'] for b in bindings]}")
@@ -114,12 +115,12 @@ def deploy(name: str, path: str) -> bool:
         headers=_cf_headers(),
         files={
             "metadata": (None, metadata, "application/json"),
-            "index.js": (None, code, "application/javascript+module"),
+            "index.js": (None, code,     "application/javascript+module"),
         },
         timeout=30,
     )
-    j = r.json()
-    ok = j.get("success", False)
+    j   = r.json()
+    ok  = j.get("success", False)
     err = j.get("errors", [])
     print(f"  {name}: HTTP {r.status_code} | success={ok}" + (f" | errors={err}" if err else ""))
     return ok
