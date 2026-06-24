@@ -107,8 +107,6 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanhai/playlist.m3u8
 https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",09:00 - 29/06 | Los Angeles FC II VS Houston Dynamo FC II (MLS Next Pro) | BLV PHAN CA
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 24/06 | Gagra VS Samgurali (Erovnuli Liga) | Mơ
-https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",01:00 - 25/06 | Ba Lan VS Bỉ (Nations League 2026) | Kaka
 https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",01:30 - 25/06 | Pháp VS Iran (Nations League 2026) | Núi
@@ -137,12 +135,24 @@ https://kdalive.yarncdn.live/live/kda-blv-delua/playlist.m3u8
 https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",13:00 - 25/06 | Úc VS HongKong (U18 Đông Nam Á) | Tày
 https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",13:30 - 25/06 | Oman VS Hàn Quốc (AVC Nations Cup 2026) | T-Rex
+https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",16:00 - 25/06 | Darwin Hearts VS Port Darwin FC (Australia Darwin Premier League) | T-Rex
 https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",16:00 - 25/06 | Kyrgyzstan VS Philippines (U18 Đông Nam Á) | T-Rex
+https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",19:00 - 25/06 | Thái Lan VS Indonesia (U18 Đông Nam Á) | Kaka
+https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",19:30 - 25/06 | Al Nejmeh VS Tadamon Sour (Premier League) | Isco
 https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",21:00 - 25/06 | Grobiņa VS Auda (Virsliga) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",21:30 - 25/06 | Trung Quốc VS Bỉ (Nations League 2026) | Tày
+https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",21:30 - 25/06 | Ukraine VS Ý (Nations League 2026) | Núi
+https://kdalive.yarncdn.live/live/kda-blv-nui/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",22:00 - 25/06 | Iran VS Nhật Bản (Nations League 2026) | Kaka
+https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 25/06 | FC jazz VS Tampere United (Ykkönen) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 26/06 | Super Nova VS FS Jelgava (Virsliga) | Isco
@@ -175,35 +185,29 @@ https://bglive.yarncdn.live/live/bgtv_blv_tieumeo/playlist.m3u8
 https://bglive.yarncdn.live/live/bgtv_blv_mason/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",02:00 - 25/06 | Bosnia & Herzegovina VS Qatar (World Cup) | BLV Chim Nhỏ
 https://bglive.yarncdn.live/live/bgtv_blv_cuccu/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",02:00 - 25/06 | Switzerland VS Canada (World Cup) | BLV Tiểu Trà Đá
-https://bglive.yarncdn.live/live/bgtv_blv_trada/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",02:00 - 25/06 | Switzerland VS Canada (World Cup) | BLV Max
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",02:00 - 25/06 | Thụy Sĩ VS Canada (World Cup) | BLV Max
 https://bglive.yarncdn.live/live/bgtv_blv_max/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",05:00 - 25/06 | Morocco VS Haiti (World Cup) | BLV Chim Nhỏ
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",05:00 - 25/06 | Ma Rốc VS Haiti (World Cup) | BLV Chim Nhỏ
 https://bglive.yarncdn.live/live/bgtv_blv_cuccu/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",05:00 - 25/06 | Morocco VS Haiti (World Cup) | BLV Mao Từn
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",05:00 - 25/06 | Ma Rốc VS Haiti (World Cup) | BLV Mao Từn
 https://bglive.yarncdn.live/live/bgtv_blv_mason/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",05:00 - 25/06 | Scotland VS Brazil (World Cup) | BLV Tiểu Trà Đá
-https://bglive.yarncdn.live/live/bgtv_blv_trada/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",05:00 - 25/06 | Scotland VS Brazil (World Cup) | BLV Lềnh
 https://bglive.yarncdn.live/live/bgtv_blv_lenh/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",05:00 - 25/06 | Scotland VS Brazil (World Cup) | BLV Phi MC
 https://bglive.yarncdn.live/live/bgtv_blv_phimc/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",08:00 - 25/06 | Czechia VS Mexico (World Cup) | BLV Lềnh
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",08:00 - 25/06 | CH Séc VS Mexico (World Cup) | BLV Lềnh
 https://bglive.yarncdn.live/live/bgtv_blv_lenh/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",08:00 - 25/06 | Czechia VS Mexico (World Cup) | BLV Tiểu Trà Đá
-https://bglive.yarncdn.live/live/bgtv_blv_trada/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",08:00 - 25/06 | South Africa VS South Korea (World Cup) | BLV Phi MC
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",08:00 - 25/06 | Nam Phi VS Hàn Quốc (World Cup) | BLV Phi MC
 https://bglive.yarncdn.live/live/bgtv_blv_phimc/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",08:00 - 25/06 | South Africa VS South Korea (World Cup) | BLV Max
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",08:00 - 25/06 | Nam Phi VS Hàn Quốc (World Cup) | BLV Max
 https://bglive.yarncdn.live/live/bgtv_blv_max/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="Vòng Cấm TV",10:00 - 25/06 | U18 Việt Nam VS U18 Malaysia (Bóng chuyền U18 Đông Nam Á) | BLV Pháo
 https://bglive.yarncdn.live/live/bgtv_blv_phaothan/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",19:00 - 25/06 | Sport Academy Kairat VS Khan Tengri (1. Division) | BLV Max
 https://bglive.yarncdn.live/live/bgtv_blv_max/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",21:30 - 25/06 | Ukraine VS Italy (Nations League Men's) | BLV Chim Nhỏ
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",21:30 - 25/06 | Ukraine VS Ý (Nations League Men's) | BLV Chim Nhỏ
 https://bglive.yarncdn.live/live/bgtv_blv_cuccu/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",22:00 - 25/06 | Iran VS USA (Nations League Men's) | BLV Tiểu Mèo
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",22:00 - 25/06 | Iran VS Mỹ (Nations League Men's) | BLV Tiểu Mèo
 https://bglive.yarncdn.live/live/bgtv_blv_tieumeo/playlist.m3u8
 #EXTINF:-1 tvg-id="vtv1hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv1.png",VTV1
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36
