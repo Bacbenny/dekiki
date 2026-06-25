@@ -1,12 +1,6 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",19:30 - 25/06 | Bahrain VS Kazakhstan (AVC Nations Cup 2026) | BLV TÁO GIÀ
-https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",20:00 - 25/06 | Jaiyq VS Akademiya Ontustik (1. Division) | BLV PHAN ANH
-https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",21:30 - 25/06 | Trung Quốc VS Bỉ (Nation League Men) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",21:30 - 25/06 | Ukraina VS Italy (Nation League Men) | BLV PHAN HẢI
-https://hqlive.yarncdn.live/live/hqtv_blv_phanhai/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",22:00 - 25/06 | Iran VS Mỹ (Nation League Men) | BLV PHAN CA
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 25/06 | FC jazz VS Tampere United (Ykkönen) | BLV PHAN PHÉP
@@ -119,20 +113,10 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanhai/playlist.m3u8
 https://hqlive.yarncdn.live/live/hqtv_blv_phanbong/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 27/06 | Gnistan VS VPS (Veikkausliiga) | BLV PHAN CA
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",19:00 - 25/06 | Thái Lan VS Indonesia (U18 Đông Nam Á) | Kaka
-https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",19:30 - 25/06 | Al Nejmeh VS Tadamon Sour (Premier League) | Isco
-https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",21:00 - 25/06 | Grobiņa VS Auda (Virsliga) | Mơ
-https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",21:30 - 25/06 | Trung Quốc VS Bỉ (Nations League 2026) | Tày
 https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",21:30 - 25/06 | Ukraine VS Ý (Nations League 2026) | Núi
-https://kdalive.yarncdn.live/live/kda-blv-nui/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",22:00 - 25/06 | Iran VS Mỹ (Nations League 2026) | Kaka
 https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 25/06 | FC jazz VS Tampere United (Ykkönen) | Mơ
-https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 26/06 | Super Nova VS FS Jelgava (Virsliga) | Isco
 https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",01:00 - 26/06 | Ba Lan VS Thổ Nhĩ Kỳ (Nations League 2026) | Núi
@@ -189,10 +173,6 @@ https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8
 https://kdalive.yarncdn.live/live/kda-blv-delua/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",10:00 - 27/06 | New Zealand VS Belgium (World Cup) | Isco
 https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",19:00 - 25/06 | Sport Academy Kairat VS Khan Tengri (1. Division) | BLV Max
-https://bglive.yarncdn.live/live/bgtv_blv_max/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",21:30 - 25/06 | Ukraine VS Ý (Nations League Men's) | BLV Chim Nhỏ
-https://bglive.yarncdn.live/live/bgtv_blv_cuccu/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",22:00 - 25/06 | Iran VS Mỹ (Nations League Men's) | BLV Tiểu Mèo
 https://bglive.yarncdn.live/live/bgtv_blv_tieumeo/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",01:00 - 26/06 | Ba Lan VS Thổ Nhĩ Kỳ (Nations League Men's) | BLV Pháo
