@@ -1,10 +1,8 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",13:30 - 26/06 | New Zealand VS Kazakhstan (AVC Nations Cup 2026) | BLV PHAN BỐNG
-https://hqlive.yarncdn.live/live/hqtv_blv_phanbong/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",16:30 - 26/06 | Rochedale Rovers VS Gold Coast Knights (Queensland NPL) | BLV TÁO GIÀ
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",16:30 - 26/06 | Rochedale Rovers VS Gold Coast Knights (Queensland NPL) | BLV THẦN THÔNG
+https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",16:30 - 26/06 | Qatar VS Hàn Quốc (AVC Nations Cup 2026) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",16:30 - 26/06 | Qatar VS Hàn Quốc (AVC Nations Cup 2026) | BLV PHAN CA
-https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",17:30 - 26/06 | West Torrens Birkalla VS Sturt Lions (South Australia NPL) | BLV PHAN PHÉP
 https://hqlive.yarncdn.live/live/hqtv_blv_phanphep/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",18:35 - 26/06 | Qingdao Jonoon VS Yunnan Yukun (Super League) | BLV PHAN HÀ LINH
@@ -33,8 +31,6 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanbong/playlist.m3u8
 https://hqlive.yarncdn.live/live/hqtv_blv_phanma/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",02:00 - 27/06 | Norway VS France (World Cup) | BLV THẦN THÔNG
 https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",02:00 - 27/06 | Norway VS France (World Cup) | BLV PHAN CHỚP
-https://hqlive.yarncdn.live/live/hqtv_blv_phanchop/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",02:00 - 27/06 | Senegal VS Iraq (World Cup) | BLV PHAN QUẨY
 https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",02:00 - 27/06 | Senegal VS Iraq (World Cup) | BLV PHAN HÀ LINH
@@ -55,10 +51,14 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanma/playlist.m3u8
 https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",11:00 - 27/06 | Charlestown City Blues VS Belmont Swansea (Northern NSW NPL) | BLV PHAN CA
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",13:00 - 27/06 | U18 Thái Lan VS U18 Philippin (U18 Đông Nam Á 2026) | BLV TÁO GIÀ
+https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",13:30 - 27/06 | Valentine VS Lambton Jaffas (Northern NSW NPL) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",15:00 - 27/06 | Shanghai Second VS Qingdao Red Lions (League Two) | BLV PHAN ANH
 https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",16:00 - 27/06 | U18 Việt Nam VS U18 Indonesia (U18 Đông Nam Á 2026) | BLV TÁO GIÀ
+https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",18:00 - 27/06 | Shenyang Urban VS Shandong Luneng (Super League) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",18:35 - 27/06 | Henan Jianye VS SHANGHAI SIPG (Super League) | BLV PHAN HÀ LINH
@@ -75,6 +75,30 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanhai/playlist.m3u8
 https://hqlive.yarncdn.live/live/hqtv_blv_phanbong/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 27/06 | Gnistan VS VPS (Veikkausliiga) | BLV PHAN CA
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",04:00 - 28/06 | Croatia VS Ghana (World Cup) | BLV THẦN THÔNG
+https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",04:00 - 28/06 | Croatia VS Ghana (World Cup) | BLV PHAN HÀ LINH
+https://hqlive.yarncdn.live/live/hqtv_blv_phanhalinh/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",04:00 - 28/06 | Panama VS England (World Cup) | BLV PHAN MÃ
+https://hqlive.yarncdn.live/live/hqtv_blv_phanma/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",04:00 - 28/06 | Panama VS England (World Cup) | BLV PHAN QUẨY
+https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",06:30 - 28/06 | Colombia VS Portugal (World CupW ( ĐẦU CẦU TRUNG LẬP )) | BLV PHAN MÃ
+https://hqlive.yarncdn.live/live/hqtv_blv_phanma/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",06:30 - 28/06 | Colombia VS Portugal (World Cup ( ANTI ANH BẢY  ) ) | BLV LƯƠNG BỔNG
+https://hqlive.yarncdn.live/live/hqtv_blv_phanliem/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",06:30 - 28/06 | Colombia VS Portugal (World CupW ( ĐẦU CẦU TRUNG LẬP )) | BLV PHAN QUẨY
+https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",06:30 - 28/06 | Congo DR VS Uzbekistan (World Cup) | BLV THẦN THÔNG
+https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",09:00 - 28/06 | Algeria VS Austria (World Cup) | BLV PHAN QUẨY
+https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",09:00 - 28/06 | Jordan VS Argentina (World Cup ( Râu Con và Fan Bà Xã ) ) | BLV LƯƠNG BỔNG
+https://hqlive.yarncdn.live/live/hqtv_blv_phanliem/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",09:00 - 28/06 | Jordan VS Argentina (World CupW ( ĐẦU CẦU TRUNG LẬP )) | BLV PHAN MÃ
+https://hqlive.yarncdn.live/live/hqtv_blv_phanma/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",09:00 - 28/06 | Jordan VS Argentina (World CupW ( ĐẦU CẦU TRUNG LẬP )) | BLV THẦN THÔNG
+https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",16:30 - 26/06 | Rochedale Rovers VS Gold Coast Knights (Queensland NPL) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",16:30 - 26/06 | Qatar VS Hàn Quốc (AVC Nations Cup 2026) | T-Rex
