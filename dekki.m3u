@@ -1,12 +1,40 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",17:30 - 30/06 | Logan Lightning VS Redlands United (Queensland Premier League) | BLV PHAN CA
-https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",17:30 - 30/06 | Logan Lightning VS Redlands United (Queensland Premier League) | BLV TÁO GIÀ
+https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 30/06 | VPS VS Inter Turku (Suomen Cup) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 30/06 | FK Liepaja VS Ogre United (Virsliga) | BLV PHAN CA
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",16:00 - 30/06 | Ha Noi VS Ho Chi Minh (Vietnam Wonmen League) | T-Rex
-https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 01/07 | Ivory Coast VS Norway (World Cup) | BLV LƯƠNG BỔNG
+https://hqlive.yarncdn.live/live/hqtv_blv_phanliem/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 01/07 | Ivory Coast VS Norway (World Cup) | BLV PHAN QUẨY
+https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",04:00 - 01/07 | France VS Sweden (World Cup) | BLV LƯƠNG BỔNG
+https://hqlive.yarncdn.live/live/hqtv_blv_phanliem/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",04:00 - 01/07 | France VS Sweden (World Cup) | BLV PHAN QUẨY
+https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",04:00 - 01/07 | France VS Sweden (World Cup) | BLV THẦN THÔNG
+https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",06:00 - 01/07 | Botafogo SP VS CRB (Serie B) | BLV PHAN CA
+https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",07:30 - 01/07 | U. Catolica VS Everton de Vina (Copa Chile) | BLV PHAN ANH
+https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",08:00 - 01/07 | Mexico VS Ecuador (World Cup) | BLV THẦN THÔNG
+https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",08:00 - 01/07 | Mexico VS Ecuador (World Cup) | BLV LƯƠNG BỔNG
+https://hqlive.yarncdn.live/live/hqtv_blv_phanliem/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",17:00 - 01/07 | Hamilton Olympic VS Charlestown City Blues (Northern NSW NPL) | BLV TÁO GIÀ
+https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 01/07 | Tukums VS Super Nova (Virsliga) | BLV PHAN CA
+https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 01/07 | England VS Congo DR (World Cup) | BLV PHAN QUẨY
+https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 01/07 | England VS Congo DR (World Cup) | BLV THẦN THÔNG
+https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 01/07 | England VS Congo DR (World Cup) | BLV LƯƠNG BỔNG
+https://hqlive.yarncdn.live/live/hqtv_blv_phanliem/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 01/07 | HJK Helsinki VS Ilves (Suomen Cup) | BLV TÁO GIÀ
+https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",17:00 - 30/06 | SD Raiders VS Sydney FC U23 (New South Wales NPL) | Bệu
 https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",17:30 - 30/06 | Logan Lightning VS Redlands United (Queensland Premier League) | Isco
