@@ -2,7 +2,7 @@ name: Auto-Discover APIs
 
 on:
   schedule:
-    - cron: '0 0,6,12,18 * * *'
+    - cron: '0 */3 * * *'  
   workflow_dispatch:
 
 # Only 1 auto-discover run at a time
