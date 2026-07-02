@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 auto_discover.py — Tự động phát hiện và cập nhật API URLs cho tất cả nguồn BallBall.
-Chạy thủ công hoặc qua GitHub Actions mỗi 6 giờ.
+Chạy thủ công hoặc qua GitHub Actions mỗi 3 giờ.
 
 Env vars cần thiết:
   CF_API_TOKEN / CLOUDFLARE_API_TOKEN  — Cloudflare API token (quyền edit workers)
