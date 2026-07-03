@@ -11,15 +11,15 @@
 //  6. Auth: X-Relay-Token header, trim() cả 2 phía
 
 const TIEULAM_FRONTS = [
-  "https://sv2.tieulam.info",
+  "https://sv2.tieulam1.xyz",
   "https://sv1.tieulam1.live",
 ];
 
 const TIEULAM_HDR = {
   "Content-Type": "application/json",
-  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-  "Referer": "https://sv2.tieulam.info/",
-  "Origin": "https://sv2.tieulam.info",
+  "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) App Chrome/138.0.0.0 Safari/537.36",
+  "Referer": "https://sv2.tieulamtv1.xyz/",
+  "Origin": "https://sv2.tieulam1.xyz",
   "Accept": "application/json, text/plain, */*",
 };
 
