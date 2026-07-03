@@ -746,7 +746,8 @@ def _build_vongcam_lines(matches: list) -> list:
         nickname = (commentator.get("nickname") or "").strip()
         display  = f"{time_str} - {date_str} | {home} VS {away} ({tournament}) | {nickname}"
         lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="Vòng Cấm TV",{display}')
-        lines.append(stream_url)
+        _vc_url = stream_url + ("|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0" if "|" not in stream_url else "")
+        lines.append(_vc_url)
     return lines
 
 
@@ -1052,7 +1053,13 @@ def _build_fixture_lines(fixtures: list, group_title: str) -> list:
                 continue
             display = f"{time_str} - {date_str} | {home} VS {away} ({league}) | {name}"
             lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group_title}",{display}')
-            lines.append(stream_url)
+            _referer_map = {
+                "Hội Quán TV": "https://sv2.hoiquan4.live/",
+                "Khán Đài A":  "https://tructiep.khandaia.link/",
+            }
+            _ref = _referer_map.get(group_title, "")
+            _final_url = stream_url + (f"|Referer={_ref}&User-Agent=Mozilla/5.0" if _ref and "|" not in stream_url else "")
+            lines.append(_final_url)
     return lines
 
 
