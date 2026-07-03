@@ -1,6 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",13:00 - 03/07 | U18 Việt Nam VS U18 Ấn Độ (U18 Châu Á) | BLV TÁO GIÀ
-https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",16:00 - 03/07 | U18 Indonesia VS U18 Philippin (U18 Châu Á) | BLV PHAN CA
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",17:00 - 03/07 | Edgeworth Eagles VS Kahibah (Northern NSW NPL) | BLV TÁO GIÀ
@@ -49,16 +47,6 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8|Referer=https://
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 04/07 | VPS VS Mariehamn (Veikkausliiga) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",10:00 - 03/07 | U18 Hong Kong (Trung Quốc) VS U18 Kyrgyzstan (U18 Châu Á) | T-Rex
-https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8|Referer=https://tructiep.khandaia4.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",10:00 - 03/07 | Switzerland VS Algeria (World Cup) | Dế Lửa
-https://kdalive.yarncdn.live/live/kda-blv-delua/playlist.m3u8|Referer=https://tructiep.khandaia4.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",10:00 - 03/07 | Switzerland VS Algeria (World Cup) | Siêu Gáy
-https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8|Referer=https://tructiep.khandaia4.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",13:00 - 03/07 | U18 Australia VS U18 Mông Cổ (U18 Châu Á) | Núi
-https://kdalive.yarncdn.live/live/kda-blv-nui/playlist.m3u8|Referer=https://tructiep.khandaia4.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",13:00 - 03/07 | U18 Ấn Độ VS Việt Nam (U18 Châu Á) | Kaka
-https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8|Referer=https://tructiep.khandaia4.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",16:00 - 03/07 | U18 Trung Quốc VS U18 Kazakhstan (U18 Châu Á) | Bệu
 https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia4.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",16:00 - 03/07 | U18 Philippines VS U18 Indonesia (U18 Châu Á) | Núi
@@ -97,8 +85,6 @@ https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://truc
 https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8|Referer=https://tructiep.khandaia4.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:00 - 04/07 | VPS VS Mariehamn (Veikkausliiga) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia4.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="Vòng Cấm TV",13:00 - 03/07 | Ấn Độ VS Việt Nam (Bóng chuyền U18 Châu Á) | BLV Chim Nhỏ
-https://bglive.yarncdn.live/live/bgtv_blv_cuccu/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="Vòng Cấm TV",16:00 - 03/07 | Philippines VS Indonesia (Bóng chuyền U18 Châu Á) | BLV Tiểu Mèo
 https://bglive.yarncdn.live/live/bgtv_blv_tieumeo/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d0.png" group-title="Vòng Cấm TV",16:00 - 03/07 | Trung Quốc VS Kazakhstan (Bóng chuyền U18 Châu Á) | BLV Pháo
