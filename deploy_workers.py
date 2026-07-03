@@ -4,7 +4,7 @@
 Fixes:
   1. Dung multipart/form-data (requests.files) thay vi json=
   2. Field name "index.js" phai khop voi main_module trong metadata
-  3. Inject TIEULAM_API, REPLIT_RELAY_URL plain_text bindings
+  3. Inject bindings rieng cho tung worker
   4. FIX code 10021: Khong add secret_text binding khong co gia tri text
      (CF API yeu cau text property cho secret_text — neu khong co gia tri
       thi skip deploy de tranh wipe binding hien tai)
@@ -14,7 +14,13 @@ from pathlib import Path
 
 CF_TOKEN  = os.environ.get("CLOUDFLARE_API_TOKEN") or os.environ.get("CF_API_TOKEN", "")
 ACCOUNT   = "1c17b9b516c9a00478f2e538883c7e3b"
+
 TIEULAM_API   = os.environ.get("TIEULAM_API", "https://api.tlap17062026.com")
+HOIQUAN_API   = os.environ.get("HOIQUAN_API", "").strip()
+KHANDAIA_API  = os.environ.get("KHANDAIA_API", "").strip()
+VONGCAM_API   = os.environ.get("VONGCAM_API", "").strip()
+VONGCAM_TOKEN = (os.environ.get("VONGCAM_ACCESS_TOKEN") or os.environ.get("VONGCAM_TOKEN", "AB321C")).strip()
+
 RELAY_SECRET  = os.environ.get("RELAY_SECRET", "").strip()
 REPLIT_RELAY_URL = (
     os.environ.get("TIEULAM_REPLIT_RELAY_URL")
@@ -27,8 +33,11 @@ if not CF_TOKEN:
     sys.exit(0)
 
 WORKERS = {
-    "dekki":         "workers/dekki.js",
-    "tieulam-relay": "workers/tieulam-relay.js",
+    "dekki":          "workers/dekki.js",
+    "tieulam-relay":  "workers/tieulam-relay.js",
+    "hoiquan-relay":  "workers/hoiquan-relay.js",
+    "khandaia-relay": "workers/khandaia-relay.js",
+    "vongcam-relay":  "workers/vongcam-relay.js",
 }
 
 
@@ -37,7 +46,6 @@ def _cf_headers() -> dict:
 
 
 def get_existing_bindings(name: str) -> list:
-    """Lay bindings hien tai tu CF (secret values khong duoc tra ve)."""
     try:
         r = requests.get(
             f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/workers/scripts/{name}/settings",
@@ -53,13 +61,9 @@ def get_existing_bindings(name: str) -> list:
 
 def build_bindings(name: str) -> list | None:
     """
-    Tao bindings list de deploy.
-
-    FIX (code 10021): KHONG bao gio add secret_text binding ma khong co text value.
-    Cloudflare bat buoc text property cho secret_text.
-    Neu RELAY_SECRET khong co trong env → tra ve None → skip deploy de giu binding cu.
+    Tao bindings list cho tung worker.
+    RELAY_SECRET bat buoc (secret_text); skip deploy neu khong co gia tri.
     """
-    # Kiem tra RELAY_SECRET truoc khi bat dau
     if not RELAY_SECRET:
         existing = get_existing_bindings(name)
         has_secret = any(b.get("name") == "RELAY_SECRET" for b in existing)
@@ -70,17 +74,25 @@ def build_bindings(name: str) -> list | None:
 
     bindings: list = []
 
-    # Plain text bindings (luon cap nhat gia tri moi nhat)
-    bindings.append({"name": "TIEULAM_API", "type": "plain_text", "text": TIEULAM_API})
-
+    # ── Per-worker plain_text bindings ──────────────────────────────────────
+    if name in ("dekki", "tieulam-relay"):
+        bindings.append({"name": "TIEULAM_API", "type": "plain_text", "text": TIEULAM_API})
     if name == "dekki" and REPLIT_RELAY_URL:
-        bindings.append({
-            "name": "REPLIT_RELAY_URL",
-            "type": "plain_text",
-            "text": REPLIT_RELAY_URL.rstrip("/"),
-        })
+        bindings.append({"name": "REPLIT_RELAY_URL", "type": "plain_text", "text": REPLIT_RELAY_URL.rstrip("/")})
 
-    # Secret bindings — CHI add neu co gia tri (tranh CF error 10021)
+    if name == "hoiquan-relay" and HOIQUAN_API:
+        bindings.append({"name": "HOIQUAN_API", "type": "plain_text", "text": HOIQUAN_API})
+
+    if name == "khandaia-relay" and KHANDAIA_API:
+        bindings.append({"name": "KHANDAIA_API", "type": "plain_text", "text": KHANDAIA_API})
+
+    if name == "vongcam-relay":
+        if VONGCAM_API:
+            bindings.append({"name": "VONGCAM_API", "type": "plain_text", "text": VONGCAM_API})
+        if VONGCAM_TOKEN:
+            bindings.append({"name": "VONGCAM_ACCESS_TOKEN", "type": "plain_text", "text": VONGCAM_TOKEN})
+
+    # ── RELAY_SECRET (secret_text) cho tat ca workers ───────────────────────
     if RELAY_SECRET:
         bindings.append({"name": "RELAY_SECRET", "type": "secret_text", "text": RELAY_SECRET})
 
@@ -98,7 +110,7 @@ def deploy(name: str, path: str) -> bool:
     bindings = build_bindings(name)
 
     if bindings is None:
-        return False  # Skip deploy (would wipe secret binding)
+        return False
 
     print(f"  {name}: deploying ({len(code)} chars, md5={local_md[:8]})...")
     print(f"  {name}: bindings={[b['name'] for b in bindings]}")
