@@ -60,6 +60,11 @@ VONGCAM_FRONTEND_URL   = (os.environ.get("VONGCAM_FRONTEND") or "https://sv2.von
 VONGCAM_KNOWN_API_BASE = (os.environ.get("VONGCAM_API") or "https://sv.bugiotv.xyz/internal/api/matches")
 VONGCAM_ACCESS_TOKEN   = os.environ.get("VONGCAM_ACCESS_TOKEN", "AB321C")
 
+# ─── Relay URLs (Replit proxy — bypass GitHub Actions 403) ────────────────────
+HOIQUAN_RELAY_URL  = os.environ.get("HOIQUAN_RELAY_URL", "").strip().rstrip("/")
+KHANDAIA_RELAY_URL = os.environ.get("KHANDAIA_RELAY_URL", "").strip().rstrip("/")
+VONGCAM_RELAY_URL  = os.environ.get("VONGCAM_RELAY_URL", "").strip().rstrip("/")
+
 # ─── Shared config ────────────────────────────────────────────────────────────
 VN_TZ                 = timezone(timedelta(hours=7))
 API_DISCOVERY_TTL     = 3600
@@ -620,7 +625,25 @@ def _get_vongcam_token(scraper=None) -> str:
 
 
 def _fetch_vongcam_matches() -> list:
-    """Gọi bugiotv API, trả về list matches."""
+    """Goi bugiotv API, tra ve list matches."""
+    # 1. Thu relay Replit truoc - bypass GitHub Actions 403
+    if VONGCAM_RELAY_URL:
+        try:
+            hdrs: dict = {"Content-Type": "application/json"}
+            if TIEULAM_RELAY_SECRET:
+                hdrs["X-Relay-Token"] = TIEULAM_RELAY_SECRET
+            token = _get_vongcam_token()
+            body  = {"access_token": token, "api_url": VONGCAM_KNOWN_API_BASE}
+            r = requests.post(VONGCAM_RELAY_URL, headers=hdrs, json=body, timeout=20)
+            r.raise_for_status()
+            rdata = r.json()
+            result = rdata.get("data") or rdata.get("matches") or []
+            if result:
+                print(f"  OK Vong Cam TV relay: {len(result)} matches", file=sys.stderr)
+                return result
+        except Exception as e:
+            print(f"  FAIL Vong Cam TV relay: {e}", file=sys.stderr)
+    # 2. Goi truc tiep (fallback)
     token = _get_vongcam_token()
     headers = {
         "Access-Token": token,
@@ -640,10 +663,8 @@ def _fetch_vongcam_matches() -> list:
         resp.raise_for_status()
         return resp.json().get("data", [])
     except Exception as e:
-        print(f"⚠️  Vòng Cấm TV thất bại: {e}", file=sys.stderr)
+        print(f"Vong Cam TV that bai: {e}", file=sys.stderr)
         return []
-
-
 def _vongcam_is_active(match: dict) -> bool:
     if bool(match.get("isLive")):
         return True
@@ -814,6 +835,22 @@ def _get_hoiquan_api_base(scraper) -> str:
 
 
 def _fetch_hoiquan_fixtures() -> list:
+    # 1. Thu relay Replit truoc - bypass GitHub Actions 403
+    if HOIQUAN_RELAY_URL:
+        try:
+            hdrs: dict = {"Content-Type": "application/json"}
+            if TIEULAM_RELAY_SECRET:
+                hdrs["X-Relay-Token"] = TIEULAM_RELAY_SECRET
+            r = requests.post(HOIQUAN_RELAY_URL, headers=hdrs, json={}, timeout=20)
+            r.raise_for_status()
+            rdata = r.json()
+            result = rdata.get("data") or rdata.get("fixtures") or []
+            if result:
+                print(f"  OK Hoi Quan relay: {len(result)} fixtures", file=sys.stderr)
+                return result
+        except Exception as e:
+            print(f"  FAIL Hoi Quan relay: {e}", file=sys.stderr)
+    # 2. Goi truc tiep (fallback)
     scraper  = cloudscraper.create_scraper()
     api_base = _get_hoiquan_api_base(scraper)
     url      = api_base.rstrip("/") + "/fixtures/unfinished"
@@ -911,6 +948,22 @@ def _get_khandaia_api_base(scraper) -> str:
 
 
 def _fetch_khandaia_fixtures() -> list:
+    # 1. Thu relay Replit truoc - bypass GitHub Actions 403
+    if KHANDAIA_RELAY_URL:
+        try:
+            hdrs: dict = {"Content-Type": "application/json"}
+            if TIEULAM_RELAY_SECRET:
+                hdrs["X-Relay-Token"] = TIEULAM_RELAY_SECRET
+            r = requests.post(KHANDAIA_RELAY_URL, headers=hdrs, json={}, timeout=20)
+            r.raise_for_status()
+            rdata = r.json()
+            result = rdata.get("data") or rdata.get("fixtures") or []
+            if result:
+                print(f"  OK Khan Dai A relay: {len(result)} fixtures", file=sys.stderr)
+                return result
+        except Exception as e:
+            print(f"  FAIL Khan Dai A relay: {e}", file=sys.stderr)
+    # 2. Goi truc tiep (fallback)
     scraper  = cloudscraper.create_scraper()
     api_base = _get_khandaia_api_base(scraper)
     url      = api_base.rstrip("/") + "/fixtures/unfinished"
