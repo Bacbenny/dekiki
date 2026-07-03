@@ -71,7 +71,7 @@ def _resolve_all_frontends() -> None:
 
 
 # ─── TieuLam TV config ────────────────────────────────────────────────────────
-TIEULAM_FRONTEND_URL   = (os.environ.get("TIEULAM_FRONTEND") or "https://sv2.tieulam.info")
+TIEULAM_FRONTEND_URL   = (os.environ.get("TIEULAM_FRONTEND") or "https://sv2.tieulam1.xyz")
 TIEULAM_KNOWN_API_BASE = (os.environ.get("TIEULAM_API") or "https://api.tlap17062026.com")
 TIEULAM_STREAM_CDN     = (os.environ.get("TIEULAM_CDN") or "https://live.secufun.xyz")
 TIEULAM_ASYNC_CDN      = (os.environ.get("TIEULAM_ASYNC_CDN") or "https://pull1.asynccdn.xyz")
@@ -436,8 +436,8 @@ def _build_tieulam_lines(matches: list) -> list:
         pass
 
     now_ts = time.time()
-    _REFERER = TIEULAM_FRONTEND_URL + "/"
-    _UA      = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
+    _REFERER = "https://sv2.tieulamtv1.xyz/"
+    _UA      = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) App Chrome/138.0.0.0 Safari/537.36"
 
     valid: list[tuple[dict, float | None, datetime | None]] = []
     for match in matches:
