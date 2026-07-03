@@ -126,8 +126,8 @@ def deploy(name: str, path: str) -> bool:
         f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/workers/scripts/{name}",
         headers=_cf_headers(),
         files={
-            "metadata": (None, metadata, "application/json"),
-            "index.js": (None, code,     "application/javascript+module"),
+            "metadata": ("blob",      metadata, "application/json"),
+            "index.js": ("index.js",  code,     "application/javascript+module"),
         },
         timeout=30,
     )
