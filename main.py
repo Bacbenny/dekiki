@@ -155,7 +155,8 @@ _TIEULAM_HTTPX_HEADERS = {
     "Accept":           "application/json, text/plain, */*",
     "Accept-Language":  "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
     "Content-Type":     "application/json",
-    "Referer":          TIEULAM_FRONTEND_URL + "/",
+    "User-Agent":       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+    "Referer":          "https://sv2.tieulamtv1.xyz/",
     "Origin":           TIEULAM_FRONTEND_URL,
     "sec-fetch-dest":   "empty",
     "sec-fetch-mode":   "cors",
@@ -375,7 +376,7 @@ def _fetch_tieulam_matches() -> list:
             api_url = _get_tieulam_api_url()
             resp = curl_requests.post(
                 api_url, json=payload, headers=_TIEULAM_HTTPX_HEADERS,
-                timeout=15, impersonate="chrome110",
+                timeout=15, impersonate="chrome124",
             )
             resp.raise_for_status()
             return resp.json().get("data", [])
@@ -385,7 +386,7 @@ def _fetch_tieulam_matches() -> list:
                 api_url = _get_tieulam_api_url()
                 resp = curl_requests.post(
                     api_url, json=payload, headers=_TIEULAM_HTTPX_HEADERS,
-                    timeout=15, impersonate="chrome110",
+                    timeout=15, impersonate="chrome124",
                 )
                 resp.raise_for_status()
                 return resp.json().get("data", [])
