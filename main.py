@@ -25,6 +25,51 @@ def _normalize_workers_url(url: str) -> str:
     return url
 
 
+def _resolve_base_url(url: str, timeout: int = 8) -> str:
+    """Follow HTTP 3xx redirects và trả về scheme+host cuối cùng.
+    Dùng để tự động phát hiện khi domain đổi (vd: khandaia.link → khandaia4.link).
+    """
+    try:
+        r = requests.get(
+            url, timeout=timeout, allow_redirects=True,
+            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
+        )
+        final = r.url or url
+    except Exception:
+        final = url
+    m = re.match(r"(https?://[^/?#]+)", final)
+    return m.group(1) if m else url.rstrip("/")
+
+
+def _resolve_all_frontends() -> None:
+    """Gọi lúc startup: tự động cập nhật HOIQUAN/KHANDAIA/VONGCAM _FRONTEND_URL
+    bằng cách follow redirect. Chạy song song để tiết kiệm thời gian.
+    In log nếu domain thực tế khác domain cấu hình.
+    """
+    global HOIQUAN_FRONTEND_URL, KHANDAIA_FRONTEND_URL, VONGCAM_FRONTEND_URL
+    sources = {
+        "Hội Quán TV":   ("HOIQUAN",   HOIQUAN_FRONTEND_URL),
+        "Khán Đài A":    ("KHANDAIA",  KHANDAIA_FRONTEND_URL),
+        "Vòng Cấm TV":   ("VONGCAM",   VONGCAM_FRONTEND_URL),
+    }
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        futures = {pool.submit(_resolve_base_url, cfg[1]): (name, cfg) for name, cfg in sources.items()}
+        for fut in as_completed(futures):
+            (name, (key, original)) = futures[fut]
+            try:
+                resolved = fut.result()
+            except Exception:
+                resolved = original
+            if resolved != original.rstrip("/"):
+                print(f"[domain-resolve] {name}: {original} → {resolved}", file=sys.stderr)
+            if key == "HOIQUAN":
+                HOIQUAN_FRONTEND_URL = resolved
+            elif key == "KHANDAIA":
+                KHANDAIA_FRONTEND_URL = resolved
+            elif key == "VONGCAM":
+                VONGCAM_FRONTEND_URL = resolved
+
+
 # ─── TieuLam TV config ────────────────────────────────────────────────────────
 TIEULAM_FRONTEND_URL   = (os.environ.get("TIEULAM_FRONTEND") or "https://sv2.tieulam.info")
 TIEULAM_KNOWN_API_BASE = (os.environ.get("TIEULAM_API") or "https://api.tlap17062026.com")
@@ -746,7 +791,8 @@ def _build_vongcam_lines(matches: list) -> list:
         nickname = (commentator.get("nickname") or "").strip()
         display  = f"{time_str} - {date_str} | {home} VS {away} ({tournament}) | {nickname}"
         lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="Vòng Cấm TV",{display}')
-        _vc_url = stream_url + ("|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0" if "|" not in stream_url else "")
+        _vc_ref = VONGCAM_FRONTEND_URL.rstrip("/") + "/"
+        _vc_url = stream_url + (f"|Referer={_vc_ref}&User-Agent=Mozilla/5.0" if "|" not in stream_url else "")
         lines.append(_vc_url)
     return lines
 
@@ -1054,8 +1100,8 @@ def _build_fixture_lines(fixtures: list, group_title: str) -> list:
             display = f"{time_str} - {date_str} | {home} VS {away} ({league}) | {name}"
             lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group_title}",{display}')
             _referer_map = {
-                "Hội Quán TV": "https://sv2.hoiquan4.live/",
-                "Khán Đài A":  "https://tructiep.khandaia4.link/",
+                "Hội Quán TV": HOIQUAN_FRONTEND_URL.rstrip("/") + "/",
+                "Khán Đài A":  KHANDAIA_FRONTEND_URL.rstrip("/") + "/",
             }
             _ref = _referer_map.get(group_title, "")
             _final_url = stream_url + (f"|Referer={_ref}&User-Agent=Mozilla/5.0" if _ref and "|" not in stream_url else "")
@@ -1186,6 +1232,8 @@ def fetch_vtv() -> list:
 
 
 def main():
+    # Tự động follow redirect để cập nhật domain thực tế của từng nguồn
+    _resolve_all_frontends()
     print("🔄 Đang fetch dữ liệu từ 5 nguồn song song…")
 
     tasks = {
