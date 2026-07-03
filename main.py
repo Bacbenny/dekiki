@@ -338,13 +338,19 @@ def _fetch_tieulam_via_relay(url: str) -> list:
 def _fetch_tieulam_matches() -> list:
     if TIEULAM_RELAY_URL:
         try:
-            return _fetch_tieulam_via_relay(TIEULAM_RELAY_URL)
+            matches = _fetch_tieulam_via_relay(TIEULAM_RELAY_URL)
+            if matches:
+                return matches
+            print("⚠️  TieuLam relay (dekki) trả 0 kết quả, thử fallback...", file=sys.stderr)
         except Exception as e:
             print(f"⚠️  TieuLam relay thất bại: {e}", file=sys.stderr)
 
     if TIEULAM_REPLIT_RELAY_URL:
         try:
-            return _fetch_tieulam_via_relay(TIEULAM_REPLIT_RELAY_URL)
+            matches = _fetch_tieulam_via_relay(TIEULAM_REPLIT_RELAY_URL)
+            if matches:
+                return matches
+            print("⚠️  Replit relay trả 0 kết quả, thử direct API...", file=sys.stderr)
         except Exception as e:
             print(f"⚠️  Replit relay thất bại: {e}", file=sys.stderr)
 
