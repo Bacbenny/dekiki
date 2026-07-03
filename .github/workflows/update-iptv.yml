@@ -46,6 +46,11 @@ jobs:
           TIEULAM_API:          ${{ secrets.TIEULAM_API }}
           RELAY_SECRET:         ${{ secrets.RELAY_SECRET }}
           TIEULAM_REPLIT_RELAY_URL: ${{ secrets.TIEULAM_REPLIT_RELAY_URL }}
+          HOIQUAN_API:          ${{ secrets.HOIQUAN_API }}
+          KHANDAIA_API:         ${{ secrets.KHANDAIA_API }}
+          VONGCAM_API:          ${{ secrets.VONGCAM_API }}
+          VONGCAM_ACCESS_TOKEN: ${{ secrets.VONGCAM_TOKEN }}
+          VONGCAM_TOKEN:        ${{ secrets.VONGCAM_TOKEN }}
         run: python deploy_workers.py || echo "Worker deploy skipped"
 
       - name: Test CF Worker health (/healthz)
@@ -55,38 +60,40 @@ jobs:
 
       - name: Diagnose relay
         env:
-          TIEULAM_RELAY_URL:       ${{ secrets.TIEULAM_RELAY_URL }}
+          TIEULAM_RELAY_URL:        ${{ secrets.TIEULAM_RELAY_URL }}
           TIEULAM_REPLIT_RELAY_URL: ${{ secrets.TIEULAM_REPLIT_RELAY_URL }}
-          RELAY_SECRET:            ${{ secrets.RELAY_SECRET }}
-          TIEULAM_API:             ${{ secrets.TIEULAM_API }}
-          HOIQUAN_API:             ${{ secrets.HOIQUAN_API }}
-          HOIQUAN_FRONTEND:        ${{ secrets.HOIQUAN_FRONTEND }}
-          KHANDAIA_API:            ${{ secrets.KHANDAIA_API }}
-          KHANDAIA_FRONTEND:       ${{ secrets.KHANDAIA_FRONTEND }}
-          VONGCAM_API:             ${{ secrets.VONGCAM_API }}
-          VONGCAM_ACCESS_TOKEN:    ${{ secrets.VONGCAM_TOKEN }}
+          RELAY_SECRET:             ${{ secrets.RELAY_SECRET }}
+          TIEULAM_API:              ${{ secrets.TIEULAM_API }}
+          HOIQUAN_API:              ${{ secrets.HOIQUAN_API }}
+          HOIQUAN_FRONTEND:         ${{ secrets.HOIQUAN_FRONTEND }}
+          KHANDAIA_API:             ${{ secrets.KHANDAIA_API }}
+          KHANDAIA_FRONTEND:        ${{ secrets.KHANDAIA_FRONTEND }}
+          VONGCAM_API:              ${{ secrets.VONGCAM_API }}
+          VONGCAM_ACCESS_TOKEN:     ${{ secrets.VONGCAM_TOKEN }}
         run: python diagnose_relay.py || echo "Diagnose completed (non-fatal)"
 
       - name: Run IPTV updater
         env:
-          TIEULAM_FRONTEND:        ${{ secrets.TIEULAM_FRONTEND }}
-          TIEULAM_API:             ${{ secrets.TIEULAM_API }}
-          TIEULAM_CDN:             ${{ secrets.TIEULAM_CDN }}
-          TIEULAM_ASYNC_CDN:       ${{ secrets.TIEULAM_ASYNC_CDN }}
-          TIEULAM_RELAY_URL:       ${{ secrets.TIEULAM_RELAY_URL }}
+          TIEULAM_FRONTEND:         ${{ secrets.TIEULAM_FRONTEND }}
+          TIEULAM_API:              ${{ secrets.TIEULAM_API }}
+          TIEULAM_CDN:              ${{ secrets.TIEULAM_CDN }}
+          TIEULAM_ASYNC_CDN:        ${{ secrets.TIEULAM_ASYNC_CDN }}
+          TIEULAM_RELAY_URL:        ${{ secrets.TIEULAM_RELAY_URL }}
           TIEULAM_REPLIT_RELAY_URL: ${{ secrets.TIEULAM_REPLIT_RELAY_URL }}
-          RELAY_SECRET:            ${{ secrets.RELAY_SECRET }}
-          REPLIT_PROXY_BASE:       ${{ secrets.REPLIT_PROXY_BASE }}
-          HOIQUAN_FRONTEND:        ${{ secrets.HOIQUAN_FRONTEND }}
-          HOIQUAN_API:             ${{ secrets.HOIQUAN_API }}
-          KHANDAIA_FRONTEND:       ${{ secrets.KHANDAIA_FRONTEND }}
-          KHANDAIA_API:            ${{ secrets.KHANDAIA_API }}
-          VONGCAM_FRONTEND:        ${{ secrets.VONGCAM_FRONTEND }}
-          VONGCAM_API:             ${{ secrets.VONGCAM_API }}
-          VONGCAM_TOKEN:           ${{ secrets.VONGCAM_TOKEN }}
-          VONGCAM_ACCESS_TOKEN:    ${{ secrets.VONGCAM_TOKEN }}
-          VTV_M3U_URL:             ${{ secrets.VTV_M3U_URL }}
-          MATCH_MAX_DURATION:      ${{ secrets.MATCH_MAX_DURATION }}
+          RELAY_SECRET:             ${{ secrets.RELAY_SECRET }}
+          HOIQUAN_FRONTEND:         ${{ secrets.HOIQUAN_FRONTEND }}
+          HOIQUAN_API:              ${{ secrets.HOIQUAN_API }}
+          HOIQUAN_RELAY_URL:        ${{ secrets.HOIQUAN_RELAY_URL }}
+          KHANDAIA_FRONTEND:        ${{ secrets.KHANDAIA_FRONTEND }}
+          KHANDAIA_API:             ${{ secrets.KHANDAIA_API }}
+          KHANDAIA_RELAY_URL:       ${{ secrets.KHANDAIA_RELAY_URL }}
+          VONGCAM_FRONTEND:         ${{ secrets.VONGCAM_FRONTEND }}
+          VONGCAM_API:              ${{ secrets.VONGCAM_API }}
+          VONGCAM_TOKEN:            ${{ secrets.VONGCAM_TOKEN }}
+          VONGCAM_ACCESS_TOKEN:     ${{ secrets.VONGCAM_TOKEN }}
+          VONGCAM_RELAY_URL:        ${{ secrets.VONGCAM_RELAY_URL }}
+          VTV_M3U_URL:              ${{ secrets.VTV_M3U_URL }}
+          MATCH_MAX_DURATION:       ${{ secrets.MATCH_MAX_DURATION }}
         run: python main.py
 
       - name: Commit and Push changes
