@@ -19,7 +19,7 @@ UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
 
 SOURCES = {
     "tieulam": {
-        "frontend":  (os.environ.get("TIEULAM_FRONTEND") or "https://sv2.tieulam.info"),
+        "frontend":  (os.environ.get("TIEULAM_FRONTEND") or "https://sv2.tieulam1.xyz"),
         "known_api": (os.environ.get("TIEULAM_API")      or "https://api.tlap17062026.com"),
         "env_key":   "TIEULAM_API",
     },
