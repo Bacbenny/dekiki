@@ -1055,7 +1055,7 @@ def _build_fixture_lines(fixtures: list, group_title: str) -> list:
             lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="{group_title}",{display}')
             _referer_map = {
                 "Hội Quán TV": "https://sv2.hoiquan4.live/",
-                "Khán Đài A":  "https://tructiep.khandaia.link/",
+                "Khán Đài A":  "https://tructiep.khandaia4.link/",
             }
             _ref = _referer_map.get(group_title, "")
             _final_url = stream_url + (f"|Referer={_ref}&User-Agent=Mozilla/5.0" if _ref and "|" not in stream_url else "")
