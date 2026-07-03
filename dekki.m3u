@@ -1,6 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 04/07 | Sirius VS Mjallby AIF (Allsvenskan) | BLV TÁO GIÀ
-https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",01:00 - 04/07 | Australia VS Egypt (World Cup) | BLV PHAN QUẨY
 https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",01:00 - 04/07 | Australia VS Egypt (World Cup) | BLV THẦN THÔNG
@@ -71,8 +69,6 @@ https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8|Referer=https
 https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 05/07 | Tammeka VS Laagri (Meistriliiga) | BLV PHAN CA
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 04/07 | Sirius VS Mjallby AIF (Allsvenskan) | Trạng Mơ
-https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",01:00 - 04/07 | Australia VS Egypt (World Cup) | Trạng Dế
 https://kdalive.yarncdn.live/live/kda-blv-delua/playlist.m3u8|Referer=https://tructiep.khandaia4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",01:00 - 04/07 | Australia VS Egypt (World Cup) | Trạng Núi
