@@ -894,19 +894,3 @@ https://play.vovgiaothong.vn/live/gthcm/playlist.m3u8
 https://play.vovgiaothong.vn/live/mekong/playlist.m3u8
 #EXTINF:-1 tvg-name="VOV GIAO THÔNG DUYÊN HẢI" tvg-logo="https://i.postimg.cc/t43J2yhN/Duyenhai.png" group-title="KÊNH VOV",VOV GIAO THÔNG DUYÊN HẢI
 https://play.vovgiaothong.vn/live/duyenhai/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:30 - 04/07 | Colombia VS Ghana (FIFA World Cup) | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamtv1.xyz/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) App Chrome/138.0.0.0 Safari/537.36
-https://pull.asynccdn.com/live/d08857f307a7459e9ad8cf7fff815bb6/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:30 - 04/07 | Colombia VS Ghana (FIFA World Cup) | BLV TRẠNG TỒ [Dự phòng]
-#EXTVLCOPT:http-referrer=https://sv2.tieulamtv1.xyz/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) App Chrome/138.0.0.0 Safari/537.36
-https://pull1.asynccdn.com/live/d08857f307a7459e9ad8cf7fff815bb6/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",04:00 - 05/07 | Paraguay VS France (FIFA World Cup) | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamtv1.xyz/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) App Chrome/138.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/c2053f2c19844ccda63ee80e20e4a3f9/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:55 - 06/07 | FC Torpedo Zhodino VS FK Isloch Minsk (Belarusian Premier League) | BLV TRẠNG BỊP
-#EXTVLCOPT:http-referrer=https://sv2.tieulamtv1.xyz/
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) App Chrome/138.0.0.0 Safari/537.36
-https://live.secufun.xyz/live/84482997fe9d4810a257ab57a4d982f3/playlist.m3u8
