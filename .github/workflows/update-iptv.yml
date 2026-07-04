@@ -53,6 +53,25 @@ jobs:
           VONGCAM_TOKEN:        ${{ secrets.VONGCAM_TOKEN }}
         run: python deploy_workers.py || echo "Worker deploy skipped"
 
+      - name: Wake up Replit relay
+        env:
+          TIEULAM_REPLIT_RELAY_URL: ${{ secrets.TIEULAM_REPLIT_RELAY_URL }}
+        run: |
+          HEALTH_URL=$(echo "$TIEULAM_REPLIT_RELAY_URL" | sed 's|/api/tieulam-relay||' | sed 's|/api/.*||')"/api/healthz"
+          echo "Ping: $HEALTH_URL"
+          for i in 1 2 3 4 5 6; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$HEALTH_URL" 2>/dev/null || echo "000")
+            echo "  Thu $i: HTTP $STATUS"
+            if [ "$STATUS" = "200" ]; then
+              echo "  Replit relay dang hoat dong"
+              break
+            fi
+            if [ "$i" -lt 6 ]; then
+              echo "  Cho 10 giay..."
+              sleep 10
+            fi
+          done
+
       - name: Test CF Worker health (/healthz)
         env:
           RELAY_SECRET: ${{ secrets.RELAY_SECRET }}
