@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-test_worker_health.py — Kiểm tra /healthz và dữ liệu trên cả 2 CF Workers
+test_worker_health.py — Kiểm tra /healthz và dữ liệu trên các CF Workers
 Chạy: python test_worker_health.py
 """
 import os
@@ -9,8 +9,9 @@ import requests
 
 SECRET = os.environ.get("RELAY_SECRET", "")
 WORKERS = {
-    "dekki": "https://dekki.bacbenny95.workers.dev",
-    "tieulam-relay": "https://tieulam-relay.bacbenny95.workers.dev",
+    "hoiquan-relay": "https://hoiquan-relay.bacbenny95.workers.dev",
+    "khandaia-relay": "https://khandaia-relay.bacbenny95.workers.dev",
+    "vongcam-relay": "https://vongcam-relay.bacbenny95.workers.dev",
 }
 
 
@@ -27,12 +28,10 @@ for name, base in WORKERS.items():
         r = requests.get(f"{base}/healthz", headers=_headers(), timeout=25)
         d = r.json()
         sec_ok = d.get("env", {}).get("relay_secret_set", False)
-        api_env = d.get("env", {}).get("tieulam_api_env", "?")
         probes = d.get("probe_results", [])
         ok_probes = [p for p in probes if p.get("ok")]
         print(f"\n[{name}] HTTP {r.status_code}")
         print(f"  relay_secret_set: {sec_ok}")
-        print(f"  tieulam_api_env:  {api_env}")
         print(f"  domain probes ({len(ok_probes)}/{len(probes)} ok):")
         for p in probes:
             icon = "OK" if p.get("ok") else "--"
@@ -43,9 +42,9 @@ for name, base in WORKERS.items():
         dr = requests.post(base, headers=_headers(), json={}, timeout=25)
         dd = dr.json()
         count = dd.get("count", len(dd.get("data", [])))
-        print(f"  data fetch: HTTP {dr.status_code} | count={count} | api_base={dd.get('api_base', '?')}")
+        print(f"  data fetch: HTTP {dr.status_code} | count={count}")
         if count == 0:
-            print(f"  WARN: worker returned 0 matches — error={dd.get('error', 'none')}")
+            print(f"  WARN: worker returned 0 items — error={dd.get('error', 'none')}")
     except Exception as e:
         print(f"\n[{name}] ERROR: {e}")
 
