@@ -121,6 +121,8 @@ https://kdalive.yarncdn.live/live/kda-blv-delua/playlist.m3u8|Referer=https://tr
 https://kdalive.yarncdn.live/live/kda-blv-nui/playlist.m3u8|Referer=https://tructiep.khandaia4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",03:00 - 06/07 | Brazil VS Norway (World Cup) | Trạng Gáy
 https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8|Referer=https://tructiep.khandaia4.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",03:00 - 06/07 | Brazil VS Norway (World Cup) | Trạng Bệu
+https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",04:30 - 06/07 | Union Espanola VS O'Higgins (Copa Chile) | Trạng Bệu
 https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",06:30 - 06/07 | Nautico Recife VS Juventude (Serie B) | Isco
