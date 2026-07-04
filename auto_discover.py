@@ -11,18 +11,13 @@ import os, re, sys, json, time, requests, hashlib
 from datetime import datetime, timezone, timedelta, date as _date
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# ── Constants ────────────────────────────────────────────────────────────────
+# ── Constants ───────────────────────────────────────────────────────────[...]
 CF_TOKEN   = os.environ.get("CF_API_TOKEN") or os.environ.get("CLOUDFLARE_API_TOKEN", "")
 CF_ACCOUNT = "1c17b9b516c9a00478f2e538883c7e3b"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
       "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36")
 
 SOURCES = {
-    "tieulam": {
-        "frontend":  (os.environ.get("TIEULAM_FRONTEND") or "https://sv2.tieulam1.xyz"),
-        "known_api": (os.environ.get("TIEULAM_API")      or "https://api.tlap17062026.com"),
-        "env_key":   "TIEULAM_API",
-    },
     "hoiquan": {
         "frontend":  (os.environ.get("HOIQUAN_FRONTEND") or "https://sv2.hoiquan4.live"),
         "known_api": (os.environ.get("HOIQUAN_API")      or "https://sv.hoiquantv.xyz/api/v1/external"),
@@ -42,7 +37,7 @@ SOURCES = {
     },
 }
 
-# ── HTTP helpers ─────────────────────────────────────────────────────────────
+# ── HTTP helpers ──────────────────────────────────────────────────────────[...]
 def _get(url, headers=None, timeout=10, **kw):
     h = {"User-Agent": UA, "Accept": "application/json, */*"}
     if headers: h.update(headers)
@@ -81,52 +76,7 @@ def _extract_api_url(js: str, patterns: list[str]) -> str | None:
             return hit.rstrip("/")
     return None
 
-# ── TieuLam discovery ────────────────────────────────────────────────────────
-def _tl_date_candidates() -> list[str]:
-    today = datetime.now(timezone(timedelta(hours=7))).date()
-    candidates = []
-    for delta in range(0, 21):
-        d = today - timedelta(days=delta)
-        candidates.append(f"https://api.tlap{d.strftime('%d%m%Y')}.com")
-    return candidates
-
-def discover_tieulam(known: str) -> tuple[str, str]:
-    """Trả về (api_base, method) — method là 'js', 'probe', hoặc 'known'."""
-    js_patterns = [
-        r'create\(\{baseURL:"(https://[^"]{10,80})"\}',
-        r'baseURL:\s*"(https://[^"]{10,80})"',
-        r'"(https://api\.tlap[a-z0-9]{6,12}\.(?:com|xyz))"',
-        r'VITE_API(?:_BASE)?_URL:"(https://[^"]+)"',
-    ]
-    frontend = SOURCES["tieulam"]["frontend"]
-    for js in _fetch_js_bundles(frontend, max_js=4):
-        url = _extract_api_url(js, js_patterns)
-        if url:
-            return url, "js"
-
-    # Probe date-based candidates
-    def _probe(candidate):
-        try:
-            r = _post(candidate + "/matches/graph",
-                      {"queries": [], "limit": 1, "page": 1},
-                      headers={"Referer": frontend + "/", "Origin": frontend},
-                      timeout=5)
-            if r.ok or r.status_code == 422:
-                return candidate
-        except Exception:
-            pass
-        return None
-
-    with ThreadPoolExecutor(max_workers=6) as ex:
-        futs = {ex.submit(_probe, c): c for c in _tl_date_candidates()}
-        for fut in as_completed(futs):
-            result = fut.result()
-            if result:
-                return result, "probe"
-
-    return known, "known"
-
-# ── HoiQuan discovery ─────────────────────────────────────────────────────────
+# ── HoiQuan discovery ────────────────────────────────────────────────────────[...]
 def discover_hoiquan(known: str) -> tuple[str, str]:
     patterns = [
         r'VITE_SERVER_API_BASE_URL:\s*"(https://[^"]+)"',
@@ -164,7 +114,7 @@ def discover_hoiquan(known: str) -> tuple[str, str]:
                 pass
     return known, "known"
 
-# ── KhanDai discovery ─────────────────────────────────────────────────────────
+# ── KhanDai discovery ────────────────────────────────────────────────────────[...]
 def discover_khandaia(known: str) -> tuple[str, str]:
     patterns = [
         r'VITE_SERVER_API_BASE_URL:\s*"(https://[^"]+)"',
@@ -198,7 +148,7 @@ def discover_khandaia(known: str) -> tuple[str, str]:
                 pass
     return known, "known"
 
-# ── VongCam discovery ─────────────────────────────────────────────────────────
+# ── VongCam discovery ────────────────────────────────────────────────────────[...]
 def discover_vongcam_token(known_token: str) -> tuple[str, str]:
     frontend = SOURCES["vongcam"]["frontend"]
     for js in _fetch_js_bundles(frontend, max_js=6):
@@ -213,7 +163,7 @@ def discover_vongcam_token(known_token: str) -> tuple[str, str]:
                     return hit, "js"
     return known_token, "known"
 
-# ── CF Worker update ──────────────────────────────────────────────────────────
+# ── CF Worker update ────────────────────────────────────────────────────────–[...]
 def _get_worker_script(name: str) -> str:
     """Lấy source code worker đang deploy (trả về phần JS trong multipart)."""
     r = requests.get(
@@ -235,9 +185,9 @@ def _get_worker_script(name: str) -> str:
 
 OBSOLETE_BINDINGS = {"GITHUB_RAW_URL", "PLAYLIST_KEY"}
 REPLIT_RELAY_URL = (
-    os.environ.get("TIEULAM_REPLIT_RELAY_URL")
+    os.environ.get("HOIQUAN_REPLIT_RELAY_URL")
     or os.environ.get("REPLIT_RELAY_URL")
-    or "https://tieulam-relay.bacbenny95.workers.dev"
+    or ""
 )
 RELAY_SECRET = os.environ.get("RELAY_SECRET", "")
 
@@ -256,7 +206,7 @@ def _get_existing_bindings(name: str) -> list:
     return []
 
 
-def _build_worker_bindings(name: str, tieulam_api: str, existing: list) -> list:
+def _build_worker_bindings(name: str, existing: list) -> list:
     bindings, seen = [], set()
     for b in existing:
         bname, btype = b.get("name", ""), b.get("type", "")
@@ -265,10 +215,7 @@ def _build_worker_bindings(name: str, tieulam_api: str, existing: list) -> list:
         if btype == "secret_text":
             bindings.append({"name": bname, "type": "secret_text"})
             seen.add(bname)
-    if tieulam_api:
-        bindings.append({"name": "TIEULAM_API", "type": "plain_text", "text": tieulam_api})
-        seen.add("TIEULAM_API")
-    if name == "dekki" and REPLIT_RELAY_URL:
+    if name == "hoiquan-relay" and REPLIT_RELAY_URL:
         bindings.append({"name": "REPLIT_RELAY_URL", "type": "plain_text", "text": REPLIT_RELAY_URL.rstrip("/")})
         seen.add("REPLIT_RELAY_URL")
     if "RELAY_SECRET" not in seen and RELAY_SECRET:
@@ -276,14 +223,13 @@ def _build_worker_bindings(name: str, tieulam_api: str, existing: list) -> list:
     return bindings
 
 
-def _deploy_worker(name: str, script: str, tieulam_api: str = "") -> bool:
+def _deploy_worker(name: str, script: str) -> bool:
     """Deploy worker lên CF bằng multipart/form-data đúng chuẩn.
 
     FIX: Giữ secret_text bindings (RELAY_SECRET) khi redeploy.
-    FIX: Inject TIEULAM_API + REPLIT_RELAY_URL plain_text bindings.
     """
     existing = _get_existing_bindings(name)
-    bindings = _build_worker_bindings(name, tieulam_api, existing)
+    bindings = _build_worker_bindings(name, existing)
 
     metadata = json.dumps({
         "main_module": "index.js",
@@ -304,27 +250,7 @@ def _deploy_worker(name: str, script: str, tieulam_api: str = "") -> bool:
     return r.ok and r.json().get("success", False)
 
 
-def update_worker_tieulam_api(worker_name: str, new_api_base: str) -> bool:
-    """Cập nhật TIEULAM_API binding trong CF Worker khi URL thay đổi.
-
-    Thay thế update_worker_fallback() cũ (tìm FALLBACK_API_BASES không còn tồn tại).
-    Đọc script hiện tại → re-deploy với binding mới.
-    """
-    if not CF_TOKEN:
-        print(f"  {worker_name}: skip (no CF_TOKEN)")
-        return False
-
-    script = _get_worker_script(worker_name)
-    if not script or len(script) < 100:
-        print(f"  {worker_name}: failed to fetch current script")
-        return False
-
-    ok = _deploy_worker(worker_name, script, tieulam_api=new_api_base)
-    print(f"  {worker_name}: {'OK' if ok else 'FAIL'} → TIEULAM_API={new_api_base}")
-    return ok
-
-
-# ── main.py patch ─────────────────────────────────────────────────────────────
+# ── main.py patch ─────────────────────────────────────────────────────────–[...]
 MAIN_PY_PATH = os.path.join(os.path.dirname(__file__), "main.py")
 
 def _update_main_py(key: str, new_url: str) -> bool:
@@ -333,7 +259,6 @@ def _update_main_py(key: str, new_url: str) -> bool:
         with open(MAIN_PY_PATH, "r") as f:
             src = f.read()
         patterns_map = {
-            "tieulam":  r'(TIEULAM_KNOWN_API_BASE\s*=\s*\(os\.environ\.get\("TIEULAM_API"\)\s*or\s*)"https://[^"]+"',
             "hoiquan":  r'(HOIQUAN_KNOWN_API_BASE\s*=\s*\(os\.environ\.get\("HOIQUAN_API"\)\s*or\s*)"https://[^"]+"',
             "khandaia": r'(KHANDAIA_KNOWN_API_BASE\s*=\s*\(os\.environ\.get\("KHANDAIA_API"\)\s*or\s*)"https://[^"]+"',
             "vongcam":  r'(VONGCAM_KNOWN_API_BASE\s*=\s*\(os\.environ\.get\("VONGCAM_API"\)\s*or\s*)"https://[^"]+"',
@@ -352,7 +277,7 @@ def _update_main_py(key: str, new_url: str) -> bool:
         return False
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# ── Main ────────────────────────────────────────────────────────────–[...]
 def main():
     print()
     print("=" * 65)
@@ -372,14 +297,13 @@ def main():
             return name, known, "error", str(e)
 
     tasks = [
-        ("tieulam",  discover_tieulam,       SOURCES["tieulam"]["known_api"]),
         ("hoiquan",  discover_hoiquan,        SOURCES["hoiquan"]["known_api"]),
         ("khandaia", discover_khandaia,       SOURCES["khandaia"]["known_api"]),
         ("vongcam",  discover_vongcam_token,  (os.environ.get("VONGCAM_ACCESS_TOKEN") or "AB321C")),
     ]
 
     results = {}
-    with ThreadPoolExecutor(max_workers=4) as ex:
+    with ThreadPoolExecutor(max_workers=3) as ex:
         futs = {ex.submit(run_discovery, n, fn, k): n for n, fn, k in tasks}
         for fut in as_completed(futs):
             name, new_url, method, err = fut.result()
@@ -406,12 +330,6 @@ def main():
             print(f"       -> {new}")
             updated_main = _update_main_py(name, new)
             print(f"     main.py: {'OK' if updated_main else 'skip (no match)'}")
-
-            # Cập nhật CF Worker binding khi TieuLam API thay đổi
-            if name == "tieulam" and CF_TOKEN:
-                print("     CF Workers:")
-                update_worker_tieulam_api("dekki", new)
-                update_worker_tieulam_api("tieulam-relay", new)
 
     print()
     print("=" * 65)
