@@ -96,6 +96,47 @@ jobs:
           MATCH_MAX_DURATION:       ${{ secrets.MATCH_MAX_DURATION }}
         run: python main.py
 
+      - name: Preserve TieuLam if relay offline
+        run: |
+          python3 - <<'PYEOF'
+          import subprocess, sys
+          with open('dekki.m3u', 'r') as f:
+              new_content = f.read()
+          new_count = new_content.count('group-title="TieuLam TV"')
+          if new_count > 0:
+              print(f"TieuLam OK: {new_count} kenh — khong can khoi phuc")
+              sys.exit(0)
+          result = subprocess.run(
+              ['git', 'show', 'HEAD:dekki.m3u'],
+              capture_output=True, text=True
+          )
+          old = result.stdout
+          old_count = old.count('group-title="TieuLam TV"')
+          if old_count == 0:
+              print("Khong co TieuLam cu de khoi phuc")
+              sys.exit(0)
+          lines = old.splitlines()
+          blocks = []
+          i = 0
+          while i < len(lines):
+              if '#EXTINF' in lines[i] and 'TieuLam TV' in lines[i]:
+                  block = [lines[i]]
+                  i += 1
+                  while i < len(lines) and not lines[i].startswith('#EXTINF'):
+                      if lines[i].strip():
+                          block.append(lines[i])
+                      i += 1
+                  blocks.append('\n'.join(block))
+              else:
+                  i += 1
+          if blocks:
+              with open('dekki.m3u', 'a') as f:
+                  f.write('\n' + '\n'.join(blocks) + '\n')
+              print(f"Khoi phuc {len(blocks)} kenh TieuLam tu m3u cu (relay offline)")
+          else:
+              print("Khong the trich TieuLam block tu m3u cu")
+          PYEOF
+
       - name: Commit and Push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
