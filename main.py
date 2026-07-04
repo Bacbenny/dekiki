@@ -78,6 +78,8 @@ TIEULAM_ASYNC_CDN      = (os.environ.get("TIEULAM_ASYNC_CDN") or "https://pull1.
 VTV_M3U_URL            = (os.environ.get("VTV_M3U_URL") or "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/VTV.m3u")
 TIEULAM_RELAY_URL        = _normalize_workers_url(os.environ.get("TIEULAM_RELAY_URL", "https://dekki.bacbenny95.workers.dev"))
 TIEULAM_REPLIT_RELAY_URL = _normalize_workers_url(os.environ.get("TIEULAM_REPLIT_RELAY_URL", "https://tieulam-relay.bacbenny95.workers.dev"))
+# URL relay lấy live stream URL (hd1/hd2/hd3) qua Replit khi GH Actions bị block
+TIEULAM_REPLIT_LIVE_URL  = TIEULAM_REPLIT_RELAY_URL.replace("/tieulam-relay", "/tieulam-live") if TIEULAM_REPLIT_RELAY_URL else ""
 TIEULAM_RELAY_SECRET     = os.environ.get("RELAY_SECRET", "Bac12345@")
 REPLIT_PROXY_BASE        = os.environ.get("REPLIT_PROXY_BASE", "").rstrip("/")
 
@@ -283,33 +285,16 @@ def _get_tieulam_api_url(scraper=None) -> str:
 
 def _fetch_tieulam_live_urls(match_id: str) -> tuple[str, str, str, str]:
     """
-    Gọi GET /match/{id}/live để lấy URL stream thực từ asynccdn.xyz.
-    Trả về (hd_1, hd_2, hd_3, nhà_đài) — ưu tiên HD1→HD2→HD3→Nhà đài.
-    Chuỗi rỗng "" nếu không có hoặc thất bại.
+    Lấy URL stream thực (hd_1, hd_2, hd_3, nhà_đài) từ /match/{id}/live.
+    Thử trực tiếp trước; nếu bị chặn (403/timeout) → fallback qua Replit relay.
     """
-    api_base = _get_tieulam_api_base()
-    endpoint = f"{api_base}/match/{match_id}/live"
-    hdrs = {
-        "Accept":   "application/json, text/plain, */*",
-        "Referer":  TIEULAM_FRONTEND_URL + "/",
-        "Origin":   TIEULAM_FRONTEND_URL,
-    }
     _empty: tuple[str, str, str, str] = ("", "", "", "")
-    try:
-        if _CURL_CFFI:
-            r = curl_requests.get(endpoint, headers=hdrs, timeout=8, impersonate="chrome110")
-        else:
-            sc = cloudscraper.create_scraper()
-            r  = sc.get(endpoint, headers=hdrs, timeout=8)
-        if r.status_code != 200:
-            return _empty
-        data = r.json()
-        def _u(k: str) -> str:
-            return (data.get(k) or "").strip()
+
+    def _parse(data: dict) -> tuple[str, str, str, str]:
         seen: set[str] = set()
         result: list[str] = []
         for key in ("hd_1", "hd_2", "hd_3", "source"):
-            url = _u(key)
+            url = (data.get(key) or "").strip()
             if url and url not in seen:
                 seen.add(url)
                 result.append(url)
@@ -318,8 +303,39 @@ def _fetch_tieulam_live_urls(match_id: str) -> tuple[str, str, str, str]:
         while len(result) < 4:
             result.append("")
         return (result[0], result[1], result[2], result[3])
+
+    # Thử 1: Gọi API trực tiếp (hoạt động khi IP không bị block)
+    api_base = _get_tieulam_api_base()
+    endpoint = f"{api_base}/match/{match_id}/live"
+    hdrs = {
+        "Accept":  "application/json, text/plain, */*",
+        "Referer": TIEULAM_FRONTEND_URL + "/",
+        "Origin":  TIEULAM_FRONTEND_URL,
+    }
+    try:
+        if _CURL_CFFI:
+            r = curl_requests.get(endpoint, headers=hdrs, timeout=8, impersonate="chrome110")
+        else:
+            sc = cloudscraper.create_scraper()
+            r  = sc.get(endpoint, headers=hdrs, timeout=8)
+        if r.status_code == 200:
+            return _parse(r.json())
     except Exception:
-        return _empty
+        pass
+
+    # Thử 2: Fallback qua Replit relay (bypass IP block từ GH Actions/CF)
+    if TIEULAM_REPLIT_LIVE_URL:
+        try:
+            resp = requests.get(
+                f"{TIEULAM_REPLIT_LIVE_URL}/{match_id}",
+                timeout=10,
+            )
+            if resp.status_code == 200:
+                return _parse(resp.json())
+        except Exception:
+            pass
+
+    return _empty
 
 
 def _fetch_tieulam_via_relay(url: str) -> list:
@@ -464,6 +480,9 @@ def _build_tieulam_lines(matches: list) -> list:
         if elapsed is not None and elapsed < -172800:
             continue
         valid.append((match, elapsed, dt_start))
+
+    # Chỉ giữ trận có BLV tiếng Việt (blv field không rỗng)
+    valid = [(m, e, dt) for m, e, dt in valid if (m.get("blv") or "").strip()]
 
     needs_live_url: list[int] = []
     for idx, (match, elapsed, _) in enumerate(valid):
