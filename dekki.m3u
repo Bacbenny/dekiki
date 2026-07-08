@@ -1,6 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",01:00 - 09/07 | Ukraine U19 VS Germany U19 (UEFA U19 Championship) | BLV PHAN CA
-https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",06:00 - 09/07 | Ponte Preta VS Criciuma (Serie B) | BLV PHAN ANH
 https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",09:30 - 09/07 | Vancouver Whitecaps VS Cavalry FC (Canadian Championship) | BLV PHAN ANH
@@ -91,8 +89,6 @@ https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://truc
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",21:00 - 12/07 | Atyrau VS Yelimay Semey (Premier League) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",01:00 - 09/07 | Ukraine U19 VS Germany U19 (UEFA U19 Championship) | BLV Tiểu Mèo
-https://bglive.yarncdn.live/live/bgtv_blv_tieumeo/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",06:00 - 09/07 | Ponte Preta VS Criciuma (Serie B) | BLV Max
 https://bglive.yarncdn.live/live/bgtv_blv_max/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",09:00 - 09/07 | Vancouver FC VS CF Montreal (Canadian Championship) | BLV Tiểu Trà Đá
