@@ -1,12 +1,8 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",19:00 - 08/07 | Linda Noskova VS Elise Mertens (WTA1000 Miami) | BLV PHAN HẢI
-https://hqlive.yarncdn.live/live/hqtv_blv_phanhai/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",20:10 - 08/07 | Taylor Fritz VS Alexandet Zverev (ATP1000 Miami) | BLV PHAN HẢI
 https://hqlive.yarncdn.live/live/hqtv_blv_phanhai/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",20:40 - 08/07 | Flavio Coboli VS Arthur Fery (ATP1000 Miami) | BLV PHAN BỐNG
+#EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",21:00 - 08/07 | Flavio Coboli VS Arthur Fery (ATP500) | BLV PHAN BỐNG
 https://hqlive.yarncdn.live/live/hqtv_blv_phanbong/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",21:00 - 08/07 | Alay VS Toktogul (VĐQG Kyrgyzstan) | BLV LƯƠNG BỔNG
-https://hqlive.yarncdn.live/live/hqtv_blv_phanliem/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 08/07 | Kairat Almaty VS Sutjeska (UEFA Champions League) | BLV THẦN THÔNG
 https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 08/07 | Flora Tallinn VS Saburtalo (UEFA Champions League) | BLV LƯƠNG BỔNG
@@ -57,8 +53,6 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8|Referer=https:/
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 10/07 | VPS VS SJK (Veikkausliiga) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",19:30 - 08/07 | Trung Quốc VS Canada (Nations League 2026) | Trạng Bệu
-https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",21:30 - 08/07 | Cộng Hòa Séc VS Đức (Nations League 2026) | T-Rex
 https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:00 - 08/07 | Kairat Almaty VS Sutjeska (UEFA Champions League) | Dế Lửa
@@ -67,7 +61,7 @@ https://kdalive.yarncdn.live/live/kda-blv-delua/playlist.m3u8|Referer=https://tr
 https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",23:00 - 08/07 | Thụy Điển VS Slovenia (European League) | Tày
 https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 09/07 | Petrocub VS Egnatia Rrogozhinë (UEFA Champions League) | Trạng Bệu
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 09/07 | Petrocub VS Egnatia Rrogozhinë (UEFA Champions League) | Bệu
 https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:30 - 09/07 | FC Differdange 03 VS Ilves (UEFA Europa Conference League) | Dế Lửa
 https://kdalive.yarncdn.live/live/kda-blv-delua/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
@@ -85,15 +79,15 @@ https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://truc
 https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",16:00 - 09/07 | Nhật Bản VS Thái Lan (Nations League Women ( OFF FAN THÁI LAN )) | Kaka
 https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",16:00 - 09/07 | Nhật Bản VS Thái Lan (Nations League Women ( OFF FAN NHẬT BẢN )) | Trạng Bệu
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",16:00 - 09/07 | Nhật Bản VS Thái Lan (Nations League Women ( OFF FAN NHẬT BẢN )) | Bệu
 https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",19:00 - 09/07 | Akademiya Ontustik VS Arys (1. Division) | Trạng Mơ
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",19:00 - 09/07 | Akademiya Ontustik VS Arys (1. Division) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",19:30 - 09/07 | Trung Quốc VS Ukraine (Nations League Women) | Tày
 https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",20:00 - 09/07 | Aktobe Jas VS Khan Tengri (1. Division) | Dế Lửa
 https://kdalive.yarncdn.live/live/kda-blv-delua/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",21:00 - 09/07 | Atlètic Club d'Escaldes VS Mornar (UEFA Europa Conference League) | Trạng Mơ
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",21:00 - 09/07 | Atlètic Club d'Escaldes VS Mornar (UEFA Europa Conference League) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",21:30 - 09/07 | Cộng Hòa Séc VS Hà Lan (Nations League Women) | T-Rex
 https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
@@ -103,7 +97,7 @@ https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8|Referer=htt
 https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",01:00 - 10/07 | CSKA Sofia VS Derry City (UEFA Europa League) | Isco
 https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",03:00 - 10/07 | France VS Morocco (World Cup) | Trạng Bệu
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",03:00 - 10/07 | France VS Morocco (World Cup) | Bệu
 https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",03:00 - 10/07 | France VS Morocco (World Cup) | Siêu Gáy
 https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
@@ -119,12 +113,10 @@ https://kdalive.yarncdn.live/live/kda-blv-delua/playlist.m3u8|Referer=https://tr
 https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:30 - 10/07 | FC Dnepr Mogilev VS FC Minsk (Premier League) | Tày
 https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 10/07 | VPS VS SJK (Veikkausliiga) | Trạng Mơ
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 10/07 | VPS VS SJK (Veikkausliiga) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",21:00 - 12/07 | Atyrau VS Yelimay Semey (Premier League) | Trạng Mơ
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",21:00 - 12/07 | Atyrau VS Yelimay Semey (Premier League) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",18:00 - 08/07 | Pháp VS Hà Lan (Nations League Women) | BLV Tiểu Mèo
-https://bglive.yarncdn.live/live/bgtv_blv_tieumeo/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",22:00 - 08/07 | Komárno VS Lokomotíva Zvolen (Friendlies Clubs) | BLV Max
 https://bglive.yarncdn.live/live/bgtv_blv_max/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",22:00 - 08/07 | Kairat Almaty VS Sutjeska (UEFA Champions League) | BLV Pháo
