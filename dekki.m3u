@@ -79,8 +79,6 @@ https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8|Referer=https://tru
 https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:30 - 12/07 | Cobreloa VS D. La Serena (Copa Chile) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",22:00 - 11/07 | Auda VS FK Liepaja (Cup) | BLV Chim Nhỏ
-https://bglive.yarncdn.live/live/bgtv_blv_cuccu/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",23:00 - 11/07 | Tromso VS Valerenga (Eliteserien) | BLV Pháo
 https://bglive.yarncdn.live/live/bgtv_blv_phaothan/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",01:00 - 12/07 | Spain U19 VS Germany U19 (UEFA U19 Championship) | BLV Max
