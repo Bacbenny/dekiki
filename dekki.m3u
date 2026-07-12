@@ -1,7 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F448b88beb6cdaf0accf126b280b177d9.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F448b88beb6cdaf0accf126b280b177d9.png&time=22%3A00+12%2F07" group-title="TieuLam TV",22:00 12/07 Brann vs Start Kristiansand (BLV TRẠNG BÉO) [geo]
-#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
-https://pull.asynccdn.com/live/2c0e7d1943884f0e89ff8dc95b1f579c/index.m3u8
 #EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F97b182dc35a57e1fbfce5ab2382fe317.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F97b182dc35a57e1fbfce5ab2382fe317.png&time=00%3A15+13%2F07" group-title="TieuLam TV",00:15 13/07 Sarpsborg 08 vs Viking (BLV TRẠNG NGỐ) [geo]
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/771a3ca3b6c546eabd7ba3bfe7a3a441/index.m3u8
@@ -32,6 +29,36 @@ https://pull.asynccdn.com/live/5439f9b9100245719d5087624ee9ff2c/index.m3u8
 #EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2Fcd338eefa3f2d8f275a952bd55d06b6b.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2Fcd338eefa3f2d8f275a952bd55d06b6b.png&time=23%3A30+13%2F07" group-title="TieuLam TV",23:30 13/07 Arsenal Tula vs Tekstilshchik Ivanovo (BLV TRẠNG TÍ) [geo]
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/efb64b56bb424796892483e1730b374f/index.m3u8
+#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F5d15445b5ebaaad062065f158f1d1fd8.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F5d15445b5ebaaad062065f158f1d1fd8.png&time=00%3A00+14%2F07" group-title="TieuLam TV",00:00 14/07 Djurgardens vs Halmstads (BLV TRẠNG TỒ) [geo]
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/e7869b9314d6438186f58e6abcb42bb6/index.m3u8
+#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F631e4cfa5f1d5bee45618fb97fc3f0b4.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F631e4cfa5f1d5bee45618fb97fc3f0b4.png&time=02%3A15+14%2F07" group-title="TieuLam TV",02:15 14/07 Breidablik vs Keflavik (BLV TRẠNG BÉO) [geo]
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/78d568a2e886404e8310a5bc9ddbb0ec/index.m3u8
+#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2Faf8774ff48aa426f5516ba6d507c5381.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2Faf8774ff48aa426f5516ba6d507c5381.png&time=06%3A30+14%2F07" group-title="TieuLam TV",06:30 14/07 Ceara vs Athletic Club (BLV TRẠNG TÈO) [geo]
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/72ef379d259145b8b6343373822c8323/index.m3u8
+#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2Fb19bd906560a2ff7e4339e37a5ce109d.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2Fb19bd906560a2ff7e4339e37a5ce109d.png&time=08%3A30+14%2F07" group-title="TieuLam TV",08:30 14/07 Cavalry FC vs Vancouver Whitecaps (BLV TRẠNG NGỐ) [geo]
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/fe44166983794e8c8621834ea25856bd/index.m3u8
+#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F424ac25c370b644caebd91d8ba01df34.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F424ac25c370b644caebd91d8ba01df34.png&time=16%3A00+14%2F07" group-title="TieuLam TV",16:00 14/07 Ha Noi IIWomen vs Than KSVN Women (BLV TRẠNG TÈO) [geo]
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/41024fb77b6f4136a1912e2c1013289b/index.m3u8
+#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F5e7f98b3e6dba2955758797b84e94868.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F5e7f98b3e6dba2955758797b84e94868.png&time=16%3A30+14%2F07" group-title="TieuLam TV",16:30 14/07 APIA Leichhardt Tigers vs Peninsula Power (BLV TRẠNG TÍ) [geo]
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/c7ef52a7291a4a15b1040b8f7d0bb9a6/index.m3u8
+#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F761b47aa242b8e4a5bf183da184304d7.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F761b47aa242b8e4a5bf183da184304d7.png&time=18%3A00+14%2F07" group-title="TieuLam TV",18:00 14/07 Thai Nguyen T&T Women vs Hồ Chí Minh City Women (BLV TRẠNG TỒ) [geo]
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/275d93e37cba42bd9e985d41a8d07360/index.m3u8
+#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F1fced0158de1169e9bc3209f4ab98e84.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F1fced0158de1169e9bc3209f4ab98e84.png&time=22%3A00+14%2F07" group-title="TieuLam TV",22:00 14/07 KuPs vs FC Vardar Skopje (BLV TRẠNG BỊP) [geo]
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/c5246a757f244a149a246c3e6fcb94ec/index.m3u8
+#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2Fe80d49b16e8a1ea6b6d38643e1d429b0.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2Fe80d49b16e8a1ea6b6d38643e1d429b0.png&time=23%3A00+14%2F07" group-title="TieuLam TV",23:00 14/07 FC Iberia 1999 Tbilisi vs FC Flora Tallinn (BLV TRẠNG BÉO) [geo]
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/db1275edd8c54b92acad0ee0bc83fbb0/index.m3u8
+#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F808a63c4e021d1ee40dd6d9d07d3baa3.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F808a63c4e021d1ee40dd6d9d07d3baa3.png&time=23%3A00+14%2F07" group-title="TieuLam TV",23:00 14/07 Inter Club Escaldes vs Lincoln Red Imps FC (BLV TRẠNG TÍ) [geo]
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/b566d4c8dbb04d6580809ea4ac6ab5e8/index.m3u8
 #EXTINF:-1 tvg-logo="https://res.cloudinary.com/dlwx7hywr/image/upload/v1752114457/tennis_sf3nca.png" group-title="Hội Quán TV",22:00 - 12/07 | Jannik Sinner VS Alexandet Zverev (ATP500) | BLV PHAN HẢI
 https://hqlive.yarncdn.live/live/hqtv_blv_phanhai/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:15 - 13/07 | Sarpsborg 08 FF VS Viking (Eliteserien) | BLV PHAN QUẨY
@@ -48,6 +75,22 @@ https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8|Referer=https
 https://hqlive.yarncdn.live/live/hqtv_blv_phanliem/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:30 - 13/07 | Arsenal Tula VS Tekstilshchik (First League) | BLV THẦN THÔNG
 https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",00:00 - 14/07 | Djurgardens IF VS Halmstad (Allsvenskan) | BLV LƯƠNG BỔNG
+https://hqlive.yarncdn.live/live/hqtv_blv_phanliem/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",06:30 - 14/07 | Ceara VS Athletic Club (Serie B) | BLV PHAN ANH
+https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",08:30 - 14/07 | Cavalry FC VS Vancouver Whitecaps (Canadian Championship) | BLV PHAN ANH
+https://hqlive.yarncdn.live/live/hqtv_blv_phananh/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",16:30 - 14/07 | APIA Leichhardt Tigers VS Peninsula Power (Australia Cup) | BLV PHAN CA
+https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",18:35 - 14/07 | Hangzhou Greentown VS Qingdao Jonoon (Super League) | BLV PHAN QUẨY
+https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",19:00 - 14/07 | Bhutan U19 VS Drukpa (Premier League) | BLV THẦN THÔNG
+https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 14/07 | KuPS VS Vardar Skopje (UEFA Champions League) | BLV PHAN QUẨY
+https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:00 - 14/07 | Saburtalo VS Flora Tallinn (UEFA Champions League) | BLV THẦN THÔNG
+https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:30 - 12/07 | Cobreloa VS D. La Serena (Copa Chile) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:15 - 13/07 | Sarpsborg 08 FF VS Viking (Eliteserien) | Isco
@@ -59,6 +102,22 @@ https://kdalive.yarncdn.live/live/kda-blv-delua/playlist.m3u8|Referer=https://tr
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",21:00 - 13/07 | Chelyabinsk VS Ska-khabarovsk (First League) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:30 - 13/07 | Arsenal Tula VS Tekstilshchik (First League) | Siêu Gáy
+https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:00 - 14/07 | Djurgardens IF VS Halmstad (Allsvenskan) | Bệu
+https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",06:30 - 14/07 | Ceara VS Athletic Club (Serie B) | Isco
+https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",08:30 - 14/07 | Cavalry FC VS Vancouver Whitecaps (Canadian Championship) | Isco
+https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",16:30 - 14/07 | APIA Leichhardt Tigers VS Peninsula Power (Australia Cup) | Mơ
+https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",18:35 - 14/07 | Hangzhou Greentown VS Qingdao Jonoon (Super League) | Siêu Gáy
+https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",19:00 - 14/07 | Bhutan U19 VS Drukpa (Premier League) | Tày
+https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:00 - 14/07 | KuPS VS Vardar Skopje (UEFA Champions League) | Bệu
+https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 14/07 | Saburtalo VS Flora Tallinn (UEFA Champions League) | Siêu Gáy
 https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",23:30 - 12/07 | Antofagasta VS Cobresal (Copa Chile) | BLV Tiểu Mèo
 https://bglive.yarncdn.live/live/bgtv_blv_tieumeo/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
