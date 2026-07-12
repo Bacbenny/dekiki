@@ -1,7 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fstatic.flashscore.com%2Fres%2Fimage%2Fdata%2FIoeNdfwS-MPdHoKT3.png&away=https%3A%2F%2Fstatic.flashscore.com%2Fres%2Fimage%2Fdata%2FIoeNdfwS-MPdHoKT3.png&time=10%3A00+12%2F07" group-title="TieuLam TV",10:00 12/07 USA W vs Brazil W (BLV TRẠNG BỊP) [geo]
-#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
-https://pull.asynccdn.com/live/08458cc36223448e962a59afba9a9e57/index.m3u8
 #EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fstatic.flashscore.com%2Fres%2Fimage%2Fdata%2FpWVxGjFa-zLx3xGjj.png&away=https%3A%2F%2Fstatic.flashscore.com%2Fres%2Fimage%2Fdata%2FpWVxGjFa-zLx3xGjj.png&time=11%3A30+12%2F07" group-title="TieuLam TV",11:30 12/07 Thailand W vs Turkey W (BLV TRẠNG NGỐ) [geo]
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/49396ed597cd4c8b91e01df6bc74e459/index.m3u8
@@ -59,6 +56,9 @@ https://pull.asynccdn.com/live/d693f09d6fe54ca98aea9b3ce5856490/index.m3u8
 #EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2Fb258d80ca0e0b767157ed3929a4216fd.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2Fb258d80ca0e0b767157ed3929a4216fd.png&time=15%3A45+13%2F07" group-title="TieuLam TV",15:45 13/07 Cambodia Women vs Timor Leste Women (BLV TRẠNG NGỐ) [geo]
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/eacfd3484a2042f5ad109484f01a17ea/index.m3u8
+#EXTINF:-1 tvg-logo="https://tinhlagi.pro/merge_logos.php?home=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F855ef04f1461ab3c19bfdad4702d21c8.png&away=https%3A%2F%2Fimg.sports-data.online%2Ffootball%2Fteam%2F855ef04f1461ab3c19bfdad4702d21c8.png&time=17%3A30+13%2F07" group-title="TieuLam TV",17:30 13/07 FC Bulleen Lions vs Brunswick City (BLV TRẠNG TÈO) [geo]
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/b3f788ef54dd4daab07b503346ac39ce/index.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",08:00 - 12/07 | Argentina VS Switzerland (World Cup) | BLV THẦN THÔNG
 https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",08:00 - 12/07 | Argentina VS Switzerland (World Cup) | BLV LƯƠNG BỔNG
