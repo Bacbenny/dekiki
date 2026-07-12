@@ -663,6 +663,76 @@ def _build_fixture_lines(fixtures: list, group_title: str) -> list:
 #  Main — fetch 4 nguồn, gộp, lưu file
 # ════════════════════════════════════════════════════════════════[...]
 
+TINHLAGI_M3U_URL = os.environ.get("TINHLAGI_M3U_URL", "https://tinhlagi.pro/s.m3u")
+_TINHLAGI_GROUP_MATCH = "TIẾU LÂM"
+
+
+def _parse_tinhlagi_tieulam(text: str) -> list:
+    """Parse M3U thô từ tinhlagi.pro, trả về list channel dict cho nhóm 'Tiếu Lâm TV'.
+    Bỏ qua các bản (HD2) và (Nhà đài) cho gọn danh sách.
+    """
+    lines = text.splitlines()
+    channels: list = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if line.startswith("#EXTINF"):
+            m = re.search(r'group-title="([^"]*)"', line)
+            group = m.group(1) if m else ""
+            if _TINHLAGI_GROUP_MATCH in group.upper():
+                logo_m = re.search(r'tvg-logo="([^"]*)"', line)
+                logo   = logo_m.group(1) if logo_m else ""
+                title  = line.split(",", 1)[1].strip() if "," in line else ""
+                referrer = ""
+                url      = ""
+                j = i + 1
+                while j < len(lines) and not lines[j].startswith("#EXTINF") and lines[j].strip():
+                    l2 = lines[j]
+                    if l2.startswith("#EXTVLCOPT:http-referrer="):
+                        referrer = l2.split("=", 1)[1].strip()
+                    elif not l2.startswith("#"):
+                        url = l2.strip()
+                    j += 1
+                if url:
+                    title_upper = title.upper()
+                    if "(HD2)" in title_upper or "NHÀ ĐÀI" in title_upper:
+                        i = j
+                        continue
+                    channels.append({"title": title, "logo": logo, "referrer": referrer, "url": url})
+                i = j
+                continue
+        i += 1
+    return channels
+
+
+def _build_tieulam_lines_from_channels(channels: list) -> list:
+    """Chuyển channel entries (đã lọc từ tinhlagi.pro) thành M3U lines."""
+    lines: list = []
+    for ch in channels:
+        title = (ch.get("title") or "").strip()
+        url   = (ch.get("url") or "").strip()
+        if not title or not url:
+            continue
+        logo     = ch.get("logo") or ""
+        referrer = ch.get("referrer") or ""
+        lines.append(f'#EXTINF:-1 tvg-logo="{logo}" group-title="TieuLam TV",{title}')
+        if referrer:
+            lines.append(f"#EXTVLCOPT:http-referrer={referrer}")
+        lines.append(url)
+    return lines
+
+
+def fetch_tieulam() -> list:
+    """Nguồn dữ liệu TieuLam TV — lấy từ danh sách tổng hợp tinhlagi.pro
+    (lọc nhóm 'TIẾU LÂM TV'), giống cách làm bên repo Verceliptv."""
+    r = requests.get(TINHLAGI_M3U_URL, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
+    r.raise_for_status()
+    channels = _parse_tinhlagi_tieulam(r.text)
+    if not channels:
+        raise ValueError("tinhlagi: không tìm thấy kênh Tiếu Lâm TV")
+    return _build_tieulam_lines_from_channels(channels)
+
+
 def fetch_hoiquan() -> list:
     return _build_fixture_lines(_fetch_hoiquan_fixtures(), "Hội Quán TV")
 
@@ -689,9 +759,10 @@ def main():
     print("🔄 Đang fetch dữ liệu từ 4 nguồn song song…")
 
     tasks = {
-        "hoiquan": fetch_hoiquan,
+        "tieulam":  fetch_tieulam,
+        "hoiquan":  fetch_hoiquan,
         "khandaia": fetch_khandaia,
-        "vongcam": fetch_vongcam,
+        "vongcam":  fetch_vongcam,
         "vtv":      fetch_vtv,
     }
 
@@ -711,12 +782,13 @@ def main():
                 errors.append(f"{key}: {exc}")
                 print(f"  ❌ {key}: {exc}", file=sys.stderr)
 
+    tieulam_lines  = results.get("tieulam",  [])
     hoiquan_lines  = results.get("hoiquan",  [])
     khandaia_lines = results.get("khandaia", [])
     vongcam_lines  = results.get("vongcam",  [])
     vtv_lines      = results.get("vtv",      [])
 
-    all_lines = hoiquan_lines + khandaia_lines + vongcam_lines + vtv_lines
+    all_lines = tieulam_lines + hoiquan_lines + khandaia_lines + vongcam_lines + vtv_lines
 
     total   = sum(1 for l in all_lines if l.startswith("#EXTINF"))
     content = "#EXTM3U\n" + "\n".join(all_lines)
