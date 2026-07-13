@@ -1,10 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",17:30 - 13/07 | FC Bulleen Lions VS Brunswick City | BLV TRẠNG TÈO
-#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
-https://pull.asynccdn.com/live/b3f788ef54dd4daab07b503346ac39ce/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",19:45 - 13/07 | Singapore Women VS Laos Women | BLV TRẠNG TÍ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
-https://pull.asynccdn.com/live/21f481100b4b47169f58d6b609a206ff/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:00 - 13/07 | Ural Yekaterinburg VS Torpedo Moscow | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/5439f9b9100245719d5087624ee9ff2c/index.m3u8
@@ -59,10 +53,9 @@ https://pull.asynccdn.com/live/3faed9b93e234103b8118b74aac2d720/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",07:00 - 15/07 | Manta FC VS Delfin SC | BLV TRẠNG TÈO
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/556746c5294c41cba828590024d61e82/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",18:00 - 13/07 | Ningbo Professional VS Dongguan United (League One) | BLV THẦN THÔNG
-https://tdlive.yarncdn.live/live/tdtv_blv_taovannghe/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",19:00 - 13/07 | Ugyen Academy VS Transport United (Premier League) | BLV TÁO GIÀ
-https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",07:30 - 15/07 | Blooming VS Gualberto Villarroel Deportivo San José | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/ff003c76a56a466d9b33381893576340/index.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",21:00 - 13/07 | Chelyabinsk VS Ska-khabarovsk (First League) | BLV LƯƠNG BỔNG
 https://hqlive.yarncdn.live/live/hqtv_blv_phanliem/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",23:30 - 13/07 | Arsenal Tula VS Tekstilshchik (First League) | BLV THẦN THÔNG
@@ -93,10 +86,14 @@ https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8|Referer=https://tru
 https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",16:30 - 14/07 | APIA Leichhardt Tigers VS Peninsula Power (Australia Cup) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",16:30 - 14/07 | Rochedale Rovers VS SD Raiders (Australia Cup) | T-Rex
+https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",18:35 - 14/07 | Hangzhou Greentown VS Qingdao Jonoon (Super League) | Siêu Gáy
 https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",19:00 - 14/07 | Bhutan U19 VS Drukpa (Premier League) | Tày
 https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",21:00 - 14/07 | Muras United VS Bars (Premier League) | T-Rex
+https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:00 - 14/07 | KuPS VS Vardar Skopje (UEFA Champions League) | Bệu
 https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 14/07 | Saburtalo VS Flora Tallinn (UEFA Champions League) | Siêu Gáy
@@ -119,10 +116,6 @@ https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://truct
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:30 - 15/07 | JIPPO VS MP (Ykkösliiga) | Siêu Gáy
 https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",18:00 - 13/07 | Ningbo Professional VS Dongguan United (League One) | BLV Max
-https://bglive.yarncdn.live/live/bgtv_blv_max/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",19:45 - 13/07 | Nữ Singapore VS Nữ Lào (Asean Championship Nữ) | BLV Phi MC
-https://bglive.yarncdn.live/live/bgtv_blv_phimc/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",21:00 - 13/07 | Reyady Abaseya VS Racing (Premier League) | BLV Chim Nhỏ
 https://bglive.yarncdn.live/live/bgtv_blv_cuccu/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",23:00 - 13/07 | Maardu VS Tartu Welco (Esiliiga A) | BLV Phi MC
@@ -273,43 +266,33 @@ https://freem3u.xyz/api/live/play.m3u8?vid=188
 #EXTINF:-1 tvg-name="ON Golf" tvg-logo="https://i.imgur.com/BGF2I58.png" group-title="VTVcab",ON Golf
 https://vpsttt.vietanhtv.top/tv360/tv360.php?id=169
 #EXTINF:-1 tvg-id="sctv1hd" group-title="SCTV" tvg-logo="https://i.ibb.co/yBnxfhH/sctv1-hd.png",SCTV1
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36
-#EXTVLCOPT:adaptive-variant=max
-#EXTVLCOPT:network-caching=5000
-https://hoiquan.dpdns.org/VTVGo/?sctv1
+https://vmttv.dpdns.org/VTVGo/?sctv1
 #EXTINF:-1 tvg-id="sctv2hd" group-title="SCTV" tvg-logo="https://i.ibb.co/VqNpntW/sctv2-hd.png",SCTV2
 https://freem3u.xyz/api/live/play.m3u8?vid=201
 #EXTINF:-1 tvg-id="sctv3hd" group-title="SCTV" tvg-logo="https://i.ibb.co/pwy6LhX/sctv3-hd.png",SCTV3
-https://hoiquan.dpdns.org/VTVGo/?sctv3
+https://vmttv.dpdns.org/VTVGo/?sctv3
 #EXTINF:-1 tvg-id="sctv4hd" group-title="SCTV" tvg-logo="https://i.ibb.co/rHsWYhW/sctv4-hd.png",SCTV4
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36
-#EXTVLCOPT:adaptive-variant=max
-#EXTVLCOPT:network-caching=5000
-https://hoiquan.dpdns.org/VTVGo/?sctv4
+https://vmttv.dpdns.org/VTVGo/?sctv4
+#EXTINF:-1 tvg-id="sctv5hd" group-title="SCTV" tvg-logo="https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/SCTV5.jpg",SCTV5
+https://vmttv.dpdns.org/VTVGo/?sctv5
 #EXTINF:-1 tvg-id="sctv6hd" group-title="SCTV" tvg-logo="https://i.ibb.co/HpgQgB5/logo26072108-sctv6-hd.png",SCTV6
-http://live.fptplay53.net/epzhd2/film360_vhls.smil/chunklist.m3u8
+https://live.fptplay53.net/epzhd2/film360_vhls.smil/chunklist_b5000000.m3u8
 #EXTINF:-1 tvg-id="sctv7hd" group-title="SCTV" tvg-logo="https://i.ibb.co/q52fk4p/logo26072108-sctv7-hd.png",SCTV7
-https://hoiquan.dpdns.org/VTVGo/?sctv7
+https://vmttv.dpdns.org/VTVGo/?sctv7
 #EXTINF:-1 tvg-id="sctv8hd" group-title="SCTV" tvg-logo="https://i.ibb.co/1Z8k49W/logo26072108-sctv8.png",SCTV8
-https://hoiquan.dpdns.org/VTVGo/?sctv8
+https://vmttv.dpdns.org/VTVGo/?sctv8
 #EXTINF:-1 tvg-id="sctv9hd" group-title="SCTV" group-logo="https://logos.fandom.com/vi/wiki/VTVcab_-_SCTV9?file=SCTV9_logo_2011.png",SCTV9
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36
-#EXTVLCOPT:adaptive-variant=max
-#EXTVLCOPT:network-caching=5000
-https://vpsttt.vietanhtv.top/sctv/tv.php?ua=android&id=sctv9-cdd19ab2
+https://vmttv.dpdns.org/VTVGo/?sctv9
 #EXTINF:-1 tvg-id="sctv10hd" group-title="SCTV" tvg-logo="https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/SCTV10.jpg",SCTV10
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36
-#EXTVLCOPT:adaptive-variant=max
-#EXTVLCOPT:network-caching=5000
-https://vpsttt.vietanhtv.top/sctv/tv.php?ua=android&id=sctv10-0faf313b
+https://vmttv.dpdns.org/VTVGo/?sctv10
 #EXTINF:-1 tvg-id="sctv11hd" group-title="SCTV" tvg-logo="https://i.ibb.co/88mFbmH/logo26072108-sctv11-hd.png",SCTV11
-https://hoiquan.dpdns.org/VTVGo/?sctv11
+https://vmttv.dpdns.org/VTVGo/?sctv11
 #EXTINF:-1 tvg-id="sctv12hd" group-title="SCTV" tvg-logo="https://i.ibb.co/hxNHc7x/logo26072108-sctv12-hd.png",SCTV12
-https://hoiquan.dpdns.org/VTVGo/?sctv12
+https://vmttv.dpdns.org/VTVGo/?sctv12
 #EXTINF:-1 tvg-id="sctv13hd" group-title="SCTV" tvg-logo="https://i.ibb.co/3pQsyPf/logo26072108-sctv13-hd.png",SCTV13
-https://hoiquan.dpdns.org/VTVGo/?sctv13
+https://vmttv.dpdns.org/VTVGo/?sctv13
 #EXTINF:-1 tvg-id="sctv14hd" group-title="SCTV" tvg-logo="https://i.ibb.co/wLKj69Q/logo26072108-sctv14-hd.png",SCTV14
-https://hoiquan.dpdns.org/VTVGo/?sctv14
+https://vmttv.dpdns.org/VTVGo/?sctv14
 #EXTINF:-1 tvg-id="sctv15" group-title="SCTV" tvg-logo="https://vietanhtv.id.vn/logo/sctv15.png",SCTV15 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -913,25 +896,25 @@ http://moj.feniks.team:25461/411dariocacic/a1Uni9hC0D/1179
 http://moj.feniks.team:25461/411dariocacic/a1Uni9hC0D/17670
 #EXTINF:-1 tvg-id="" group-title="ARENA SPORT" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJVyWthsSAuVgOTQtR_aCR4Vfw4xIab7YDvuaH0ij3&s=10",ARENASPORT 9
 http://moj.feniks.team:25461/411dariocacic/a1Uni9hC0D/17671
-#EXTINF:-1 tvg-name="Ligue 1+ 1 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="✪ LIGUE PLUS LIVE",Ligue 1+ 1 ʜᴅ
+#EXTINF:-1 tvg-name="Ligue 1+ 1 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 1 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1567323
-#EXTINF:-1 tvg-name="Ligue 1+ 2 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="✪ LIGUE PLUS LIVE",Ligue 1+ 2 ʜᴅ
+#EXTINF:-1 tvg-name="Ligue 1+ 2 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 2 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1567322
-#EXTINF:-1 tvg-name="Ligue 1+ 3 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="✪ LIGUE PLUS LIVE",Ligue 1+ 3 ʜᴅ
+#EXTINF:-1 tvg-name="Ligue 1+ 3 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 3 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1567324
-#EXTINF:-1 tvg-name="Ligue 1+ 4 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="✪ LIGUE PLUS LIVE",Ligue 1+ 4 ʜᴅ
+#EXTINF:-1 tvg-name="Ligue 1+ 4 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 4 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1567325
-#EXTINF:-1 tvg-name="Ligue 1+ 5 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="✪ LIGUE PLUS LIVE",Ligue 1+ 5 ʜᴅ
+#EXTINF:-1 tvg-name="Ligue 1+ 5 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 5 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1567326
-#EXTINF:-1 tvg-name="Ligue 1+ 6 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="✪ LIGUE PLUS LIVE",Ligue 1+ 6 ʜᴅ
+#EXTINF:-1 tvg-name="Ligue 1+ 6 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 6 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1567327
-#EXTINF:-1 tvg-name="Ligue 1+ 7 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="✪ LIGUE PLUS LIVE",Ligue 1+ 7 ʜᴅ
+#EXTINF:-1 tvg-name="Ligue 1+ 7 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 7 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609303
-#EXTINF:-1 tvg-name="Ligue 1+ 8 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="✪ LIGUE PLUS LIVE",Ligue 1+ 8 ʜᴅ
+#EXTINF:-1 tvg-name="Ligue 1+ 8 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 8 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
-#EXTINF:-1 tvg-name="Ligue 1+ 9 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="✪ LIGUE PLUS LIVE",Ligue 1+ 9 ʜᴅ
+#EXTINF:-1 tvg-name="Ligue 1+ 9 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 9 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
-#EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="✪ LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
+#EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
 #EXTINF:-1 tvg-name="VOV1" tvg-logo="https://i.imgur.com/jFOE43P.png" group-title="KÊNH VOV",VOV1
 https://audio-lss.vov.vn/han/live/vov1/audio/haudio-eng.m3u8
