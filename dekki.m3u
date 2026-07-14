@@ -1,7 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",22:00 - 14/07 | KuPs VS FC Vardar Skopje | BLV TRẠNG BỊP
-#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
-https://pull.asynccdn.com/live/c5246a757f244a149a246c3e6fcb94ec/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 14/07 | Inter Club Escaldes VS Lincoln Red Imps FC | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/b566d4c8dbb04d6580809ea4ac6ab5e8/index.m3u8
@@ -59,6 +56,9 @@ https://pull.asynccdn.com/live/c2be34f96e0d496595fb7ba1041fd617/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:00 - 16/07 | Bulgaria VS Poland | BLV TRẠNG BỊP
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/0b1cdf5349c64e84a0419331d92ec740/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",02:00 - 16/07 | England VS Argentina | BLV TRẠNG PỜM
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/d631c838d0f94598afd8ffad7a33c14d/index.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",21:00 - 14/07 | Muras United VS Bars (Premier League) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 14/07 | KuPS VS Vardar Skopje (UEFA Champions League) | BLV PHAN QUẨY
@@ -105,8 +105,16 @@ https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://truc
 https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",07:30 - 15/07 | Blooming VS Gualberto Villarroel SJ (Primera División) | Isco
 https://kdalive.yarncdn.live/live/kda-blv-isco/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",10:00 - 15/07 | Canada VS Argentina (Nations League 2026) | T-Rex
+https://kdalive.yarncdn.live/live/kda-blv-t-rex/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",12:30 - 15/07 | Thailand VS Việt Nam (SEA V CUP) | Kaka
+https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",13:30 - 15/07 | Bỉ VS Cuba (Nations League 2026) | Tày
+https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",16:30 - 15/07 | Marlin Coast VS Brunswick Juventus FC (Australia Cup) | Tày
 https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",16:30 - 15/07 | Philippines VS Campuchia (SEA V CUP) | Bệu
+https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",17:00 - 15/07 | Suwon City FC VS Pyeongchang United (FA Cup) | Mơ
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:00 - 15/07 | Ordabasy VS Altay (Cup) | Mơ
