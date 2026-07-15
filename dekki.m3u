@@ -1,10 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",18:00 - 15/07 | Germany VS Slovenia | BLV TRẠNG BỊP
-#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
-https://pull.asynccdn.com/live/bcf9ff08109445d08665b2e064342ca6/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",20:00 - 15/07 | Salzburg VS Gamba Osaka | BLV TRẠNG BÉO
-#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
-https://pull.asynccdn.com/live/bbc4442f3b17469ca6f96051befef847/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:30 - 15/07 | Ukraine VS Iran | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/e1d821d4176242c791666c31a68f1581/index.m3u8
@@ -59,6 +53,12 @@ https://pull.asynccdn.com/live/0e5f494bec044385b1df2ba6075bc78a/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",17:20 - 16/07 | Japan VS Canada | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/295f65f8334c458686735b3ae1305def/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",19:00 - 16/07 | Ekibastuzets VS FC Shakhtyor Karagandy | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/5f0c6604629a4b65aa1e37f5c3c48fb8/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f94b.png" group-title="TieuLam TV",20:00 - 16/07 | Al-Yarmok Rawda VS Al Ahli Sanaa | BLV TRẠNG BÉO
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/95a6dbe424674fd08008c88362bb244d/index.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",21:30 - 15/07 | Ukraina VS Iran (Nation League Men) | BLV PHAN HẢI
 https://hqlive.yarncdn.live/live/hqtv_blv_phanhai/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",22:00 - 15/07 | Ordabasy VS Altay (Cup) | BLV PHAN ANH
