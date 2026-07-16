@@ -84,9 +84,10 @@ VONGCAM_KNOWN_API_BASE = (os.environ.get("VONGCAM_API") or "https://sv.bugiotv.x
 VONGCAM_ACCESS_TOKEN   = os.environ.get("VONGCAM_ACCESS_TOKEN", "AB321C")
 
 # ─── Relay URLs (Replit proxy — bypass GitHub Actions 403) ────────────────────
-HOIQUAN_RELAY_URL  = os.environ.get("HOIQUAN_RELAY_URL", "").strip().rstrip("/")
-KHANDAIA_RELAY_URL = os.environ.get("KHANDAIA_RELAY_URL", "").strip().rstrip("/")
-VONGCAM_RELAY_URL  = os.environ.get("VONGCAM_RELAY_URL", "").strip().rstrip("/")
+RELAY_SECRET       = os.environ.get("RELAY_SECRET", "")
+HOIQUAN_RELAY_URL  = (os.environ.get("HOIQUAN_RELAY_URL") or "https://hoiquan-relay.bacbenny95.workers.dev").strip().rstrip("/")
+KHANDAIA_RELAY_URL = (os.environ.get("KHANDAIA_RELAY_URL") or "https://khandaia-relay.bacbenny95.workers.dev").strip().rstrip("/")
+VONGCAM_RELAY_URL  = (os.environ.get("VONGCAM_RELAY_URL") or "https://vongcam-relay.bacbenny95.workers.dev").strip().rstrip("/")
 
 # ─── Shared config ──────────────────────────────────────────────────────────[...]
 VN_TZ                 = timezone(timedelta(hours=7))
@@ -228,7 +229,7 @@ def _fetch_vongcam_matches() -> list:
     # 1. Thu relay Replit truoc - bypass GitHub Actions 403
     if VONGCAM_RELAY_URL:
         try:
-            hdrs: dict = {"Content-Type": "application/json"}
+            hdrs: dict = {"Content-Type": "application/json", "X-Relay-Token": RELAY_SECRET}
             token = _get_vongcam_token()
             body  = {"access_token": token, "api_url": VONGCAM_KNOWN_API_BASE}
             r = requests.post(VONGCAM_RELAY_URL, headers=hdrs, json=body, timeout=20)
@@ -439,7 +440,7 @@ def _fetch_hoiquan_fixtures() -> list:
     # 1. Thu relay Replit truoc - bypass GitHub Actions 403
     if HOIQUAN_RELAY_URL:
         try:
-            hdrs: dict = {"Content-Type": "application/json"}
+            hdrs: dict = {"Content-Type": "application/json", "X-Relay-Token": RELAY_SECRET}
             r = requests.post(HOIQUAN_RELAY_URL, headers=hdrs, json={}, timeout=20)
             r.raise_for_status()
             rdata = r.json()
@@ -550,7 +551,7 @@ def _fetch_khandaia_fixtures() -> list:
     # 1. Thu relay Replit truoc - bypass GitHub Actions 403
     if KHANDAIA_RELAY_URL:
         try:
-            hdrs: dict = {"Content-Type": "application/json"}
+            hdrs: dict = {"Content-Type": "application/json", "X-Relay-Token": RELAY_SECRET}
             r = requests.post(KHANDAIA_RELAY_URL, headers=hdrs, json={}, timeout=20)
             r.raise_for_status()
             rdata = r.json()
