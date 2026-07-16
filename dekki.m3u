@@ -1,10 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",13:00 - 16/07 | Myanma VS Việt Nam | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
-https://pull.asynccdn.com/live/2cdff17d28ac4d1b80ce25f972120c68/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",13:30 - 16/07 | Belgium VS Italy | BLV TRẠNG TÈO
-#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
-https://pull.asynccdn.com/live/a04faea8d75c4d9391afec50f1c4ab93/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",15:45 - 16/07 | Indonesia Women VS Cambodia Women | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/e3608aee75074a20b603d5c473e5640b/index.m3u8
@@ -41,7 +35,13 @@ https://pull.asynccdn.com/live/4543b11d2941484ea298d3ed978d1744/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:00 - 17/07 | USA VS Brazil | BLV TRẠNG NGỐ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/8ffe67be58bf46979204f44a7620fa1e/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:30 - 17/07 | Sydney FC Youth VS Manly United | BLV TRẠNG TÈO
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",10:10 - 17/07 | Club Tijuana VS Tigres UANL | BLV TRẠNG TÈO
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/37df377e5e0f41d094b1c1e3874294a0/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",13:00 - 17/07 | Myanmar VS Việt Nam | BLV TRẠNG TỒ
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/92194a9ed53c4046b6fa6591aa2bff05/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:30 - 17/07 | Sydney FC Youth VS Manly United | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/f423f283a896485da46e4c48129260e2/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",17:20 - 17/07 | Japan VS Belgium | BLV TRẠNG TỒ
@@ -59,17 +59,13 @@ https://pull.asynccdn.com/live/5bc1214e8b55496ab0fa7f2faa0d5441/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:30 - 17/07 | Turkey VS Ukraine | BLV TRẠNG NGỐ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/961a632c4ac1480da1a11ee43dc7ba4e/index.m3u8
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",13:00 - 16/07 | Thái Lan VS Myanmar (SEA VLEAGUE) | BLV PHAN HẢI
-https://hqlive.yarncdn.live/live/hqtv_blv_phanhai/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",13:30 - 16/07 | Bỉ VS Italy (Nation League Women) | BLV PHAN CA
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",15:45 - 16/07 | Indonesia W VS Cambodia W (Asean Championship Women) | BLV PHAN CA
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",16:00 - 16/07 | Indonesia VS Cambodia (SEA VLEAGUE) | BLV PHAN BỐNG
-https://hqlive.yarncdn.live/live/hqtv_blv_phanbong/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",17:20 - 16/07 | Nhật Bản VS Canada (Nation League Women) | BLV PHAN HẢI
 https://hqlive.yarncdn.live/live/hqtv_blv_phanhai/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",19:00 - 16/07 | Thimphu VS Paro (Premier League) | BLV TÁO GIÀ
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",19:00 - 16/07 | Thimphu VS Paro (Ngoại hạng Bhutan) | BLV TÁO GIÀ
 https://tdlive.yarncdn.live/live/tdtv_blv_taotinhtao/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",21:00 - 16/07 | Khan Tengri VS Yelimay Semey 2 (1. Division) | BLV PHAN CA
+#EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",21:00 - 16/07 | Khan Tengri VS Yelimay Semey 2 (First League) | BLV PHAN CA
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",21:30 - 16/07 | Iran VS Đức (Nation League Women) | BLV PHAN BỐNG
 https://hqlive.yarncdn.live/live/hqtv_blv_phanbong/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
@@ -99,8 +95,6 @@ https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8|Referer=https://s
 https://hqlive.yarncdn.live/live/hqtv_blv_phanquay/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Hội Quán TV",17:00 - 19/07 | Riga FC II VS Super Nova 2 (1. Liga) | BLV PHAN CA
 https://hqlive.yarncdn.live/live/hqtv_blv_phanca/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",13:30 - 16/07 | Bỉ VS Ý (Nations League 2026) | Bệu
-https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",15:45 - 16/07 | Nữ Indonesia VS Cambodia W (ASEAN Championship Women ) | Tày
 https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",16:30 - 16/07 | Indonesia VS Campuchia (SEA V CUP) | T-Rex
@@ -111,6 +105,8 @@ https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8|Referer=https://tru
 https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",21:00 - 16/07 | Khan Tengri VS Yelimay Semey 2 (1. Division) | Tày
 https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Khán Đài A",21:30 - 16/07 | Iran VS Đức (Nations League 2026) | Kaka
+https://kdalive.yarncdn.live/live/kda-blv-kaka/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",22:00 - 16/07 | Inter Turku VS FK Sarajevo (UEFA Europa Conference League) | Bệu
 https://kdalive.yarncdn.live/live/kda-blv-beu/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",00:30 - 17/07 | Derry City VS CSKA Sofia (UEFA Europa League) | Mơ
@@ -133,22 +129,18 @@ https://kdalive.yarncdn.live/live/kda-blv-mo/playlist.m3u8|Referer=https://truct
 https://kdalive.yarncdn.live/live/kda-blv-nhattinhngao/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/30aaqin.png" group-title="Khán Đài A",23:00 - 17/07 | KäPa VS SJK Akatemia (Ykkösliiga) | Tày
 https://kdalive.yarncdn.live/live/kda-blv-tay/playlist.m3u8|Referer=https://tructiep.khandaia6.link/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",13:00 - 16/07 | Thái Lan VS Myanmar (SEA V CUP 2026) | BLV Tiểu Mèo
-https://bglive.yarncdn.live/live/bgtv_blv_tieumeo/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",13:30 - 16/07 | Bỉ VS Ý (Nations League) | BLV Pháo
-https://bglive.yarncdn.live/live/bgtv_blv_phaothan/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",15:45 - 16/07 | Nữ Indonesia VS Nữ Campuchia (Asean Championship Nữ) | BLV Tiểu Trà Đá
 https://bglive.yarncdn.live/live/bgtv_blv_trada/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",15:45 - 16/07 | Nữ Malaysia VS Nữ Singapore (Asean Championship Nữ) | BLV Kevin
 https://bglive.yarncdn.live/live/bgtv_blv_phimc/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",16:30 - 16/07 | Indonesia VS Philippine (SEA V CUP 2026) | BLV Pháo
 https://bglive.yarncdn.live/live/bgtv_blv_phaothan/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",17:20 - 16/07 | Nhật Bản VS Canada (Nations League) | BLV Tiểu Mèo
-https://bglive.yarncdn.live/live/bgtv_blv_tieumeo/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",17:20 - 16/07 | Nhật Bản VS Canada (Nations League) | BLV Chim Nhỏ
+https://bglive.yarncdn.live/live/bgtv_blv_cuccu/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",19:00 - 16/07 | Ekibastuz VS Shakhter Karagandy (1. Division) | BLV Mao Từn
 https://bglive.yarncdn.live/live/bgtv_blv_mason/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",21:30 - 16/07 | Al Ahed VS Al Nejmeh (Premier League) | BLV Kevin
-https://bglive.yarncdn.live/live/bgtv_blv_phimc/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",21:30 - 16/07 | Al Ahed VS Al Nejmeh (Premier League) | BLV Max
+https://bglive.yarncdn.live/live/bgtv_blv_max/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",22:00 - 16/07 | Inter Turku VS FK Sarajevo (UEFA Europa Conference League) | BLV Tiểu Mèo
 https://bglive.yarncdn.live/live/bgtv_blv_tieumeo/playlist.m3u8|Referer=https://sv2.vongcam3.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="Vòng Cấm TV",23:30 - 16/07 | Rīgas FS VS Glentoran (UEFA Europa Conference League) | BLV Kevin
