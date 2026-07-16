@@ -1,7 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:00 - 16/07 | USA VS China | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
-https://pull.asynccdn.com/live/d97b91adea444904a964ebcb727c6903/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",13:00 - 16/07 | Myanma VS Việt Nam | BLV TRẠNG NGỐ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/2cdff17d28ac4d1b80ce25f972120c68/index.m3u8
@@ -59,6 +56,9 @@ https://pull.asynccdn.com/live/2bdd7024dff74973818566b801593d7e/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:00 - 17/07 | Astana B VS Jaiyq | BLV TRẠNG BÉO
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/5bc1214e8b55496ab0fa7f2faa0d5441/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:30 - 17/07 | Turkey VS Ukraine | BLV TRẠNG NGỐ
+#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
+https://pull.asynccdn.com/live/961a632c4ac1480da1a11ee43dc7ba4e/index.m3u8
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",13:00 - 16/07 | Thái Lan VS Myanmar (SEA VLEAGUE) | BLV PHAN HẢI
 https://hqlive.yarncdn.live/live/hqtv_blv_phanhai/playlist.m3u8|Referer=https://sv2.hoiquan4.live/&User-Agent=Mozilla/5.0
 #EXTINF:-1 tvg-logo="https://i.imgur.com/Ne0x6Ea.png" group-title="Hội Quán TV",13:30 - 16/07 | Bỉ VS Italy (Nation League Women) | BLV PHAN CA
