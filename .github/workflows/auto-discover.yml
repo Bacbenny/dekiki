@@ -53,6 +53,6 @@ jobs:
             echo "Khong co thay doi."
           else
             git commit -m "auto: cap nhat API URLs [$(date -u '+%Y-%m-%d %H:%M UTC')]"
-            git pull --rebase origin xemtv
+            git pull --rebase origin main
             git push
           fi
