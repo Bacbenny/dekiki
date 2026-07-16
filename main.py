@@ -85,9 +85,9 @@ VONGCAM_ACCESS_TOKEN   = os.environ.get("VONGCAM_ACCESS_TOKEN", "AB321C")
 
 # ─── Relay URLs (Replit proxy — bypass GitHub Actions 403) ────────────────────
 RELAY_SECRET       = os.environ.get("RELAY_SECRET", "")
-HOIQUAN_RELAY_URL  = (os.environ.get("HOIQUAN_RELAY_URL") or "https://hoiquan-relay.bacbenny95.workers.dev").strip().rstrip("/")
-KHANDAIA_RELAY_URL = (os.environ.get("KHANDAIA_RELAY_URL") or "https://khandaia-relay.bacbenny95.workers.dev").strip().rstrip("/")
-VONGCAM_RELAY_URL  = (os.environ.get("VONGCAM_RELAY_URL") or "https://vongcam-relay.bacbenny95.workers.dev").strip().rstrip("/")
+HOIQUAN_RELAY_URL  = (os.environ.get("HOIQUAN_RELAY_URL") or "https://dekki.bacbenny95.workers.dev/hoiquan").strip().rstrip("/")
+KHANDAIA_RELAY_URL = (os.environ.get("KHANDAIA_RELAY_URL") or "https://dekki.bacbenny95.workers.dev/khandaia").strip().rstrip("/")
+VONGCAM_RELAY_URL  = (os.environ.get("VONGCAM_RELAY_URL") or "https://dekki.bacbenny95.workers.dev/vongcam").strip().rstrip("/")
 
 # ─── Shared config ──────────────────────────────────────────────────────────[...]
 VN_TZ                 = timezone(timedelta(hours=7))
