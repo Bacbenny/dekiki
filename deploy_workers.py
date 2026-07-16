@@ -79,6 +79,16 @@ def build_bindings(name: str) -> list | None:
         bindings.append({"name": "TIEULAM_API", "type": "plain_text", "text": TIEULAM_API})
     if name == "dekki" and REPLIT_RELAY_URL:
         bindings.append({"name": "REPLIT_RELAY_URL", "type": "plain_text", "text": REPLIT_RELAY_URL.rstrip("/")})
+    if name == "dekki" and HOIQUAN_API:
+        bindings.append({"name": "HOIQUAN_API", "type": "plain_text", "text": HOIQUAN_API})
+    if name == "dekki" and KHANDAIA_API:
+        bindings.append({"name": "KHANDAIA_API", "type": "plain_text", "text": KHANDAIA_API})
+    if name == "dekki":
+        vca = VONGCAM_API or VONGCAM_TOKEN  # ít nhất token để vongcam relay hoạt động
+        if VONGCAM_API:
+            bindings.append({"name": "VONGCAM_API", "type": "plain_text", "text": VONGCAM_API})
+        if VONGCAM_TOKEN:
+            bindings.append({"name": "VONGCAM_ACCESS_TOKEN", "type": "plain_text", "text": VONGCAM_TOKEN})
 
     if name == "hoiquan-relay" and HOIQUAN_API:
         bindings.append({"name": "HOIQUAN_API", "type": "plain_text", "text": HOIQUAN_API})
