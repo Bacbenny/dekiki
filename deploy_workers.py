@@ -138,7 +138,26 @@ def deploy(name: str, path: str) -> bool:
     return ok
 
 
+
+def enable_workers_dev(name: str) -> bool:
+    """Bật workers.dev subdomain routing cho worker script.
+    Không gọi hàm này sẽ dẫn đến CF error 1042 (script not routable via workers.dev).
+    """
+    r = requests.put(
+        f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/workers/scripts/{name}/subdomain",
+        headers={**_cf_headers(), "Content-Type": "application/json"},
+        json={"enabled": True},
+        timeout=15,
+    )
+    j   = r.json()
+    ok  = j.get("success", False)
+    err = j.get("errors", [])
+    print(f"  {name}: workers.dev {'OK' if ok else 'FAIL'}" + (f" | {err}" if err else ""))
+    return ok
+
+
 print("=== CF Worker auto-deploy ===")
 for worker_name, worker_path in WORKERS.items():
-    deploy(worker_name, worker_path)
+    if deploy(worker_name, worker_path):
+        enable_workers_dev(worker_name)
 print("=== Done ===")
