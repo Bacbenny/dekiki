@@ -1,7 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",18:00 - 17/07 | Qingdao West Coast VS Chengdu Rongcheng | BLV TRẠNG TÍ
-#EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
-https://pull.asynccdn.com/live/59411ce3907d45c68e61a32321d3a707/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",18:35 - 17/07 | Beijing Guoan VS Liaoning Tieren | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv2.tieulam2.info/
 https://pull.asynccdn.com/live/2bdd7024dff74973818566b801593d7e/index.m3u8
@@ -857,4 +854,4 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.hoiquantv.xyz', port=443) at 0x7f78baca5250>, 'Connection to sv.hoiquantv.xyz timed out. (connect timeout=15)')); khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.khandai-a.xyz', port=443) at 0x7f78bbdf5bd0>, 'Connection to sv.khandai-a.xyz timed out. (connect timeout=15)'))
+# Errors: hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.hoiquantv.xyz', port=443) at 0x7f4f3e8a3910>, 'Connection to sv.hoiquantv.xyz timed out. (connect timeout=15)')); khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.khandai-a.xyz', port=443) at 0x7f4f3c2b46d0>, 'Connection to sv.khandai-a.xyz timed out. (connect timeout=15)'))
