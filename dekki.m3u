@@ -1,13 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",22:00 - 20/07 | TPS Turku VS Ilves Tampere | BLV TRẠNG BÉO
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
-https://pull.asynccdn.com/live/0d7b8ca66f824aadae2a8fc4d2b54a27/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",22:30 - 20/07 | Corvinul Hunedoara VS FK Csikszereda Miercurea Ciuc | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
-https://pull.asynccdn.com/live/f7df758c1131441186d016639606f5c6/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:15 - 20/07 | Slavia Sofia VS CSKA Sofia | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
-https://pull.asynccdn.com/live/7c0fbbe2b4d347af9a9188410f6b2dd1/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:00 - 21/07 | Kalmar VS Malmo FF | BLV TRẠNG BÉO
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
 https://pull.asynccdn.com/live/fa11c184210e481f8370cdf05182c709/index.m3u8
@@ -59,6 +50,12 @@ https://pull.asynccdn.com/live/cb0028d28f6940fb8e484bc4f9694d77/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",18:30 - 22/07 | Brazil Women VS Japan Women | BLV TRẠNG NGỐ
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
 https://pull.asynccdn.com/live/6e533ff745e34dd6b9f67b78833d4fae/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f94b.png" group-title="TieuLam TV",20:00 - 22/07 | Al-Yarmok Rawda VS Tdamn Hadramawt | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
+https://pull.asynccdn.com/live/48a091435a8c4878af6beda5fccf5f3d/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",22:00 - 22/07 | Tottenham Hotspur VS Milton Keynes Dons | BLV TRẠNG TỒ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
+https://pull.asynccdn.com/live/64672d3a9a74495fa8cc9b2c89104d0c/index.m3u8
 #EXTINF:-1 tvg-id="vtv1hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv1.png",VTV1
 https://HaNoiIPTV.short.gy/HaNoiIPTV-VTV1_HD
 #EXTINF:-1 tvg-id="vtv2hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv2.png",VTV2
@@ -863,4 +860,4 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.hoiquantv.xyz', port=443) at 0x7f7ce74f0b10>, 'Connection to sv.hoiquantv.xyz timed out. (connect timeout=15)')); khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.khandai-a.xyz', port=443) at 0x7f7ce6ee4a10>, 'Connection to sv.khandai-a.xyz timed out. (connect timeout=15)'))
+# Errors: hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.hoiquantv.xyz', port=443) at 0x7fbdec7a9450>, 'Connection to sv.hoiquantv.xyz timed out. (connect timeout=15)')); khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.khandai-a.xyz', port=443) at 0x7fbdea6f7110>, 'Connection to sv.khandai-a.xyz timed out. (connect timeout=15)'))
