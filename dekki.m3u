@@ -1,7 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",01:00 - 22/07 | Fenerbahce VS Gornik Zabrze | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
-https://pull.asynccdn.com/live/a9858a2abe3044d7b6da6c991063be1f/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",02:00 - 22/07 | Larne FC VS Crvena Zvezda | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
 https://pull.asynccdn.com/live/48f6929125b146c1b65aad154d9faeeb/index.m3u8
@@ -23,7 +20,7 @@ https://pull.asynccdn.com/live/6e533ff745e34dd6b9f67b78833d4fae/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f94b.png" group-title="TieuLam TV",20:00 - 22/07 | Al-Yarmok Rawda VS Tdamn Hadramawt | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
 https://pull.asynccdn.com/live/48a091435a8c4878af6beda5fccf5f3d/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 22/07 | Tottenham Hotspur VS Milton Keynes Dons | BLV TRẠNG TỒ
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",22:00 - 22/07 | Tottenham Hotspur VS Milton Keynes Dons | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
 https://pull.asynccdn.com/live/64672d3a9a74495fa8cc9b2c89104d0c/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:00 - 23/07 | Fiorentina VS Gubbio | BLV TRẠNG TÍ
@@ -32,6 +29,9 @@ https://pull.asynccdn.com/live/950443e2915a42cc84f5ad499baa56b4/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",01:30 - 23/07 | Maidenhead United VS Wolverhampton Wanderers | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
 https://pull.asynccdn.com/live/7032c6c629e64e9d9de6a05b09ef67c5/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",01:45 - 23/07 | Ebbsfleet United VS West Ham United | BLV TRẠNG NGỐ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
+https://pull.asynccdn.com/live/547083357e294c86b1146b4d86fac361/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",06:30 - 23/07 | Inter Miami CF VS Chicago Fire | BLV TRẠNG TÈO
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
 https://pull.asynccdn.com/live/53b70eb783d146bf8868878bd554e08a/index.m3u8
@@ -53,6 +53,12 @@ https://pull.asynccdn.com/live/869cbb84d70246c8b191f562896bba2d/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 23/07 | HJK Helsinki VS Coleraine | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
 https://pull.asynccdn.com/live/cb9825cfb0ad4a88b796c71839adaf99/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:00 - 24/07 | Tromso IL VS FC Hradec Králové | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
+https://pull.asynccdn.com/live/1191939a770f435086f9cad139ed37b9/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",01:00 - 24/07 | Besiktas JK VS Midtjylland | BLV TRẠNG TỒ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
+https://pull.asynccdn.com/live/a8979f4788664b72b672e6e0298161e2/index.m3u8
 #EXTINF:-1 tvg-id="vtv1hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv1.png",VTV1
 https://HaNoiIPTV.short.gy/HaNoiIPTV-VTV1_HD
 #EXTINF:-1 tvg-id="vtv2hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv2.png",VTV2
@@ -857,4 +863,4 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.hoiquantv.xyz', port=443) at 0x7fad30342dd0>, 'Connection to sv.hoiquantv.xyz timed out. (connect timeout=15)')); khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.khandai-a.xyz', port=443) at 0x7fad30347fd0>, 'Connection to sv.khandai-a.xyz timed out. (connect timeout=15)'))
+# Errors: hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.hoiquantv.xyz', port=443) at 0x7f19ec4e1110>, 'Connection to sv.hoiquantv.xyz timed out. (connect timeout=15)')); khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.khandai-a.xyz', port=443) at 0x7f19ec4d5d50>, 'Connection to sv.khandai-a.xyz timed out. (connect timeout=15)'))
