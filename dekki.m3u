@@ -41,7 +41,7 @@ https://pull.asynccdn.com/live/6e533ff745e34dd6b9f67b78833d4fae/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f94b.png" group-title="TieuLam TV",20:00 - 22/07 | Al-Yarmok Rawda VS Tdamn Hadramawt | BLV TRẠNG TÍ
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
 https://pull.asynccdn.com/live/48a091435a8c4878af6beda5fccf5f3d/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",22:00 - 22/07 | Tottenham Hotspur VS Milton Keynes Dons | BLV TRẠNG TỒ
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 22/07 | Tottenham Hotspur VS Milton Keynes Dons | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc.com/
 https://pull.asynccdn.com/live/64672d3a9a74495fa8cc9b2c89104d0c/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:00 - 23/07 | Fiorentina VS Gubbio | BLV TRẠNG TÍ
@@ -863,4 +863,4 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.hoiquantv.xyz', port=443) at 0x7f9790d23cd0>, 'Connection to sv.hoiquantv.xyz timed out. (connect timeout=15)')); khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.khandai-a.xyz', port=443) at 0x7f9790d0ed90>, 'Connection to sv.khandai-a.xyz timed out. (connect timeout=15)'))
+# Errors: hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.hoiquantv.xyz', port=443) at 0x7f2ed10c9590>, 'Connection to sv.hoiquantv.xyz timed out. (connect timeout=15)')); khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.khandai-a.xyz', port=443) at 0x7f2ed10c7090>, 'Connection to sv.khandai-a.xyz timed out. (connect timeout=15)'))
