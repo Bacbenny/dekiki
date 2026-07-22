@@ -1,8 +1,5 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",18:30 - 22/07 | Brazil Women VS Japan Women | BLV TRẠNG NGỐ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/6e533ff745e34dd6b9f67b78833d4fae/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",22:00 - 22/07 | Tottenham Hotspur VS Milton Keynes Dons | BLV TRẠNG TỒ
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 22/07 | Tottenham Hotspur VS Milton Keynes Dons | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
 https://pull.asynccdn.com/live/64672d3a9a74495fa8cc9b2c89104d0c/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:00 - 23/07 | Fiorentina VS Gubbio | BLV TRẠNG TÍ
@@ -59,6 +56,9 @@ https://pull.asynccdn.com/live/8f068afb97a54fb4a3bddcc9d3122b5f/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",19:00 - 24/07 | Timor Leste VS Vietnam | BLV TRẠNG TÈO
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
 https://pull.asynccdn.com/live/e532e492da3a4d1ea375bdb650ff44e0/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",20:30 - 24/07 | Timor Leste VS Vietnam | BLV TRẠNG QUỶ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/e275a956b24c4fc0bde0bbc9f4da471a/index.m3u8
 #EXTINF:-1 tvg-id="vtv1hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv1.png",VTV1
 https://HaNoiIPTV.short.gy/HaNoiIPTV-VTV1_HD
 #EXTINF:-1 tvg-id="vtv2hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv2.png",VTV2
@@ -863,4 +863,4 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.hoiquantv.xyz', port=443) at 0x7f65a8ba4a10>, 'Connection to sv.hoiquantv.xyz timed out. (connect timeout=15)')); khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.khandai-a.xyz', port=443) at 0x7f65a8ba5410>, 'Connection to sv.khandai-a.xyz timed out. (connect timeout=15)'))
+# Errors: hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.hoiquantv.xyz', port=443) at 0x7f0e2cd16f10>, 'Connection to sv.hoiquantv.xyz timed out. (connect timeout=15)')); khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by ConnectTimeoutError(<HTTPSConnection(host='sv.khandai-a.xyz', port=443) at 0x7f0e2ccf8e10>, 'Connection to sv.khandai-a.xyz timed out. (connect timeout=15)'))
