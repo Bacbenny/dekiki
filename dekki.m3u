@@ -1,7 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",18:30 - 23/07 | USA W VS China W | BLV TRẠNG TÍ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/c536908d35d1447fb0a08f6b1813fe53/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:30 - 23/07 | FK Gazalkent VS Metallurg Bekobod | BLV TRẠNG TỒ
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
 https://pull.asynccdn.com/live/4eb1464e024b4b5585042aac4939efc2/index.m3u8
@@ -59,6 +56,9 @@ https://pull.asynccdn.com/live/ed5cfcdb1ddf4fafb67716e04610661d/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:30 - 25/07 | Qingdao Hainiu VS Tianjin Jinmen Tiger | BLV TRẠNG TÈO
 #EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
 https://pull.asynccdn.com/live/507eb5964e3443f98529d936b5c2db72/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",17:00 - 25/07 | Myanmar VS Malaysia | BLV TRẠNG QUỶ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/7825fa4a4dc448c5a08bdb27240ad426/index.m3u8
 #EXTINF:-1 tvg-id="vtv1hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv1.png",VTV1
 https://HaNoiIPTV.short.gy/HaNoiIPTV-VTV1_HD
 #EXTINF:-1 tvg-id="vtv2hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv2.png",VTV2
@@ -863,4 +863,4 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by NameResolutionError("HTTPSConnection(host='sv.hoiquantv.xyz', port=443): Failed to resolve 'sv.hoiquantv.xyz' ([Errno -3] Temporary failure in name resolution)")); khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by NameResolutionError("HTTPSConnection(host='sv.khandai-a.xyz', port=443): Failed to resolve 'sv.khandai-a.xyz' ([Errno -3] Temporary failure in name resolution)"))
+# Errors: khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by NameResolutionError("HTTPSConnection(host='sv.khandai-a.xyz', port=443): Failed to resolve 'sv.khandai-a.xyz' ([Errno -3] Temporary failure in name resolution)")); hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by NameResolutionError("HTTPSConnection(host='sv.hoiquantv.xyz', port=443): Failed to resolve 'sv.hoiquantv.xyz' ([Errno -3] Temporary failure in name resolution)"))
