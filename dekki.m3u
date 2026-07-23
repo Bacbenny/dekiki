@@ -1,64 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:30 - 23/07 | FK Gazalkent VS Metallurg Bekobod | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/4eb1464e024b4b5585042aac4939efc2/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",22:00 - 23/07 | Navbahor Namangan VS Qizilqum Zarafshon | BLV TRẠNG BÉO
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/869cbb84d70246c8b191f562896bba2d/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 23/07 | HJK Helsinki VS Coleraine | BLV TRẠNG TÍ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/cb9825cfb0ad4a88b796c71839adaf99/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:00 - 24/07 | Tromso IL VS FC Hradec Králové | BLV TRẠNG TÍ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/1191939a770f435086f9cad139ed37b9/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",01:00 - 24/07 | Besiktas JK VS Midtjylland | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/a8979f4788664b72b672e6e0298161e2/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",02:00 - 24/07 | Cordoba VS Sevilla FC | BLV TRẠNG QUỶ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/ac40a9ed9434454e8eba50169bdaf9b3/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:00 - 24/07 | Phong Phu Ha Nam Women VS Thai Nguyen T&T Women | BLV TRẠNG TÈO
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/0c3c19b4e2d64d41ac6c8fb66bc66f56/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:30 - 24/07 | Manly United VS Sydney Olympic | BLV TRẠNG BÉO
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/de5a893a33804b9d82769d5f21b7f5c3/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",17:30 - 24/07 | Preston Lions VS Bentleigh greens | BLV TRẠNG TÍ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/c01764b7681c4601af750270e1950f50/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",19:00 - 24/07 | Barcelona VS CE Europa | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/8f068afb97a54fb4a3bddcc9d3122b5f/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",19:00 - 24/07 | Timor Leste VS Vietnam | BLV TRẠNG TÈO
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/e532e492da3a4d1ea375bdb650ff44e0/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",20:30 - 24/07 | Timor Leste VS Vietnam | BLV TRẠNG QUỶ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/e275a956b24c4fc0bde0bbc9f4da471a/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:00 - 24/07 | Bournemouth AFC VS FC St. Pauli | BLV TRẠNG TÍ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/bc42c96ebdd84694bf7a338b7aa19655/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 24/07 | Rosenborg VS Manchester United | BLV TRẠNG QUỶ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/c5e27303e51146878b723a765837fe68/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 24/07 | Rosenborg VS Manchester United | BLV TRẠNG TỒ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/96e56f6e6eb94142ad877025bbd36542/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:00 - 25/07 | CSKA Moscow VS Baltika Kaliningrad | BLV TRẠNG TÍ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/c3ecd4a8d0c946889ae8499434d9687c/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",01:30 - 25/07 | Arges VS Petrolul Ploiesti | BLV TRẠNG BÉO
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/de44468c188c493492b65ab5bccd9d1e/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:15 - 25/07 | Deportivo Cali VS Jaguares de Cordoba | BLV TRẠNG TÈO
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/ed5cfcdb1ddf4fafb67716e04610661d/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:30 - 25/07 | Qingdao Hainiu VS Tianjin Jinmen Tiger | BLV TRẠNG TÈO
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/507eb5964e3443f98529d936b5c2db72/index.m3u8
-#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",17:00 - 25/07 | Myanmar VS Malaysia | BLV TRẠNG QUỶ
-#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
-https://pull.asynccdn.com/live/7825fa4a4dc448c5a08bdb27240ad426/index.m3u8
 #EXTINF:-1 tvg-id="vtv1hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv1.png",VTV1
 https://HaNoiIPTV.short.gy/HaNoiIPTV-VTV1_HD
 #EXTINF:-1 tvg-id="vtv2hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv2.png",VTV2
@@ -863,4 +803,64 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by NameResolutionError("HTTPSConnection(host='sv.khandai-a.xyz', port=443): Failed to resolve 'sv.khandai-a.xyz' ([Errno -3] Temporary failure in name resolution)")); hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by NameResolutionError("HTTPSConnection(host='sv.hoiquantv.xyz', port=443): Failed to resolve 'sv.hoiquantv.xyz' ([Errno -3] Temporary failure in name resolution)"))
+# Errors: tieulam: tinhlagi: không tìm thấy kênh Tiếu Lâm TV; hoiquan: HTTPSConnectionPool(host='sv.hoiquantv.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by NameResolutionError("HTTPSConnection(host='sv.hoiquantv.xyz', port=443): Failed to resolve 'sv.hoiquantv.xyz' ([Errno -3] Temporary failure in name resolution)")); khandaia: HTTPSConnectionPool(host='sv.khandai-a.xyz', port=443): Max retries exceeded with url: /api/v1/external/fixtures/unfinished (Caused by NameResolutionError("HTTPSConnection(host='sv.khandai-a.xyz', port=443): Failed to resolve 'sv.khandai-a.xyz' ([Errno -3] Temporary failure in name resolution)"))
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:30 - 23/07 | FK Gazalkent VS Metallurg Bekobod | BLV TRẠNG TỒ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/4eb1464e024b4b5585042aac4939efc2/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",22:00 - 23/07 | Navbahor Namangan VS Qizilqum Zarafshon | BLV TRẠNG BÉO
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/869cbb84d70246c8b191f562896bba2d/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 23/07 | HJK Helsinki VS Coleraine | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/cb9825cfb0ad4a88b796c71839adaf99/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:00 - 24/07 | Tromso IL VS FC Hradec Králové | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/1191939a770f435086f9cad139ed37b9/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",01:00 - 24/07 | Besiktas JK VS Midtjylland | BLV TRẠNG TỒ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/a8979f4788664b72b672e6e0298161e2/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",02:00 - 24/07 | Cordoba VS Sevilla FC | BLV TRẠNG QUỶ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/ac40a9ed9434454e8eba50169bdaf9b3/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:00 - 24/07 | Phong Phu Ha Nam Women VS Thai Nguyen T&T Women | BLV TRẠNG TÈO
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/0c3c19b4e2d64d41ac6c8fb66bc66f56/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:30 - 24/07 | Manly United VS Sydney Olympic | BLV TRẠNG BÉO
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/de5a893a33804b9d82769d5f21b7f5c3/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",17:30 - 24/07 | Preston Lions VS Bentleigh greens | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/c01764b7681c4601af750270e1950f50/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",19:00 - 24/07 | Barcelona VS CE Europa | BLV TRẠNG TỒ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/8f068afb97a54fb4a3bddcc9d3122b5f/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",19:00 - 24/07 | Timor Leste VS Vietnam | BLV TRẠNG TÈO
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/e532e492da3a4d1ea375bdb650ff44e0/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",20:30 - 24/07 | Timor Leste VS Vietnam | BLV TRẠNG QUỶ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/e275a956b24c4fc0bde0bbc9f4da471a/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",21:00 - 24/07 | Bournemouth AFC VS FC St. Pauli | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/bc42c96ebdd84694bf7a338b7aa19655/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 24/07 | Rosenborg VS Manchester United | BLV TRẠNG QUỶ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/c5e27303e51146878b723a765837fe68/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",23:00 - 24/07 | Rosenborg VS Manchester United | BLV TRẠNG TỒ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/96e56f6e6eb94142ad877025bbd36542/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",00:00 - 25/07 | CSKA Moscow VS Baltika Kaliningrad | BLV TRẠNG TÍ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/c3ecd4a8d0c946889ae8499434d9687c/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",01:30 - 25/07 | Arges VS Petrolul Ploiesti | BLV TRẠNG BÉO
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/de44468c188c493492b65ab5bccd9d1e/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",08:15 - 25/07 | Deportivo Cali VS Jaguares de Cordoba | BLV TRẠNG TÈO
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/ed5cfcdb1ddf4fafb67716e04610661d/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",16:30 - 25/07 | Qingdao Hainiu VS Tianjin Jinmen Tiger | BLV TRẠNG TÈO
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/507eb5964e3443f98529d936b5c2db72/index.m3u8
+#EXTINF:-1 tvg-logo="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" group-title="TieuLam TV",17:00 - 25/07 | Myanmar VS Malaysia | BLV TRẠNG QUỶ
+#EXTVLCOPT:http-referrer=https://sv2.tieulamwc1.net/
+https://pull.asynccdn.com/live/7825fa4a4dc448c5a08bdb27240ad426/index.m3u8
