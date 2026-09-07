@@ -1,12 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSid8hQv3qe8eN2yrnvzVq1QmXBW_oGlXIE1MLfSILg1A&s=10" group-title="Giờ Vàng TV",06:00 - 07/09 | US Open ATP VS US Open ATP (US Open ATP) | Blv Ben
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-us-open-atp-vs-us-open-atp-07-09-2026-hbuctzl3nzw4%2F&blv=blv-ben
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/KGYHRIYA-baDaGjjh.png" group-title="Giờ Vàng TV",08:00 - 07/09 | Oman VS Australia (Asian Championship) | Blv 18
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-oman-vs-australia-07-09-2026-3q16vcffin4w%2F&blv=blv-18
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/toluca.png" group-title="Giờ Vàng TV",08:15 - 07/09 | Toluca VS Monterrey (North Central America Leagues Cup) | Blv Beo
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-toluca-vs-monterrey-07-09-2026-6a9b5b8a24d46db8707226a9%2F&blv=blv-beo
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/YeWStKhl-xUjXmOIP.png" group-title="Giờ Vàng TV",09:10 - 07/09 | Los Angeles Dodgers VS Washington Nationals (MLB) | Blv Can
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-los-angeles-dodgers-vs-washington-nationals-07-09-2026-7mefzwc9y00a%2F&blv=blv-can
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/KK1x5AHG-8MYQEA6Q.png" group-title="Giờ Vàng TV",11:30 - 07/09 | New Zealand VS Trung Quốc (Asian Championship) | Blv Sun
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-new-zealand-vs-trung-quoc-07-09-2026-whdgxugpbywb%2F&blv=blv-sun
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/jH8flBZA-UknO2XLh.png" group-title="Giờ Vàng TV",15:00 - 07/09 | Thái Lan VS Hàn Quốc (Asian Championship) | Blv Can
@@ -20,15 +12,15 @@ https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/ap
 #EXTINF:-1 tvg-logo="https://ssl.gstatic.com/onebox/media/sports/logos/optimized/2vpR8clrEZdpNjaiHKpg7A_96x96.png" group-title="Giờ Vàng TV",19:30 - 07/09 | Nigeria W VS France W (FIBA Basketball World Cup) | Blv Ben
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-nigeria-w-vs-france-w-07-09-2026-0c26x1hj1b49%2F&blv=blv-ben
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/al-ittihad-alexandria.png" group-title="Giờ Vàng TV",21:00 - 07/09 | Ittihad Alexandria VS Asyut Petroleum (VĐQG Ai Cập) | Blv Bon
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-al-ittihad-alexandria-vs-asyut-petroleum-07-09-2026-6a94c41024d46db870c1f3a6%2F&blv=blv-bon
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-ittihad-alexandria-vs-asyut-petroleum-07-09-2026-6a94c41024d46db870c1f3a6%2F&blv=blv-bon
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/olympic-el-qanal.png" group-title="Giờ Vàng TV",21:00 - 07/09 | Olympic Al Qanal VS Tala'ea EI-Gaish (VĐQG Ai Cập) | Blv Beo
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-olympic-el-qanal-vs-talaea-ei-gaish-07-09-2026-6a94c41024d46db870c1f3b2%2F&blv=blv-beo
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-olympic-al-qanal-vs-tala-ea-ei-gaish-07-09-2026-6a94c41024d46db870c1f3b2%2F&blv=blv-beo
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/goztepe.png" group-title="Giờ Vàng TV",21:00 - 07/09 | Erokspor VS Kayserispor (Hạng Nhất Thổ Nhĩ Kỳ) | Blv 18
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-goztepe-vs-gazisehir-gaziantep-07-09-2026-6a9615d624d46db8700ca5ef%2F&blv=blv-18
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-erokspor-vs-kayserispor-07-09-2026-6a9615d624d46db8700ca5ef%2F&blv=blv-18
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/caykur-rizespor.png" group-title="Giờ Vàng TV",21:00 - 07/09 | Istanbulspor VS Iğdır FK (Hạng Nhất Thổ Nhĩ Kỳ) | Blv Leo
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-caykur-rizespor-vs-alanyaspor-07-09-2026-6a9615d724d46db8700ca5f3%2F&blv=blv-leo
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-istanbulspor-vs-i-d-r-fk-07-09-2026-6a9615d724d46db8700ca5f3%2F&blv=blv-leo
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/al-khaleej.png" group-title="Giờ Vàng TV",22:30 - 07/09 | Al Khaleej Club VS Al-Riyadh (VĐQG Ả Rập Xê Út) | Blv Mat
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-al-khaleej-vs-al-riyadh-07-09-2026-6a94c41124d46db870c1f434%2F&blv=blv-mat
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-al-khaleej-club-vs-al-riyadh-07-09-2026-6a94c41124d46db870c1f434%2F&blv=blv-mat
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/al-riyadh.png" group-title="Giờ Vàng TV",22:30 - 07/09 | Al Adalah VS Al Sooq (Hạng Nhất Ả Rập Xê Út) | Blv Tri
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-al-adalah-vs-al-sooq-07-09-2026-6a98b8e024d46db870bd986a%2F&blv=blv-tri
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/zP226aXg-fB4vYUZp.png" group-title="Giờ Vàng TV",22:50 - 07/09 | Germany W VS Mali W (FIBA Basketball World Cup) | Blv Vit
@@ -911,4 +903,4 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches; phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API
+# Errors: phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API; footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches
