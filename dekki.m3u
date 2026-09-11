@@ -1,34 +1,14 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/garudayaksa.png" group-title="Giờ Vàng TV",15:30 - 11/09 | Garudayaksa VS Persik Kediri (VĐQG Indonesia) | Blv Minh
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-garudayaksa-vs-persik-kediri-11-09-2026-6a98b8e024d46db870bd98f7%2F&blv=blv-minh
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/huda-hue.png" group-title="Giờ Vàng TV",15:30 - 11/09 | Huế FC VS Cao Su Đồng Tháp (Hạng Nhất Việt Nam) | Blv Bon
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-huda-hue-vs-dong-thap-11-09-2026-6a9a0a3b24d46db87013b688%2F&blv=blv-bon
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/borneo-fc-samarinda.png" group-title="Giờ Vàng TV",15:30 - 11/09 | Adhyaksa VS Bali United (Cup Indonesia) | Blv Mason
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-borneo-fc-samarinda-vs-dewa-united-fc-11-09-2026-6aa0a19324d46db870536298%2F&blv=blv-mason
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/G2z2rzf5-EgrECzdn.png" group-title="Giờ Vàng TV",16:00 - 11/09 | FURIA VS G2 (FISSURE Playground 3) | Trunglap Sup
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-furia-vs-g2-11-09-2026-pat4xvxjf61a%2F&blv=trunglap-sup
-#EXTINF:-1 tvg-logo="https://cdn.keobongvip.digital/images/basketball-teams/079847bad6b01cbc4b326fbbac8c9df8.jpg" group-title="Giờ Vàng TV",17:00 - 11/09 | Saudi Arabia VS Japan (Men''s basketball match of the Asian Games) | Blv Can
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-saudi-arabia-vs-japan-11-09-2026-39156371%2F&blv=blv-can
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/jgOunSg5-dtzqTXTK.png" group-title="Giờ Vàng TV",17:30 - 11/09 | Nhật Bản VS Ấn Độ (Asian Championship) | Blv Sun
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-nhat-ban-vs-an-do-11-09-2026-grjfj7bzz0xv%2F&blv=blv-sun
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/ninh-binh-fc.png" group-title="Giờ Vàng TV",18:00 - 11/09 | Ninh Bình FC VS Thanh Hóa (V-League) | Blv Mù
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-ninh-binh-fc-vs-thanh-hoa-11-09-2026-6a9a0a3b24d46db87013b6b9%2F&blv=blv%20M%C3%B9
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/da-nang.png" group-title="Giờ Vàng TV",18:00 - 11/09 | SHB Đà Nẵng VS Thép Xanh Nam Định (V-League) | Blv Bon
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-da-nang-vs-nam-dinh-fc-11-09-2026-6a9a0a3b24d46db87013b6b0%2F&blv=blv-bon
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/tdtt-bac-ninh.PNG" group-title="Giờ Vàng TV",18:00 - 11/09 | TDTT Bac Ninh VS TP Hồ Chí Minh (V-League) | Blv Tri
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-tdtt-bac-ninh-vs-ho-chi-minh-city-11-09-2026-6a9a0a3b24d46db87013b6ac%2F&blv=blv-tri
 #EXTINF:-1 tvg-logo="https://cdn.onefc.com/wp-content/uploads/2026/05/260828-BKK-OFF168_TIC28-1800x1200px-2.jpg" group-title="Giờ Vàng TV",18:30 - 11/09 | ONE Friday Fights 170 & The Inner Circle 30 VS ONE Friday Fights 170 & The Inner Circle 30 (ONE Friday Fights 170 & The Inner Circle 30) | Blv Diec
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-one-friday-fights-170-the-inner-circle-30-vs-one-friday-fights-170-the-inner-circle-30-11-09-2026-603pk16e3vc1%2F&blv=blv-diec
-#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKZjoQ1iDyqVvjfmjYTdbGK1ZwWK8xky25kios9lTajA&s=10" group-title="Giờ Vàng TV",18:30 - 11/09 | F1 VS F1 (Spanish Grand Prix) | Blv Ngu
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-f1-vs-f1-11-09-2026-kgvff1ic8h47%2F&blv=blv-ngu
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/ratchaburi-fc.png" group-title="Giờ Vàng TV",19:00 - 11/09 | Ratchaburi FC VS Bangkok United FC (VĐQG Thái Lan) | Blv Beo
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-ratchaburi-fc-vs-bangkok-united-fc-11-09-2026-6a98b8e124d46db870bd996b%2F&blv=blv-beo
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/6sYNPFZA-K6NdtgS4.png" group-title="Giờ Vàng TV",20:00 - 11/09 | Ukraine VS North Macedonia (European Championship) | Blv Sun
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-ukraine-vs-north-macedonia-11-09-2026-1x086xtwg5hf%2F&blv=blv-sun
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/johor-darul-takzim.png" group-title="Giờ Vàng TV",20:00 - 11/09 | Johor Darul Takzim VS Negeri Sembilan (VĐQG Malaysia) | Blv Mù
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-johor-darul-takzim-vs-negeri-sembilan-11-09-2026-6a98b8e124d46db870bd998a%2F&blv=blv%20M%C3%B9
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/tanzania-u17.png" group-title="Giờ Vàng TV",20:00 - 11/09 | Tanzania U20 VS Canada U20 (World Cup U20) | Blv Minh
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-tanzania-u20-vs-canada-u20-11-09-2026-3bea8hvqs70t%2F&blv=blv-minh
+#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/johor-darul-takzim.png" group-title="Giờ Vàng TV",20:00 - 11/09 | Johor Darul Takzim VS Negeri Sembilan (VĐQG Malaysia) | Blv Mù
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-johor-darul-takzim-vs-negeri-sembilan-11-09-2026-6a98b8e124d46db870bd998a%2F&blv=blv%20M%C3%B9
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/SGirXqcM-WIQgTQmf.png" group-title="Giờ Vàng TV",21:00 - 11/09 | Nedtherlands VS Belgium (European Championship) | Blv Can
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-nedtherlands-vs-belgium-11-09-2026-xbd3o8wgyvam%2F&blv=blv-can
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/ajman.png" group-title="Giờ Vàng TV",21:55 - 11/09 | Al Arabi VS Al Urooba (Hạng Nhất UAE) | Blv Mù
@@ -925,4 +905,4 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API; footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches
+# Errors: footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches; phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API
