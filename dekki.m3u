@@ -1,10 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/union-berlin.png" group-title="Giờ Vàng TV",01:30 - 12/09 | Union Berlin VS Schalke 04 (Bundesliga) | Blv Ngong
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-union-berlin-vs-schalke-04-12-09-2026-6a9a0a4024d46db87013bbf7%2F&blv=blv-ngong
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/rennes.png" group-title="Giờ Vàng TV",01:45 - 12/09 | Stade Rennais FC VS Marseille (Ligue 1) | Blv Diec
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-rennes-vs-marseille-12-09-2026-6a9a0a4024d46db87013bc3e%2F&blv=blv-diec
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/venezia.png" group-title="Giờ Vàng TV",01:45 - 12/09 | Venezia F.C. VS Fiorentina (Seria A) | Blv Sup
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-venezia-vs-fiorentina-12-09-2026-6a9a0a4024d46db87013bc38%2F&blv=blv-sup
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/tO5cePjl-2DqYxEbl.png" group-title="Giờ Vàng TV",02:00 - 12/09 | Alexander Zverev VS Karen Khachanov (US Open ATP) | Blv Ben
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-alexander-zverev-vs-karen-khachanov-12-09-2026-weu8gi9x5jrk%2F&blv=blv-ben
 #EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/e/e6/Flag_of_Slovakia.svg?utm_source=vi.wikipedia.org&utm_campaign=index&utm_content=original" group-title="Giờ Vàng TV",02:00 - 12/09 | Slovakia VS Slovenia (European Championship) | Blv Sun
@@ -44,11 +38,11 @@ https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/ap
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/hpXfxhzB-2ybyvrpo.png" group-title="Giờ Vàng TV",14:00 - 12/09 | Bahrain VS China (Asian Games) | Blv Tom
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-bahrain-vs-china-12-09-2026-4gz276rmrjzq%2F&blv=blv-tom
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/bucheon-fc-1995.png" group-title="Giờ Vàng TV",14:30 - 12/09 | Bucheon FC 1995 VS Jeju United FC (K-League Hàn Quốc) | Blv Mù
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-bucheon-fc-1995-vs-jeju-sk-fc-12-09-2026-6aa4178424d46db8700e4ac6%2F&blv=blv%20M%C3%B9
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-bucheon-fc-1995-vs-jeju-united-fc-12-09-2026-6aa4178424d46db8700e4ac6%2F&blv=blv%20M%C3%B9
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/jeonbuk-hyundai-motors.png" group-title="Giờ Vàng TV",14:30 - 12/09 | Jeonbuk Hyundai Motors VS FC Seoul (K-League Hàn Quốc) | Blv Bon
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-jeonbuk-hyundai-motors-vs-fc-seoul-12-09-2026-6aa4178424d46db8700e4acd%2F&blv=blv-bon
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/lam-dong.png" group-title="Giờ Vàng TV",15:30 - 12/09 | Lâm Đồng FC VS TP Hồ Chí Minh (Hạng Nhất Việt Nam) | Blv Minh
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-lam-dong-vs-ho-chi-minh-city-12-09-2026-6aa4178524d46db8700e4c15%2F&blv=blv-minh
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-lam-dong-fc-vs-tp-ho-chi-minh-12-09-2026-6aa4178524d46db8700e4c15%2F&blv=blv-minh
 #EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoL4iDxRu_d385AiHGNO8QKKbsgLAiJxkYOqmsyRfN4cZXIiI6Tr9My8B-&s=10" group-title="Giờ Vàng TV",15:30 - 12/09 | ONE VS SAMURAI 3 (ONE SAMURAI 3) | Blv 18
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-one-vs-samurai-3-12-09-2026-4spwoqrlw9j2%2F&blv=blv-18
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/mito-hollyhock.png" group-title="Giờ Vàng TV",16:00 - 12/09 | Mito Hollyhock VS Kawasaki Frontale (VĐQG Nhật Bản) | Blv Tri
@@ -935,4 +929,4 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API; footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches
+# Errors: footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches; phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API
