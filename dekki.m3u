@@ -1,18 +1,10 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/tO5cePjl-2DqYxEbl.png" group-title="Giờ Vàng TV",01:00 - 14/09 | Alexander Zverev VS Ben Shelton (US Open ATP) | Benmu
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-alexander-zverev-vs-ben-shelton-14-09-2026-4ixvkbxt0ypp%2F&blv=benmu
-#EXTINF:-1 tvg-logo="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" group-title="Giờ Vàng TV",03:25 - 14/09 | Philadelphia Eagles VS Washington Commanders (NFL) | Riko
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-philadelphia-eagles-vs-washington-commanders-14-09-2026-r1hvkrgryk15%2F&blv=riko
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/chicago-fire.png" group-title="Giờ Vàng TV",04:30 - 14/09 | Chicago Fire VS New England Revolution (MLS Mỹ) | Blv Ngong
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-chicago-fire-vs-new-england-revolution-14-09-2026-6a9f501324d46db8702d333a%2F&blv=blv-ngong
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/vancouver-whitecaps.png" group-title="Giờ Vàng TV",05:30 - 14/09 | Vancouver Whitecaps FC VS Austin FC (MLS Mỹ) | Blv Minh
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-vancouver-whitecaps-vs-austin-fc-14-09-2026-6a9f501424d46db8702d339e%2F&blv=blv-minh
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/rek8GixS-OpJ5uAOg.png" group-title="Giờ Vàng TV",07:20 - 14/09 | New York Giants VS Dallas Cowboys (NFL) | Blv Cay
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-new-york-giants-vs-dallas-cowboys-14-09-2026-h5motihvw9k3%2F&blv=blv-cay
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/feWHyfhl-vVvialz7.png" group-title="Giờ Vàng TV",07:30 - 14/09 | Austin II VS Colorado Rapids II (MLS Mỹ) | Mickey
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-austin-ii-vs-colorado-rapids-ii-14-09-2026-q3ladjruyr76%2F&blv=mickey
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/pUQNPeYA-ng3SY0Fo.png" group-title="Giờ Vàng TV",07:30 - 14/09 | North Texas VS Houston Dynamo FC II (MLS Mỹ) | Blv Minh
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-north-texas-vs-houston-dynamo-fc-ii-14-09-2026-rjesnw5d40tf%2F&blv=blv-minh
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/feWHyfhl-vVvialz7.png" group-title="Giờ Vàng TV",07:30 - 14/09 | Austin II VS Colorado Rapids II (MLS Mỹ) | Mickey
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-austin-ii-vs-colorado-rapids-ii-14-09-2026-q3ladjruyr76%2F&blv=mickey
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/san-diego-fc.png" group-title="Giờ Vàng TV",08:00 - 14/09 | San Diego FC VS Philadelphia Union (MLS Mỹ) | Blv Beo
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-san-diego-fc-vs-philadelphia-union-14-09-2026-6a9f501424d46db8702d343e%2F&blv=blv-beo
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/t48bJawS-pYWEJTrt.png" group-title="Giờ Vàng TV",08:00 - 14/09 | Bahrain VS Kazakhstan (Asian Games) | Blv Vit
@@ -961,4 +953,4 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches; phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API
+# Errors: phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API; footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches
