@@ -1,24 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/bieizLjl-fazrR153.png" group-title="Giờ Vàng TV",00:00 - 16/09 | Hà Lan VS Phần Lan (European Championship) | Blv Cay
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-ha-lan-vs-phan-lan-16-09-2026-6w3f3zx880fr%2F&blv=blv-cay
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/rayo-vallecano.png" group-title="Giờ Vàng TV",00:00 - 16/09 | Rayo Vallecano VS Espanyol (La Liga) | Mickey
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-rayo-vallecano-vs-rcd-espanyol-16-09-2026-6aa0a19124d46db870535f82%2F&blv=mickey
-#EXTINF:-1 tvg-logo="https://ssl.gstatic.com/onebox/media/sports/logos/optimized/v_vORXEGt13cTEb-zw7yWA_96x96.png" group-title="Giờ Vàng TV",00:00 - 16/09 | U23 UAE VS U23 Iran (ASIAD 2026) | Blv Beo
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-u23-uae-vs-u23-iran-16-09-2026-0dkjnrpfp055%2F&blv=blv-beo
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/b5COzlBr-ppTTUyXP.png" group-title="Giờ Vàng TV",00:00 - 16/09 | Pháp VS Đức (European Championship) | Blv Sun
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-phap-vs-duc-16-09-2026-50dup6hmf70t%2F&blv=blv-sun
-#EXTINF:-1 tvg-logo="https://cdn.keobongvip.digital/images/basketball-teams/c703c6fa98ffed63bf4b0129533c7f52.png" group-title="Giờ Vàng TV",01:00 - 16/09 | RASTA Vechta VS Maik Ze Fendi (Basketball Champions League) | Blv Tom
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-rasta-vechta-vs-maik-ze-fendi-16-09-2026-34476371%2F&blv=blv-tom
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/alaves.png" group-title="Giờ Vàng TV",01:00 - 16/09 | Alaves VS Valencia (La Liga) | Blv Mat
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-alaves-vs-valencia-16-09-2026-6aa0a19224d46db870536069%2F&blv=blv-mat
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/reading.png" group-title="Giờ Vàng TV",02:00 - 16/09 | Reading VS Brentford (Cúp Liên Đoàn Anh) | Blv Sup
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-reading-vs-brentford-16-09-2026-6a90d09f924b00d295046785%2F&blv=blv-sup
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/liverpool.png" group-title="Giờ Vàng TV",02:00 - 16/09 | Liverpool VS Tottenham Hotspur (Cúp Liên Đoàn Anh) | Blv Ben
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-liverpool-vs-tottenham-hotspur-16-09-2026-6a90d09f924b00d295046782%2F&blv=blv-ben
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/ipswich-town.png" group-title="Giờ Vàng TV",02:00 - 16/09 | Ipswich VS Arsenal (Cúp Liên Đoàn Anh) | Blv Ngong
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-ipswich-vs-arsenal-16-09-2026-6a92222407a55a68f709dab9%2F&blv=blv-ngong
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/elche.png" group-title="Giờ Vàng TV",02:30 - 16/09 | Elche VS Real Madrid (La Liga) | Blv Mason
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-elche-vs-real-madrid-16-09-2026-6aa0a19324d46db870536231%2F&blv=blv-mason
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/ca-platense.png" group-title="Giờ Vàng TV",05:00 - 16/09 | CA Platense VS Fluminense (RJ) (Copa Libertadores) | Blv Ngong
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-ca-platense-vs-fluminense-rj-16-09-2026-6a8a38fdeb269e70040bbd9f%2F&blv=blv-ngong
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/YeWStKhl-xUjXmOIP.png" group-title="Giờ Vàng TV",05:40 - 16/09 | Los Angeles Dodgers VS Cincinnati Reds (MLB) | Blv Cay
@@ -37,6 +17,8 @@ https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/ap
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-arizona-diamondbacks-vs-miami-marlins-16-09-2026-8d8fbbigmrwx%2F&blv=blv-ngu
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/WCEKKPXg-049Lq8a5.png" group-title="Giờ Vàng TV",11:00 - 16/09 | Iran VS Bahrain (Asian Games) | Blv Vit
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-iran-vs-bahrain-16-09-2026-iv599h95ijs8%2F&blv=blv-vit
+#EXTINF:-1 tvg-logo="https://ssl.gstatic.com/onebox/media/sports/logos/optimized/v_vORXEGt13cTEb-zw7yWA_96x96.png" group-title="Giờ Vàng TV",12:00 - 16/09 | U23 UAE VS U23 Iran (ASIAD 2026) | Blv Beo
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-u23-uae-vs-u23-iran-16-09-2026-0dkjnrpfp055%2F&blv=blv-beo
 #EXTINF:-1 tvg-logo="https://ssl.gstatic.com/onebox/media/sports/logos/optimized/aEBU_ri8U6F06oTqWmKY5g_96x96.png" group-title="Giờ Vàng TV",14:00 - 16/09 | U23 Thái Lan VS U23 Kyrgyzstan (ASIAD 2026) | Blv Minh
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-u23-thai-lan-vs-u23-kyrgyzstan-16-09-2026-3472bkl61nh8%2F&blv=blv-minh
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/IkaPuewS-IkyuUDEE.png" group-title="Giờ Vàng TV",14:00 - 16/09 | Chinese VS Saudi Arabia (Asian Games) | Blv Ben
