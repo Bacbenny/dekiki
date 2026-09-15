@@ -1,16 +1,12 @@
 #EXTM3U
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/ca-platense.png" group-title="Giờ Vàng TV",05:00 - 16/09 | CA Platense VS Fluminense (RJ) (Copa Libertadores) | Blv Ngong
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-ca-platense-vs-fluminense-rj-16-09-2026-6a8a38fdeb269e70040bbd9f%2F&blv=blv-ngong
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/YeWStKhl-xUjXmOIP.png" group-title="Giờ Vàng TV",05:40 - 16/09 | Los Angeles Dodgers VS Cincinnati Reds (MLB) | Blv Cay
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-los-angeles-dodgers-vs-cincinnati-reds-16-09-2026-s70t0vhgnu%2F&blv=blv-cay
 #EXTINF:-1 tvg-logo="https://schedule.fightmag.com/wp-content/uploads/2024/04/dana-whites-contender-series-696x392.png.webp" group-title="Giờ Vàng TV",06:00 - 16/09 | Dana White's Contender Series: Season 10, Week 6 VS Dana White's Contender Series: Season 10, Week 6 (Dana White's Contender Series: Season 10, Week 6) | Blv 18
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-dana-white-s-contender-series-season-10-week-6-vs-dana-white-s-contender-series-season-10-week-6-16-09-2026-d6sg7zij72d1%2F&blv=blv-18
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/boyaca-chico.png" group-title="Giờ Vàng TV",07:30 - 16/09 | Boyaca Chico VS Alianza Petrolera (VĐQG Colombia) | Blv Bon
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-boyaca-chico-vs-alianza-petrolera-16-09-2026-6a6be5af24d46db8701e7bf0%2F&blv=blv-bon
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/puebla.png" group-title="Giờ Vàng TV",08:00 - 16/09 | Puebla VS Toluca (Mexico Liga MX) | Blv Tri
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-puebla-vs-toluca-16-09-2026-6a90cfda24d46db8708d8cd5%2F&blv=blv-tri
-#EXTINF:-1 tvg-logo="https://ssl.gstatic.com/onebox/media/sports/logos/optimized/n8kyiV1SFapDzQrZWQsEGQ_96x96.png" group-title="Giờ Vàng TV",08:00 - 16/09 | Dorados VS Cancún (Mexico - Liga de Expansión MX) | Blv Beo
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-dorados-vs-cancun-16-09-2026-qlryu0raxbsl%2F&blv=blv-beo
 #EXTINF:-1 tvg-logo="https://ssl.gstatic.com/onebox/media/sports/logos/optimized/9swSmw5NICcCYIQ8FERjhw_96x96.png" group-title="Giờ Vàng TV",08:00 - 16/09 | Jordan VS South Korea (Asian Games) | Blv Vit
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-jordan-vs-south-korea-16-09-2026-8ivgd4c34g7z%2F&blv=blv-vit
 #EXTINF:-1 tvg-logo="https://ssl.gstatic.com/onebox/media/sports/logos/optimized/bIi8cJW5Av0W-CHNBzkcCQ_96x96.png" group-title="Giờ Vàng TV",08:40 - 16/09 | Arizona Diamondbacks VS Miami Marlins (MLB) | Blv Ngu
@@ -899,4 +895,4 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches; phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API
+# Errors: phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API; footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches
