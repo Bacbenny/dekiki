@@ -1,20 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/YeWStKhl-xUjXmOIP.png" group-title="Giờ Vàng TV",23:45 - 17/09 | Los Angeles Dodgers VS Cincinnati Reds (MLB) | Blv Ngu
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-los-angeles-dodgers-vs-cincinnati-reds-17-09-2026-7bk6ymi71m4g%2F&blv=blv-ngu
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/G2z2rzf5-EgrECzdn.png" group-title="Giờ Vàng TV",00:30 - 18/09 | FURIA VS MiBR () | Mickey
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-furia-vs-mibr-18-09-2026-ynkpk26d9rce%2F&blv=mickey
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/manchester-city.png" group-title="Giờ Vàng TV",01:30 - 18/09 | Manchester City VS Norwich City (Cúp Liên Đoàn Anh) | Blv Ben
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-manchester-city-vs-norwich-city-18-09-2026-6a90d09f924b00d295046783%2F&blv=blv-ben
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/real-sociedad.png" group-title="Giờ Vàng TV",02:00 - 18/09 | Real Sociedad VS AFC Bournemouth (C2) | Blv Sup
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-real-sociedad-vs-afc-bournemouth-18-09-2026-6a94c4d6164566b7f70b437c%2F&blv=blv-sup
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/juventus.png" group-title="Giờ Vàng TV",02:00 - 18/09 | Juventus VS N.E.C. Nijmegen (C2) | Blv Mù
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-juventus-vs-nec-nijmegen-18-09-2026-6a93738cfccd5ecc44060e78%2F&blv=blv%20M%C3%B9
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/crystal-palace.png" group-title="Giờ Vàng TV",02:00 - 18/09 | Crystal Palace VS Lech Poznan (C2) | Blv Mason
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-crystal-palace-vs-lech-poznan-18-09-2026-6a94c4d6164566b7f70b437a%2F&blv=blv-mason
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/besiktas-jk.png" group-title="Giờ Vàng TV",02:00 - 18/09 | Besiktas JK VS Marseille (C2) | Blv Ngong
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-besiktas-jk-vs-marseille-18-09-2026-6a93738cfccd5ecc44060e91%2F&blv=blv-ngong
-#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/1/1e/Logo_Italy_National_Womens_Football_Team_2023_%28no_stars%29.svg" group-title="Giờ Vàng TV",02:05 - 18/09 | Italia VS Slovenia (European Championship) | Blv Tom
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-italia-vs-slovenia-18-09-2026-x3qoe9wx5a8h%2F&blv=blv-tom
 #EXTINF:-1 tvg-logo="https://cdn.keobongvip.digital/images/basketball-teams/f527c983cab3560c60e7b9d147904d7d.png" group-title="Giờ Vàng TV",06:30 - 18/09 | Atlanta Dream VS Connecticut Sun (Women’s National Basketball Association) | Blv Leo
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-atlanta-dream-vs-connecticut-sun-18-09-2026-11325078%2F&blv=blv-leo
 #EXTINF:-1 tvg-logo="https://cdn.keobongvip.digital/images/basketball-teams/0a570e6f3972fccc8370091d6ffdef5e.png" group-title="Giờ Vàng TV",07:00 - 18/09 | Chicago Sky VS Washington Mystics (Women’s National Basketball Association) | Blv Vit
@@ -49,6 +33,8 @@ https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/ap
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-mong-co-vs-kyrgyzstan-18-09-2026-vse5kzh57gfn%2F&blv=blv-diec
 #EXTINF:-1 tvg-logo="https://i.ytimg.com/vi/x1bMzsvdhas/sardefault.jpg?sqp=-oaymwEYCJUDENAFSFqQAgHyq4qpAwcIARUAAIhC&rs=AOn4CLC0APxKNqRgmiSxfyZiANMBnNHHVw" group-title="Giờ Vàng TV",18:30 - 18/09 | ONE Friday Fights 171 VS The Inner Circle 31 (ONE Friday Fights 171 & The Inner Circle 31) | Blv Diec
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-one-friday-fights-171-vs-the-inner-circle-31-18-09-2026-larx8mie0sk2%2F&blv=blv-diec
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyHzn96eI1-P1DjGlQqqtGaU74_unNeBwfsIRoTLCBT3pYekZ0Ym1fCXs&s=10" group-title="Giờ Vàng TV",04:00 - 20/09 | Van VS Pantoja 2 (UFC 331) | Blv Cay
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-van-vs-pantoja-2-20-09-2026-ty1nn69th37m%2F&blv=blv-cay
 #EXTINF:-1 tvg-id="vtv1hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv1.png",VTV1
 https://HaNoiIPTV.short.gy/HaNoiIPTV-VTV1_HD
 #EXTINF:-1 tvg-id="vtv2hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv2.png",VTV2
