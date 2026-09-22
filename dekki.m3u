@@ -1,24 +1,12 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/2iE3O0Yg-2JG9UkI7.png" group-title="Giờ Vàng TV",21:40 - 22/09 | Al Urooba VS Dubai City (UAE Presidents Cup) | Blv Tri
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-al-urooba-vs-dubai-city-22-09-2026-euqek9i7ql2i%2F&blv=blv-tri
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/4YkwnwCr-SQmQu5R8.png" group-title="Giờ Vàng TV",21:40 - 22/09 | Al Hamriyah VS Al Thaid (UAE Presidents Cup) | Blv Bon
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-al-hamriyah-vs-al-thaid-22-09-2026-b1gqp5b8qxf7%2F&blv=blv-bon
-#EXTINF:-1 tvg-logo="https://ssl.gstatic.com/onebox/media/sports/logos/optimized/yTS_Piy3M1wUBnqU0n5aAw_96x96.png" group-title="Giờ Vàng TV",23:00 - 22/09 | Ba Lan VS Đức (European Championship) | Blv Sun
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-ba-lan-vs-duc-22-09-2026-rf9xdnzqawi8%2F&blv=blv-sun
-#EXTINF:-1 tvg-logo="https://cdn.egamersworld.com/cdn-cgi/image/width=60,quality=75,format=webp/uploads/counterstrike/teamsV2/j/jo/johnny-speeds_1719373454105.webp" group-title="Giờ Vàng TV",23:00 - 22/09 | Johnny Speeds VS BBL Esport (CS2-Stake Pulse Beat II) | Mickey
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-johnny-speeds-vs-bbl-esport-22-09-2026-114zjj0sqbpv%2F&blv=mickey
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/inter-milan-w.png" group-title="Giờ Vàng TV",23:45 - 22/09 | Nữ Inter Milan VS Nữ BK Hacken (Champions League Nữ) | Blv Beo
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-inter-milan-w-vs-bk-hacken-w-22-09-2026-6aadd18745163e9e3e085d3e%2F&blv=blv-beo
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/bayern-munchen-w.png" group-title="Giờ Vàng TV",23:45 - 22/09 | Nữ Bayern Munich VS Nữ Manchester City (Champions League Nữ) | Blv Mason
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-bayern-munchen-w-vs-manchester-city-w-22-09-2026-6aadd18745163e9e3e085d3d%2F&blv=blv-mason
 #EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/en/4/43/Wigan_Athletic.svg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original" group-title="Giờ Vàng TV",01:00 - 23/09 | Wigan VS Blackpool (Cúp Liên Đoàn Anh) | Blv Ngong
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-wigan-vs-blackpool-23-09-2026-785jnmli8xo5%2F&blv=blv-ngong
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP3jFzrxTfKwL87shU8GJVJcCUq5v6-GzQpFDb5db-tg&s=10" group-title="Giờ Vàng TV",02:00 - 23/09 | Juventus W VS Benfica W (UEFA Women's Champions League) | Blv Leo
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-juventus-w-vs-benfica-w-23-09-2026-cdu16fw2y6zo%2F&blv=blv-leo
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/arsenal-w.png" group-title="Giờ Vàng TV",02:00 - 23/09 | Nữ Arsenal VS HB Koge (W) (Champions League Nữ) | Blv Sup
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-arsenal-w-vs-hb-koge-w-23-09-2026-6aadd0a824d46db870f2406d%2F&blv=blv-sup
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/real-madrid-w.png" group-title="Giờ Vàng TV",02:00 - 23/09 | Nữ Real Madrid VS Nữ Paris Saint Germain (Champions League Nữ) | Blv Mason
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-real-madrid-w-vs-paris-saint-germain-w-23-09-2026-6aadd0a824d46db870f24092%2F&blv=blv-mason
-#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP3jFzrxTfKwL87shU8GJVJcCUq5v6-GzQpFDb5db-tg&s=10" group-title="Giờ Vàng TV",02:00 - 23/09 | Juventus W VS Benfica W (UEFA Women's Champions League) | Blv Leo
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-juventus-w-vs-benfica-w-23-09-2026-cdu16fw2y6zo%2F&blv=blv-leo
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/jgSYTgil-lGGssG8o.png" group-title="Giờ Vàng TV",04:00 - 23/09 | Puerto Montt VS Ñublense (Copa Chile) | Blv Ngong
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-puerto-montt-vs-ublense-23-09-2026-wanfto8ot7hn%2F&blv=blv-ngong
 #EXTINF:-1 tvg-logo="https://worldinsport.com/wp-content/uploads/2026/08/dwcs-season-10-night-3-results-1200x630.webp" group-title="Giờ Vàng TV",06:00 - 23/09 | Dana White's Contender Series: Season 10, Week 7 VS Dana White's Contender Series: Season 10, Week 7 (Dana White's Contender Series: Season 10, Week 7) | Blv Cay
@@ -29,6 +17,8 @@ https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/ap
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-audax-italiano-vs-colo-colo-23-09-2026-fqth3yd4kyqa%2F&blv=blv-tri
 #EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRTJUTCaWW-p8M7QMKgjh5ZP-nANZ_Q4YncR1_Z6L_Aw&s" group-title="Giờ Vàng TV",06:30 - 23/09 | Cobreloa VS Coquimbo (Copa Chile) | Blvhau
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-cobreloa-vs-coquimbo-23-09-2026-yusd5a86q7d2%2F&blv=blvhau
+#EXTINF:-1 tvg-logo="https://thumb.wikimedia.org/wikipedia/vi/thumb/1/14/2026_Asian_Games_logo.png/250px-2026_Asian_Games_logo.png?utm_source=vi.wikipedia.org&utm_campaign=parser&utm_content=thumbnail" group-title="Giờ Vàng TV",07:00 - 23/09 | ASIAD 2026 VS ASIAD 2026 (ASIAD 2026) | Blvtuimu
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-asiad-2026-vs-asiad-2026-23-09-2026-asooi3g7yvxg%2F&blv=blvtuimu
 #EXTINF:-1 tvg-logo="https://cdn.keobongvip.digital/images/basketball-teams/0a570e6f3972fccc8370091d6ffdef5e.png" group-title="Giờ Vàng TV",07:00 - 23/09 | Chicago Sky VS Toronto Tempo (Women’s National Basketball Association) | Mickey
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-chicago-sky-vs-toronto-tempo-23-09-2026-10525079%2F&blv=mickey
 #EXTINF:-1 tvg-logo="https://cdn.keobongvip.digital/images/basketball-teams/2672748dfcca12a59823b97a08ffb22d.png" group-title="Giờ Vàng TV",07:00 - 23/09 | Indiana Fever VS Minnesota Lynx (Women’s National Basketball Association) | Blv Tom
@@ -45,6 +35,36 @@ https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/ap
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-u23-iran-vs-u23-trieu-tien-23-09-2026-zcqd6mggoore%2F&blv=blv-bon
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/china-u17.png" group-title="Giờ Vàng TV",12:30 - 23/09 | U23 Trung Quốc VS U23 UAE (ASIAD 2026) | Blv Sup
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-u23-trung-quoc-vs-u23-uae-23-09-2026-nikl30by99k3%2F&blv=blv-sup
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/zcqIEsil-6uZPCvr9.png" group-title="Giờ Vàng TV",15:00 - 23/09 | Machida VS Tochigi City (Emperors Cup) | Blv Mù
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-machida-vs-tochigi-city-23-09-2026-x2qvjtbnhoma%2F&blv=blv%20M%C3%B9
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/8Eq347h5-WCk3MDxq.png" group-title="Giờ Vàng TV",15:00 - 23/09 | Gamba Osaka VS Tokushima (Emperors Cup) | Blvhau
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-gamba-osaka-vs-tokushima-23-09-2026-d56w1qfkj6rl%2F&blv=blvhau
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/KzRTl7Ea-4SARfF5k.png" group-title="Giờ Vàng TV",15:00 - 23/09 | Kashima Antlers VS Kofu (Emperors Cup) | Mickey
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-kashima-antlers-vs-kofu-23-09-2026-6ncxm6kkpnia%2F&blv=mickey
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/v9ykKJ9r-4SU3kZUI.png" group-title="Giờ Vàng TV",15:00 - 23/09 | Vissel Kobe VS Sagan Tosu (Emperors Cup) | Blv Leo
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-vissel-kobe-vs-sagan-tosu-23-09-2026-zchpn5mtou88%2F&blv=blv-leo
+#EXTINF:-1 tvg-logo="https://cdn.keobongvip.digital/images/basketball-teams/690d69ad99fc8d3bd6fe4a7131521421.png" group-title="Giờ Vàng TV",16:30 - 23/09 | Cairns Taipans VS Tasmania JackJumpers (National Basketball League(Australia)) | Blv Cay
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-cairns-taipans-vs-tasmania-jackjumpers-23-09-2026-28122272%2F&blv=blv-cay
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/fPcgMcAr-0l1B8pB3.png" group-title="Giờ Vàng TV",17:00 - 23/09 | Minsk VS Fenerbahçe Istanbul (UEFA Europa Cup Women) | Blv Mason
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-minsk-vs-fenerbah-e-istanbul-23-09-2026-r36yvmgiucup%2F&blv=blv-mason
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/OnJoAH9r-0lwPsCX2.png" group-title="Giờ Vàng TV",17:00 - 23/09 | Fnatic VS Phantom Esport (CS2-Stake Pulse Beat II) | Mickey
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-fnatic-vs-phantom-esport-23-09-2026-nnix6hiaysit%2F&blv=mickey
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/tlRg5VFG-COd4S2x5.png" group-title="Giờ Vàng TV",17:30 - 23/09 | U23 Kyrgyzstan VS U23 Hồng Kông (ASIAD 2026) | Blv Beo
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-u23-kyrgyzstan-vs-u23-hong-kong-23-09-2026-rpxn595b20aw%2F&blv=blv-beo
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/S49ci8h5-YqrtLoTa.png" group-title="Giờ Vàng TV",17:30 - 23/09 | U23 Nhật Bản VS U23 Thái Lan (ASIAD 2026) | Blv Tri
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-u23-nhat-ban-vs-u23-thai-lan-23-09-2026-o1bs56uv19kl%2F&blv=blv-tri
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxqQq_ISgNR2g_D1gyXYcVrkTdJtAeJ_n6RIGB8x9apA&s=10" group-title="Giờ Vàng TV",20:00 - 23/09 | Winner VS Match (CS2-Stake Pulse Beat II) | Mickey
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-winner-vs-match-23-09-2026-3h65j292tvvx%2F&blv=mickey
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/WC0rrzAr-hQzHXowj.png" group-title="Giờ Vàng TV",21:00 - 23/09 | PAOK VS Spartak Myjava (UEFA Europa Cup Women) | Blv Mason
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-paok-vs-spartak-myjava-23-09-2026-xgpbe5galp31%2F&blv=blv-mason
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/6kfviue5-6ys9CWQj.png" group-title="Giờ Vàng TV",21:00 - 23/09 | Bỉ VS Slovenia (European Championship) | Blv Can
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-bi-vs-slovenia-23-09-2026-zmpjuvorm221%2F&blv=blv-can
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/CbiRFhYA-4EsvakLH.png" group-title="Giờ Vàng TV",21:30 - 23/09 | Iraq VS Oman (Arabian Gulf Cup) | Blv Beo
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-iraq-vs-oman-23-09-2026-fjiyiotmsplw%2F&blv=blv-beo
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/A5k0v6GG-jNN4J2US.png" group-title="Giờ Vàng TV",21:40 - 23/09 | Gulf United VS Al Fujairah (UAE Presidents Cup) | Blv Leo
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-gulf-united-vs-al-fujairah-23-09-2026-59srht7hpes1%2F&blv=blv-leo
+#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/bD4FNedM-E1zOfYsJ.png" group-title="Giờ Vàng TV",22:00 - 23/09 | Slovan Liberec VS Rosenborg (UEFA Europa Cup Women) | Blv Mù
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-slovan-liberec-vs-rosenborg-23-09-2026-8hiarfs72gg5%2F&blv=blv%20M%C3%B9
 #EXTINF:-1 tvg-id="vtv1hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv1.png",VTV1
 https://HaNoiIPTV.short.gy/HaNoiIPTV-VTV1_HD
 #EXTINF:-1 tvg-id="vtv2hd" group-title="VTV" group-logo="https://sgchill.duckdns.org/logo/vtv.png" tvg-logo="https://sgchill.duckdns.org/logo/vtv2.png",VTV2
@@ -921,4 +941,4 @@ http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609304
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609305
 #EXTINF:-1 tvg-name="Ligue 1+ 10 ʜᴅ" tvg-logo="https://cdn.broadbandtvnews.com/wp-content/uploads/2025/08/14122528/Ligue1-900x600.jpg" group-title="LIGUE PLUS LIVE",Ligue 1+ 10 ʜᴅ
 http://cdn69630.sp-vpn-vad.com:80/at2sc0r6b4/kmmutt995q/1609306
-# Errors: footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches; phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API
+# Errors: phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API; footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches
