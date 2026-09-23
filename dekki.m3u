@@ -1,14 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/E9dIygWg-YJMM9EqO.png" group-title="Giờ Vàng TV",01:00 - 24/09 | Itabirito VS Cruzeiro (Mineiro Feminino) | Mickey
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-itabirito-vs-cruzeiro-24-09-2026-q05jbjzmejir%2F&blv=mickey
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/chelsea-fc-w.png" group-title="Giờ Vàng TV",02:00 - 24/09 | Nữ Chelsea FC VS Austria Wien (W) (Champions League Nữ) | Blv Ngong
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-chelsea-fc-w-vs-austria-wien-w-24-09-2026-6aadd18745163e9e3e085d40%2F&blv=blv-ngong
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/barcelona-w.png" group-title="Giờ Vàng TV",02:00 - 24/09 | Nữ FC Barcelona VS Nữ Paris FC (Champions League Nữ) | Blv Sup
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-barcelona-w-vs-paris-fc-w-24-09-2026-6aadd18745163e9e3e085d3f%2F&blv=blv-sup
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/0fCwuvXg-My5qjuKd.png" group-title="Giờ Vàng TV",02:05 - 24/09 | Ý VS Phần Lan (European Championship) | Blv Sun
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-y-vs-phan-lan-24-09-2026-k6pg8duvmxu7%2F&blv=blv-sun
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/bahamas.png" group-title="Giờ Vàng TV",03:00 - 24/09 | Bahamas VS French Saint-Martin (CONCACAF Nations League) | Riko
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-bahamas-vs-french-saint-martin-24-09-2026-6aadd0cc45163e9e3e085d2f%2F&blv=riko
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/UV7TtYEa-E3uvveio.png" group-title="Giờ Vàng TV",04:00 - 24/09 | Curico Unido VS D. Concepcion (Copa Chile) | Blv Mù
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-curico-unido-vs-d-concepcion-24-09-2026-8sbcogkje8dd%2F&blv=blv%20M%C3%B9
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/x8bRMNZA-AJxZzB1j.png" group-title="Giờ Vàng TV",04:00 - 24/09 | O'Higgins VS CD Santa Cruz (Copa Chile) | Blv Tom
