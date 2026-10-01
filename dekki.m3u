@@ -1,10 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/wales.png" group-title="Giờ Vàng TV",01:45 - 02/10 | Wales VS Na Uy (UEFA Nations League) | Blv Sup
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-wales-vs-norway-02-10-2026-69f544134f51b3673a06914f%2F&blv=blv-sup
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/germany.png" group-title="Giờ Vàng TV",01:45 - 02/10 | Đức VS Serbia (UEFA Nations League) | Blv Ngong
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-germany-vs-serbia-02-10-2026-69f3f2b74bff4a0c310bf763%2F&blv=blv-ngong
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/denmark.png" group-title="Giờ Vàng TV",01:45 - 02/10 | Đan Mạch VS Bồ Đào Nha (UEFA Nations League) | Blv Mù
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-denmark-vs-portugal-02-10-2026-69f3f2b74bff4a0c310bf772%2F&blv=blv%20M%C3%B9
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/curacao.png" group-title="Giờ Vàng TV",05:00 - 02/10 | Curacao VS Trinidad & Tobago (CONCACAF Nations League) | Blv Ngong
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-curacao-vs-trinidad-and-tobago-02-10-2026-6aaf224e4e725bdee905b7c3%2F&blv=blv-ngong
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/dominican-republic.png" group-title="Giờ Vàng TV",07:00 - 02/10 | Cộng hòa Dominican VS Haiti (CONCACAF Nations League) | Blv Mù
@@ -54,7 +48,7 @@ https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/ap
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/colombia.png" group-title="Giờ Vàng TV",07:00 - 03/10 | Colombia VS Paraguay (Giao hữu quốc tế) | Blv Ngong
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-colombia-vs-paraguay-03-10-2026-6ab85d73802222c82d0bc76a%2F&blv=blv-ngong
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/independiente-rivadavia.png" group-title="Giờ Vàng TV",07:30 - 03/10 | Independiente Rivadavia VS Gimnasia LP (VĐQG Argentina) | Blv Tri
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-independiente-rivadavia-vs-gimnasia-la-plata-03-10-2026-6ab9ae1824d46db870ba2482%2F&blv=blv-tri
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-independiente-rivadavia-vs-gimnasia-lp-03-10-2026-6ab9ae1824d46db870ba2482%2F&blv=blv-tri
 #EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzsOYIOsX07EGftC-0YU85JEWhVV8eqZgHxa90ejwO9w&s=10" group-title="Giờ Vàng TV",08:00 - 03/10 | Correcaminos UAT VS Cruz Azul Hidalgo (Mexico Liga MX) | Blv Beo
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-correcaminos-uat-vs-cruz-azul-hidalgo-03-10-2026-63pmk7on7787%2F&blv=blv-beo
 #EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/en/c/ca/Atl%C3%A9tico_La_Paz_Logo.svg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original" group-title="Giờ Vàng TV",10:00 - 03/10 | CA La Paz VS Venados (Mexico Liga MX) | Blv Beo
@@ -69,4 +63,6 @@ https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/ap
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-machida-zelvia-vs-kyoto-sanga-03-10-2026-l4mwp2fvcukx%2F&blv=blv%20M%C3%B9
 #EXTINF:-1 tvg-logo="https://cdn.keobongvip.digital/images/basketball-teams/fd1ef26f7174d02a5a30dbe9e69b45f9.png" group-title="Giờ Vàng TV",14:30 - 03/10 | Brisbane Bullets VS Tasmania JackJumpers (National Basketball League(Australia)) | Blv Cay
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-brisbane-bullets-vs-tasmania-jackjumpers-03-10-2026-10322276%2F&blv=blv-cay
-# Errors: phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API; footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches
+#EXTINF:-1 tvg-logo="https://cdn.keobongvip.digital/images/basketball-teams/3f61db02c20eb73e5f27948b3122f2fb.png" group-title="Giờ Vàng TV",06:00 - 04/10 | Toronto Raptors VS Miami Heat (National Basketball Association) | Blv Vit
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-toronto-raptors-vs-miami-heat-04-10-2026-13022276%2F&blv=blv-vit
+# Errors: footylive: 402 Client Error: Payment Required for url: https://footylive.vercel.app/api/matches; phaohoa: phaohoa: không fetch được dữ liệu trận đấu từ API
