@@ -26,34 +26,32 @@ jobs:
         run: |
           pip install requests
 
-      - name: Setup Vietnam VPN via VPN Gate
-        continue-on-error: true
+      - name: Deploy Cloudflare Workers (including film4k-proxy)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_API_TOKEN:         ${{ secrets.CF_API_TOKEN }}
+          RELAY_SECRET:         ${{ secrets.RELAY_SECRET }}
         run: |
-          set -e
-          sudo apt-get update -qq && sudo apt-get install -y -qq openvpn
-          echo "Finding Vietnam VPN server..."
-          python3 vpn_gate_setup.py
+          python3 deploy_workers.py || echo "Worker deploy skipped"
 
-          VPN_STATUS=$(cat /tmp/vpn_status.txt 2>/dev/null || echo "NOT_FOUND")
-
-          if [ "$VPN_STATUS" = "FOUND" ]; then
-              echo "Starting OpenVPN..."
-              sudo openvpn --config /tmp/vpn_config.ovpn --daemon --log /tmp/openvpn.log
-              echo "Waiting for VPN connection..."
-              for i in $(seq 1 30); do
-                  IP=$(curl -s --max-time 5 https://api.ipify.org 2>/dev/null || true)
-                  if [ -n "$IP" ]; then
-                      echo "Connected! IP: $IP"
-                      break
-                  fi
-                  sleep 2
-              done
+      - name: Determine proxy URL
+        id: proxy
+        run: |
+          if [ -n "${{ secrets.CF_API_TOKEN }}" ]; then
+            echo "url=https://film4k-proxy.bacbenny.workers.dev" >> "$GITHUB_OUTPUT"
           else
-              echo "No Vietnam VPN available. Trying direct connection..."
+            echo "url=" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Fetch Film4k channels and generate M3U
+        env:
+          FILM4K_PROXY_URL: ${{ steps.proxy.outputs.url }}
         run: |
+          if [ -n "$FILM4K_PROXY_URL" ]; then
+            echo "Using proxy: $FILM4K_PROXY_URL"
+          else
+            echo "No proxy, trying direct connection..."
+          fi
           python3 film4k_fetch.py
 
       - name: Commit and push film4k.m3u

@@ -6,6 +6,9 @@ import sys
 import time
 import requests
 
+# Direct API or via Cloudflare Worker proxy
+# The proxy bypasses geo-restriction since CF Workers have Vietnam edge nodes
+PROXY_URL = os.environ.get("FILM4K_PROXY_URL", "")
 API_BASE = "https://film4k.net/api"
 EMAIL = "dvdvbac@gmail.com"
 PASSWORD = "Bac12345"
@@ -17,8 +20,31 @@ UA = (
 )
 
 
-def login():
-    print("[film4k] Đăng nhập...")
+def fetch_all():
+    """Login và lấy kênh trong một lần gọi qua proxy (hoặc trực tiếp)."""
+    if PROXY_URL:
+        print(f"[film4k] Gọi qua proxy: {PROXY_URL}/fetch-all")
+        r = requests.get(
+            f"{PROXY_URL}/fetch-all",
+            headers={"User-Agent": UA, "Accept": "application/json"},
+            timeout=60,
+        )
+        if not r.ok:
+            print(f"[film4k] Proxy thất bại: HTTP {r.status_code} — {r.text[:500]}")
+            sys.exit(1)
+
+        data = r.json()
+        if "error" in data:
+            print(f"[film4k] Proxy error: {data['error']}")
+            sys.exit(1)
+
+        token = data.get("token", "")
+        channels = data.get("channels", [])
+        print(f"[film4k] Proxy trả về token: {'có' if token else 'không'}, {len(channels) if isinstance(channels, list) else 'unknown'} kênh.")
+        return channels
+
+    # Direct connection (no proxy)
+    print("[film4k] Đăng nhập trực tiếp...")
     r = requests.post(
         f"{API_BASE}/auth/login",
         json={"email": EMAIL, "password": PASSWORD},
@@ -29,18 +55,13 @@ def login():
         print(f"[film4k] Login thất bại: HTTP {r.status_code} — {r.text[:300]}")
         sys.exit(1)
 
-    data = r.json()
-    token = data.get("token") or data.get("access_token")
+    login_data = r.json()
+    token = login_data.get("token") or login_data.get("access_token")
     if not token:
-        print(f"[film4k] Không tìm thấy token trong response: {json.dumps(data)[:300]}")
+        print(f"[film4k] Không tìm thấy token: {json.dumps(login_data)[:300]}")
         sys.exit(1)
 
-    print("[film4k] Đăng nhập thành công.")
-    return token
-
-
-def get_channels(token):
-    print("[film4k] Lấy danh sách kênh...")
+    print("[film4k] Đăng nhập thành công. Lấy kênh...")
     r = requests.get(
         f"{API_BASE}/tv/channels",
         headers={
@@ -54,21 +75,13 @@ def get_channels(token):
         print(f"[film4k] Lấy kênh thất bại: HTTP {r.status_code} — {r.text[:300]}")
         sys.exit(1)
 
-    data = r.json()
-
-    # API có thể trả về list trực tiếp hoặc wrap trong object
-    if isinstance(data, list):
-        return data
-    if isinstance(data, dict):
+    channels = r.json()
+    if isinstance(channels, dict):
         for key in ("channels", "data", "items", "results"):
-            if key in data and isinstance(data[key], list):
-                return data[key]
-        # Nếu là dict của dict kênh
-        if all(isinstance(v, dict) for v in data.values()):
-            return list(data.values())
-
-    print(f"[film4k] Format dữ liệu không xác định: {json.dumps(data)[:500]}")
-    return []
+            if key in channels and isinstance(channels[key], list):
+                channels = channels[key]
+                break
+    return channels
 
 
 def extract_stream_url(channel):
@@ -142,8 +155,15 @@ def generate_m3u(channels):
 
 
 def main():
-    token = login()
-    channels = get_channels(token)
+    channels = fetch_all()
+    if isinstance(channels, dict):
+        # Có thể là object wrap
+        for key in ("channels", "data", "items", "results"):
+            if key in channels and isinstance(channels[key], list):
+                channels = channels[key]
+                break
+        elif all(isinstance(v, dict) for v in channels.values()):
+            channels = list(channels.values())
     print(f"[film4k] Nhận được {len(channels)} kênh.")
 
     m3u_content, count = generate_m3u(channels)

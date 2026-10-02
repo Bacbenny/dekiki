@@ -12,8 +12,14 @@ if not CF_TOKEN:
     print("No CLOUDFLARE_API_TOKEN / CF_API_TOKEN — skipping worker deploy")
     sys.exit(0)
 
-WORKERS = {
+# Workers with WASM bindings
+WASM_WORKERS = {
     "dekki": "workers/dekki.js",
+}
+
+# Plain JS workers (no WASM, no secrets)
+PLAIN_WORKERS = {
+    "film4k-proxy": "workers/film4k-proxy.js",
 }
 
 
@@ -50,7 +56,7 @@ def build_bindings(name: str) -> list | None:
     return bindings
 
 
-def deploy(name: str, path: str) -> bool:
+def deploy_wasm(name: str, path: str) -> bool:
     p = Path(path)
     if not p.exists():
         print(f"  {name}: {path} not found — skip")
@@ -71,7 +77,6 @@ def deploy(name: str, path: str) -> bool:
     print(f"  {name}: deploying ({len(code)} chars, md5={local_md[:8]})...")
     print(f"  {name}: bindings={[b['name'] for b in bindings]}")
 
-    # Use Service Worker format (not module) — multipart with metadata
     metadata = json.dumps({
         "body_part": "main",
         "bindings": bindings,
@@ -84,6 +89,37 @@ def deploy(name: str, path: str) -> bool:
             "metadata": ("metadata", metadata, "application/json"),
             "main": ("main", code, "application/javascript"),
             "stream-lock.wasm": ("stream-lock.wasm", wasm_path.read_bytes(), "application/wasm"),
+        },
+        timeout=30,
+    )
+    j   = r.json()
+    ok  = j.get("success", False)
+    err = j.get("errors", [])
+    print(f"  {name}: HTTP {r.status_code} | success={ok}" + (f" | errors={err}" if err else ""))
+    return ok
+
+
+def deploy_plain(name: str, path: str) -> bool:
+    p = Path(path)
+    if not p.exists():
+        print(f"  {name}: {path} not found — skip")
+        return False
+
+    code = p.read_text(encoding="utf-8")
+    local_md = hashlib.md5(code.encode()).hexdigest()
+    print(f"  {name}: deploying ({len(code)} chars, md5={local_md[:8]})...")
+
+    metadata = json.dumps({
+        "body_part": "main",
+        "bindings": [],
+    })
+
+    r = requests.put(
+        f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/workers/scripts/{name}",
+        headers=_cf_headers(),
+        files={
+            "metadata": ("metadata", metadata, "application/json"),
+            "main": ("main", code, "application/javascript"),
         },
         timeout=30,
     )
@@ -109,7 +145,10 @@ def enable_workers_dev(name: str) -> bool:
 
 
 print("=== CF Worker auto-deploy ===")
-for worker_name, worker_path in WORKERS.items():
-    if deploy(worker_name, worker_path):
+for worker_name, worker_path in WASM_WORKERS.items():
+    if deploy_wasm(worker_name, worker_path):
+        enable_workers_dev(worker_name)
+for worker_name, worker_path in PLAIN_WORKERS.items():
+    if deploy_plain(worker_name, worker_path):
         enable_workers_dev(worker_name)
 print("=== Done ===")
