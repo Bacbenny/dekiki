@@ -1,4 +1,4 @@
-name: Cap nhat Film4k M3U
+name: Cap nhat Film4k channel M3U
 
 on:
   schedule:
@@ -26,11 +26,11 @@ jobs:
         run: |
           pip install requests
 
-      - name: Fetch Film4k events from dekiiptv95 and generate M3U
+      - name: Sign in and fetch Film4k channels
         env:
-          FILM4K_PLAYLIST_URL: https://dekiiptv95.bacbenny95.workers.dev/
-        run: |
-          python3 film4k_fetch.py
+          FILM4K_USERNAME: ${{ secrets.FILM4K_USERNAME }}
+          FILM4K_PASSWORD: ${{ secrets.FILM4K_PASSWORD }}
+        run: python3 film4k_fetch.py
 
       - name: Commit and push film4k.m3u
         run: |
