@@ -5,8 +5,9 @@ import os
 import re
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import quote, urlsplit
 
 import requests
 
@@ -19,6 +20,9 @@ USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/138.0.0.0 Safari/537.36"
+)
+PLAYER_USER_AGENT = (
+    "Dalvik/2.1.0 (Linux; U; Android 11; Pixel Build/RQ1A.210105.003)"
 )
 
 URL_FIELDS = (
@@ -82,7 +86,19 @@ def _unwrap_channels(payload: object, depth: int = 0) -> list[dict]:
     return []
 
 
-def fetch_channels() -> list[dict]:
+def _api_headers(cookie: str) -> dict[str, str]:
+    return {
+        "Cookie": f"session={cookie}",
+        "User-Agent": USER_AGENT,
+        "Accept": "application/json",
+        "Referer": f"{FILM4K_BASE}/",
+        "Origin": FILM4K_BASE,
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache",
+    }
+
+
+def fetch_channels() -> tuple[list[dict], str]:
     if not USERNAME or not PASSWORD:
         raise Film4kError(
             "Add FILM4K_USERNAME and FILM4K_PASSWORD as GitHub Actions secrets."
@@ -109,15 +125,7 @@ def fetch_channels() -> list[dict]:
 
     channels_response = requests.get(
         f"{FILM4K_BASE}/api/tv/channels?_={int(time.time() * 1000)}",
-        headers={
-            "Cookie": f"session={cookie}",
-            "User-Agent": USER_AGENT,
-            "Accept": "application/json",
-            "Referer": f"{FILM4K_BASE}/",
-            "Origin": FILM4K_BASE,
-            "Cache-Control": "no-cache",
-            "Pragma": "no-cache",
-        },
+        headers=_api_headers(cookie),
         timeout=45,
     )
     if not channels_response.ok:
@@ -133,7 +141,7 @@ def fetch_channels() -> list[dict]:
     channels = _unwrap_channels(payload)
     if not channels:
         raise Film4kError("Film4K channel API returned no channel records")
-    return channels
+    return channels, cookie
 
 
 def _nested_stream_url(value: object, depth: int = 0) -> str:
@@ -168,6 +176,66 @@ def extract_stream_url(channel: dict) -> str:
         if found:
             return found
     return ""
+
+
+def _channel_id(channel: dict) -> str:
+    return _first_text(
+        channel,
+        ("id", "channel_id", "channelId", "tvg_id", "tvgId", "slug"),
+    )
+
+
+def _clear_key(payload: object) -> dict[str, str] | None:
+    if not isinstance(payload, dict):
+        return None
+    clear_key = payload.get("clearKey")
+    if not isinstance(clear_key, dict) and isinstance(payload.get("data"), dict):
+        clear_key = payload["data"].get("clearKey")
+    if not isinstance(clear_key, dict):
+        return None
+    key_id = clear_key.get("keyId")
+    key = clear_key.get("key")
+    if isinstance(key_id, str) and isinstance(key, str) and key_id and key:
+        return {"keyId": key_id, "key": key}
+    return None
+
+
+def _resolve_one_channel(channel: dict, cookie: str) -> dict:
+    if extract_stream_url(channel):
+        return channel
+    channel_id = _channel_id(channel)
+    if not channel_id:
+        return channel
+
+    try:
+        response = requests.get(
+            f"{FILM4K_BASE}/api/tv/{quote(channel_id, safe='')}/stream"
+            f"?_={int(time.time() * 1000)}",
+            headers=_api_headers(cookie),
+            timeout=45,
+        )
+        if not response.ok:
+            return channel
+        payload = response.json()
+    except (requests.RequestException, ValueError):
+        return channel
+
+    stream_url = extract_stream_url(payload) if isinstance(payload, dict) else ""
+    if not stream_url:
+        return channel
+
+    resolved = dict(channel)
+    resolved["url"] = stream_url
+    clear_key = _clear_key(payload)
+    if clear_key:
+        resolved["_film4k_clear_key"] = clear_key
+    return resolved
+
+
+def resolve_channel_streams(channels: list[dict], cookie: str) -> list[dict]:
+    """Resolve channel records that do not include a stream URL, as the Worker does."""
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        return list(executor.map(lambda ch: _resolve_one_channel(ch, cookie), channels))
 
 
 def _first_text(channel: dict, keys: tuple[str, ...], default: str = "") -> str:
@@ -218,19 +286,53 @@ def generate_m3u(channels: list[dict]) -> tuple[str, int]:
         props = channel.get("props") or channel.get("properties") or []
         if isinstance(props, str):
             props = [props]
-        if isinstance(props, list):
-            lines.extend(
-                prop
-                for prop in props
-                if isinstance(prop, str)
-                and prop.startswith(("#EXTVLCOPT:", "#KODIPROP:"))
-            )
+        props = [
+            prop
+            for prop in props
+            if isinstance(prop, str)
+            and prop.startswith(("#EXTVLCOPT:", "#KODIPROP:"))
+        ] if isinstance(props, list) else []
+
+        if not any(prop.startswith("#EXTVLCOPT:http-user-agent=") for prop in props):
+            props.append(f"#EXTVLCOPT:http-user-agent={PLAYER_USER_AGENT}")
+        if not any(prop.startswith("#EXTVLCOPT:http-referrer=") for prop in props):
+            props.append(f"#EXTVLCOPT:http-referrer={FILM4K_BASE}/")
+
+        clear_key = channel.get("_film4k_clear_key")
+        if isinstance(clear_key, dict):
+            key_id = clear_key.get("keyId")
+            key = clear_key.get("key")
+            if isinstance(key_id, str) and isinstance(key, str) and key_id and key:
+                if not any(
+                    prop.startswith("#KODIPROP:inputstream.adaptive.manifest_type=")
+                    for prop in props
+                ):
+                    props.append(
+                        "#KODIPROP:inputstream.adaptive.manifest_type=mpd"
+                    )
+                if not any(
+                    prop.startswith("#KODIPROP:inputstream.adaptive.license_type=")
+                    for prop in props
+                ):
+                    props.append(
+                        "#KODIPROP:inputstream.adaptive.license_type=clearkey"
+                    )
+                if not any(
+                    prop.startswith("#KODIPROP:inputstream.adaptive.license_key=")
+                    for prop in props
+                ):
+                    props.append(
+                        "#KODIPROP:inputstream.adaptive.license_key="
+                        f"{key_id}:{key}"
+                    )
+
+        lines.extend(props)
         lines.append(stream_url)
         count += 1
 
     if count == 0:
         raise Film4kError(
-            "Film4K returned channel records, but none contained a playable stream URL"
+            "Film4K channels could not be resolved to playable stream URLs"
         )
     return "\n".join(lines) + "\n", count
 
@@ -243,8 +345,9 @@ def write_playlist(content: str) -> None:
 
 def main() -> int:
     try:
-        channels = fetch_channels()
-        content, playable_count = generate_m3u(channels)
+        channels, cookie = fetch_channels()
+        resolved_channels = resolve_channel_streams(channels, cookie)
+        content, playable_count = generate_m3u(resolved_channels)
         write_playlist(content)
     except (Film4kError, requests.RequestException, OSError) as error:
         print(f"[film4k] Update failed: {error}", file=sys.stderr)
@@ -252,7 +355,8 @@ def main() -> int:
 
     print(
         f"[film4k] Created film4k.m3u with {playable_count} playable channels "
-        f"from {len(channels)} API records."
+        f"from {len(channels)} API records; "
+        f"{len(channels) - playable_count} could not be resolved."
     )
     return 0
 
