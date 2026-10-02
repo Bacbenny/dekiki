@@ -5,6 +5,7 @@ import os
 import re
 import sys
 import time
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from urllib.parse import quote, urlsplit
@@ -48,6 +49,29 @@ CONTAINER_FIELDS = (
     "source",
     "data",
 )
+
+# Match the reference playlist's section order. Film4K uses different group
+# labels, so these aliases map its groups to the equivalent reference sections.
+GROUP_ORDER = {
+    "vtv": (0, 0),
+    "kenhvtv": (0, 0),
+    "thietyeu": (1, 0),
+    "kenhthietyeu": (1, 0),
+    "vtvcab": (2, 0),
+    "kenhvtvcab": (2, 0),
+    "sctv": (3, 0),
+    "kenhsctv": (3, 0),
+    "htv": (4, 0),
+    "kenhhtv": (4, 0),
+    "diaphuong": (5, 1),
+    "kenhdiaphuong": (5, 1),
+    "kenhvinhlong": (5, 0),
+    "quocte": (6, 0),
+    "kenhquocte": (6, 0),
+    "sukientv360": (7, 0),
+    "sukientructiep": (7, 0),
+    "sukienvtvprime": (8, 0),
+}
 
 
 class Film4kError(RuntimeError):
@@ -250,11 +274,50 @@ def _attribute(value: str) -> str:
     return value.replace('"', "&quot;").replace("\r", " ").replace("\n", " ")
 
 
+def _normalize_group(value: str) -> str:
+    decomposed = unicodedata.normalize("NFD", value.casefold())
+    without_marks = "".join(
+        character
+        for character in decomposed
+        if unicodedata.category(character) != "Mn"
+    )
+    return re.sub(r"[^a-z0-9]+", "", without_marks.replace("đ", "d"))
+
+
+def _channel_group(channel: dict) -> str:
+    return _first_text(
+        channel,
+        ("group", "category", "group_title", "groupTitle"),
+        "Film4K",
+    )
+
+
+def _order_channels_by_group(channels: list[dict]) -> list[dict]:
+    groups: dict[str, list[dict]] = {}
+    for channel in channels:
+        groups.setdefault(_channel_group(channel), []).append(channel)
+
+    # Unknown Film4K groups follow all reference groups, retaining API order.
+    group_indexes = {name: index for index, name in enumerate(groups)}
+    ordered_group_names = sorted(
+        groups,
+        key=lambda name: (
+            *GROUP_ORDER.get(_normalize_group(name), (len(GROUP_ORDER), 0)),
+            group_indexes[name],
+        ),
+    )
+    return [
+        channel
+        for group_name in ordered_group_names
+        for channel in groups[group_name]
+    ]
+
+
 def generate_m3u(channels: list[dict]) -> tuple[str, int]:
     lines = ["#EXTM3U"]
     count = 0
 
-    for channel in channels:
+    for channel in _order_channels_by_group(channels):
         name = _first_text(
             channel,
             ("name", "title", "channel_name", "channelName", "label"),
@@ -264,11 +327,7 @@ def generate_m3u(channels: list[dict]) -> tuple[str, int]:
             channel,
             ("logo", "icon", "thumbnail", "tvg_logo", "image", "poster"),
         )
-        group = _first_text(
-            channel,
-            ("group", "category", "group_title", "groupTitle"),
-            "Film4K",
-        )
+        group = _channel_group(channel)
         tvg_id = _first_text(
             channel,
             ("tvg_id", "tvgId", "id", "channel_id", "channelId", "slug"),
