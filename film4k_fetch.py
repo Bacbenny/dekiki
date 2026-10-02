@@ -14,6 +14,9 @@ import requests
 
 
 FILM4K_BASE = "https://film4k.net"
+REFERENCE_PLAYLIST_URL = (
+    "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/dekiki"
+)
 OUTPUT_FILE = Path(__file__).with_name("film4k.m3u")
 USERNAME = os.environ.get("FILM4K_USERNAME", "").strip()
 PASSWORD = os.environ.get("FILM4K_PASSWORD", "")
@@ -50,27 +53,39 @@ CONTAINER_FIELDS = (
     "data",
 )
 
-# Match the reference playlist's section order. Film4K uses different group
-# labels, so these aliases map its groups to the equivalent reference sections.
-GROUP_ORDER = {
-    "vtv": (0, 0),
-    "kenhvtv": (0, 0),
-    "thietyeu": (1, 0),
-    "kenhthietyeu": (1, 0),
-    "vtvcab": (2, 0),
-    "kenhvtvcab": (2, 0),
-    "sctv": (3, 0),
-    "kenhsctv": (3, 0),
-    "htv": (4, 0),
-    "kenhhtv": (4, 0),
-    "diaphuong": (5, 1),
-    "kenhdiaphuong": (5, 1),
-    "kenhvinhlong": (5, 0),
-    "quocte": (6, 0),
-    "kenhquocte": (6, 0),
-    "sukientv360": (7, 0),
-    "sukientructiep": (7, 0),
-    "sukienvtvprime": (8, 0),
+# Fallback placement for Film4K channels not named in the reference playlist.
+# Exact/aliased channel-name matches use the reference playlist's own group.
+SOURCE_GROUPS = {
+    "kenhvtv": "VTV",
+    "kenhthietyeu": "Thiết Yếu",
+    "kenhvtvcab": "VTVcab",
+    "kenhsctv": "SCTV",
+    "kenhhtv": "HTV",
+    "kenhvinhlong": "Địa Phương",
+    "kenhdiaphuong": "Địa Phương",
+    "kenhfm": "Địa Phương",
+    "kenhquocte": "Quốc Tế",
+    "sukientructiep": "Sự Kiện TV360",
+    "sukientv360": "Sự Kiện TV360",
+    "sukienvtvprime": "Sự Kiện VTVPrime",
+}
+REFERENCE_NAME_ALIASES = {
+    "antv": "anninhtv",
+    "qpvn": "quocphongvietnam",
+    "sctv2todaytv": "sctv2",
+    "golfchannel": "ongolf",
+    "cartoonkids": "onkids",
+    "lifetv": "onlife",
+    "htvcphimtruyen": "htvcphim",
+    "htvcdulichcuocsong": "htvcdulich",
+    "tv5": "tv5monde",
+    "nhk": "nhkworld",
+    "cartoon": "cartoonnetwork",
+    "discoverychannel": "discovery",
+    "tayninh1": "tayninh",
+    "lamdong1": "lamdong",
+    "lamdong2": "lamdong",
+    "hue": "thuathienhue",
 }
 
 
@@ -284,6 +299,65 @@ def _normalize_group(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", without_marks.replace("đ", "d"))
 
 
+def _normalize_channel_name(value: str) -> str:
+    decomposed = unicodedata.normalize("NFD", value.casefold().replace("+", " plus "))
+    without_marks = "".join(
+        character
+        for character in decomposed
+        if unicodedata.category(character) != "Mn"
+    )
+    return re.sub(r"[^a-z0-9]+", "", without_marks.replace("đ", "d"))
+
+
+def _channel_name_variants(value: str) -> list[str]:
+    candidates = [value.strip()]
+    without_quality = re.sub(
+        r"(?:\s+(?:HD|SD|UHD|FHD|4K))+\s*$",
+        "",
+        value.strip(),
+        flags=re.IGNORECASE,
+    )
+    if without_quality and without_quality not in candidates:
+        candidates.append(without_quality)
+
+    expanded = list(candidates)
+    for candidate in candidates:
+        without_today_tv = re.sub(
+            r"\s*[-–—]\s*Today\s*TV\s*$",
+            "",
+            candidate,
+            flags=re.IGNORECASE,
+        ).strip()
+        if without_today_tv and without_today_tv not in expanded:
+            expanded.append(without_today_tv)
+
+        provider_match = re.match(
+            r"^\s*VTVcab\s*\d+\s*(?:[-–—:]\s*)?(.*)$",
+            candidate,
+            flags=re.IGNORECASE,
+        )
+        if provider_match and provider_match.group(1).strip():
+            provider_name = provider_match.group(1).strip()
+            if provider_name not in expanded:
+                expanded.append(provider_name)
+
+    variants: list[str] = []
+    for candidate in expanded:
+        normalized = _normalize_channel_name(candidate)
+        if normalized and normalized not in variants:
+            variants.append(normalized)
+        if normalized.startswith("on") and len(normalized) > 2:
+            without_on = normalized[2:]
+            if without_on not in variants:
+                variants.append(without_on)
+
+    for variant in list(variants):
+        alias = REFERENCE_NAME_ALIASES.get(variant)
+        if alias and alias not in variants:
+            variants.append(alias)
+    return variants
+
+
 def _channel_group(channel: dict) -> str:
     return _first_text(
         channel,
@@ -292,32 +366,123 @@ def _channel_group(channel: dict) -> str:
     )
 
 
-def _order_channels_by_group(channels: list[dict]) -> list[dict]:
-    groups: dict[str, list[dict]] = {}
-    for channel in channels:
-        groups.setdefault(_channel_group(channel), []).append(channel)
+def parse_reference_playlist(
+    playlist: str,
+) -> tuple[list[str], dict[str, tuple[int, int, str]]]:
+    groups: list[str] = []
+    channels_by_group: dict[str, int] = {}
+    channel_positions: dict[str, tuple[int, int, str]] = {}
 
-    # Unknown Film4K groups follow all reference groups, retaining API order.
-    group_indexes = {name: index for index, name in enumerate(groups)}
-    ordered_group_names = sorted(
-        groups,
-        key=lambda name: (
-            *GROUP_ORDER.get(_normalize_group(name), (len(GROUP_ORDER), 0)),
-            group_indexes[name],
-        ),
+    for line in playlist.splitlines():
+        if not line.startswith("#EXTINF"):
+            continue
+        group_match = re.search(r'group-title="([^"]*)"', line)
+        _, separator, name = line.partition(",")
+        if not group_match or not separator:
+            continue
+
+        group = group_match.group(1).strip()
+        name = name.strip()
+        if not group or not name:
+            continue
+        if group not in groups:
+            groups.append(group)
+        group_index = groups.index(group)
+        channel_index = channels_by_group.get(group, 0)
+        channels_by_group[group] = channel_index + 1
+        position = (group_index, channel_index, group)
+
+        for variant in _channel_name_variants(name):
+            channel_positions.setdefault(variant, position)
+
+    if not groups or not channel_positions:
+        raise Film4kError("Reference playlist did not contain grouped channels")
+    return groups, channel_positions
+
+
+def fetch_reference_order() -> tuple[list[str], dict[str, tuple[int, int, str]]]:
+    response = requests.get(
+        REFERENCE_PLAYLIST_URL,
+        headers={"User-Agent": USER_AGENT, "Accept": "text/plain"},
+        timeout=45,
     )
-    return [
-        channel
-        for group_name in ordered_group_names
-        for channel in groups[group_name]
-    ]
+    if not response.ok:
+        raise Film4kError(
+            f"Reference playlist returned HTTP {response.status_code}"
+        )
+    return parse_reference_playlist(response.text)
 
 
-def generate_m3u(channels: list[dict]) -> tuple[str, int]:
+def _fallback_group(channel: dict) -> str:
+    source_group = _normalize_group(_channel_group(channel))
+    if source_group in {"giaitri", "kenhgiaitri"}:
+        name = _first_text(
+            channel,
+            ("name", "title", "channel_name", "channelName", "label"),
+        )
+        if _normalize_channel_name(name).startswith("360"):
+            return "Sự Kiện TV360"
+        return "VTVcab"
+    if source_group in {"thethao", "kenhthethao"}:
+        return "Sự Kiện TV360"
+
+    group = SOURCE_GROUPS.get(source_group)
+    if not group:
+        raise Film4kError(f"Film4K channel group is not mapped: {_channel_group(channel)}")
+    return group
+
+
+def _order_channels(
+    channels: list[dict],
+    reference_groups: list[str],
+    reference_channels: dict[str, tuple[int, int, str]],
+) -> list[dict]:
+    group_positions = {group: index for index, group in enumerate(reference_groups)}
+    ordered: list[tuple[tuple[int, int, int, int], dict]] = []
+
+    for input_index, channel in enumerate(channels):
+        name = _first_text(
+            channel,
+            ("name", "title", "channel_name", "channelName", "label"),
+            "Unknown",
+        )
+        match = next(
+            (
+                reference_channels[variant]
+                for variant in _channel_name_variants(name)
+                if variant in reference_channels
+            ),
+            None,
+        )
+        if match:
+            group_index, channel_index, group = match
+            key = (group_index, 0, channel_index, input_index)
+        else:
+            group = _fallback_group(channel)
+            if group not in group_positions:
+                raise Film4kError(
+                    f"Reference playlist is missing the group: {group}"
+                )
+            group_index = group_positions[group]
+            key = (group_index, 1, input_index, input_index)
+
+        output_channel = dict(channel)
+        output_channel["_film4k_output_group"] = group
+        ordered.append((key, output_channel))
+
+    ordered.sort(key=lambda item: item[0])
+    return [channel for _, channel in ordered]
+
+
+def generate_m3u(
+    channels: list[dict],
+    reference_groups: list[str],
+    reference_channels: dict[str, tuple[int, int, str]],
+) -> tuple[str, int]:
     lines = ["#EXTM3U"]
     count = 0
 
-    for channel in _order_channels_by_group(channels):
+    for channel in _order_channels(channels, reference_groups, reference_channels):
         name = _first_text(
             channel,
             ("name", "title", "channel_name", "channelName", "label"),
@@ -327,7 +492,7 @@ def generate_m3u(channels: list[dict]) -> tuple[str, int]:
             channel,
             ("logo", "icon", "thumbnail", "tvg_logo", "image", "poster"),
         )
-        group = _channel_group(channel)
+        group = channel["_film4k_output_group"]
         tvg_id = _first_text(
             channel,
             ("tvg_id", "tvgId", "id", "channel_id", "channelId", "slug"),
@@ -406,7 +571,10 @@ def main() -> int:
     try:
         channels, cookie = fetch_channels()
         resolved_channels = resolve_channel_streams(channels, cookie)
-        content, playable_count = generate_m3u(resolved_channels)
+        reference_groups, reference_channels = fetch_reference_order()
+        content, playable_count = generate_m3u(
+            resolved_channels, reference_groups, reference_channels
+        )
         write_playlist(content)
     except (Film4kError, requests.RequestException, OSError) as error:
         print(f"[film4k] Update failed: {error}", file=sys.stderr)
