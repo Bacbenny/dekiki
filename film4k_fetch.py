@@ -162,8 +162,9 @@ def main():
             if key in channels and isinstance(channels[key], list):
                 channels = channels[key]
                 break
-        elif all(isinstance(v, dict) for v in channels.values()):
-            channels = list(channels.values())
+        else:
+            if all(isinstance(v, dict) for v in channels.values()):
+                channels = list(channels.values())
     print(f"[film4k] Nhận được {len(channels)} kênh.")
 
     m3u_content, count = generate_m3u(channels)
