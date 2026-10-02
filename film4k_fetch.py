@@ -56,6 +56,7 @@ CONTAINER_FIELDS = (
 # Fallback placement for Film4K channels not named in the reference playlist.
 # Exact/aliased channel-name matches use the reference playlist's own group.
 SOURCE_GROUPS = {
+    "film4k": "VTVcab",
     "kenhvtv": "VTV",
     "kenhthietyeu": "Thiết Yếu",
     "kenhvtvcab": "VTVcab",
