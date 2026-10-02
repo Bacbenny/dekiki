@@ -1,14 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/poland.png" group-title="Giờ Vàng TV",01:45 - 03/10 | Ba Lan VS Romania (UEFA Nations League) | Blv Diec
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-poland-vs-romania-03-10-2026-69f7e7425c39b5554409bf61%2F&blv=blv-diec
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/france.png" group-title="Giờ Vàng TV",01:45 - 03/10 | Pháp VS Ý (UEFA Nations League) | Blv Leo
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-france-vs-italy-03-10-2026-69f3f2b74bff4a0c310bf75b%2F&blv=blv-leo
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/belgium.png" group-title="Giờ Vàng TV",01:45 - 03/10 | Bỉ VS Thổ Nhĩ Kỳ (UEFA Nations League) | Blv Mù
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-belgium-vs-turkey-03-10-2026-69f3f2b74bff4a0c310bf75c%2F&blv=blv%20M%C3%B9
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/hungary.png" group-title="Giờ Vàng TV",01:45 - 03/10 | Hungary VS Georgia (UEFA Nations League) | Blv Sup
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-hungary-vs-georgia-03-10-2026-69f7e7425c39b5554409bf55%2F&blv=blv-sup
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/bosnia-and-herzegovina.png" group-title="Giờ Vàng TV",01:45 - 03/10 | Bosnia & Herzegovina VS Thụy Điển (UEFA Nations League) | Blv Ngong
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-bosnia-and-herzegovina-vs-sweden-03-10-2026-69f7e7425c39b5554409bf62%2F&blv=blv-ngong
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/suriname.png" group-title="Giờ Vàng TV",05:00 - 03/10 | Suriname VS Guatemala (CONCACAF Nations League) | Blv Ngong
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-suriname-vs-guatemala-03-10-2026-6aaf224e4e725bdee905b7ca%2F&blv=blv-ngong
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/martinique.png" group-title="Giờ Vàng TV",07:00 - 03/10 | Martinique VS Honduras (CONCACAF Nations League) | Blvhau
