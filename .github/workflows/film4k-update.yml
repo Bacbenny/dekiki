@@ -1,0 +1,103 @@
+name: Cap nhat Film4k M3U
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-film4k:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Setup Vietnam VPN via VPN Gate
+        run: |
+          set -e
+          sudo apt-get update -qq && sudo apt-get install -y -qq openvpn
+          echo "Downloading VPN Gate server list..."
+          curl -s "https://www.vpngate.net/api/iphone/" -o /tmp/vpn_list.csv || true
+
+          # Tìm server Việt Nam
+          python3 << 'PYEOF'
+          import csv, sys, urllib.request, os
+
+          vpn_found = False
+          try:
+              with open("/tmp/vpn_list.csv", "r", errors="ignore") as f:
+              lines = f.readlines()
+              for line in lines[2:]:
+                  parts = line.strip().split(",")
+                  if len(parts) < 15:
+                      continue
+                  country = parts[6] if len(parts) > 6 else ""
+                  if "Viet" in country or "Viet Nam" in country:
+                      ovpn_url = parts[14] if len(parts) > 14 else ""
+                      if ovpn_url and ovpn_url.startswith("http"):
+                          print(f"Found Vietnam VPN: {ovpn_url}")
+                          try:
+                              urllib.request.urlretrieve(ovpn_url, "/tmp/vpn_config.ovpn")
+                              with open("/tmp/vpn_status.txt", "w") as sf:
+                                  sf.write("FOUND")
+                              vpn_found = True
+                              break
+                          except Exception as e:
+                              print(f"Download failed: {e}", file=sys.stderr)
+          except Exception as e:
+              print(f"Error parsing VPN list: {e}", file=sys.stderr)
+
+          if not vpn_found:
+              with open("/tmp/vpn_status.txt", "w") as sf:
+                  sf.write("NOT_FOUND")
+              print("No Vietnam VPN found, will try direct connection.")
+          PYEOF
+
+          VPN_STATUS=$(cat /tmp/vpn_status.txt 2>/dev/null || echo "NOT_FOUND")
+
+          if [ "$VPN_STATUS" = "FOUND" ]; then
+              echo "Starting OpenVPN..."
+              sudo openvpn --config /tmp/vpn_config.ovpn --daemon --log /tmp/openvpn.log
+              echo "Waiting for VPN connection..."
+              for i in $(seq 1 20); do
+                  if curl -s --max-time 5 https://api.ipify.org 2>/dev/null; then
+                      echo ""
+                      echo "VPN connected!"
+                      break
+                  fi
+                  sleep 2
+              done
+          else
+              echo "No VPN available. Trying direct connection..."
+          fi
+
+      - name: Fetch Film4k channels and generate M3U
+        run: |
+          python film4k_fetch.py
+
+      - name: Commit and push film4k.m3u
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add film4k.m3u
+          if git diff --staged --quiet; then
+            echo "Khong co thay doi. Bo qua commit."
+          else
+            TIMESTAMP=$(TZ='Asia/Ho_Chi_Minh' date '+%Y-%m-%d %H:%M:%S ICT')
+            git commit -m "cap nhat film4k.m3u luc ${TIMESTAMP} [skip ci]"
+            git push origin main
+          fi
