@@ -390,12 +390,36 @@ function serviceBindings() {
   return bindings;
 }
 
+
+
+async function handleFilm4k() {
+  var loginRes = await fetch("https://film4k.net/api/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "User-Agent": USER_AGENT },
+    body: JSON.stringify({ email: "dvdvbac@gmail.com", password: "Bac12345" }),
+  });
+  if (!loginRes.ok) return jsonResp({ error: "Film4k login failed", status: loginRes.status }, 502);
+  var loginData = await loginRes.json();
+  var token = loginData.token || loginData.access_token;
+  if (!token) return jsonResp({ error: "Film4k login returned no token" }, 502);
+  var channelsRes = await fetch("https://film4k.net/api/tv/channels", {
+    headers: { Accept: "application/json", "User-Agent": USER_AGENT, Authorization: "Bearer " + token },
+  });
+  if (!channelsRes.ok) return jsonResp({ error: "Film4k channels failed", status: channelsRes.status }, 502);
+  return jsonResp({ token: token, channels: await channelsRes.json() });
+}
+
 addEventListener("fetch", function(event) {
   var request = event.request, bindings = serviceBindings();
   if (request.method === "OPTIONS") {
     event.respondWith(new Response(null, { status: 204, headers: CORS_HEADERS })); return;
   }
   var url = new URL(request.url);
+  if (url.pathname === "/film4k/fetch-all" && request.method === "GET") {
+    event.respondWith(handleFilm4k().catch(function(error) {
+      return jsonResp({ error: "Film4k proxy failed", detail: String(error && error.message || error) }, 502);
+    })); return;
+  }
   if (url.pathname === "/healthz") {
     event.respondWith(jsonResp({ ok: true, worker: "dekki-relay", resolver: "sportsembed-handshake",
       relay_secret_set: Boolean(bindings.RELAY_SECRET), wasm_loaded: Boolean(bindings.STREAM_LOCK) })); return;
