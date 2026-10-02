@@ -26,32 +26,10 @@ jobs:
         run: |
           pip install requests
 
-      - name: Deploy Cloudflare Workers (including film4k-proxy)
+      - name: Fetch Film4k events from dekiiptv95 and generate M3U
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          CF_API_TOKEN:         ${{ secrets.CF_API_TOKEN }}
-          RELAY_SECRET:         ${{ secrets.RELAY_SECRET }}
+          FILM4K_PLAYLIST_URL: https://dekiiptv95.bacbenny95.workers.dev/
         run: |
-          python3 deploy_workers.py || echo "Worker deploy skipped"
-
-      - name: Determine proxy URL
-        id: proxy
-        run: |
-          if [ -n "${{ secrets.CF_API_TOKEN }}" ]; then
-            echo "url=https://dekki.bacbenny95.workers.dev/film4k" >> "$GITHUB_OUTPUT"
-          else
-            echo "url=" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Fetch Film4k channels and generate M3U
-        env:
-          FILM4K_PROXY_URL: ${{ steps.proxy.outputs.url }}
-        run: |
-          if [ -n "$FILM4K_PROXY_URL" ]; then
-            echo "Using proxy: $FILM4K_PROXY_URL"
-          else
-            echo "No proxy, trying direct connection..."
-          fi
           python3 film4k_fetch.py
 
       - name: Commit and push film4k.m3u
