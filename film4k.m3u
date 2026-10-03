@@ -49,7 +49,7 @@ https://fo-hlc.tv360.vn/bpk-tv/222/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=6e3eb0ec2ef65728b2907635010dabe9:0257b51347a6f1cbad65e380d3330038
 https://rr1-ateme.tv360.vn/live/eds/223/DASH_DRM_MHL_2s_event/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzIyMy9EQVNIX0RSTV9NSExfMnNfZXZlbnQvIiwiZXhwIjoxNzkxMDU0MzM5fQ.6rV5FFiEU9xzGXOhGfqNDnr7eaesUngptJSCjyJCY64_8A5Lua_p2dPPFCEmoL85f81RHMLOHTChgRj4UMKoSg&screen=MHL&uid=294779473
-#EXTINF:-1 tvg-id="180" tvg-name="Vie Giải Trí HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2024/01/02/23/1704211446236/d1503bd3566e_480_270.png" group-title="VTVcab",Vie Giải Trí HD
+#EXTINF:-1 tvg-id="onechannel" tvg-name="Vie Giải Trí HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2024/01/02/23/1704211446236/d1503bd3566e_480_270.png" group-title="VTVcab",Vie Giải Trí HD
 https://fo-hlc.tv360.vn/bpk-tv/211/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEwNTA4NDcsInVyaSI6Ii9icGstdHYvMjExL291dHB1dC9pbmRleC5tM3U4In0.UUh-h5kIfeXtFmzzNXCSgGktYI7IZE3gYBjqQiwXCFo&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="onphimviet" tvg-name="Phim Việt HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2021/09/07/16/1631007494845/516efb158133_480_270.png" group-title="VTVcab",Phim Việt HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Window NT 10.0; Win64; x64)
