@@ -679,6 +679,11 @@ def generate_m3u(
         reference_groups.insert(sport_position, "SportUK")
 
     ordered_channels = _order_channels(channels, reference_groups, reference_channels)
+    for channel in ordered_channels:
+        if _channel_id(channel).startswith("ants:"):
+            channel["_film4k_output_group"] = "SportUK"
+            channel["_film4k_unclassified"] = False
+
     film4k_channels_by_group: dict[str, list[dict]] = {}
     for channel in ordered_channels:
         group = channel["_film4k_output_group"]
