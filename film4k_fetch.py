@@ -968,7 +968,12 @@ def main() -> int:
         channels, cookie = fetch_channels()
         events = fetch_events(cookie)
         if not events:
-            events = [channel for channel in channels if _is_film4k_event(channel)]
+            events = [
+                channel
+                for channel in channels
+                if _is_film4k_event(channel)
+                and not _channel_id(channel).startswith("ants:")
+            ]
         resolved_channels = resolve_channel_streams(channels, cookie)
         reference_groups, reference_channels, reference_entries = (
             fetch_reference_order()

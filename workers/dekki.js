@@ -157,9 +157,13 @@ async function loadCatalog() {
   const channels = unwrap(channelsPayload, ["channels", "data", "items", "results"]);
   const eventRecords = rawEvents.length
     ? rawEvents
-    : channels.filter((channel) => /event|sự kiện|sukien|trực tiếp|tructiep/i.test(
-        `${channel.group || ""} ${channel.category || ""} ${channel.name || ""}`
-      ));
+    : channels.filter((channel) => {
+        if (String(channel.id || "").startsWith("ants:")) return false;
+        const groupText = `${channel.group || ""} ${channel.category || ""}`;
+        const name = String(channel.name || channel.title || "");
+        return /event|sự kiện|sukien|trực tiếp|tructiep/i.test(groupText)
+          || /^TV360\+\s*\d+/i.test(name);
+      });
   const events = await Promise.all(eventRecords.map((event) => eventDetails(event, cookie)));
   const data = { cookie, events, channels };
   cache.set("catalog", { ts: Date.now(), data });
