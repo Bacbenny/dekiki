@@ -1096,19 +1096,10 @@ def write_playlist(content: str) -> None:
 
 def main() -> int:
     try:
-        use_worker = not DIRECT_JWT_MODE
-        cookie = ""
-        if use_worker:
-            try:
-                channels, events, tv360_from_worker = fetch_catalog_from_worker()
-            except (Film4kError, requests.RequestException):
-                use_worker = False
-        if not use_worker:
-            channels, cookie = fetch_channels()
-            events = fetch_events(cookie)
-            tv360_from_worker = {}
-            if DIRECT_JWT_MODE:
-                events = resolve_event_streams(events, cookie)
+        channels, cookie = fetch_channels()
+        events = fetch_events(cookie)
+        if DIRECT_JWT_MODE:
+            events = resolve_event_streams(events, cookie)
         if not events:
             events = [
                 channel
@@ -1116,10 +1107,7 @@ def main() -> int:
                 if _is_film4k_event(channel)
                 and not _channel_id(channel).startswith("ants:")
             ]
-        if use_worker:
-            resolved_channels = channels
-        else:
-            resolved_channels = resolve_channel_streams(channels, cookie)
+        resolved_channels = resolve_channel_streams(channels, cookie)
         reference_groups, reference_channels, reference_entries = (
             fetch_reference_order()
         )
@@ -1129,7 +1117,6 @@ def main() -> int:
             reference_groups,
             reference_channels,
             reference_entries,
-            tv360_from_worker if use_worker else None,
         )
         write_playlist(content)
     except (Film4kError, requests.RequestException, OSError) as error:
