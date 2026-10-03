@@ -95,8 +95,8 @@ REFERENCE_NAME_ALIASES = {
     "lamdong2": "lamdong",
     "hue": "thuathienhue",
 }
-REFERENCE_REPLACE_GROUPS = {"SCTV", "Sự Kiện VTVPrime"}
-REFERENCE_MERGE_GROUPS = {"Quốc Tế"}
+REFERENCE_REPLACE_GROUPS = {"SCTV", "Quốc Tế", "Sự Kiện VTVPrime"}
+REFERENCE_MERGE_GROUPS: set[str] = set()
 REFERENCE_IMPORT_GROUPS = REFERENCE_REPLACE_GROUPS | REFERENCE_MERGE_GROUPS
 REFERENCE_STREAM_FALLBACKS = {
     "VTVcab 2 - Phim Việt HD": ("VTVcab", "ON Phim Việt"),
@@ -738,6 +738,18 @@ def generate_m3u(
             if not imported_entries:
                 raise Film4kError(
                     f"Reference playlist has no entries to import for: {group}"
+                )
+            if group == "SCTV":
+                priority = {"SCTV15": 0, "SCTV17": 1, "SCTV22": 2}
+                imported_entries = sorted(
+                    imported_entries,
+                    key=lambda entry: (
+                        priority.get(
+                            re.sub(r"[^A-Z0-9]", "", entry["name"].upper()),
+                            100,
+                        ),
+                        entry["position"][1],
+                    ),
                 )
             for entry in imported_entries:
                 lines.extend(entry["lines"])
