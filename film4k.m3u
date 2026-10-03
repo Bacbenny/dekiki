@@ -573,22 +573,28 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10008
 #EXTINF:-1 tvg-id="10009" tvg-name="360 Hành động Châu Á" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/08/10/1775617851169/1f38a5af77c1_480_270.png" group-title="Sự Kiện TV360",360 Hành động Châu Á
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=451efeb8995c47ce83705f2b0faa962f:637035f14e192f3adb7832b520dd8bf6
+#KODIPROP:inputstream.adaptive.license_key=fe82aca5f8ce4623bb6d901c199410c2:1400c6003bfcf029081c92f13983ebe2
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10009
 #EXTINF:-1 tvg-id="10010" tvg-name="360 K-Drama" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/09/21/1775744591740/79928f9b003f_480_270.png" group-title="Sự Kiện TV360",360 K-Drama
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10010
 #EXTINF:-1 tvg-id="10011" tvg-name="360 Hài -Tình cảm" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/13/13/1776063183880/03439dc9da19_480_270.png" group-title="Sự Kiện TV360",360 Hài -Tình cảm
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=ebaa320e5c1f407b84becac3392fcb6b:b6fc5ebea820bde498afded47da9a26c
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10011
 #EXTINF:-1 tvg-id="10012" tvg-name="360 Phim Kinh điển" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/13/13/1776063200976/6ced2ef539a4_480_270.png" group-title="Sự Kiện TV360",360 Phim Kinh điển
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=33efae78e28546b2add7ceb0e80bcc6c:a60773fe12093589d2718734ef20ccce
+#KODIPROP:inputstream.adaptive.license_key=f62ff343b1a74d10a5c261334ebd6821:2dc635d3cc67831a8b3a4e8b257cbdac
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10012
 #EXTINF:-1 tvg-id="10013" tvg-name="360 Anime" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/13/13/1776063223569/462daff06d9d_480_270.png" group-title="Sự Kiện TV360",360 Anime
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10013
 #EXTINF:-1 tvg-id="10045" tvg-name="360 Thiếu Nhi" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/06/18/13/1781765362332/737c1501b0c5_480_270.png" group-title="Sự Kiện TV360",360 Thiếu Nhi
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10045
 #EXTINF:-1 tvg-id="10055" tvg-name="360 Phim 4K" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/07/30/10/1785382803894/362700e9107b_480_270.png" group-title="Sự Kiện TV360",360 Phim 4K
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=f235e24690cd44febbcb27689f83c599:ada209f91f94276dcf6d76a506a03c8e
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10055
 #EXTINF:-1 group-title="Sự Kiện VTVPrime" tvg-logo="https://vtvprime.vn/sideLogoBig.png", VTVPrime 1
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
