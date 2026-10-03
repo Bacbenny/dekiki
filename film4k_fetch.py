@@ -207,7 +207,7 @@ def fetch_events(cookie: str) -> list[dict]:
         if response.ok:
             payload = response.json()
             events = payload.get("events", [])
-            if isinstance(events, list):
+            if isinstance(events, list) and events:
                 return events
     except (requests.RequestException, ValueError):
         pass
@@ -740,17 +740,21 @@ def generate_m3u(
                     f"Reference playlist has no entries to import for: {group}"
                 )
             if group == "SCTV":
-                priority = {"SCTV15": 0, "SCTV17": 1, "SCTV22": 2}
-                imported_entries = sorted(
-                    imported_entries,
-                    key=lambda entry: (
-                        priority.get(
-                            re.sub(r"[^A-Z0-9]", "", entry["name"].upper()),
-                            100,
+                priority = ("SCTV15", "SCTV17", "SCTV22")
+
+                def sctv_priority(entry: dict) -> tuple[int, int]:
+                    normalized = re.sub(r"[^A-Z0-9]", "", entry["name"].upper())
+                    rank = next(
+                        (
+                            index
+                            for index, prefix in enumerate(priority)
+                            if normalized.startswith(prefix)
                         ),
-                        entry["position"][1],
-                    ),
-                )
+                        len(priority),
+                    )
+                    return rank, entry["position"][1]
+
+                imported_entries = sorted(imported_entries, key=sctv_priority)
             for entry in imported_entries:
                 lines.extend(entry["lines"])
                 count += 1
@@ -963,6 +967,8 @@ def main() -> int:
     try:
         channels, cookie = fetch_channels()
         events = fetch_events(cookie)
+        if not events:
+            events = [channel for channel in channels if _is_film4k_event(channel)]
         resolved_channels = resolve_channel_streams(channels, cookie)
         reference_groups, reference_channels, reference_entries = (
             fetch_reference_order()

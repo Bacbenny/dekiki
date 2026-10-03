@@ -75,6 +75,8 @@ function sessionCookie(setCookie) {
 }
 
 async function login() {
+  const session = cache.get("session");
+  if (session && Date.now() - session.ts < 300000) return session.cookie;
   const username = typeof FILM4K_USERNAME !== "undefined" ? FILM4K_USERNAME : "";
   const password = typeof FILM4K_PASSWORD !== "undefined" ? FILM4K_PASSWORD : "";
   if (!username || !password) throw new Error("Film4k secrets are not configured");
@@ -87,6 +89,7 @@ async function login() {
   if (!response.ok && response.status !== 302) throw new Error(`Film4k login failed: ${response.status}`);
   const cookie = sessionCookie(response.headers.get("set-cookie"));
   if (!cookie) throw new Error("Film4k login returned no session cookie");
+  cache.set("session", { ts: Date.now(), cookie });
   return cookie;
 }
 
@@ -151,8 +154,13 @@ async function loadCatalog() {
     apiJson(`/api/tv/channels?_=${Date.now()}`, cookie),
   ]);
   const rawEvents = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
-  const events = await Promise.all(rawEvents.map((event) => eventDetails(event, cookie)));
   const channels = unwrap(channelsPayload, ["channels", "data", "items", "results"]);
+  const eventRecords = rawEvents.length
+    ? rawEvents
+    : channels.filter((channel) => /event|sự kiện|sukien|trực tiếp|tructiep/i.test(
+        `${channel.group || ""} ${channel.category || ""} ${channel.name || ""}`
+      ));
+  const events = await Promise.all(eventRecords.map((event) => eventDetails(event, cookie)));
   const data = { cookie, events, channels };
   cache.set("catalog", { ts: Date.now(), data });
   return data;
