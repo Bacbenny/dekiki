@@ -68,6 +68,10 @@ SOURCE_GROUPS = {
     "kenhquocte": "Quốc Tế",
     "sukientructiep": "Sự Kiện TV360",
     "sukientv360": "Sự Kiện TV360",
+    "sukien": "Sự Kiện TV360",
+    "event": "Sự Kiện TV360",
+    "events": "Sự Kiện TV360",
+    "eventtv360": "Sự Kiện TV360",
     "sukienvtvprime": "Sự Kiện VTVPrime",
 }
 REFERENCE_NAME_ALIASES = {
@@ -88,6 +92,9 @@ REFERENCE_NAME_ALIASES = {
     "lamdong2": "lamdong",
     "hue": "thuathienhue",
 }
+REFERENCE_REPLACE_GROUPS = {"SCTV", "Sự Kiện VTVPrime"}
+REFERENCE_MERGE_GROUPS = {"Quốc Tế"}
+REFERENCE_IMPORT_GROUPS = REFERENCE_REPLACE_GROUPS | REFERENCE_MERGE_GROUPS
 
 
 class Film4kError(RuntimeError):
@@ -369,39 +376,70 @@ def _channel_group(channel: dict) -> str:
 
 def parse_reference_playlist(
     playlist: str,
-) -> tuple[list[str], dict[str, tuple[int, int, str]]]:
+) -> tuple[list[str], dict[str, tuple[int, int, str]], list[dict]]:
     groups: list[str] = []
     channels_by_group: dict[str, int] = {}
     channel_positions: dict[str, tuple[int, int, str]] = {}
+    entries: list[dict] = []
+    current_entry: dict | None = None
+
+    def save_entry(entry: dict | None) -> None:
+        if entry is None:
+            return
+        entry["url"] = next(
+            (
+                line.strip()
+                for line in entry["lines"][1:]
+                if _is_http_url(line.strip())
+            ),
+            "",
+        )
+        entries.append(entry)
 
     for line in playlist.splitlines():
-        if not line.startswith("#EXTINF"):
-            continue
-        group_match = re.search(r'group-title="([^"]*)"', line)
-        _, separator, name = line.partition(",")
-        if not group_match or not separator:
-            continue
+        if line.startswith("#EXTINF"):
+            save_entry(current_entry)
+            current_entry = None
+            group_match = re.search(r'group-title="([^"]*)"', line)
+            _, separator, name = line.partition(",")
+            if not group_match or not separator:
+                continue
 
-        group = group_match.group(1).strip()
-        name = name.strip()
-        if not group or not name:
+            group = group_match.group(1).strip()
+            name = name.strip()
+            if not group or not name:
+                continue
+            if group not in groups:
+                groups.append(group)
+            group_index = groups.index(group)
+            channel_index = channels_by_group.get(group, 0)
+            channels_by_group[group] = channel_index + 1
+            position = (group_index, channel_index, group)
+
+            for variant in _channel_name_variants(name):
+                channel_positions.setdefault(variant, position)
+
+            logo_match = re.search(r'tvg-logo="([^"]*)"', line)
+            current_entry = {
+                "group": group,
+                "name": name,
+                "logo": logo_match.group(1).strip() if logo_match else "",
+                "position": position,
+                "lines": [line],
+            }
             continue
-        if group not in groups:
-            groups.append(group)
-        group_index = groups.index(group)
-        channel_index = channels_by_group.get(group, 0)
-        channels_by_group[group] = channel_index + 1
-        position = (group_index, channel_index, group)
+        if current_entry is not None and line.strip():
+            current_entry["lines"].append(line)
 
-        for variant in _channel_name_variants(name):
-            channel_positions.setdefault(variant, position)
-
+    save_entry(current_entry)
     if not groups or not channel_positions:
         raise Film4kError("Reference playlist did not contain grouped channels")
-    return groups, channel_positions
+    return groups, channel_positions, entries
 
 
-def fetch_reference_order() -> tuple[list[str], dict[str, tuple[int, int, str]]]:
+def fetch_reference_order() -> tuple[
+    list[str], dict[str, tuple[int, int, str]], list[dict]
+]:
     response = requests.get(
         REFERENCE_PLAYLIST_URL,
         headers={"User-Agent": USER_AGENT, "Accept": "text/plain"},
@@ -411,7 +449,22 @@ def fetch_reference_order() -> tuple[list[str], dict[str, tuple[int, int, str]]]
         raise Film4kError(
             f"Reference playlist returned HTTP {response.status_code}"
         )
-    return parse_reference_playlist(response.text)
+    groups, channel_positions, entries = parse_reference_playlist(response.text)
+    for group in REFERENCE_IMPORT_GROUPS:
+        group_entries = [entry for entry in entries if entry["group"] == group]
+        if not group_entries:
+            raise Film4kError(
+                f"Reference playlist is missing required group: {group}"
+            )
+        if any(not entry["url"] for entry in group_entries):
+            raise Film4kError(
+                f"Reference playlist group has channels without stream URLs: {group}"
+            )
+        if any(not entry["logo"] for entry in group_entries):
+            raise Film4kError(
+                f"Reference playlist group has channels without logos: {group}"
+            )
+    return groups, channel_positions, entries
 
 
 def _fallback_group(channel: dict) -> str:
@@ -431,6 +484,24 @@ def _fallback_group(channel: dict) -> str:
     if not group:
         raise Film4kError(f"Film4K channel group is not mapped: {_channel_group(channel)}")
     return group
+
+
+def _is_film4k_event(channel: dict) -> bool:
+    source_group = _normalize_group(_channel_group(channel))
+    name = _first_text(
+        channel,
+        ("name", "title", "channel_name", "channelName", "label"),
+    )
+    return source_group in {
+        "sukien",
+        "sukientructiep",
+        "sukientv360",
+        "event",
+        "events",
+        "eventtv360",
+        "thethao",
+        "kenhthethao",
+    } or _normalize_channel_name(name).startswith("tv360plus")
 
 
 def _order_channels(
@@ -455,9 +526,20 @@ def _order_channels(
             ),
             None,
         )
-        if match:
+        is_event = _is_film4k_event(channel)
+        if is_event:
+            group = "Sự Kiện TV360"
+            if group not in group_positions:
+                raise Film4kError(
+                    f"Reference playlist is missing the group: {group}"
+                )
+            group_index = group_positions[group]
+            key = (group_index, -1, input_index, input_index)
+            unclassified = False
+        elif match:
             group_index, channel_index, group = match
             key = (group_index, 0, channel_index, input_index)
+            unclassified = False
         else:
             group = _fallback_group(channel)
             if group not in group_positions:
@@ -465,10 +547,14 @@ def _order_channels(
                     f"Reference playlist is missing the group: {group}"
                 )
             group_index = group_positions[group]
-            key = (group_index, 1, input_index, input_index)
+            unclassified = group == "VTVcab"
+            bucket = 2 if unclassified else 1
+            key = (group_index, bucket, input_index, input_index)
 
         output_channel = dict(channel)
         output_channel["_film4k_output_group"] = group
+        output_channel["_film4k_unclassified"] = unclassified
+        output_channel["_film4k_is_event"] = is_event
         ordered.append((key, output_channel))
 
     ordered.sort(key=lambda item: item[0])
@@ -479,87 +565,200 @@ def generate_m3u(
     channels: list[dict],
     reference_groups: list[str],
     reference_channels: dict[str, tuple[int, int, str]],
-) -> tuple[str, int]:
+    reference_entries: list[dict],
+) -> tuple[str, int, int, int]:
     lines = ["#EXTM3U"]
     count = 0
-
-    for channel in _order_channels(channels, reference_groups, reference_channels):
-        name = _first_text(
-            channel,
-            ("name", "title", "channel_name", "channelName", "label"),
-            "Unknown",
-        )
-        logo = _first_text(
-            channel,
-            ("logo", "icon", "thumbnail", "tvg_logo", "image", "poster"),
-        )
+    event_count = 0
+    ordered_channels = _order_channels(channels, reference_groups, reference_channels)
+    unclassified_count = sum(
+        bool(channel.get("_film4k_unclassified")) for channel in ordered_channels
+    )
+    film4k_channels_by_group: dict[str, list[dict]] = {}
+    for channel in ordered_channels:
         group = channel["_film4k_output_group"]
-        tvg_id = _first_text(
-            channel,
-            ("tvg_id", "tvgId", "id", "channel_id", "channelId", "slug"),
-            name,
-        )
-        stream_url = extract_stream_url(channel)
-        if not stream_url:
+        if group not in REFERENCE_REPLACE_GROUPS:
+            film4k_channels_by_group.setdefault(group, []).append(channel)
+
+    reference_entries_by_group: dict[str, list[dict]] = {}
+    for entry in reference_entries:
+        if entry["group"] in REFERENCE_IMPORT_GROUPS:
+            reference_entries_by_group.setdefault(entry["group"], []).append(entry)
+
+    for group in reference_groups:
+        if group in REFERENCE_REPLACE_GROUPS:
+            imported_entries = reference_entries_by_group.get(group, [])
+            if not imported_entries:
+                raise Film4kError(
+                    f"Reference playlist has no entries to import for: {group}"
+                )
+            for entry in imported_entries:
+                lines.extend(entry["lines"])
+                count += 1
             continue
 
-        lines.append(
-            f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
-            f'tvg-name="{_attribute(name)}" tvg-logo="{_attribute(logo)}" '
-            f'group-title="{_attribute(group)}",{name}'
-        )
-        props = channel.get("props") or channel.get("properties") or []
-        if isinstance(props, str):
-            props = [props]
-        props = [
-            prop
-            for prop in props
-            if isinstance(prop, str)
-            and prop.startswith(("#EXTVLCOPT:", "#KODIPROP:"))
-        ] if isinstance(props, list) else []
-
-        if not any(prop.startswith("#EXTVLCOPT:http-user-agent=") for prop in props):
-            props.append(f"#EXTVLCOPT:http-user-agent={PLAYER_USER_AGENT}")
-        if not any(prop.startswith("#EXTVLCOPT:http-referrer=") for prop in props):
-            props.append(f"#EXTVLCOPT:http-referrer={FILM4K_BASE}/")
-
-        clear_key = channel.get("_film4k_clear_key")
-        if isinstance(clear_key, dict):
-            key_id = clear_key.get("keyId")
-            key = clear_key.get("key")
-            if isinstance(key_id, str) and isinstance(key, str) and key_id and key:
-                if not any(
-                    prop.startswith("#KODIPROP:inputstream.adaptive.manifest_type=")
-                    for prop in props
-                ):
-                    props.append(
-                        "#KODIPROP:inputstream.adaptive.manifest_type=mpd"
+        group_channels = film4k_channels_by_group.get(group, [])
+        group_items: list[tuple[tuple[int, int, int], str, dict]] = []
+        if group in REFERENCE_MERGE_GROUPS:
+            group_reference_entries = reference_entries_by_group.get(group, [])
+            for source_index, channel in enumerate(group_channels):
+                channel_variants = set(
+                    _channel_name_variants(
+                        _first_text(
+                            channel,
+                            ("name", "title", "channel_name", "channelName", "label"),
+                            "Unknown",
+                        )
                     )
-                if not any(
-                    prop.startswith("#KODIPROP:inputstream.adaptive.license_type=")
-                    for prop in props
-                ):
-                    props.append(
-                        "#KODIPROP:inputstream.adaptive.license_type=clearkey"
+                )
+                matching_positions = [
+                    entry["position"][1]
+                    for entry in group_reference_entries
+                    if channel_variants.intersection(
+                        _channel_name_variants(entry["name"])
                     )
-                if not any(
-                    prop.startswith("#KODIPROP:inputstream.adaptive.license_key=")
-                    for prop in props
-                ):
-                    props.append(
-                        "#KODIPROP:inputstream.adaptive.license_key="
-                        f"{key_id}:{key}"
+                ]
+                reference_index = (
+                    min(matching_positions)
+                    if matching_positions
+                    else len(group_reference_entries)
+                )
+                group_items.append(
+                    (
+                        (reference_index, 1, source_index),
+                        "film4k",
+                        channel,
                     )
+                )
 
-        lines.extend(props)
-        lines.append(stream_url)
-        count += 1
+            for entry in group_reference_entries:
+                represented = any(
+                    extract_stream_url(channel)
+                    and set(
+                        _channel_name_variants(
+                            _first_text(
+                                channel,
+                                ("name", "title", "channel_name", "channelName", "label"),
+                                "Unknown",
+                            )
+                        )
+                    ).intersection(_channel_name_variants(entry["name"]))
+                    for channel in group_channels
+                )
+                if not represented:
+                    group_items.append(
+                        (
+                            (entry["position"][1], 0, 0),
+                            "reference",
+                            entry,
+                        )
+                    )
+            group_items.sort(key=lambda item: item[0])
+        else:
+            group_items = [
+                ((source_index, 1, source_index), "film4k", channel)
+                for source_index, channel in enumerate(group_channels)
+            ]
+
+        for _, item_type, item in group_items:
+            if item_type == "reference":
+                lines.extend(item["lines"])
+                count += 1
+                continue
+
+            channel = item
+            name = _first_text(
+                channel,
+                ("name", "title", "channel_name", "channelName", "label"),
+                "Unknown",
+            )
+            logo = _first_text(
+                channel,
+                ("logo", "icon", "thumbnail", "tvg_logo", "image", "poster"),
+            )
+            tvg_id = _first_text(
+                channel,
+                ("tvg_id", "tvgId", "id", "channel_id", "channelId", "slug"),
+                name,
+            )
+            stream_url = extract_stream_url(channel)
+            if not stream_url:
+                continue
+
+            lines.append(
+                f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
+                f'tvg-name="{_attribute(name)}" tvg-logo="{_attribute(logo)}" '
+                f'group-title="{_attribute(group)}",{name}'
+            )
+            props = channel.get("props") or channel.get("properties") or []
+            if isinstance(props, str):
+                props = [props]
+            props = [
+                prop
+                for prop in props
+                if isinstance(prop, str)
+                and prop.startswith(("#EXTVLCOPT:", "#KODIPROP:"))
+            ] if isinstance(props, list) else []
+
+            if not any(
+                prop.startswith("#EXTVLCOPT:http-user-agent=") for prop in props
+            ):
+                props.append(f"#EXTVLCOPT:http-user-agent={PLAYER_USER_AGENT}")
+            if not any(
+                prop.startswith("#EXTVLCOPT:http-referrer=") for prop in props
+            ):
+                props.append(f"#EXTVLCOPT:http-referrer={FILM4K_BASE}/")
+
+            clear_key = channel.get("_film4k_clear_key")
+            if isinstance(clear_key, dict):
+                key_id = clear_key.get("keyId")
+                key = clear_key.get("key")
+                if (
+                    isinstance(key_id, str)
+                    and isinstance(key, str)
+                    and key_id
+                    and key
+                ):
+                    if not any(
+                        prop.startswith(
+                            "#KODIPROP:inputstream.adaptive.manifest_type="
+                        )
+                        for prop in props
+                    ):
+                        props.append(
+                            "#KODIPROP:inputstream.adaptive.manifest_type=mpd"
+                        )
+                    if not any(
+                        prop.startswith(
+                            "#KODIPROP:inputstream.adaptive.license_type="
+                        )
+                        for prop in props
+                    ):
+                        props.append(
+                            "#KODIPROP:inputstream.adaptive.license_type=clearkey"
+                        )
+                    if not any(
+                        prop.startswith(
+                            "#KODIPROP:inputstream.adaptive.license_key="
+                        )
+                        for prop in props
+                    ):
+                        props.append(
+                            "#KODIPROP:inputstream.adaptive.license_key="
+                            f"{key_id}:{key}"
+                        )
+
+            lines.extend(props)
+            lines.append(stream_url)
+            count += 1
+            if channel.get("_film4k_is_event"):
+                event_count += 1
 
     if count == 0:
         raise Film4kError(
             "Film4K channels could not be resolved to playable stream URLs"
         )
-    return "\n".join(lines) + "\n", count
+    return "\n".join(lines) + "\n", count, unclassified_count, event_count
 
 
 def write_playlist(content: str) -> None:
@@ -572,9 +771,14 @@ def main() -> int:
     try:
         channels, cookie = fetch_channels()
         resolved_channels = resolve_channel_streams(channels, cookie)
-        reference_groups, reference_channels = fetch_reference_order()
-        content, playable_count = generate_m3u(
-            resolved_channels, reference_groups, reference_channels
+        reference_groups, reference_channels, reference_entries = (
+            fetch_reference_order()
+        )
+        content, playable_count, unclassified_count, event_count = generate_m3u(
+            resolved_channels,
+            reference_groups,
+            reference_channels,
+            reference_entries,
         )
         write_playlist(content)
     except (Film4kError, requests.RequestException, OSError) as error:
@@ -583,8 +787,9 @@ def main() -> int:
 
     print(
         f"[film4k] Created film4k.m3u with {playable_count} playable channels "
-        f"from {len(channels)} API records; "
-        f"{len(channels) - playable_count} could not be resolved."
+        f"from {len(channels)} API records and reference playlist entries; "
+        f"added {event_count} Film4K event channels at the start of TV360; "
+        f"{unclassified_count} unclassified channels were placed at the end of VTVcab."
     )
     return 0
 
