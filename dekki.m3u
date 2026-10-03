@@ -1,22 +1,6 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/0OsJt6Fa-CxYUcq3p.png" group-title="Giờ Vàng TV",23:00 - 03/10 | Ben Whittaker VS Conor Wallace (Boxing Fight Night) | Blv Cay
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-ben-whittaker-vs-conor-wallace-03-10-2026-8cphq0hi2c0q%2F&blv=blv-cay
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/canada.png" group-title="Giờ Vàng TV",01:00 - 04/10 | Canada VS Peru (Giao hữu quốc tế) | Blv Mù
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-canada-vs-peru-04-10-2026-6ab9ae2d24d46db870ba4070%2F&blv=blv%20M%C3%B9
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/prWwhLwS-dbN3tce0.png" group-title="Giờ Vàng TV",01:30 - 04/10 | Vero Volley nữ VS Firenze nữ (Seri A1 Nữ) | Blv Sun
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-vero-volley-nu-vs-firenze-nu-04-10-2026-n4e8u2d368s8%2F&blv=blv-sun
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/north-macedonia.png" group-title="Giờ Vàng TV",01:45 - 04/10 | Bắc Macedonia VS Scotland (UEFA Nations League) | Blv Sup
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-north-macedonia-vs-scotland-04-10-2026-69f7e7425c39b5554409bf50%2F&blv=blv-sup
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/spain.png" group-title="Giờ Vàng TV",01:45 - 04/10 | Tây Ban Nha VS Cộng hòa Séc (UEFA Nations League) | Blv Ngong
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-spain-vs-czech-republic-04-10-2026-69f3f2b74bff4a0c310bf76b%2F&blv=blv-ngong
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/switzerland.png" group-title="Giờ Vàng TV",01:45 - 04/10 | Thụy Sĩ VS Slovenia (UEFA Nations League) | Mickey
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-thuy-si-vs-slovenia-04-10-2026-69f7e7425c39b5554409bf4f%2F&blv=mickey
-#EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/ivory-coast.png" group-title="Giờ Vàng TV",02:00 - 04/10 | Bờ Biển Ngà VS Cameroon (Giao hữu quốc tế) | Blv Ngong
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-bo-bien-nga-vs-cameroon-04-10-2026-6ab9ae2e24d46db870ba40fd%2F&blv=blv-ngong
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/jcQ7UvyB-dWl7UQ2D.png" group-title="Giờ Vàng TV",03:00 - 04/10 | Silva VS Wang (UFC 332) | Riko
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-silva-vs-wang-04-10-2026-bwi9yp6ebiw9%2F&blv=riko
-#EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/YeWStKhl-xUjXmOIP.png" group-title="Giờ Vàng TV",03:00 - 04/10 | Los Angeles Dodgers VS Atlanta Braves (MLB) | Blv Can
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-los-angeles-dodgers-vs-atlanta-braves-04-10-2026-zhdopk2w5f96%2F&blv=blv-can
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/atletico-mineiro.png" group-title="Giờ Vàng TV",04:30 - 04/10 | Atletico Mineiro VS Bragantino SP (VĐQG Brazil) | Blv Ngong
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-atletico-mineiro-vs-bragantino-sp-04-10-2026-6a60081e24d46db870322581%2F&blv=blv-ngong
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/plT1Aqil-OpJ5uAOg.png" group-title="Giờ Vàng TV",05:30 - 04/10 | New York Yankees VS Tampa Bay Rays (MLB) | Blv Can
@@ -28,7 +12,7 @@ https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/ap
 #EXTINF:-1 tvg-logo="https://ssl.gstatic.com/onebox/media/sports/logos/optimized/iM_hcWzccgEfD4bo-sp6Wg_96x96.png" group-title="Giờ Vàng TV",07:30 - 04/10 | San Diego Padres VS Milwaukee Brewers (MLB - Division Series) | Blv Ngu
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-san-diego-padres-vs-milwaukee-brewers-04-10-2026-bk0wjau1chgt%2F&blv=blv-ngu
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/usa.png" group-title="Giờ Vàng TV",09:00 - 04/10 | Mỹ VS Mexico (Giao hữu quốc tế) | Blvhau
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-my-vs-mexico-04-10-2026-6abaffac24d46db8707d3011%2F&blv=blvhau
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-usa-vs-mexico-04-10-2026-6abaffac24d46db8707d3011%2F&blv=blvhau
 #EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-l5PIdQVjZYRqiYzS5lUYLu_7YrH_OiJNaiTq8b3GFw&s=10" group-title="Giờ Vàng TV",10:00 - 04/10 | R64 - Bàn TT VS 2026 (China Smash 2026) | Mickey
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-r64-ban-tt-vs-2026-04-10-2026-yjp8pcj5gdbo%2F&blv=mickey
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/consadole-sapporo.png" group-title="Giờ Vàng TV",11:00 - 04/10 | Consadole Sapporo VS Iwaki FC (Hạng 2 Nhật Bản) | Blv Mason
@@ -50,7 +34,7 @@ https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/ap
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/ERrhauyS-2sRnFBPj.png" group-title="Giờ Vàng TV",15:30 - 04/10 | Barito Putera VS Persela (Indonesia - Pegadaian Championship) | Blv Mason
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-barito-putera-vs-persela-04-10-2026-k20w13z8ti4q%2F&blv=blv-mason
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/miyazaki.png" group-title="Giờ Vàng TV",17:00 - 04/10 | Miyazaki VS Omiya Ardija (Hạng 2 Nhật Bản) | Blv Tri
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-miyazaki-vs-omiya-ardija-04-10-2026-6ab9ae3124d46db870ba455d%2F&blv=blv-tri
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-miyazaki-vs-rb-omiya-ardija-04-10-2026-6ab9ae3124d46db870ba455d%2F&blv=blv-tri
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/GQO85GxS-MkO5VDN4.png" group-title="Giờ Vàng TV",17:00 - 04/10 | Obradoiro CAB VS Real Madrid (ACB) | Blv Vit
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-obradoiro-cab-vs-real-madrid-04-10-2026-njzlpe07h95m%2F&blv=blv-vit
 #EXTINF:-1 tvg-logo="https://static.flashscore.com/res/image/data/IROBodZA-z9Ihsud3.png" group-title="Giờ Vàng TV",17:00 - 04/10 | Fenerbahce nữ VS Manisa BB Nữ (Sultanlar Ligi Nữ) | Blv Sun
@@ -80,7 +64,7 @@ https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/ap
 #EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQARXwLvNfh3VIewkNu-Sy3keDOkgM_7FzQJA2CzJcw9w&s=10" group-title="Giờ Vàng TV",08:00 - 05/10 | Guerrilla FC VS Raniza FC () | Blv Mason
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-guerrilla-fc-vs-raniza-fc-05-10-2026-6o6r52atxvuz%2F&blv=blv-mason
 #EXTINF:-1 tvg-logo="https://images.keovip88.net/images/teams/nicaragua.png" group-title="Giờ Vàng TV",09:00 - 05/10 | Nicaragua VS Cộng hòa Dominican (CONCACAF Nations League) | Blvhau
-https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-nicaragua-vs-cong-hoa-dominican-05-10-2026-6aadd0cc45163e9e3e085d17%2F&blv=blvhau
+https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-nicaragua-vs-dominican-republic-05-10-2026-6aadd0cc45163e9e3e085d17%2F&blv=blvhau
 #EXTINF:-1 tvg-logo="https://cdn.keobongvip.digital/images/basketball-teams/e22caa597076764dd0d04b55d46f764e.png" group-title="Giờ Vàng TV",12:00 - 05/10 | Ulsan Hyundai Mobis Phoebus VS Jeonju KCC Egis (Korea Basketball League) | Blv Cay
 https://a9ad1c81-aa0e-4108-86a8-5b05fa562d96-00-1rp01pegi8sso.pike.replit.dev/api/giovang-relay?page=https%3A%2F%2Fgiovang.city%2Ftruc-tiep-ulsan-hyundai-mobis-phoebus-vs-jeonju-kcc-egis-05-10-2026-25750377%2F&blv=blv-cay
 #EXTINF:-1 tvg-logo="https://cdn.keobongvip.digital/images/basketball-teams/a322b3f45e8fc272b36c48003e467f20.png" group-title="Giờ Vàng TV",14:30 - 05/10 | Daegu KoGas Pegasus VS Anyang Jung Kwan Jang Red Boosters (Korea Basketball League) | Blv Leo
