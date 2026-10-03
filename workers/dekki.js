@@ -403,6 +403,107 @@ async function handleFilm4k() {
   return jsonResp({ token: token, channels: await channelsRes.json() });
 }
 
+
+
+function film4kSecret(name) {
+  try {
+    if (name === "email" && typeof FILM4K_EMAIL !== "undefined") return FILM4K_EMAIL;
+    if (name === "password" && typeof FILM4K_PASSWORD !== "undefined") return FILM4K_PASSWORD;
+  } catch (_) {}
+  return "";
+}
+
+async function film4kLogin() {
+  var email = film4kSecret("email");
+  var password = film4kSecret("password");
+  if (!email || !password) throw new Error("Film4k credentials are not configured");
+  var response = await fetch("https://film4k.net/api/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "User-Agent": USER_AGENT, Referer: "https://film4k.net/" },
+    body: JSON.stringify({ email: email, password: password }),
+  });
+  if (!response.ok) throw new Error("Film4k login failed: " + response.status);
+  var data = await response.json();
+  var token = data.token || data.access_token;
+  if (!token) throw new Error("Film4k login returned no token");
+  return token;
+}
+
+async function film4kJson(path, token) {
+  var response = await fetch("https://film4k.net/api" + path, {
+    headers: { Accept: "application/json", "User-Agent": USER_AGENT, Referer: "https://film4k.net/", Authorization: "Bearer " + token },
+  });
+  if (!response.ok) throw new Error("Film4k request failed: " + response.status);
+  return response.json();
+}
+
+function film4kItems(payload) {
+  if (Array.isArray(payload)) return payload;
+  if (!payload || typeof payload !== "object") return [];
+  for (var key of ["events", "channels", "data", "items", "results"]) {
+    if (Array.isArray(payload[key])) return payload[key];
+  }
+  return Object.keys(payload).map(function(key) { return payload[key]; }).filter(function(value) { return value && typeof value === "object" && !Array.isArray(value); });
+}
+
+function film4kId(item) {
+  return String(item.id || item.event_id || item.channel_id || item.channelId || item.slug || item.code || "");
+}
+
+function film4kText(item) {
+  return String(item.name || item.title || item.channel_name || item.event_name || item.label || "Film4k");
+}
+
+function film4kLogo(item) {
+  return String(item.logo || item.icon || item.thumbnail || item.image || item.poster || "");
+}
+
+function film4kStream(item) {
+  if (!item || typeof item !== "object") return "";
+  for (var key of ["url", "stream_url", "streamUrl", "m3u8", "playback_url", "playbackUrl", "source_url", "link"]) {
+    if (typeof item[key] === "string" && /^https?:\\/\\//i.test(item[key])) return item[key];
+  }
+  for (var key2 of ["source", "stream", "streams", "sources", "playlists", "qualities"]) {
+    var nested = item[key2];
+    if (Array.isArray(nested)) { for (var child of nested) { var found = film4kStream(child); if (found) return found; } }
+    else if (nested && typeof nested === "object") { var found2 = film4kStream(nested); if (found2) return found2; }
+  }
+  return "";
+}
+
+async function film4kPayload() {
+  var token = await film4kLogin();
+  var results = await Promise.all([film4kJson("/tv/events", token), film4kJson("/tv/channels", token)]);
+  return { events: film4kItems(results[0]), channels: film4kItems(results[1]) };
+}
+
+function film4kEntry(item, group, base) {
+  var id = film4kId(item);
+  if (!id) return "";
+  var name = film4kText(item).replace(/[\r\n]/g, " ").replace(/"/g, "'");
+  var logo = film4kLogo(item).replace(/"/g, "'");
+  return '#EXTINF:-1 tvg-id="' + id.replace(/"/g, "'") + '" tvg-name="' + name + '" tvg-logo="' + logo + '" group-title="' + group + '",' + name + "\n" + base + "/film4k/stream/" + encodeURIComponent(id) + "\n";
+}
+
+async function handleFilm4kPlaylist(request) {
+  var payload = await film4kPayload();
+  var base = new URL(request.url).origin;
+  var lines = ["#EXTM3U"];
+  payload.events.forEach(function(item) { var line = film4kEntry(item, "Sự Kiện TV360", base); if (line) lines.push(line.trimEnd()); });
+  payload.channels.forEach(function(item) { var line = film4kEntry(item, String(item.group || item.category || "Film4k"), base); if (line) lines.push(line.trimEnd()); });
+  return new Response(lines.join("\n") + "\n", { headers: Object.assign({}, CORS_HEADERS, { "Content-Type": "application/x-mpegURL; charset=utf-8", "Cache-Control": "no-store" }) });
+}
+
+async function handleFilm4kStream(request, id) {
+  var payload = await film4kPayload();
+  var all = payload.events.concat(payload.channels);
+  var item = all.find(function(candidate) { return film4kId(candidate) === id; });
+  if (!item) return jsonResp({ error: "Film4k channel not found" }, 404);
+  var stream = film4kStream(item);
+  if (!stream) return jsonResp({ error: "Film4k stream unavailable" }, 502);
+  return Response.redirect(stream, 302);
+}
+
 addEventListener("fetch", function(event) {
   var request = event.request, bindings = serviceBindings();
   if (request.method === "OPTIONS") {
@@ -411,6 +512,16 @@ addEventListener("fetch", function(event) {
   var url = new URL(request.url);
   if (url.pathname === "/film4k/fetch-all" && request.method === "GET") {
     event.respondWith(handleFilm4k().catch(function(error) { return jsonResp({ error: "Film4k proxy failed", detail: String(error && error.message || error) }, 502); })); return;
+  }
+  if (url.pathname === "/film4k/playlist.m3u" && request.method === "GET") {
+    event.respondWith(handleFilm4kPlaylist(request).catch(function(error) { return jsonResp({ error: "Film4k playlist failed", detail: String(error && error.message || error) }, 502); })); return;
+  }
+  if (url.pathname === "/film4k/events" && request.method === "GET") {
+    event.respondWith(film4kPayload().then(function(payload) { return jsonResp({ events: payload.events }); }).catch(function(error) { return jsonResp({ error: "Film4k events failed", detail: String(error && error.message || error) }, 502); })); return;
+  }
+  var film4kStreamMatch = url.pathname.match(/^\/film4k\/stream\/([^/]+)$/);
+  if (film4kStreamMatch && (request.method === "GET" || request.method === "HEAD")) {
+    event.respondWith(handleFilm4kStream(request, decodeURIComponent(film4kStreamMatch[1])).catch(function(error) { return jsonResp({ error: "Film4k stream failed", detail: String(error && error.message || error) }, 502); })); return;
   }
   if (url.pathname === "/healthz") {
     event.respondWith(jsonResp({ ok: true, worker: "dekki-relay", resolver: "sportsembed-handshake",
