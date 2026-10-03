@@ -570,10 +570,8 @@ def generate_m3u(
     lines = ["#EXTM3U"]
     count = 0
     event_count = 0
+    unclassified_count = 0
     ordered_channels = _order_channels(channels, reference_groups, reference_channels)
-    unclassified_count = sum(
-        bool(channel.get("_film4k_unclassified")) for channel in ordered_channels
-    )
     film4k_channels_by_group: dict[str, list[dict]] = {}
     for channel in ordered_channels:
         group = channel["_film4k_output_group"]
@@ -753,6 +751,8 @@ def generate_m3u(
             count += 1
             if channel.get("_film4k_is_event"):
                 event_count += 1
+            if channel.get("_film4k_unclassified"):
+                unclassified_count += 1
 
     if count == 0:
         raise Film4kError(
