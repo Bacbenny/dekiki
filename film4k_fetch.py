@@ -17,7 +17,11 @@ FILM4K_BASE = "https://film4k.net"
 REFERENCE_PLAYLIST_URL = (
     "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/dekiki"
 )
-OUTPUT_FILE = Path(__file__).with_name("film4k.m3u")
+OUTPUT_FILE = Path(
+    os.environ.get(
+        "FILM4K_OUTPUT_FILE", str(Path(__file__).with_name("film4k.m3u"))
+    )
+)
 WORKER_BASE = os.environ.get(
     "FILM4K_WORKER_URL", "https://dekki.bacbenny95.workers.dev"
 ).rstrip("/")
@@ -31,6 +35,7 @@ USER_AGENT = (
 PLAYER_USER_AGENT = (
     "Dalvik/2.1.0 (Linux; U; Android 11; Pixel Build/RQ1A.210105.003)"
 )
+DIRECT_JWT_MODE = os.environ.get("FILM4K_DIRECT_JWT", "") == "1"
 
 URL_FIELDS = (
     "url",
@@ -151,6 +156,27 @@ def _api_headers(cookie: str) -> dict[str, str]:
     }
 
 
+def fetch_catalog_from_worker() -> tuple[list[dict], list[dict], dict[str, dict]]:
+    """Fetch channels, events, and tv360 mapping from the Worker in a single request."""
+    response = requests.get(
+        f"{WORKER_BASE}/film4k/catalog",
+        headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+        timeout=15,
+    )
+    if not response.ok:
+        raise Film4kError(f"Worker catalog returned HTTP {response.status_code}")
+    try:
+        payload = response.json()
+    except ValueError as error:
+        raise Film4kError("Worker catalog did not return JSON") from error
+    channels = payload.get("channels", [])
+    events = payload.get("events", [])
+    tv360 = payload.get("tv360Channels", {})
+    if not channels:
+        raise Film4kError("Worker catalog returned no channel records")
+    return channels, events, tv360
+
+
 def fetch_channels() -> tuple[list[dict], str]:
     if not USERNAME or not PASSWORD:
         raise Film4kError(
@@ -179,7 +205,7 @@ def fetch_channels() -> tuple[list[dict], str]:
     channels_response = requests.get(
         f"{FILM4K_BASE}/api/tv/channels?_={int(time.time() * 1000)}",
         headers=_api_headers(cookie),
-        timeout=45,
+        timeout=20,
     )
     if not channels_response.ok:
         raise Film4kError(
@@ -202,7 +228,7 @@ def fetch_events(cookie: str) -> list[dict]:
         response = requests.get(
             f"{FILM4K_BASE}/api/tv/events?_={int(time.time() * 1000)}",
             headers=_api_headers(cookie),
-            timeout=45,
+            timeout=20,
         )
         if response.ok:
             events = _unwrap_channels(response.json())
@@ -214,7 +240,7 @@ def fetch_events(cookie: str) -> list[dict]:
     response = requests.get(
         f"{WORKER_BASE}/film4k/events",
         headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
-        timeout=30,
+        timeout=15,
     )
     if not response.ok:
         raise Film4kError(
@@ -232,6 +258,8 @@ def _worker_stream_url(channel: dict, is_event: bool = False) -> str:
     channel_id = _first_text(channel, ("_stream_channel_id",)) or _channel_id(channel)
     if not channel_id:
         return ""
+    if DIRECT_JWT_MODE:
+        return extract_stream_url(channel)
     return f"{WORKER_BASE}/film4k/stream/{kind}/{quote(channel_id, safe='')}"
 
 
@@ -314,7 +342,7 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
             f"{FILM4K_BASE}/api/tv/{quote(channel_id, safe='')}/stream"
             f"?_={int(time.time() * 1000)}",
             headers=_api_headers(cookie),
-            timeout=45,
+            timeout=20,
         )
         if not response.ok:
             return channel
@@ -336,8 +364,45 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
 
 def resolve_channel_streams(channels: list[dict], cookie: str) -> list[dict]:
     """Resolve channel records that do not include a stream URL, as the Worker does."""
-    with ThreadPoolExecutor(max_workers=8) as executor:
+    with ThreadPoolExecutor(max_workers=20) as executor:
         return list(executor.map(lambda ch: _resolve_one_channel(ch, cookie), channels))
+
+
+def _resolve_one_event(event: dict, cookie: str) -> dict:
+    event_id = _channel_id(event)
+    if not event_id or extract_stream_url(event):
+        return event
+    for path in (
+        f"/api/tv/events/{quote(event_id, safe='')}/stream",
+        f"/api/tv/event/{quote(event_id, safe='')}/stream",
+        f"/api/tv/{quote(event_id, safe='')}/stream",
+    ):
+        try:
+            response = requests.get(
+                f"{FILM4K_BASE}{path}?_={int(time.time() * 1000)}",
+                headers=_api_headers(cookie),
+                timeout=20,
+            )
+            if not response.ok:
+                continue
+            payload = response.json()
+        except (requests.RequestException, ValueError):
+            continue
+        stream_url = extract_stream_url(payload) if isinstance(payload, dict) else ""
+        if not stream_url:
+            continue
+        resolved = dict(event)
+        resolved["url"] = stream_url
+        clear_key = _clear_key(payload)
+        if clear_key:
+            resolved["_film4k_clear_key"] = clear_key
+        return resolved
+    return event
+
+
+def resolve_event_streams(events: list[dict], cookie: str) -> list[dict]:
+    with ThreadPoolExecutor(max_workers=20) as executor:
+        return list(executor.map(lambda event: _resolve_one_event(event, cookie), events))
 
 
 def _first_text(channel: dict, keys: tuple[str, ...], default: str = "") -> str:
@@ -498,7 +563,7 @@ def fetch_reference_order() -> tuple[
     response = requests.get(
         REFERENCE_PLAYLIST_URL,
         headers={"User-Agent": USER_AGENT, "Accept": "text/plain"},
-        timeout=45,
+        timeout=20,
     )
     if not response.ok:
         raise Film4kError(
@@ -675,6 +740,7 @@ def generate_m3u(
     reference_groups: list[str],
     reference_channels: dict[str, tuple[int, int, str]],
     reference_entries: list[dict],
+    tv360_override: dict[str, dict] | None = None,
 ) -> tuple[str, int, int, int]:
     lines = ["#EXTM3U"]
     count = 0
@@ -701,30 +767,33 @@ def generate_m3u(
             film4k_channels_by_group.setdefault(group, []).append(channel)
 
     tv360_channels: dict[str, dict] = {}
-    for channel in channels:
-        channel_name = _first_text(
-            channel,
-            ("name", "title", "channel_name", "channelName", "label"),
-        )
-        channel_match = re.search(r"tv360\s*\+\s*(\d+)", channel_name, re.IGNORECASE)
-        channel_id = _channel_id(channel)
-        if channel_match and channel_id:
-            number = channel_match.group(1)
-            current = tv360_channels.get(number)
-            channel_clear_key = (
-                channel.get("_film4k_clear_key")
-                or channel.get("clearKey")
-                or channel.get("clear_key")
+    if tv360_override is not None:
+        tv360_channels = dict(tv360_override)
+    if not tv360_channels:
+        for channel in channels:
+            channel_name = _first_text(
+                channel,
+                ("name", "title", "channel_name", "channelName", "label"),
             )
-            current_clear_key = (
-                current.get("_film4k_clear_key")
-                or current.get("clearKey")
-                or current.get("clear_key")
-                if current
-                else None
-            )
-            if current is None or (channel_clear_key and not current_clear_key):
-                tv360_channels[number] = channel
+            channel_match = re.search(r"tv360\s*\+\s*(\d+)", channel_name, re.IGNORECASE)
+            channel_id = _channel_id(channel)
+            if channel_match and channel_id:
+                number = channel_match.group(1)
+                current = tv360_channels.get(number)
+                channel_clear_key = (
+                    channel.get("_film4k_clear_key")
+                    or channel.get("clearKey")
+                    or channel.get("clear_key")
+                )
+                current_clear_key = (
+                    current.get("_film4k_clear_key")
+                    or current.get("clearKey")
+                    or current.get("clear_key")
+                    if current
+                    else None
+                )
+                if current is None or (channel_clear_key and not current_clear_key):
+                    tv360_channels[number] = channel
 
     reference_entries_by_group: dict[str, list[dict]] = {}
     for entry in reference_entries:
@@ -1027,8 +1096,19 @@ def write_playlist(content: str) -> None:
 
 def main() -> int:
     try:
-        channels, cookie = fetch_channels()
-        events = fetch_events(cookie)
+        use_worker = not DIRECT_JWT_MODE
+        cookie = ""
+        if use_worker:
+            try:
+                channels, events, tv360_from_worker = fetch_catalog_from_worker()
+            except (Film4kError, requests.RequestException):
+                use_worker = False
+        if not use_worker:
+            channels, cookie = fetch_channels()
+            events = fetch_events(cookie)
+            tv360_from_worker = {}
+            if DIRECT_JWT_MODE:
+                events = resolve_event_streams(events, cookie)
         if not events:
             events = [
                 channel
@@ -1036,7 +1116,10 @@ def main() -> int:
                 if _is_film4k_event(channel)
                 and not _channel_id(channel).startswith("ants:")
             ]
-        resolved_channels = resolve_channel_streams(channels, cookie)
+        if use_worker:
+            resolved_channels = channels
+        else:
+            resolved_channels = resolve_channel_streams(channels, cookie)
         reference_groups, reference_channels, reference_entries = (
             fetch_reference_order()
         )
@@ -1046,6 +1129,7 @@ def main() -> int:
             reference_groups,
             reference_channels,
             reference_entries,
+            tv360_from_worker if use_worker else None,
         )
         write_playlist(content)
     except (Film4kError, requests.RequestException, OSError) as error:

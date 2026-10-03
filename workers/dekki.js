@@ -379,6 +379,12 @@ async function handle(request) {
     const catalog = await loadCatalog();
     return jsonResponse({ events: catalog.events, count: catalog.events.length });
   }
+  if (url.pathname === "/film4k/catalog" && request.method === "GET") {
+    const catalog = await loadCatalog();
+    const tv360Obj = {};
+    for (const [num, ch] of catalog.tv360Channels) tv360Obj[num] = ch;
+    return jsonResponse({ events: catalog.events, channels: catalog.channels, tv360Channels: tv360Obj });
+  }
   if (url.pathname === "/film4k/cache/clear" && request.method === "GET") {
     cache.clear();
     catalogPromise = null;
