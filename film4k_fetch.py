@@ -292,7 +292,18 @@ def _clear_key(payload: object) -> dict[str, str] | None:
 
 
 def _resolve_one_channel(channel: dict, cookie: str) -> dict:
-    if extract_stream_url(channel):
+    channel_name = _first_text(
+        channel,
+        ("name", "title", "channel_name", "channelName", "label"),
+    )
+    has_clear_key = (
+        channel.get("_film4k_clear_key")
+        or channel.get("clearKey")
+        or channel.get("clear_key")
+    )
+    if extract_stream_url(channel) and (
+        has_clear_key or not re.search(r"tv360\s*\+\s*\d+", channel_name, re.IGNORECASE)
+    ):
         return channel
     channel_id = _channel_id(channel)
     if not channel_id:
