@@ -1032,8 +1032,6 @@ def generate_m3u(
                 ref_tvg_id = _lookup_reference_tvg_id(name, reference_tvg_ids)
                 if ref_tvg_id:
                     tvg_id = ref_tvg_id
-                elif tvg_id.isdigit():
-                    tvg_id = ""
             reference_fallback = _reference_stream_fallback(
                 name,
                 group,
@@ -1141,6 +1139,18 @@ def generate_m3u(
         )
 
     blocks = filtered_blocks
+    cleaned_blocks: list[tuple[str, list[str]]] = []
+    for group, block in blocks:
+        header = block[0]
+        tvg_id_match = re.search(r'tvg-id="([^"]*)"', header)
+        if tvg_id_match and tvg_id_match.group(1).isdigit():
+            header = header.replace(
+                f'tvg-id="{tvg_id_match.group(1)}"',
+                'tvg-id=""',
+            )
+            block = [header] + block[1:]
+        cleaned_blocks.append((group, block))
+    blocks = cleaned_blocks
     output_lines = ["#EXTM3U"]
     for _, block in blocks:
         output_lines.extend(block)
