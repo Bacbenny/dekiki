@@ -329,9 +329,7 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
         or channel.get("clearKey")
         or channel.get("clear_key")
     )
-    if extract_stream_url(channel) and (
-        has_clear_key or not re.search(r"tv360\s*\+\s*\d+", channel_name, re.IGNORECASE)
-    ):
+    if extract_stream_url(channel) and has_clear_key:
         return channel
     channel_id = _channel_id(channel)
     if not channel_id:
