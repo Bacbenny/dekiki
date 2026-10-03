@@ -1032,6 +1032,8 @@ def generate_m3u(
                 ref_tvg_id = _lookup_reference_tvg_id(name, reference_tvg_ids)
                 if ref_tvg_id:
                     tvg_id = ref_tvg_id
+                elif tvg_id.isdigit():
+                    tvg_id = ""
             reference_fallback = _reference_stream_fallback(
                 name,
                 group,
