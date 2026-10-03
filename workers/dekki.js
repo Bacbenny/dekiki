@@ -6,6 +6,9 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type,Authorization",
 };
 
+const CACHE_TTL = 60;
+const cache = new Map();
+
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
@@ -29,6 +32,7 @@ function unwrap(payload, keys) {
   for (const key of keys) {
     if (Array.isArray(payload[key])) return payload[key];
   }
+  if (Array.isArray(payload.data)) return payload.data;
   return Object.values(payload).filter((value) => value && typeof value === "object" && !Array.isArray(value));
 }
 
@@ -93,16 +97,20 @@ async function apiJson(path, cookie) {
 }
 
 async function loadCatalog() {
+  const cached = cache.get("catalog");
+  if (cached && Date.now() - cached.ts < CACHE_TTL * 1000) {
+    return cached.data;
+  }
   const cookie = await login();
   const [eventsPayload, channelsPayload] = await Promise.all([
-    apiJson(`/api/tv/events?_=${Date.now()}`, cookie),
+    apiJson(`/api/tv/events?_=${Date.now()}`, cookie).catch(() => null),
     apiJson(`/api/tv/channels?_=${Date.now()}`, cookie),
   ]);
-  return {
-    cookie,
-    events: unwrap(eventsPayload, ["events", "data", "items", "results"]),
-    channels: unwrap(channelsPayload, ["channels", "data", "items", "results"]),
-  };
+  const events = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
+  const channels = unwrap(channelsPayload, ["channels", "data", "items", "results"]);
+  const data = { cookie, events, channels };
+  cache.set("catalog", { ts: Date.now(), data });
+  return data;
 }
 
 function m3uAttribute(value) {
@@ -132,7 +140,7 @@ async function playlist(request) {
     if (line) lines.push(line);
   }
   return new Response(`${lines.join("\n")}\n`, {
-    headers: { ...CORS_HEADERS, "Content-Type": "application/x-mpegURL; charset=utf-8", "Cache-Control": "no-store" },
+    headers: { ...CORS_HEADERS, "Content-Type": "application/x-mpegURL; charset=utf-8", "Cache-Control": "public, max-age=60" },
   });
 }
 
@@ -143,8 +151,10 @@ async function resolveStream(kind, id) {
   if (!item) return jsonResponse({ error: "Film4k item not found" }, 404);
   let stream = streamOf(item);
   if (!stream) {
-    const resolved = await apiJson(`/api/tv/${encodeURIComponent(id)}/stream?_=${Date.now()}`, catalog.cookie);
-    stream = streamOf(resolved);
+    try {
+      const resolved = await apiJson(`/api/tv/${encodeURIComponent(id)}/stream?_=${Date.now()}`, catalog.cookie);
+      stream = streamOf(resolved);
+    } catch (_) {}
   }
   if (!stream) return jsonResponse({ error: "Film4k stream is unavailable" }, 502);
   return Response.redirect(stream, 302);
@@ -153,11 +163,28 @@ async function resolveStream(kind, id) {
 async function handle(request) {
   if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS_HEADERS });
   const url = new URL(request.url);
-  if (url.pathname === "/healthz") return jsonResponse({ ok: true, worker: "film4k" });
+  if (url.pathname === "/healthz") return jsonResponse({ ok: true, worker: "film4k", cached: cache.has("catalog") });
+  if (url.pathname === "/film4k/debug" && request.method === "GET") {
+    const cookie = await login();
+    const [ev, ch] = await Promise.all([
+      apiJson(`/api/tv/events?_=${Date.now()}`, cookie).catch((e) => ({ error: String(e.message || e) })),
+      apiJson(`/api/tv/channels?_=${Date.now()}`, cookie).catch((e) => ({ error: String(e.message || e) })),
+    ]);
+    return jsonResponse({
+      events_raw: JSON.stringify(ev).slice(0, 2000),
+      channels_raw: JSON.stringify(ch).slice(0, 500),
+      events_keys: ev && typeof ev === "object" ? Object.keys(ev) : [],
+      channels_keys: ch && typeof ch === "object" ? Object.keys(ch) : [],
+    });
+  }
   if (url.pathname === "/film4k/playlist.m3u" && request.method === "GET") return playlist(request);
   if (url.pathname === "/film4k/events" && request.method === "GET") {
     const catalog = await loadCatalog();
-    return jsonResponse({ events: catalog.events });
+    return jsonResponse({ events: catalog.events, count: catalog.events.length });
+  }
+  if (url.pathname === "/film4k/cache/clear" && request.method === "GET") {
+    cache.clear();
+    return jsonResponse({ ok: true, message: "cache cleared" });
   }
   const match = url.pathname.match(/^\/film4k\/stream\/(event|channel)\/([^/]+)$/);
   if (match && (request.method === "GET" || request.method === "HEAD")) {

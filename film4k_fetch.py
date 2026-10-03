@@ -198,6 +198,20 @@ def fetch_channels() -> tuple[list[dict], str]:
 
 
 def fetch_events(cookie: str) -> list[dict]:
+    try:
+        response = requests.get(
+            f"{WORKER_BASE}/film4k/events",
+            headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+            timeout=30,
+        )
+        if response.ok:
+            payload = response.json()
+            events = payload.get("events", [])
+            if isinstance(events, list):
+                return events
+    except (requests.RequestException, ValueError):
+        pass
+
     response = requests.get(
         f"{FILM4K_BASE}/api/tv/events?_={int(time.time() * 1000)}",
         headers=_api_headers(cookie),
