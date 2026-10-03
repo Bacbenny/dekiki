@@ -2,7 +2,7 @@ name: Cap nhat Film4k channel M3U
 
 on:
   schedule:
-    - cron: "0 */2 * * *"
+    - cron: "*/30 * * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -30,6 +30,8 @@ jobs:
         env:
           FILM4K_USERNAME: ${{ secrets.FILM4K_USERNAME }}
           FILM4K_PASSWORD: ${{ secrets.FILM4K_PASSWORD }}
+          FILM4K_DIRECT_JWT: "1"
+          FILM4K_OUTPUT_FILE: film4k.m3u
         run: python3 film4k_fetch.py
 
       - name: Commit and push film4k.m3u

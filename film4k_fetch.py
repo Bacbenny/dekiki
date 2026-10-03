@@ -263,6 +263,46 @@ def _worker_stream_url(channel: dict, is_event: bool = False) -> str:
     return f"{WORKER_BASE}/film4k/stream/{kind}/{quote(channel_id, safe='')}"
 
 
+def _worker_fallback_url(channel: dict, is_event: bool = False) -> str:
+    kind = "event" if is_event else "channel"
+    channel_id = _first_text(channel, ("_stream_channel_id",)) or _channel_id(channel)
+    if not channel_id:
+        return ""
+    return f"{WORKER_BASE}/film4k/stream/{kind}/{quote(channel_id, safe='')}"
+
+
+def _append_worker_fallback(
+    lines: list[str],
+    channel: dict,
+    name: str,
+    logo: str,
+    tvg_id: str,
+    group: str,
+    clear_key: object,
+    is_event: bool = False,
+) -> int:
+    if not DIRECT_JWT_MODE:
+        return 0
+    fallback_url = _worker_fallback_url(channel, is_event=is_event)
+    if not fallback_url:
+        return 0
+    fallback_name = f"{name} (Worker fallback)"
+    lines.append(
+        f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
+        f'tvg-name="{_attribute(fallback_name)}" tvg-logo="{_attribute(logo)}" '
+        f'group-title="{_attribute(group)}",{fallback_name}'
+    )
+    if isinstance(clear_key, dict):
+        key_id = clear_key.get("keyId") or clear_key.get("key_id")
+        key = clear_key.get("key")
+        if isinstance(key_id, str) and isinstance(key, str) and key_id and key:
+            lines.append("#KODIPROP:inputstream.adaptive.manifest_type=mpd")
+            lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
+            lines.append(f"#KODIPROP:inputstream.adaptive.license_key={key_id}:{key}")
+    lines.append(fallback_url)
+    return 1
+
+
 def _nested_stream_url(value: object, depth: int = 0) -> str:
     if depth > 5:
         return ""
@@ -628,6 +668,31 @@ def _is_film4k_event(channel: dict) -> bool:
     } or _normalize_channel_name(name).startswith("tv360plus")
 
 
+def _dedupe_events(events: list[dict]) -> list[dict]:
+    unique: list[dict] = []
+    seen: set[str] = set()
+    for event in events:
+        name = _first_text(
+            event,
+            ("name", "title", "event_name", "label"),
+        )
+        normalized_name = _normalize_channel_name(name)
+        tv360_match = re.search(r"tv360\s*\+\s*(\d+)", name, re.IGNORECASE)
+        event_id = _channel_id(event)
+        key = (
+            f"tv360:{tv360_match.group(1)}"
+            if tv360_match
+            else f"name:{normalized_name}"
+            if normalized_name
+            else f"id:{event_id}"
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(event)
+    return unique
+
+
 def _reference_stream_fallback(
     name: str,
     group: str,
@@ -752,7 +817,8 @@ def generate_m3u(
         reference_groups = [*reference_groups]
         reference_groups.insert(sport_position, "SportUK")
 
-    ordered_channels = _order_channels(channels, reference_groups, reference_channels)
+    channel_records = [channel for channel in channels if not _is_film4k_event(channel)]
+    ordered_channels = _order_channels(channel_records, reference_groups, reference_channels)
     for channel in ordered_channels:
         if _channel_id(channel).startswith("ants:"):
             channel["_film4k_output_group"] = "SportUK"
@@ -859,8 +925,18 @@ def generate_m3u(
                         lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
                         lines.append(f"#KODIPROP:inputstream.adaptive.license_key={key_id}:{key}")
                 lines.append(worker_url)
-                count += 1
-                event_count += 1
+                fallback_count = _append_worker_fallback(
+                    lines,
+                    event_record,
+                    name,
+                    logo,
+                    tvg_id,
+                    "Sự Kiện TV360",
+                    clear_key,
+                    is_event=not bool(channel_id),
+                )
+                count += 1 + fallback_count
+                event_count += 1 + fallback_count
 
         if group in REFERENCE_REPLACE_GROUPS:
             imported_entries = reference_entries_by_group.get(group, [])
@@ -1026,9 +1102,18 @@ def generate_m3u(
                     )
 
             lines.append(worker_url)
-            count += 1
+            fallback_count = _append_worker_fallback(
+                lines,
+                channel,
+                name,
+                logo,
+                tvg_id,
+                group,
+                clear_key,
+            )
+            count += 1 + fallback_count
             if channel.get("_film4k_is_event"):
-                event_count += 1
+                event_count += 1 + fallback_count
             if channel.get("_film4k_unclassified"):
                 unclassified_count += 1
 
@@ -1098,6 +1183,7 @@ def main() -> int:
         events = fetch_events(cookie)
         if DIRECT_JWT_MODE:
             events = resolve_event_streams(events, cookie)
+        events = _dedupe_events(events)
         if not events:
             events = [
                 channel
