@@ -190,14 +190,21 @@ async function playlist(request) {
 }
 
 async function resolveStream(kind, id) {
-  const catalog = await loadCatalog();
-  const records = kind === "event" ? catalog.events : catalog.channels;
-  const item = records.find((candidate) => idOf(candidate) === id);
-  if (!item) return jsonResponse({ error: "Film4k item not found" }, 404);
-  let stream = streamOf(item);
+  const cookie = await login();
+  let stream = "";
+  if (kind === "event") {
+    stream = streamOf(await eventDetails({ id }, cookie));
+  } else {
+    try {
+      const payload = await apiJson(`/api/tv/${encodeURIComponent(id)}/stream?_=${Date.now()}`, cookie);
+      stream = streamOf(payload);
+    } catch (_) {}
+  }
   if (!stream) {
-    const details = await eventDetails(item, catalog.cookie);
-    stream = streamOf(details);
+    const catalog = await loadCatalog();
+    const records = kind === "event" ? catalog.events : catalog.channels;
+    const item = records.find((candidate) => idOf(candidate) === id);
+    stream = streamOf(item);
   }
   if (!stream) return jsonResponse({ error: "Film4k stream is unavailable" }, 502);
   return Response.redirect(stream, 302);

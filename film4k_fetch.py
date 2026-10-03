@@ -907,29 +907,34 @@ def generate_m3u(
     if current_lines:
         blocks.append((current_group, current_lines))
 
-    sport_blocks: list[tuple[str, list[str]]] = []
-    remaining_blocks: list[tuple[str, list[str]]] = []
+    filtered_blocks: list[tuple[str, list[str]]] = []
+    phim_viet_block: tuple[str, list[str]] | None = None
+    vtvcab_one_block: tuple[str, list[str]] | None = None
     for group, block in blocks:
         if re.search(r'tvg-id="ants:[^"]+"', block[0]):
-            block[0] = block[0].replace(
-                f'group-title="{group}"', 'group-title="SportUK"'
-            )
-            sport_blocks.append(("SportUK", block))
-        else:
-            remaining_blocks.append((group, block))
+            continue
+        name = block[0].split(",", 1)[-1].strip()
+        if name == "Phim Việt":
+            phim_viet_block = (group, block)
+            continue
+        if name == "VTVcab 1 - Vie Giải Trí HD":
+            vtvcab_one_block = (group, block)
+            continue
+        filtered_blocks.append((group, block))
 
-    if sport_blocks:
-        reordered: list[tuple[str, list[str]]] = []
-        inserted = False
-        for group, block in remaining_blocks:
-            reordered.append((group, block))
-            if group == "Quốc Tế":
-                reordered.extend(sport_blocks)
-                inserted = True
-        if not inserted:
-            reordered.extend(sport_blocks)
-        blocks = reordered
+    if phim_viet_block and vtvcab_one_block:
+        target_index = next(
+            index
+            for index, (group, block) in enumerate(blocks)
+            if block is phim_viet_block[1]
+        )
+        replacement = vtvcab_one_block[1]
+        filtered_blocks.insert(
+            min(target_index, len(filtered_blocks)),
+            ("VTVcab", replacement),
+        )
 
+    blocks = filtered_blocks
     output_lines = ["#EXTM3U"]
     for _, block in blocks:
         output_lines.extend(block)
