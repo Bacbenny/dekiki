@@ -494,11 +494,12 @@ def _channel_group(channel: dict) -> str:
 
 def parse_reference_playlist(
     playlist: str,
-) -> tuple[list[str], dict[str, tuple[int, int, str]], list[dict]]:
+) -> tuple[list[str], dict[str, tuple[int, int, str]], list[dict], dict[str, str]]:
     groups: list[str] = []
     channels_by_group: dict[str, int] = {}
     channel_positions: dict[str, tuple[int, int, str]] = {}
     entries: list[dict] = []
+    tvg_id_by_variant: dict[str, str] = {}
     current_entry: dict | None = None
 
     def save_entry(entry: dict | None) -> None:
@@ -534,8 +535,13 @@ def parse_reference_playlist(
             channels_by_group[group] = channel_index + 1
             position = (group_index, channel_index, group)
 
+            tvg_id_match = re.search(r'tvg-id="([^"]*)"', line)
+            ref_tvg_id = tvg_id_match.group(1).strip() if tvg_id_match else ""
+
             for variant in _channel_name_variants(name):
                 channel_positions.setdefault(variant, position)
+                if ref_tvg_id and variant not in tvg_id_by_variant:
+                    tvg_id_by_variant[variant] = ref_tvg_id
 
             logo_match = re.search(r'tvg-logo="([^"]*)"', line)
             current_entry = {
@@ -552,11 +558,11 @@ def parse_reference_playlist(
     save_entry(current_entry)
     if not groups or not channel_positions:
         raise Film4kError("Reference playlist did not contain grouped channels")
-    return groups, channel_positions, entries
+    return groups, channel_positions, entries, tvg_id_by_variant
 
 
 def fetch_reference_order() -> tuple[
-    list[str], dict[str, tuple[int, int, str]], list[dict]
+    list[str], dict[str, tuple[int, int, str]], list[dict], dict[str, str]
 ]:
     response = requests.get(
         REFERENCE_PLAYLIST_URL,
@@ -567,7 +573,7 @@ def fetch_reference_order() -> tuple[
         raise Film4kError(
             f"Reference playlist returned HTTP {response.status_code}"
         )
-    groups, channel_positions, entries = parse_reference_playlist(response.text)
+    groups, channel_positions, entries, tvg_id_by_variant = parse_reference_playlist(response.text)
     for group in REFERENCE_IMPORT_GROUPS:
         group_entries = [entry for entry in entries if entry["group"] == group]
         if not group_entries:
@@ -582,7 +588,27 @@ def fetch_reference_order() -> tuple[
             raise Film4kError(
                 f"Reference playlist group has channels without logos: {group}"
             )
-    return groups, channel_positions, entries
+    return groups, channel_positions, entries, tvg_id_by_variant
+
+
+def _strip_vtvcab_prefix(name: str) -> str:
+    match = re.match(
+        r"^\s*VTVcab\s*\d+\s*(?:[-\u2013\u2014:]\s*)?(.*)$",
+        name,
+        re.IGNORECASE,
+    )
+    stripped = match.group(1).strip() if match and match.group(1).strip() else ""
+    return stripped or name
+
+
+def _lookup_reference_tvg_id(
+    name: str,
+    tvg_id_by_variant: dict[str, str],
+) -> str:
+    for variant in _channel_name_variants(name):
+        if variant in tvg_id_by_variant:
+            return tvg_id_by_variant[variant]
+    return ""
 
 
 def _fallback_group(channel: dict) -> str:
@@ -764,6 +790,7 @@ def generate_m3u(
     reference_channels: dict[str, tuple[int, int, str]],
     reference_entries: list[dict],
     tv360_override: dict[str, dict] | None = None,
+    reference_tvg_ids: dict[str, str] | None = None,
 ) -> tuple[str, int, int, int]:
     lines = ["#EXTM3U"]
     count = 0
@@ -990,6 +1017,7 @@ def generate_m3u(
                 ("name", "title", "channel_name", "channelName", "label"),
                 "Unknown",
             )
+            display_name = _strip_vtvcab_prefix(name) if group == "VTVcab" else name
             logo = _first_text(
                 channel,
                 ("logo", "icon", "thumbnail", "tvg_logo", "image", "poster"),
@@ -999,6 +1027,10 @@ def generate_m3u(
                 ("tvg_id", "tvgId", "id", "channel_id", "channelId", "slug"),
                 name,
             )
+            if group == "VTVcab" and reference_tvg_ids:
+                ref_tvg_id = _lookup_reference_tvg_id(name, reference_tvg_ids)
+                if ref_tvg_id:
+                    tvg_id = ref_tvg_id
             reference_fallback = _reference_stream_fallback(
                 name,
                 group,
@@ -1007,8 +1039,8 @@ def generate_m3u(
             if reference_fallback:
                 lines.append(
                     f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
-                    f'tvg-name="{_attribute(name)}" tvg-logo="{_attribute(logo)}" '
-                    f'group-title="{_attribute(group)}",{name}'
+                    f'tvg-name="{_attribute(display_name)}" tvg-logo="{_attribute(logo)}" '
+                    f'group-title="{_attribute(group)}",{display_name}'
                 )
                 lines.extend(reference_fallback["lines"][1:])
                 count += 1
@@ -1027,8 +1059,8 @@ def generate_m3u(
 
             lines.append(
                 f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
-                f'tvg-name="{_attribute(name)}" tvg-logo="{_attribute(logo)}" '
-                f'group-title="{_attribute(group)}",{name}'
+                f'tvg-name="{_attribute(display_name)}" tvg-logo="{_attribute(logo)}" '
+                f'group-title="{_attribute(group)}",{display_name}'
             )
 
             clear_key = channel.get("_film4k_clear_key") or channel.get("clearKey")
@@ -1088,7 +1120,7 @@ def generate_m3u(
         if name == "Phim Việt":
             phim_viet_block = (group, block)
             continue
-        if name == "VTVcab 1 - Vie Giải Trí HD":
+        if name in ("VTVcab 1 - Vie Giải Trí HD", "Vie Giải Trí HD"):
             vtvcab_one_block = (group, block)
             continue
         filtered_blocks.append((group, block))
@@ -1133,7 +1165,7 @@ def main() -> int:
                 and not _channel_id(channel).startswith("ants:")
             ]
         resolved_channels = resolve_channel_streams(channels, cookie)
-        reference_groups, reference_channels, reference_entries = (
+        reference_groups, reference_channels, reference_entries, reference_tvg_ids = (
             fetch_reference_order()
         )
         content, playable_count, unclassified_count, event_count = generate_m3u(
@@ -1142,6 +1174,7 @@ def main() -> int:
             reference_groups,
             reference_channels,
             reference_entries,
+            reference_tvg_ids=reference_tvg_ids,
         )
         write_playlist(content)
     except (Film4kError, requests.RequestException, OSError) as error:
