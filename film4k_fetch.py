@@ -891,7 +891,49 @@ def generate_m3u(
         raise Film4kError(
             "Film4K channels could not be resolved to playable stream URLs"
         )
-    return "\n".join(lines) + "\n", count, unclassified_count, event_count
+
+    blocks: list[tuple[str, list[str]]] = []
+    current_group = ""
+    current_lines: list[str] = []
+    for line in lines[1:]:
+        if line.startswith("#EXTINF"):
+            if current_lines:
+                blocks.append((current_group, current_lines))
+            group_match = re.search(r'group-title="([^"]*)"', line)
+            current_group = group_match.group(1) if group_match else ""
+            current_lines = [line]
+        elif current_lines:
+            current_lines.append(line)
+    if current_lines:
+        blocks.append((current_group, current_lines))
+
+    sport_blocks: list[tuple[str, list[str]]] = []
+    remaining_blocks: list[tuple[str, list[str]]] = []
+    for group, block in blocks:
+        if re.search(r'tvg-id="ants:[^"]+"', block[0]):
+            block[0] = block[0].replace(
+                f'group-title="{group}"', 'group-title="SportUK"'
+            )
+            sport_blocks.append(("SportUK", block))
+        else:
+            remaining_blocks.append((group, block))
+
+    if sport_blocks:
+        reordered: list[tuple[str, list[str]]] = []
+        inserted = False
+        for group, block in remaining_blocks:
+            reordered.append((group, block))
+            if group == "Quốc Tế":
+                reordered.extend(sport_blocks)
+                inserted = True
+        if not inserted:
+            reordered.extend(sport_blocks)
+        blocks = reordered
+
+    output_lines = ["#EXTM3U"]
+    for _, block in blocks:
+        output_lines.extend(block)
+    return "\n".join(output_lines) + "\n", count, unclassified_count, event_count
 
 
 def write_playlist(content: str) -> None:
