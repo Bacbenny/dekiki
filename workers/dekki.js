@@ -12,6 +12,31 @@ const STREAM_TTL = 25000;
 const STREAM_URL_FIELDS = ["url", "stream_url", "streamUrl", "link", "playbackUrl", "playback_url", "manifest", "src", "stream", "hls", "m3u8", "mpd"];
 const STREAM_CONTAINER_FIELDS = ["sources", "streams", "qualities", "resolutions", "playlists", "source", "data"];
 
+const SOURCE_GROUPS = {
+  film4k: "VTVcab",
+  kenhvtv: "VTV",
+  kenhthietyeu: "Thiết Yếu",
+  kenhvtvcab: "VTVcab",
+  kenhsctv: "SCTV",
+  kenhhtv: "HTV",
+  kenhvinhlong: "Địa Phương",
+  kenhdiaphuong: "Địa Phương",
+  kenhfm: "Địa Phương",
+  kenhquocte: "Quốc Tế",
+  sukientructiep: "Sự Kiện TV360",
+  sukientv360: "Sự Kiện TV360",
+  sukien: "Sự Kiện TV360",
+  event: "Sự Kiện TV360",
+  events: "Sự Kiện TV360",
+  eventtv360: "Sự Kiện TV360",
+  sukienvtvprime: "Sự Kiện VTVPrime",
+};
+
+const EVENT_SOURCE_GROUPS = new Set([
+  "sukien", "sukientructiep", "sukientv360", "event", "events",
+  "eventtv360", "thethao", "kenhthethao",
+]);
+
 const cache = new Map();
 let loginPromise = null;
 let catalogPromise = null;
@@ -54,6 +79,18 @@ function idOf(item) {
   return text(item, ["id", "event_id", "channel_id", "channelId", "tvg_id", "tvgId", "slug", "code"]);
 }
 
+function channelName(item) {
+  return text(item, ["name", "title", "channel_name", "channelName", "event_name", "label"], "");
+}
+
+function channelGroup(item) {
+  return text(item, ["group", "category", "group_title", "groupTitle"], "Film4K");
+}
+
+function channelLogo(item) {
+  return text(item, ["logo", "icon", "thumbnail", "tvg_logo", "image", "poster"], "");
+}
+
 function streamOf(value, depth = 0) {
   if (depth > 6 || value === null || value === undefined) return "";
   if (typeof value === "string" && /^https?:\/\//i.test(value)) return value;
@@ -79,6 +116,50 @@ function streamOf(value, depth = 0) {
 function sessionCookie(setCookie) {
   const match = String(setCookie || "").match(/(?:^|,\s*)([^=;,\s]+=[^;]*)/);
   return match ? match[1] : "";
+}
+
+function normalizeGroup(value) {
+  const decomposed = String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d");
+  return decomposed.replace(/[^a-z0-9]+/g, "");
+}
+
+function normalizeChannelName(value) {
+  const decomposed = String(value || "").toLowerCase().replace(/\+/g, " plus ").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d");
+  return decomposed.replace(/[^a-z0-9]+/g, "");
+}
+
+function isFilm4kEvent(channel) {
+  const sourceGroup = normalizeGroup(channelGroup(channel));
+  const name = channelName(channel);
+  return EVENT_SOURCE_GROUPS.has(sourceGroup) || normalizeChannelName(name).startsWith("tv360plus");
+}
+
+function fallbackGroup(channel) {
+  const sourceGroup = normalizeGroup(channelGroup(channel));
+  const logo = channelLogo(channel);
+  if ((sourceGroup === "film4k" || sourceGroup === "kenhvtvcab") && !logo) return "SportUK";
+  if (sourceGroup === "giaitri" || sourceGroup === "kenhgiaitri") {
+    const name = channelName(channel);
+    if (normalizeChannelName(name).startsWith("360")) return "Sự Kiện TV360";
+    return "VTVcab";
+  }
+  if (sourceGroup === "thethao" || sourceGroup === "kenhthethao") return "Sự Kiện TV360";
+  const mapped = SOURCE_GROUPS[sourceGroup];
+  if (mapped) return mapped;
+  return channelGroup(channel);
+}
+
+function resolvedGroup(channel) {
+  if (isFilm4kEvent(channel)) return "Sự Kiện TV360";
+  const id = idOf(channel);
+  const logo = channelLogo(channel);
+  const rawGroup = channelGroup(channel);
+  const sourceGroup = normalizeGroup(rawGroup);
+  if (id.startsWith("ants:")) return "SportUK";
+  if ((sourceGroup === "film4k" || sourceGroup === "kenhvtvcab") && !logo) return "SportUK";
+  const mapped = SOURCE_GROUPS[sourceGroup];
+  if (mapped) return mapped;
+  return rawGroup;
 }
 
 async function login() {
@@ -187,17 +268,39 @@ async function loadCatalog() {
         apiJson(`/api/tv/channels?_=${Date.now()}`, cookie),
       ]);
       const rawEvents = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
-      const channels = unwrap(channelsPayload, ["channels", "data", "items", "results"]);
-      const eventRecords = rawEvents.length
-        ? rawEvents
-        : channels.filter((channel) => {
-            if (String(channel.id || "").startsWith("ants:")) return false;
-            const groupText = `${channel.group || ""} ${channel.category || ""}`;
-            const name = String(channel.name || channel.title || "");
-            return /event|sự kiện|sukien|trực tiếp|tructiep/i.test(groupText)
-              || /^TV360\+\s*\d+/i.test(name);
-          });
-      const data = { cookie, events: eventRecords, channels };
+      const allChannels = unwrap(channelsPayload, ["channels", "data", "items", "results"]);
+
+      const tv360Channels = new Map();
+      for (const channel of allChannels) {
+        const name = channelName(channel);
+        const match = name.match(/tv360\s*\+\s*(\d+)/i);
+        const channelId = idOf(channel);
+        if (match && channelId) {
+          const existing = tv360Channels.get(match[1]);
+          const hasKey = clearKeyOf(channel);
+          if (!existing || (hasKey && !clearKeyOf(existing))) {
+            tv360Channels.set(match[1], channel);
+          }
+        }
+      }
+
+      let eventRecords;
+      if (rawEvents.length) {
+        eventRecords = rawEvents;
+      } else {
+        eventRecords = allChannels.filter((channel) => {
+          if (String(channel.id || "").startsWith("ants:")) return false;
+          return isFilm4kEvent(channel);
+        });
+      }
+
+      const channels = allChannels.filter((channel) => {
+        const id = idOf(channel);
+        if (id.startsWith("ants:")) return true;
+        return !isFilm4kEvent(channel);
+      });
+
+      const data = { cookie, events: eventRecords, channels, tv360Channels };
       cache.set("catalog", { ts: Date.now(), data });
       return data;
     } finally {
@@ -214,8 +317,8 @@ function m3uAttribute(value) {
 function entry(item, group, kind, origin) {
   const id = idOf(item);
   if (!id) return "";
-  const name = m3uAttribute(text(item, ["name", "title", "channel_name", "event_name", "label"], "Film4k"));
-  const logo = m3uAttribute(text(item, ["logo", "icon", "thumbnail", "image", "poster"]));
+  const name = m3uAttribute(channelName(item) || "Film4k");
+  const logo = m3uAttribute(channelLogo(item));
   const stableUrl = `${origin}/film4k/stream/${kind}/${encodeURIComponent(id)}`;
   const clearKey = clearKeyOf(item);
   const lines = [`#EXTINF:-1 tvg-id="${m3uAttribute(id)}" tvg-name="${name}" tvg-logo="${logo}" group-title="${m3uAttribute(group)}",${name}`];
@@ -237,7 +340,7 @@ async function playlist(request) {
     if (line) lines.push(line);
   }
   for (const item of catalog.channels) {
-    const group = text(item, ["group", "category", "group_title"], "Film4k");
+    const group = resolvedGroup(item);
     const line = entry(item, group, "channel", origin);
     if (line) lines.push(line);
   }
