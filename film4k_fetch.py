@@ -689,7 +689,7 @@ def generate_m3u(
         if group not in REFERENCE_REPLACE_GROUPS:
             film4k_channels_by_group.setdefault(group, []).append(channel)
 
-    tv360_channel_ids: dict[str, str] = {}
+    tv360_channels: dict[str, dict] = {}
     for channel in channels:
         channel_name = _first_text(
             channel,
@@ -698,7 +698,7 @@ def generate_m3u(
         channel_match = re.search(r"tv360\s*\+\s*(\d+)", channel_name, re.IGNORECASE)
         channel_id = _channel_id(channel)
         if channel_match and channel_id:
-            tv360_channel_ids[channel_match.group(1)] = channel_id
+            tv360_channels[channel_match.group(1)] = channel
 
     reference_entries_by_group: dict[str, list[dict]] = {}
     for entry in reference_entries:
@@ -730,13 +730,17 @@ def generate_m3u(
                 event_channel_match = re.search(
                     r"tv360\s*\+\s*(\d+)", event_name, re.IGNORECASE
                 )
-                channel_id = (
-                    tv360_channel_ids.get(event_channel_match.group(1))
+                tv360_channel = (
+                    tv360_channels.get(event_channel_match.group(1))
                     if event_channel_match
                     else None
                 )
-                if channel_id:
+                channel_id = _channel_id(tv360_channel) if tv360_channel else ""
+                if tv360_channel and channel_id:
                     event_record["_stream_channel_id"] = channel_id
+                    channel_clear_key = tv360_channel.get("_film4k_clear_key") or tv360_channel.get("clearKey")
+                    if isinstance(channel_clear_key, dict):
+                        event_record["_film4k_clear_key"] = channel_clear_key
                 worker_url = _worker_stream_url(
                     event_record,
                     is_event=not bool(channel_id),
@@ -749,7 +753,11 @@ def generate_m3u(
                     f'tvg-logo="{_attribute(logo)}" '
                     f'group-title="Sự Kiện TV360",{name}'
                 )
-                clear_key = event.get("clearKey") or event.get("clear_key")
+                clear_key = (
+                    event_record.get("_film4k_clear_key")
+                    or event.get("clearKey")
+                    or event.get("clear_key")
+                )
                 if isinstance(clear_key, dict):
                     key_id = clear_key.get("keyId") or clear_key.get("key_id")
                     key = clear_key.get("key")
@@ -904,7 +912,7 @@ def generate_m3u(
                 f'group-title="{_attribute(group)}",{name}'
             )
 
-            clear_key = channel.get("_film4k_clear_key")
+            clear_key = channel.get("_film4k_clear_key") or channel.get("clearKey")
             if isinstance(clear_key, dict):
                 key_id = clear_key.get("keyId")
                 key = clear_key.get("key")
