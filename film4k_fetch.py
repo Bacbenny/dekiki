@@ -781,20 +781,12 @@ def generate_m3u(
                 group,
                 reference_entries,
             )
-            stream_url = (
-                reference_fallback["url"]
-                if reference_fallback
-                else extract_stream_url(channel)
-            )
-            if not stream_url:
-                continue
-
-            lines.append(
-                f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
-                f'tvg-name="{_attribute(name)}" tvg-logo="{_attribute(logo)}" '
-                f'group-title="{_attribute(group)}",{name}'
-            )
             if reference_fallback:
+                lines.append(
+                    f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
+                    f'tvg-name="{_attribute(name)}" tvg-logo="{_attribute(logo)}" '
+                    f'group-title="{_attribute(group)}",{name}'
+                )
                 lines.extend(reference_fallback["lines"][1:])
                 count += 1
                 if channel.get("_film4k_is_event"):
@@ -803,24 +795,18 @@ def generate_m3u(
                     unclassified_count += 1
                 continue
 
-            props = channel.get("props") or channel.get("properties") or []
-            if isinstance(props, str):
-                props = [props]
-            props = [
-                prop
-                for prop in props
-                if isinstance(prop, str)
-                and prop.startswith(("#EXTVLCOPT:", "#KODIPROP:"))
-            ] if isinstance(props, list) else []
+            channel_id = _channel_id(channel)
+            if not channel_id:
+                continue
+            worker_url = _worker_stream_url(channel, is_event=False)
+            if not worker_url:
+                continue
 
-            if not any(
-                prop.startswith("#EXTVLCOPT:http-user-agent=") for prop in props
-            ):
-                props.append(f"#EXTVLCOPT:http-user-agent={PLAYER_USER_AGENT}")
-            if not any(
-                prop.startswith("#EXTVLCOPT:http-referrer=") for prop in props
-            ):
-                props.append(f"#EXTVLCOPT:http-referrer={FILM4K_BASE}/")
+            lines.append(
+                f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
+                f'tvg-name="{_attribute(name)}" tvg-logo="{_attribute(logo)}" '
+                f'group-title="{_attribute(group)}",{name}'
+            )
 
             clear_key = channel.get("_film4k_clear_key")
             if isinstance(clear_key, dict):
@@ -832,37 +818,17 @@ def generate_m3u(
                     and key_id
                     and key
                 ):
-                    if not any(
-                        prop.startswith(
-                            "#KODIPROP:inputstream.adaptive.manifest_type="
-                        )
-                        for prop in props
-                    ):
-                        props.append(
-                            "#KODIPROP:inputstream.adaptive.manifest_type=mpd"
-                        )
-                    if not any(
-                        prop.startswith(
-                            "#KODIPROP:inputstream.adaptive.license_type="
-                        )
-                        for prop in props
-                    ):
-                        props.append(
-                            "#KODIPROP:inputstream.adaptive.license_type=clearkey"
-                        )
-                    if not any(
-                        prop.startswith(
-                            "#KODIPROP:inputstream.adaptive.license_key="
-                        )
-                        for prop in props
-                    ):
-                        props.append(
-                            "#KODIPROP:inputstream.adaptive.license_key="
-                            f"{key_id}:{key}"
-                        )
+                    lines.append(
+                        "#KODIPROP:inputstream.adaptive.manifest_type=mpd"
+                    )
+                    lines.append(
+                        "#KODIPROP:inputstream.adaptive.license_type=clearkey"
+                    )
+                    lines.append(
+                        f"#KODIPROP:inputstream.adaptive.license_key={key_id}:{key}"
+                    )
 
-            lines.extend(props)
-            lines.append(stream_url)
+            lines.append(worker_url)
             count += 1
             if channel.get("_film4k_is_event"):
                 event_count += 1
