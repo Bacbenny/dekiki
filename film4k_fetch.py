@@ -18,6 +18,9 @@ REFERENCE_PLAYLIST_URL = (
     "https://raw.githubusercontent.com/Bacbenny/Verceliptv/refs/heads/main/dekiki"
 )
 OUTPUT_FILE = Path(__file__).with_name("film4k.m3u")
+WORKER_BASE = os.environ.get(
+    "FILM4K_WORKER_URL", "https://dekki.bacbenny95.workers.dev"
+).rstrip("/")
 USERNAME = os.environ.get("FILM4K_USERNAME", "").strip()
 PASSWORD = os.environ.get("FILM4K_PASSWORD", "")
 USER_AGENT = (
@@ -192,6 +195,31 @@ def fetch_channels() -> tuple[list[dict], str]:
     if not channels:
         raise Film4kError("Film4K channel API returned no channel records")
     return channels, cookie
+
+
+def fetch_events(cookie: str) -> list[dict]:
+    response = requests.get(
+        f"{FILM4K_BASE}/api/tv/events?_={int(time.time() * 1000)}",
+        headers=_api_headers(cookie),
+        timeout=45,
+    )
+    if not response.ok:
+        raise Film4kError(
+            f"Film4K events API returned HTTP {response.status_code}"
+        )
+    try:
+        payload = response.json()
+    except ValueError as error:
+        raise Film4kError("Film4K events API did not return JSON") from error
+    return _unwrap_channels(payload)
+
+
+def _worker_stream_url(channel: dict, is_event: bool = False) -> str:
+    kind = "event" if is_event else "channel"
+    channel_id = _channel_id(channel)
+    if not channel_id:
+        return ""
+    return f"{WORKER_BASE}/film4k/stream/{kind}/{quote(channel_id, safe='')}"
 
 
 def _nested_stream_url(value: object, depth: int = 0) -> str:
@@ -602,6 +630,7 @@ def _order_channels(
 
 def generate_m3u(
     channels: list[dict],
+    events: list[dict],
     reference_groups: list[str],
     reference_channels: dict[str, tuple[int, int, str]],
     reference_entries: list[dict],
@@ -623,6 +652,35 @@ def generate_m3u(
             reference_entries_by_group.setdefault(entry["group"], []).append(entry)
 
     for group in reference_groups:
+        if group == "Sự Kiện TV360" and events:
+            for event in events:
+                name = _first_text(
+                    event,
+                    ("name", "title", "event_name", "label"),
+                    "Unknown",
+                )
+                logo = _first_text(
+                    event,
+                    ("logo", "icon", "thumbnail", "image", "poster"),
+                )
+                tvg_id = _first_text(
+                    event,
+                    ("id", "event_id", "tvg_id", "tvgId", "slug"),
+                    name,
+                )
+                worker_url = _worker_stream_url(event, is_event=True)
+                if not worker_url:
+                    continue
+                lines.append(
+                    f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
+                    f'tvg-name="{_attribute(name)}" '
+                    f'tvg-logo="{_attribute(logo)}" '
+                    f'group-title="Sự Kiện TV360",{name}'
+                )
+                lines.append(worker_url)
+                count += 1
+                event_count += 1
+
         if group in REFERENCE_REPLACE_GROUPS:
             imported_entries = reference_entries_by_group.get(group, [])
             if not imported_entries:
@@ -827,12 +885,14 @@ def write_playlist(content: str) -> None:
 def main() -> int:
     try:
         channels, cookie = fetch_channels()
+        events = fetch_events(cookie)
         resolved_channels = resolve_channel_streams(channels, cookie)
         reference_groups, reference_channels, reference_entries = (
             fetch_reference_order()
         )
         content, playable_count, unclassified_count, event_count = generate_m3u(
             resolved_channels,
+            events,
             reference_groups,
             reference_channels,
             reference_entries,
@@ -844,7 +904,7 @@ def main() -> int:
 
     print(
         f"[film4k] Created film4k.m3u with {playable_count} playable channels "
-        f"from {len(channels)} API records and reference playlist entries; "
+        f"from {len(channels)} API records and {len(events)} events; "
         f"added {event_count} Film4K event channels at the start of TV360; "
         f"{unclassified_count} unclassified channels were placed at the end of VTVcab."
     )
