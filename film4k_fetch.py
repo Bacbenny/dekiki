@@ -709,7 +709,22 @@ def generate_m3u(
         channel_match = re.search(r"tv360\s*\+\s*(\d+)", channel_name, re.IGNORECASE)
         channel_id = _channel_id(channel)
         if channel_match and channel_id:
-            tv360_channels[channel_match.group(1)] = channel
+            number = channel_match.group(1)
+            current = tv360_channels.get(number)
+            channel_clear_key = (
+                channel.get("_film4k_clear_key")
+                or channel.get("clearKey")
+                or channel.get("clear_key")
+            )
+            current_clear_key = (
+                current.get("_film4k_clear_key")
+                or current.get("clearKey")
+                or current.get("clear_key")
+                if current
+                else None
+            )
+            if current is None or (channel_clear_key and not current_clear_key):
+                tv360_channels[number] = channel
 
     reference_entries_by_group: dict[str, list[dict]] = {}
     for entry in reference_entries:
