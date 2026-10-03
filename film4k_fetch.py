@@ -410,11 +410,11 @@ def _merge_worker_stream_urls(channels: list[dict], events: list[dict]) -> None:
     """Copy pre-resolved stream URLs from the worker catalog so the player
     opens the stream directly instead of via a slow proxy redirect."""
     try:
-        worker_channels, worker_events, _ = fetch_catalog_from_worker()
+        worker_channels, worker_events, worker_tv360 = fetch_catalog_from_worker()
     except (Film4kError, requests.RequestException):
         return
     worker_url_by_id: dict[str, str] = {}
-    for item in [*worker_channels, *worker_events]:
+    for item in [*worker_channels, *worker_events, *worker_tv360.values()]:
         cid = _channel_id(item)
         url = extract_stream_url(item)
         if cid and url:
@@ -431,6 +431,47 @@ def _merge_worker_stream_urls(channels: list[dict], events: list[dict]) -> None:
             url = worker_url_by_id.get(eid)
             if url:
                 event["url"] = url
+
+
+def _resolve_remaining_via_worker(channels: list[dict], events: list[dict]) -> None:
+    """For channels still missing a direct URL, ask the worker to resolve each
+    stream in real time and capture the redirected URL so the player can open
+    it directly."""
+    pending_channels = [
+        (ch, "channel")
+        for ch in channels
+        if not extract_stream_url(ch) and _channel_id(ch)
+    ]
+    pending_events = [
+        (ev, "event")
+        for ev in events
+        if not extract_stream_url(ev) and _channel_id(ev)
+    ]
+    if not pending_channels and not pending_events:
+        return
+
+    def _fetch_direct(item: dict, kind: str) -> tuple[dict, str]:
+        cid = _channel_id(item)
+        url = f"{WORKER_BASE}/film4k/stream/{kind}/{quote(cid, safe='')}"
+        try:
+            response = requests.get(
+                url,
+                headers={"User-Agent": PLAYER_USER_AGENT},
+                allow_redirects=True,
+                timeout=20,
+            )
+            if response.ok and response.url and response.url != url:
+                return item, response.url
+        except requests.RequestException:
+            pass
+        return item, ""
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        for item, direct_url in executor.map(
+            lambda args: _fetch_direct(*args), pending_channels + pending_events
+        ):
+            if direct_url:
+                item["url"] = direct_url
 
 
 def _first_text(channel: dict, keys: tuple[str, ...], default: str = "") -> str:
@@ -1208,6 +1249,7 @@ def main() -> int:
             ]
         resolved_channels = resolve_channel_streams(channels, cookie)
         _merge_worker_stream_urls(resolved_channels, events)
+        _resolve_remaining_via_worker(resolved_channels, events)
         reference_groups, reference_channels, reference_entries, reference_tvg_ids = (
             fetch_reference_order()
         )
