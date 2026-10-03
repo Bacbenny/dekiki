@@ -99,6 +99,7 @@ REFERENCE_NAME_ALIASES = {
     "lamdong1": "lamdong",
     "lamdong2": "lamdong",
     "hue": "thuathienhue",
+    "viegiaitri": "onechannel",
 }
 REFERENCE_REPLACE_GROUPS = {"SCTV", "Quốc Tế", "Sự Kiện VTVPrime"}
 REFERENCE_MERGE_GROUPS: set[str] = set()
