@@ -453,7 +453,7 @@ def _resolve_remaining_via_worker(channels: list[dict], events: list[dict]) -> N
     def _fetch_direct(item: dict, kind: str) -> tuple[dict, str]:
         cid = _channel_id(item)
         url = f"{WORKER_BASE}/film4k/stream/{kind}/{quote(cid, safe='')}"
-        for attempt in range(3):
+        for attempt in range(5):
             try:
                 response = requests.get(
                     url,
@@ -465,7 +465,7 @@ def _resolve_remaining_via_worker(channels: list[dict], events: list[dict]) -> N
                     return item, response.url
             except requests.RequestException:
                 pass
-            time.sleep(2)
+            time.sleep(3)
         return item, ""
 
     with ThreadPoolExecutor(max_workers=10) as executor:
