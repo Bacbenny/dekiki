@@ -260,7 +260,9 @@ def _worker_stream_url(channel: dict, is_event: bool = False) -> str:
     if not channel_id:
         return ""
     if DIRECT_JWT_MODE:
-        return extract_stream_url(channel)
+        jwt_url = extract_stream_url(channel)
+        if jwt_url:
+            return jwt_url
     return f"{WORKER_BASE}/film4k/stream/{kind}/{quote(channel_id, safe='')}"
 
 
