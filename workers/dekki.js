@@ -205,7 +205,7 @@ function clearKeyOf(value, depth = 0) {
     return null;
   }
   if (typeof value !== "object") return null;
-  const candidate = value.clearKey || value.clear_key;
+  const candidate = value.clearKey || value.clear_key || value._film4k_clear_key;
   if (candidate && typeof candidate === "object") {
     const keyId = candidate.keyId || candidate.key_id;
     const key = candidate.key;
@@ -256,6 +256,43 @@ async function resolveOneStream(kind, id, cookie) {
   return data;
 }
 
+async function resolveCatalogRecord(kind, item, cookie) {
+  const id = idOf(item);
+  if (!id) return item;
+  const paths = kind === "event"
+    ? [
+        `/api/tv/events/${encodeURIComponent(id)}/stream`,
+        `/api/tv/event/${encodeURIComponent(id)}/stream`,
+        `/api/tv/${encodeURIComponent(id)}/stream`,
+      ]
+    : [`/api/tv/${encodeURIComponent(id)}/stream`];
+  for (const path of paths) {
+    try {
+      const payload = await apiJson(`${path}?_=${Date.now()}`, cookie);
+      const stream = streamOf(payload);
+      if (!stream) continue;
+      const resolved = { ...item, url: stream };
+      const clearKey = clearKeyOf(payload);
+      if (clearKey) resolved._film4k_clear_key = clearKey;
+      return resolved;
+    } catch (_) {}
+  }
+  return item;
+}
+
+async function enrichCatalog(records, kind, cookie) {
+  const enriched = new Array(records.length);
+  let nextIndex = 0;
+  async function worker() {
+    while (nextIndex < records.length) {
+      const index = nextIndex++;
+      enriched[index] = await resolveCatalogRecord(kind, records[index], cookie);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(20, records.length) }, () => worker()));
+  return enriched;
+}
+
 async function loadCatalog() {
   const cached = cache.get("catalog");
   if (cached && Date.now() - cached.ts < CATALOG_TTL) return cached.data;
@@ -300,7 +337,18 @@ async function loadCatalog() {
         return !isFilm4kEvent(channel);
       });
 
-      const data = { cookie, events: eventRecords, channels, tv360Channels };
+      const [resolvedEvents, resolvedChannels, resolvedTv360] = await Promise.all([
+        enrichCatalog(eventRecords, "event", cookie),
+        enrichCatalog(channels, "channel", cookie),
+        enrichCatalog([...tv360Channels.values()], "channel", cookie),
+      ]);
+      const resolvedTv360Channels = new Map(
+        resolvedTv360.map((channel) => {
+          const match = channelName(channel).match(/tv360\s*\+\s*(\d+)/i);
+          return [match ? match[1] : idOf(channel), channel];
+        }),
+      );
+      const data = { cookie, events: resolvedEvents, channels: resolvedChannels, tv360Channels: resolvedTv360Channels };
       cache.set("catalog", { ts: Date.now(), data });
       return data;
     } finally {
