@@ -453,17 +453,19 @@ def _resolve_remaining_via_worker(channels: list[dict], events: list[dict]) -> N
     def _fetch_direct(item: dict, kind: str) -> tuple[dict, str]:
         cid = _channel_id(item)
         url = f"{WORKER_BASE}/film4k/stream/{kind}/{quote(cid, safe='')}"
-        try:
-            response = requests.get(
-                url,
-                headers={"User-Agent": PLAYER_USER_AGENT},
-                allow_redirects=True,
-                timeout=20,
-            )
-            if response.ok and response.url and response.url != url:
-                return item, response.url
-        except requests.RequestException:
-            pass
+        for attempt in range(3):
+            try:
+                response = requests.get(
+                    url,
+                    headers={"User-Agent": PLAYER_USER_AGENT},
+                    allow_redirects=True,
+                    timeout=20,
+                )
+                if response.ok and response.url and response.url != url:
+                    return item, response.url
+            except requests.RequestException:
+                pass
+            time.sleep(2)
         return item, ""
 
     with ThreadPoolExecutor(max_workers=10) as executor:
