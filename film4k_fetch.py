@@ -95,6 +95,9 @@ REFERENCE_NAME_ALIASES = {
 REFERENCE_REPLACE_GROUPS = {"SCTV", "Sự Kiện VTVPrime"}
 REFERENCE_MERGE_GROUPS = {"Quốc Tế"}
 REFERENCE_IMPORT_GROUPS = REFERENCE_REPLACE_GROUPS | REFERENCE_MERGE_GROUPS
+REFERENCE_STREAM_FALLBACKS = {
+    "VTVcab 2 - Phim Việt HD": ("VTVcab", "ON Phim Việt"),
+}
 
 
 class Film4kError(RuntimeError):
@@ -504,6 +507,42 @@ def _is_film4k_event(channel: dict) -> bool:
     } or _normalize_channel_name(name).startswith("tv360plus")
 
 
+def _reference_stream_fallback(
+    name: str,
+    group: str,
+    reference_entries: list[dict],
+) -> dict | None:
+    for source_name, (
+        source_group,
+        reference_name,
+    ) in REFERENCE_STREAM_FALLBACKS.items():
+        if group != source_group:
+            continue
+        if not set(_channel_name_variants(name)).intersection(
+            _channel_name_variants(source_name)
+        ):
+            continue
+
+        fallback = next(
+            (
+                entry
+                for entry in reference_entries
+                if entry["group"] == source_group
+                and set(_channel_name_variants(entry["name"])).intersection(
+                    _channel_name_variants(reference_name)
+                )
+            ),
+            None,
+        )
+        if fallback is None or not fallback["url"]:
+            raise Film4kError(
+                "Reference playlist is missing the fallback stream for: "
+                f"{source_name}"
+            )
+        return fallback
+    return None
+
+
 def _order_channels(
     channels: list[dict],
     reference_groups: list[str],
@@ -679,7 +718,16 @@ def generate_m3u(
                 ("tvg_id", "tvgId", "id", "channel_id", "channelId", "slug"),
                 name,
             )
-            stream_url = extract_stream_url(channel)
+            reference_fallback = _reference_stream_fallback(
+                name,
+                group,
+                reference_entries,
+            )
+            stream_url = (
+                reference_fallback["url"]
+                if reference_fallback
+                else extract_stream_url(channel)
+            )
             if not stream_url:
                 continue
 
@@ -688,6 +736,15 @@ def generate_m3u(
                 f'tvg-name="{_attribute(name)}" tvg-logo="{_attribute(logo)}" '
                 f'group-title="{_attribute(group)}",{name}'
             )
+            if reference_fallback:
+                lines.extend(reference_fallback["lines"][1:])
+                count += 1
+                if channel.get("_film4k_is_event"):
+                    event_count += 1
+                if channel.get("_film4k_unclassified"):
+                    unclassified_count += 1
+                continue
+
             props = channel.get("props") or channel.get("properties") or []
             if isinstance(props, str):
                 props = [props]
