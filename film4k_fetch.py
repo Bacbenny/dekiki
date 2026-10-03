@@ -127,7 +127,7 @@ def _unwrap_channels(payload: object, depth: int = 0) -> list[dict]:
     if not isinstance(payload, dict):
         return []
 
-    for key in ("channels", "data", "items", "results"):
+    for key in ("channels", "events", "data", "items", "results"):
         if key in payload:
             channels = _unwrap_channels(payload[key], depth + 1)
             if channels or isinstance(payload[key], list):
@@ -200,22 +200,21 @@ def fetch_channels() -> tuple[list[dict], str]:
 def fetch_events(cookie: str) -> list[dict]:
     try:
         response = requests.get(
-            f"{WORKER_BASE}/film4k/events",
-            headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
-            timeout=30,
+            f"{FILM4K_BASE}/api/tv/events?_={int(time.time() * 1000)}",
+            headers=_api_headers(cookie),
+            timeout=45,
         )
         if response.ok:
-            payload = response.json()
-            events = payload.get("events", [])
-            if isinstance(events, list) and events:
+            events = _unwrap_channels(response.json())
+            if events:
                 return events
     except (requests.RequestException, ValueError):
         pass
 
     response = requests.get(
-        f"{FILM4K_BASE}/api/tv/events?_={int(time.time() * 1000)}",
-        headers=_api_headers(cookie),
-        timeout=45,
+        f"{WORKER_BASE}/film4k/events",
+        headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+        timeout=30,
     )
     if not response.ok:
         raise Film4kError(
@@ -687,7 +686,9 @@ def generate_m3u(
     film4k_channels_by_group: dict[str, list[dict]] = {}
     for channel in ordered_channels:
         group = channel["_film4k_output_group"]
-        if group not in REFERENCE_REPLACE_GROUPS:
+        if group not in REFERENCE_REPLACE_GROUPS and not (
+            group == "Sự Kiện TV360" and channel.get("_film4k_is_event")
+        ):
             film4k_channels_by_group.setdefault(group, []).append(channel)
 
     reference_entries_by_group: dict[str, list[dict]] = {}
