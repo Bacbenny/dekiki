@@ -406,6 +406,33 @@ def resolve_event_streams(events: list[dict], cookie: str) -> list[dict]:
         return list(executor.map(lambda event: _resolve_one_event(event, cookie), events))
 
 
+def _merge_worker_stream_urls(channels: list[dict], events: list[dict]) -> None:
+    """Copy pre-resolved stream URLs from the worker catalog so the player
+    opens the stream directly instead of via a slow proxy redirect."""
+    try:
+        worker_channels, worker_events, _ = fetch_catalog_from_worker()
+    except (Film4kError, requests.RequestException):
+        return
+    worker_url_by_id: dict[str, str] = {}
+    for item in [*worker_channels, *worker_events]:
+        cid = _channel_id(item)
+        url = extract_stream_url(item)
+        if cid and url:
+            worker_url_by_id[cid] = url
+    for channel in channels:
+        if not extract_stream_url(channel):
+            cid = _channel_id(channel)
+            url = worker_url_by_id.get(cid)
+            if url:
+                channel["url"] = url
+    for event in events:
+        if not extract_stream_url(event):
+            eid = _channel_id(event)
+            url = worker_url_by_id.get(eid)
+            if url:
+                event["url"] = url
+
+
 def _first_text(channel: dict, keys: tuple[str, ...], default: str = "") -> str:
     for key in keys:
         value = channel.get(key)
@@ -1180,6 +1207,7 @@ def main() -> int:
                 and not _channel_id(channel).startswith("ants:")
             ]
         resolved_channels = resolve_channel_streams(channels, cookie)
+        _merge_worker_stream_urls(resolved_channels, events)
         reference_groups, reference_channels, reference_entries, reference_tvg_ids = (
             fetch_reference_order()
         )
