@@ -625,8 +625,18 @@ def _order_channels(
             unclassified = False
         elif match:
             group_index, channel_index, group = match
-            key = (group_index, 0, channel_index, input_index)
-            unclassified = False
+            logo = _first_text(
+                channel,
+                ("logo", "icon", "thumbnail", "tvg_logo", "image", "poster"),
+            )
+            if group == "VTVcab" and not logo:
+                group = "SportUK"
+                group_index = group_positions[group]
+                key = (group_index, 0, channel_index, input_index)
+                unclassified = False
+            else:
+                key = (group_index, 0, channel_index, input_index)
+                unclassified = False
         else:
             group = _fallback_group(channel)
             if group not in group_positions:
