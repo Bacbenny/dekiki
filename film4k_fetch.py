@@ -514,6 +514,12 @@ def fetch_reference_order() -> tuple[
 
 def _fallback_group(channel: dict) -> str:
     source_group = _normalize_group(_channel_group(channel))
+    logo = _first_text(
+        channel,
+        ("logo", "icon", "thumbnail", "tvg_logo", "image", "poster"),
+    )
+    if source_group in {"film4k", "kenhvtvcab"} and not logo:
+        return "SportUK"
     if source_group in {"giaitri", "kenhgiaitri"}:
         name = _first_text(
             channel,
@@ -653,6 +659,14 @@ def generate_m3u(
     count = 0
     event_count = 0
     unclassified_count = 0
+    if "SportUK" not in reference_groups:
+        try:
+            sport_position = reference_groups.index("Quốc Tế") + 1
+        except ValueError:
+            sport_position = len(reference_groups)
+        reference_groups = [*reference_groups]
+        reference_groups.insert(sport_position, "SportUK")
+
     ordered_channels = _order_channels(channels, reference_groups, reference_channels)
     film4k_channels_by_group: dict[str, list[dict]] = {}
     for channel in ordered_channels:
@@ -691,6 +705,14 @@ def generate_m3u(
                     f'tvg-logo="{_attribute(logo)}" '
                     f'group-title="Sự Kiện TV360",{name}'
                 )
+                clear_key = event.get("clearKey") or event.get("clear_key")
+                if isinstance(clear_key, dict):
+                    key_id = clear_key.get("keyId") or clear_key.get("key_id")
+                    key = clear_key.get("key")
+                    if isinstance(key_id, str) and isinstance(key, str) and key_id and key:
+                        lines.append("#KODIPROP:inputstream.adaptive.manifest_type=mpd")
+                        lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
+                        lines.append(f"#KODIPROP:inputstream.adaptive.license_key={key_id}:{key}")
                 lines.append(worker_url)
                 count += 1
                 event_count += 1

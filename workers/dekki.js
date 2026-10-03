@@ -96,17 +96,62 @@ async function apiJson(path, cookie) {
   return response.json();
 }
 
+function clearKeyOf(value, depth = 0) {
+  if (depth > 6 || value === null || value === undefined) return null;
+  if (Array.isArray(value)) {
+    for (const child of value) {
+      const found = clearKeyOf(child, depth + 1);
+      if (found) return found;
+    }
+    return null;
+  }
+  if (typeof value !== "object") return null;
+  const candidate = value.clearKey || value.clear_key;
+  if (candidate && typeof candidate === "object") {
+    const keyId = candidate.keyId || candidate.key_id;
+    const key = candidate.key;
+    if (keyId && key) return { keyId: String(keyId), key: String(key) };
+  }
+  for (const child of Object.values(value)) {
+    const found = clearKeyOf(child, depth + 1);
+    if (found) return found;
+  }
+  return null;
+}
+
+async function eventDetails(event, cookie) {
+  const id = idOf(event);
+  if (!id) return event;
+  const paths = [
+    `/api/tv/events/${encodeURIComponent(id)}/stream`,
+    `/api/tv/event/${encodeURIComponent(id)}/stream`,
+    `/api/tv/${encodeURIComponent(id)}/stream`,
+  ];
+  for (const path of paths) {
+    try {
+      const payload = await apiJson(`${path}?_=${Date.now()}`, cookie);
+      const stream = streamOf(payload);
+      if (stream) {
+        const details = { ...event, stream_url: stream };
+        const clearKey = clearKeyOf(payload);
+        if (clearKey) details.clearKey = clearKey;
+        return details;
+      }
+    } catch (_) {}
+  }
+  return event;
+}
+
 async function loadCatalog() {
   const cached = cache.get("catalog");
-  if (cached && Date.now() - cached.ts < CACHE_TTL * 1000) {
-    return cached.data;
-  }
+  if (cached && Date.now() - cached.ts < CACHE_TTL * 1000) return cached.data;
   const cookie = await login();
   const [eventsPayload, channelsPayload] = await Promise.all([
     apiJson(`/api/tv/events?_=${Date.now()}`, cookie).catch(() => null),
     apiJson(`/api/tv/channels?_=${Date.now()}`, cookie),
   ]);
-  const events = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
+  const rawEvents = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
+  const events = await Promise.all(rawEvents.map((event) => eventDetails(event, cookie)));
   const channels = unwrap(channelsPayload, ["channels", "data", "items", "results"]);
   const data = { cookie, events, channels };
   cache.set("catalog", { ts: Date.now(), data });
@@ -151,10 +196,8 @@ async function resolveStream(kind, id) {
   if (!item) return jsonResponse({ error: "Film4k item not found" }, 404);
   let stream = streamOf(item);
   if (!stream) {
-    try {
-      const resolved = await apiJson(`/api/tv/${encodeURIComponent(id)}/stream?_=${Date.now()}`, catalog.cookie);
-      stream = streamOf(resolved);
-    } catch (_) {}
+    const details = await eventDetails(item, catalog.cookie);
+    stream = streamOf(details);
   }
   if (!stream) return jsonResponse({ error: "Film4k stream is unavailable" }, 502);
   return Response.redirect(stream, 302);
