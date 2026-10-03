@@ -229,7 +229,7 @@ def fetch_events(cookie: str) -> list[dict]:
 
 def _worker_stream_url(channel: dict, is_event: bool = False) -> str:
     kind = "event" if is_event else "channel"
-    channel_id = _channel_id(channel)
+    channel_id = _first_text(channel, ("_stream_channel_id",)) or _channel_id(channel)
     if not channel_id:
         return ""
     return f"{WORKER_BASE}/film4k/stream/{kind}/{quote(channel_id, safe='')}"
@@ -686,10 +686,19 @@ def generate_m3u(
     film4k_channels_by_group: dict[str, list[dict]] = {}
     for channel in ordered_channels:
         group = channel["_film4k_output_group"]
-        if group not in REFERENCE_REPLACE_GROUPS and not (
-            group == "Sự Kiện TV360" and channel.get("_film4k_is_event")
-        ):
+        if group not in REFERENCE_REPLACE_GROUPS:
             film4k_channels_by_group.setdefault(group, []).append(channel)
+
+    tv360_channel_ids: dict[str, str] = {}
+    for channel in channels:
+        channel_name = _first_text(
+            channel,
+            ("name", "title", "channel_name", "channelName", "label"),
+        )
+        channel_match = re.search(r"tv360\s*\+\s*(\d+)", channel_name, re.IGNORECASE)
+        channel_id = _channel_id(channel)
+        if channel_match and channel_id:
+            tv360_channel_ids[channel_match.group(1)] = channel_id
 
     reference_entries_by_group: dict[str, list[dict]] = {}
     for entry in reference_entries:
@@ -713,7 +722,25 @@ def generate_m3u(
                     ("id", "event_id", "tvg_id", "tvgId", "slug"),
                     name,
                 )
-                worker_url = _worker_stream_url(event, is_event=True)
+                event_record = dict(event)
+                event_name = _first_text(
+                    event_record,
+                    ("name", "title", "event_name", "label"),
+                )
+                event_channel_match = re.search(
+                    r"tv360\s*\+\s*(\d+)", event_name, re.IGNORECASE
+                )
+                channel_id = (
+                    tv360_channel_ids.get(event_channel_match.group(1))
+                    if event_channel_match
+                    else None
+                )
+                if channel_id:
+                    event_record["_stream_channel_id"] = channel_id
+                worker_url = _worker_stream_url(
+                    event_record,
+                    is_event=not bool(channel_id),
+                )
                 if not worker_url:
                     continue
                 lines.append(
