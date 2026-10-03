@@ -629,7 +629,8 @@ def _order_channels(
                 channel,
                 ("logo", "icon", "thumbnail", "tvg_logo", "image", "poster"),
             )
-            if group == "VTVcab" and not logo:
+            channel_id = _channel_id(channel)
+            if group == "VTVcab" and (not logo or channel_id.startswith("ants:")):
                 group = "SportUK"
                 group_index = group_positions[group]
                 key = (group_index, 0, channel_index, input_index)
