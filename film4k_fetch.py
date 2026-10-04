@@ -1450,6 +1450,7 @@ def health_check_and_refresh() -> int:
                     continue
                 for v in _channel_name_variants(ref_entry["name"]):
                     ref_by_variant[v] = url
+            print(f"[health] Reference playlist has {len(ref_by_variant)} named entries.")
             still_after_ref: list[dict] = []
             for entry in still_stale:
                 variants = _channel_name_variants(entry["name"])
@@ -1497,8 +1498,13 @@ def health_check_and_refresh() -> int:
                     refreshed += 1
 
     if refreshed == 0:
-        print("[health] Could not refresh any stale URLs from fresh API data.")
-        return 0
+        print("[health] Could not refresh any stale URLs; running full update.")
+        return main()
+
+    # If less than half of stale URLs were refreshed, a full rebuild is more reliable
+    if refreshed < len(stale) // 2:
+        print(f"[health] Only {refreshed}/{len(stale)} refreshed; running full update for reliability.")
+        return main()
 
     output_lines = ["#EXTM3U"]
     for entry in entries:
