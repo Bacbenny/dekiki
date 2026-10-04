@@ -108,6 +108,8 @@ REFERENCE_STREAM_FALLBACKS = {
 # Key: normalized channel name variant, Value: EPG tvg-id.
 TVG_ID_OVERRIDES = {
     "viegiaitri": "onviegiaitri",
+    "phimaumy": "360phimaumy",
+    "hoathinh": "360hoathinh",
 }
 
 
@@ -719,7 +721,7 @@ def generate_m3u(
     # for non-Worker, non-REPLACE groups (use film4k metadata + reference URL)
     reference_stream_by_name: dict[str, str] = {}
     # Build a lookup from channel name variants to reference tvg-id
-    # for Worker groups (use reference tvg-id for EPG matching)
+    # for ALL groups (use reference tvg-id for EPG matching)
     reference_tvg_id_by_name: dict[str, str] = {}
     for entry in reference_entries:
         if entry["group"] in REFERENCE_REPLACE_GROUPS:
@@ -727,7 +729,7 @@ def generate_m3u(
         if entry["url"] and entry["group"] not in WORKER_GROUPS:
             for variant in _channel_name_variants(entry["name"]):
                 reference_stream_by_name.setdefault(variant, entry["url"])
-        if entry.get("tvg_id") and entry["group"] in WORKER_GROUPS:
+        if entry.get("tvg_id"):
             for variant in _channel_name_variants(entry["name"]):
                 reference_tvg_id_by_name.setdefault(variant, entry["tvg_id"])
 
@@ -912,6 +914,15 @@ def generate_m3u(
                 reference_entries,
             )
             if reference_fallback:
+                # Override tvg-id for EPG matching
+                for variant in _channel_name_variants(name):
+                    ref_tvg_id = reference_tvg_id_by_name.get(variant, "")
+                    if ref_tvg_id:
+                        tvg_id = ref_tvg_id
+                        break
+                    if variant in TVG_ID_OVERRIDES:
+                        tvg_id = TVG_ID_OVERRIDES[variant]
+                        break
                 lines.append(
                     f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
                     f'tvg-name="{_attribute(name)}" tvg-logo="{_attribute(logo)}" '
@@ -952,6 +963,15 @@ def generate_m3u(
                 if not ref_url:
                     continue
                 stream_url = ref_url
+                # Use reference tvg-id for EPG matching in non-Worker groups too
+                for variant in _channel_name_variants(name):
+                    ref_tvg_id = reference_tvg_id_by_name.get(variant, "")
+                    if ref_tvg_id:
+                        tvg_id = ref_tvg_id
+                        break
+                    if variant in TVG_ID_OVERRIDES:
+                        tvg_id = TVG_ID_OVERRIDES[variant]
+                        break
 
             lines.append(
                 f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
