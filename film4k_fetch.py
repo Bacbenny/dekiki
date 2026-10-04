@@ -1429,8 +1429,6 @@ def health_check_and_refresh() -> int:
                 for v in _channel_name_variants(ref_entry["name"]):
                     ref_by_variant[v] = url
             for entry in still_stale:
-                if extract_stream_url(entry) and entry.get("url") and "workers.dev" not in entry["url"]:
-                    continue
                 variants = _channel_name_variants(entry["name"])
                 new_url = next(
                     (ref_by_variant.get(v) for v in variants if v in ref_by_variant),
