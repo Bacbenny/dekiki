@@ -1,0 +1,49 @@
+name: Film4k Health Check
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Check URLs and refresh stale tokens
+        env:
+          FILM4K_USERNAME: ${{ secrets.FILM4K_USERNAME }}
+          FILM4K_PASSWORD: ${{ secrets.FILM4K_PASSWORD }}
+          FILM4K_DIRECT_JWT: "1"
+          FILM4K_OUTPUT_FILE: film4k.m3u
+          FILM4K_HEALTH_CHECK: "1"
+        run: python3 film4k_fetch.py
+
+      - name: Commit and push if refreshed
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add film4k.m3u
+          if git diff --staged --quiet; then
+            echo "Khong co URL nao can cap nhat."
+          else
+            TIMESTAMP=$(TZ='Asia/Ho_Chi_Minh' date '+%Y-%m-%d %H:%M:%S ICT')
+            git commit -m "health-check: cap nhat token luc ${TIMESTAMP} [skip ci]"
+            git push origin main
+          fi

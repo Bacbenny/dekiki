@@ -1277,5 +1277,133 @@ def main() -> int:
     return 0
 
 
+def _check_url_status(url: str) -> int:
+    """Return HTTP status code for a stream URL (HEAD request, short timeout)."""
+    try:
+        response = requests.head(
+            url,
+            headers={"User-Agent": PLAYER_USER_AGENT},
+            allow_redirects=True,
+            timeout=8,
+        )
+        return response.status_code
+    except requests.RequestException:
+        return 0
+
+
+def _parse_existing_playlist(path: Path) -> list[dict]:
+    """Parse an existing m3u file into entries with name, group, url, and raw lines."""
+    if not path.exists():
+        return []
+    entries: list[dict] = []
+    current: dict | None = None
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("#EXTINF"):
+            if current:
+                entries.append(current)
+            group_match = re.search(r'group-title="([^"]*)"', line)
+            _, sep, name = line.partition(",")
+            current = {
+                "name": name.strip() if sep else "",
+                "group": group_match.group(1).strip() if group_match else "",
+                "url": "",
+                "header_lines": [line],
+            }
+        elif current and line.startswith("#KODIPROP"):
+            current["header_lines"].append(line)
+        elif current and line.startswith("http"):
+            current["url"] = line.strip()
+        elif current and not line.strip():
+            entries.append(current)
+            current = None
+    if current:
+        entries.append(current)
+    return entries
+
+
+def health_check_and_refresh() -> int:
+    """Check existing playlist URLs for 401 errors and re-resolve only the
+    failing ones, leaving healthy entries untouched."""
+    if not OUTPUT_FILE.exists():
+        print("[health] No existing playlist; running full update.")
+        return main()
+
+    entries = _parse_existing_playlist(OUTPUT_FILE)
+    if not entries:
+        print("[health] Playlist is empty; running full update.")
+        return main()
+
+    def _needs_refresh(entry: dict) -> bool:
+        url = entry.get("url", "")
+        if not url or "workers.dev" in url:
+            return False
+        status = _check_url_status(url)
+        return status in (401, 403)
+
+    with ThreadPoolExecutor(max_workers=15) as executor:
+        stale = [entry for entry, needs in
+                 zip(entries, executor.map(_needs_refresh, entries))
+                 if needs]
+
+    if not stale:
+        print(f"[health] All {len(entries)} URLs are healthy.")
+        return 0
+
+    print(f"[health] {len(stale)} URLs need refresh: {[e['name'] for e in stale[:10]]}")
+
+    channels, cookie = fetch_channels()
+    events = fetch_events(cookie)
+    if DIRECT_JWT_MODE:
+        events = resolve_event_streams(events, cookie)
+    events = _dedupe_events(events)
+    resolved_channels = resolve_channel_streams(channels, cookie)
+    _merge_worker_stream_urls(resolved_channels, events)
+
+    fresh_url_by_name: dict[str, str] = {}
+    for ch in resolved_channels:
+        name = _first_text(ch, ("name", "title", "channel_name", "channelName", "label"), "")
+        url = extract_stream_url(ch)
+        if name and url:
+            fresh_url_by_name[_normalize_channel_name(name)] = url
+    for ev in events:
+        name = _first_text(ev, ("name", "title", "event_name", "label"), "")
+        url = extract_stream_url(ev)
+        if name and url:
+            fresh_url_by_name[_normalize_channel_name(name)] = url
+
+    refreshed = 0
+    for entry in stale:
+        variants = _channel_name_variants(entry["name"])
+        new_url = next(
+            (fresh_url_by_name.get(v) for v in variants if v in fresh_url_by_name),
+            None,
+        )
+        if not new_url:
+            cid = _channel_id({"id": "", "name": entry["name"]})
+            for ch in resolved_channels:
+                if _channel_id(ch) and _normalize_channel_name(
+                    _first_text(ch, ("name", "title", "channel_name", "channelName", "label"), "")
+                ) in variants:
+                    new_url = extract_stream_url(ch)
+                    break
+        if new_url and new_url != entry["url"]:
+            entry["url"] = new_url
+            refreshed += 1
+
+    if refreshed == 0:
+        print("[health] Could not refresh any stale URLs from fresh API data.")
+        return 0
+
+    output_lines = ["#EXTM3U"]
+    for entry in entries:
+        output_lines.extend(entry["header_lines"])
+        output_lines.append(entry["url"])
+    write_playlist("\n".join(output_lines) + "\n")
+    print(f"[health] Refreshed {refreshed}/{len(stale)} stale URLs out of {len(entries)} total.")
+    return 0
+
+
 if __name__ == "__main__":
+    if os.environ.get("FILM4K_HEALTH_CHECK", "") == "1":
+        raise SystemExit(health_check_and_refresh())
     raise SystemExit(main())
