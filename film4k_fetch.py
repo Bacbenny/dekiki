@@ -1359,36 +1359,76 @@ def health_check_and_refresh() -> int:
     resolved_channels = resolve_channel_streams(channels, cookie)
     _merge_worker_stream_urls(resolved_channels, events)
 
-    fresh_url_by_name: dict[str, str] = {}
+    # Build lookup by normalized name variants AND by channel ID
+    fresh_by_variant: dict[str, str] = {}
+    fresh_by_id: dict[str, str] = {}
     for ch in resolved_channels:
         name = _first_text(ch, ("name", "title", "channel_name", "channelName", "label"), "")
         url = extract_stream_url(ch)
-        if name and url:
-            fresh_url_by_name[_normalize_channel_name(name)] = url
+        cid = _channel_id(ch)
+        if url:
+            for v in _channel_name_variants(name):
+                fresh_by_variant[v] = url
+            if cid:
+                fresh_by_id[cid] = url
     for ev in events:
         name = _first_text(ev, ("name", "title", "event_name", "label"), "")
         url = extract_stream_url(ev)
-        if name and url:
-            fresh_url_by_name[_normalize_channel_name(name)] = url
+        eid = _channel_id(ev)
+        if url:
+            for v in _channel_name_variants(name):
+                fresh_by_variant[v] = url
+            if eid:
+                fresh_by_id[eid] = url
+
+    # Also build ID from tvg-id in playlist entries
+    def _entry_tvg_id(header_line: str) -> str:
+        m = re.search(r'tvg-id="([^"]*)"', header_line)
+        return m.group(1).strip() if m else ""
 
     refreshed = 0
+    still_stale: list[dict] = []
     for entry in stale:
+        new_url = ""
+        # Try name variants first
         variants = _channel_name_variants(entry["name"])
         new_url = next(
-            (fresh_url_by_name.get(v) for v in variants if v in fresh_url_by_name),
-            None,
+            (fresh_by_variant.get(v) for v in variants if v in fresh_by_variant),
+            "",
         )
+        # Try tvg-id from the playlist entry
         if not new_url:
-            cid = _channel_id({"id": "", "name": entry["name"]})
-            for ch in resolved_channels:
-                if _channel_id(ch) and _normalize_channel_name(
-                    _first_text(ch, ("name", "title", "channel_name", "channelName", "label"), "")
-                ) in variants:
-                    new_url = extract_stream_url(ch)
-                    break
+            tvg_id = _entry_tvg_id(entry["header_lines"][0])
+            if tvg_id and tvg_id in fresh_by_id:
+                new_url = fresh_by_id[tvg_id]
+        # Try matching by stripping VTVcab prefix
+        if not new_url:
+            stripped = _strip_vtvcab_prefix(entry["name"])
+            if stripped != entry["name"]:
+                stripped_variants = _channel_name_variants(stripped)
+                new_url = next(
+                    (fresh_by_variant.get(v) for v in stripped_variants if v in fresh_by_variant),
+                    "",
+                )
         if new_url and new_url != entry["url"]:
             entry["url"] = new_url
             refreshed += 1
+        else:
+            still_stale.append(entry)
+
+    # For any remaining stale entries, try worker resolution
+    if still_stale:
+        print(f"[health] {len(still_stale)} entries not matched by name/id; trying worker resolve.")
+        _resolve_remaining_via_worker(
+            [{"name": e["name"], "id": _entry_tvg_id(e["header_lines"][0])} for e in still_stale],
+            [],
+        )
+        for i, entry in enumerate(still_stale):
+            dummy = {"name": entry["name"], "id": _entry_tvg_id(entry["header_lines"][0])}
+            worker_url = extract_stream_url(dummy)
+            if worker_url and worker_url != entry["url"]:
+                entry["url"] = worker_url
+                refreshed += 1
 
     if refreshed == 0:
         print("[health] Could not refresh any stale URLs from fresh API data.")
