@@ -98,7 +98,8 @@ REFERENCE_NAME_ALIASES = {
 REFERENCE_REPLACE_GROUPS = {"SCTV", "Quốc Tế", "Sự Kiện VTVPrime"}
 REFERENCE_MERGE_GROUPS: set[str] = set()
 REFERENCE_IMPORT_GROUPS = REFERENCE_REPLACE_GROUPS | REFERENCE_MERGE_GROUPS
-# Only these groups use Film4k Worker URLs; all others use reference playlist URLs
+# Only these groups use Film4k Worker URLs; all other groups keep film4k metadata
+# (name, logo, tvg-id) but use stream URLs from the reference playlist
 WORKER_GROUPS = {"VTVcab", "Sự Kiện TV360"}
 REFERENCE_STREAM_FALLBACKS = {
     "VTVcab 2 - Phim Việt HD": ("VTVcab", "ON Phim Việt"),
@@ -496,15 +497,19 @@ def fetch_reference_order() -> tuple[
             f"Reference playlist returned HTTP {response.status_code}"
         )
     groups, channel_positions, entries = parse_reference_playlist(response.text)
-    for group in groups:
-        if group in WORKER_GROUPS:
-            continue
+    for group in REFERENCE_IMPORT_GROUPS:
         group_entries = [entry for entry in entries if entry["group"] == group]
         if not group_entries:
-            continue
+            raise Film4kError(
+                f"Reference playlist is missing required group: {group}"
+            )
         if any(not entry["url"] for entry in group_entries):
             raise Film4kError(
                 f"Reference playlist group has channels without stream URLs: {group}"
+            )
+        if any(not entry["logo"] for entry in group_entries):
+            raise Film4kError(
+                f"Reference playlist group has channels without logos: {group}"
             )
     return groups, channel_positions, entries
 
@@ -684,7 +689,7 @@ def generate_m3u(
     film4k_channels_by_group: dict[str, list[dict]] = {}
     for channel in ordered_channels:
         group = channel["_film4k_output_group"]
-        if group in WORKER_GROUPS:
+        if group not in REFERENCE_REPLACE_GROUPS:
             film4k_channels_by_group.setdefault(group, []).append(channel)
 
     tv360_channels: dict[str, dict] = {}
@@ -700,8 +705,19 @@ def generate_m3u(
 
     reference_entries_by_group: dict[str, list[dict]] = {}
     for entry in reference_entries:
-        if entry["group"] not in WORKER_GROUPS:
+        if entry["group"] in REFERENCE_IMPORT_GROUPS:
             reference_entries_by_group.setdefault(entry["group"], []).append(entry)
+
+    # Build a lookup from channel name variants to reference stream URL
+    # for non-Worker, non-REPLACE groups (use film4k metadata + reference URL)
+    reference_stream_by_name: dict[str, str] = {}
+    for entry in reference_entries:
+        if entry["group"] in WORKER_GROUPS or entry["group"] in REFERENCE_REPLACE_GROUPS:
+            continue
+        if not entry["url"]:
+            continue
+        for variant in _channel_name_variants(entry["name"]):
+            reference_stream_by_name.setdefault(variant, entry["url"])
 
     for group in reference_groups:
         if group == "Sự Kiện TV360" and events:
@@ -767,10 +783,12 @@ def generate_m3u(
                 count += 1
                 event_count += 1
 
-        if group not in WORKER_GROUPS:
+        if group in REFERENCE_REPLACE_GROUPS:
             imported_entries = reference_entries_by_group.get(group, [])
             if not imported_entries:
-                continue
+                raise Film4kError(
+                    f"Reference playlist has no entries to import for: {group}"
+                )
             if group == "SCTV":
                 priority = ("SCTV15", "SCTV17", "SCTV22")
 
@@ -895,12 +913,24 @@ def generate_m3u(
                     unclassified_count += 1
                 continue
 
-            channel_id = _channel_id(channel)
-            if not channel_id:
-                continue
-            worker_url = _worker_stream_url(channel, is_event=False)
-            if not worker_url:
-                continue
+            # For Worker groups: use Worker stream URL
+            # For non-Worker groups: use reference playlist stream URL with film4k metadata
+            if group in WORKER_GROUPS:
+                channel_id = _channel_id(channel)
+                if not channel_id:
+                    continue
+                stream_url = _worker_stream_url(channel, is_event=False)
+                if not stream_url:
+                    continue
+            else:
+                ref_url = ""
+                for variant in _channel_name_variants(name):
+                    ref_url = reference_stream_by_name.get(variant, "")
+                    if ref_url:
+                        break
+                if not ref_url:
+                    continue
+                stream_url = ref_url
 
             lines.append(
                 f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
@@ -908,27 +938,28 @@ def generate_m3u(
                 f'group-title="{_attribute(group)}",{name}'
             )
 
-            clear_key = channel.get("_film4k_clear_key") or channel.get("clearKey")
-            if isinstance(clear_key, dict):
-                key_id = clear_key.get("keyId")
-                key = clear_key.get("key")
-                if (
-                    isinstance(key_id, str)
-                    and isinstance(key, str)
-                    and key_id
-                    and key
-                ):
-                    lines.append(
-                        "#KODIPROP:inputstream.adaptive.manifest_type=mpd"
-                    )
-                    lines.append(
-                        "#KODIPROP:inputstream.adaptive.license_type=clearkey"
-                    )
-                    lines.append(
-                        f"#KODIPROP:inputstream.adaptive.license_key={key_id}:{key}"
-                    )
+            if group in WORKER_GROUPS:
+                clear_key = channel.get("_film4k_clear_key") or channel.get("clearKey")
+                if isinstance(clear_key, dict):
+                    key_id = clear_key.get("keyId")
+                    key = clear_key.get("key")
+                    if (
+                        isinstance(key_id, str)
+                        and isinstance(key, str)
+                        and key_id
+                        and key
+                    ):
+                        lines.append(
+                            "#KODIPROP:inputstream.adaptive.manifest_type=mpd"
+                        )
+                        lines.append(
+                            "#KODIPROP:inputstream.adaptive.license_type=clearkey"
+                        )
+                        lines.append(
+                            f"#KODIPROP:inputstream.adaptive.license_key={key_id}:{key}"
+                        )
 
-            lines.append(worker_url)
+            lines.append(stream_url)
             count += 1
             if channel.get("_film4k_is_event"):
                 event_count += 1
