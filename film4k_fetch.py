@@ -1362,6 +1362,7 @@ def health_check_and_refresh() -> int:
     # Build lookup by normalized name variants AND by channel ID
     fresh_by_variant: dict[str, str] = {}
     fresh_by_id: dict[str, str] = {}
+    id_by_variant: dict[str, str] = {}
     for ch in resolved_channels:
         name = _first_text(ch, ("name", "title", "channel_name", "channelName", "label"), "")
         url = extract_stream_url(ch)
@@ -1371,6 +1372,9 @@ def health_check_and_refresh() -> int:
                 fresh_by_variant[v] = url
             if cid:
                 fresh_by_id[cid] = url
+        if cid:
+            for v in _channel_name_variants(name):
+                id_by_variant.setdefault(v, cid)
     for ev in events:
         name = _first_text(ev, ("name", "title", "event_name", "label"), "")
         url = extract_stream_url(ev)
@@ -1380,6 +1384,9 @@ def health_check_and_refresh() -> int:
                 fresh_by_variant[v] = url
             if eid:
                 fresh_by_id[eid] = url
+        if eid:
+            for v in _channel_name_variants(name):
+                id_by_variant.setdefault(v, eid)
 
     # Also build ID from tvg-id in playlist entries
     def _entry_tvg_id(header_line: str) -> str:
@@ -1416,7 +1423,7 @@ def health_check_and_refresh() -> int:
         else:
             still_stale.append(entry)
 
-    # For any remaining stale entries, try the reference playlist (SCTV, Quốc Tế, etc.)
+    # For stale entries from the reference playlist (SCTV, Quốc Tế, etc.)
     if still_stale:
         print(f"[health] {len(still_stale)} entries not matched by Film4K API; trying reference playlist.")
         try:
@@ -1428,6 +1435,7 @@ def health_check_and_refresh() -> int:
                     continue
                 for v in _channel_name_variants(ref_entry["name"]):
                     ref_by_variant[v] = url
+            still_after_ref: list[dict] = []
             for entry in still_stale:
                 variants = _channel_name_variants(entry["name"])
                 new_url = next(
@@ -1445,8 +1453,33 @@ def health_check_and_refresh() -> int:
                 if new_url and new_url != entry["url"]:
                     entry["url"] = new_url
                     refreshed += 1
+                else:
+                    still_after_ref.append(entry)
+            still_stale = still_after_ref
         except (Film4kError, requests.RequestException) as error:
             print(f"[health] Reference playlist fetch failed: {error}")
+
+    # For remaining stale entries, resolve via worker redirect by channel ID
+    if still_stale:
+        print(f"[health] {len(still_stale)} entries trying worker stream resolution.")
+        worker_items: list[dict] = []
+        for entry in still_stale:
+            cid = ""
+            variants = _channel_name_variants(entry["name"])
+            cid = next((id_by_variant.get(v) for v in variants if v in id_by_variant), "")
+            if not cid:
+                tvg_id = _entry_tvg_id(entry["header_lines"][0])
+                if tvg_id:
+                    cid = tvg_id
+            if cid:
+                worker_items.append({"id": cid, "name": entry["name"], "_entry": entry})
+        if worker_items:
+            _resolve_remaining_via_worker(worker_items, [])
+            for item in worker_items:
+                new_url = extract_stream_url(item)
+                if new_url and new_url != item["_entry"]["url"]:
+                    item["_entry"]["url"] = new_url
+                    refreshed += 1
 
     if refreshed == 0:
         print("[health] Could not refresh any stale URLs from fresh API data.")
