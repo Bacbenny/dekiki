@@ -1363,29 +1363,44 @@ def health_check_and_refresh() -> int:
     fresh_by_variant: dict[str, str] = {}
     fresh_by_id: dict[str, str] = {}
     id_by_variant: dict[str, str] = {}
+
+    def _all_name_variants(name: str) -> list[str]:
+        result: list[str] = []
+        for v in _channel_name_variants(name):
+            if v not in result:
+                result.append(v)
+        stripped = _strip_vtvcab_prefix(name)
+        if stripped and stripped != name:
+            for v in _channel_name_variants(stripped):
+                if v not in result:
+                    result.append(v)
+        return result
+
     for ch in resolved_channels:
         name = _first_text(ch, ("name", "title", "channel_name", "channelName", "label"), "")
         url = extract_stream_url(ch)
         cid = _channel_id(ch)
+        name_variants = _all_name_variants(name)
         if url:
-            for v in _channel_name_variants(name):
+            for v in name_variants:
                 fresh_by_variant[v] = url
             if cid:
                 fresh_by_id[cid] = url
         if cid:
-            for v in _channel_name_variants(name):
+            for v in name_variants:
                 id_by_variant.setdefault(v, cid)
     for ev in events:
         name = _first_text(ev, ("name", "title", "event_name", "label"), "")
         url = extract_stream_url(ev)
         eid = _channel_id(ev)
+        name_variants = _all_name_variants(name)
         if url:
-            for v in _channel_name_variants(name):
+            for v in name_variants:
                 fresh_by_variant[v] = url
             if eid:
                 fresh_by_id[eid] = url
         if eid:
-            for v in _channel_name_variants(name):
+            for v in name_variants:
                 id_by_variant.setdefault(v, eid)
 
     # Also build ID from tvg-id in playlist entries
