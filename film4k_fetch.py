@@ -98,6 +98,8 @@ REFERENCE_NAME_ALIASES = {
 REFERENCE_REPLACE_GROUPS = {"SCTV", "Quốc Tế", "Sự Kiện VTVPrime"}
 REFERENCE_MERGE_GROUPS: set[str] = set()
 REFERENCE_IMPORT_GROUPS = REFERENCE_REPLACE_GROUPS | REFERENCE_MERGE_GROUPS
+# Only these groups use Film4k Worker URLs; all others use reference playlist URLs
+WORKER_GROUPS = {"VTVcab", "Sự Kiện TV360"}
 REFERENCE_STREAM_FALLBACKS = {
     "VTVcab 2 - Phim Việt HD": ("VTVcab", "ON Phim Việt"),
 }
@@ -494,19 +496,15 @@ def fetch_reference_order() -> tuple[
             f"Reference playlist returned HTTP {response.status_code}"
         )
     groups, channel_positions, entries = parse_reference_playlist(response.text)
-    for group in REFERENCE_IMPORT_GROUPS:
+    for group in groups:
+        if group in WORKER_GROUPS:
+            continue
         group_entries = [entry for entry in entries if entry["group"] == group]
         if not group_entries:
-            raise Film4kError(
-                f"Reference playlist is missing required group: {group}"
-            )
+            continue
         if any(not entry["url"] for entry in group_entries):
             raise Film4kError(
                 f"Reference playlist group has channels without stream URLs: {group}"
-            )
-        if any(not entry["logo"] for entry in group_entries):
-            raise Film4kError(
-                f"Reference playlist group has channels without logos: {group}"
             )
     return groups, channel_positions, entries
 
@@ -686,7 +684,7 @@ def generate_m3u(
     film4k_channels_by_group: dict[str, list[dict]] = {}
     for channel in ordered_channels:
         group = channel["_film4k_output_group"]
-        if group not in REFERENCE_REPLACE_GROUPS:
+        if group in WORKER_GROUPS:
             film4k_channels_by_group.setdefault(group, []).append(channel)
 
     tv360_channels: dict[str, dict] = {}
@@ -702,7 +700,7 @@ def generate_m3u(
 
     reference_entries_by_group: dict[str, list[dict]] = {}
     for entry in reference_entries:
-        if entry["group"] in REFERENCE_IMPORT_GROUPS:
+        if entry["group"] not in WORKER_GROUPS:
             reference_entries_by_group.setdefault(entry["group"], []).append(entry)
 
     for group in reference_groups:
@@ -769,12 +767,10 @@ def generate_m3u(
                 count += 1
                 event_count += 1
 
-        if group in REFERENCE_REPLACE_GROUPS:
+        if group not in WORKER_GROUPS:
             imported_entries = reference_entries_by_group.get(group, [])
             if not imported_entries:
-                raise Film4kError(
-                    f"Reference playlist has no entries to import for: {group}"
-                )
+                continue
             if group == "SCTV":
                 priority = ("SCTV15", "SCTV17", "SCTV22")
 
