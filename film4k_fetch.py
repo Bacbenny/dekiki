@@ -467,10 +467,12 @@ def parse_reference_playlist(
                 channel_positions.setdefault(variant, position)
 
             logo_match = re.search(r'tvg-logo="([^"]*)"', line)
+            tvg_id_match = re.search(r'tvg-id="([^"]*)"', line)
             current_entry = {
                 "group": group,
                 "name": name,
                 "logo": logo_match.group(1).strip() if logo_match else "",
+                "tvg_id": tvg_id_match.group(1).strip() if tvg_id_match else "",
                 "position": position,
                 "lines": [line],
             }
@@ -668,7 +670,7 @@ def generate_m3u(
     reference_channels: dict[str, tuple[int, int, str]],
     reference_entries: list[dict],
 ) -> tuple[str, int, int, int]:
-    lines = ["#EXTM3U"]
+    lines = ["#EXTM3U url-tvg=\"https://epg.io.vn/epg.xml.gz\""]
     count = 0
     event_count = 0
     unclassified_count = 0
@@ -711,13 +713,18 @@ def generate_m3u(
     # Build a lookup from channel name variants to reference stream URL
     # for non-Worker, non-REPLACE groups (use film4k metadata + reference URL)
     reference_stream_by_name: dict[str, str] = {}
+    # Build a lookup from channel name variants to reference tvg-id
+    # for Worker groups (use reference tvg-id for EPG matching)
+    reference_tvg_id_by_name: dict[str, str] = {}
     for entry in reference_entries:
-        if entry["group"] in WORKER_GROUPS or entry["group"] in REFERENCE_REPLACE_GROUPS:
+        if entry["group"] in REFERENCE_REPLACE_GROUPS:
             continue
-        if not entry["url"]:
-            continue
-        for variant in _channel_name_variants(entry["name"]):
-            reference_stream_by_name.setdefault(variant, entry["url"])
+        if entry["url"] and entry["group"] not in WORKER_GROUPS:
+            for variant in _channel_name_variants(entry["name"]):
+                reference_stream_by_name.setdefault(variant, entry["url"])
+        if entry.get("tvg_id") and entry["group"] in WORKER_GROUPS:
+            for variant in _channel_name_variants(entry["name"]):
+                reference_tvg_id_by_name.setdefault(variant, entry["tvg_id"])
 
     for group in reference_groups:
         if group == "Sự Kiện TV360" and events:
@@ -913,7 +920,7 @@ def generate_m3u(
                     unclassified_count += 1
                 continue
 
-            # For Worker groups: use Worker stream URL
+            # For Worker groups: use Worker stream URL + reference tvg-id for EPG
             # For non-Worker groups: use reference playlist stream URL with film4k metadata
             if group in WORKER_GROUPS:
                 channel_id = _channel_id(channel)
@@ -922,6 +929,12 @@ def generate_m3u(
                 stream_url = _worker_stream_url(channel, is_event=False)
                 if not stream_url:
                     continue
+                # Use reference tvg-id for EPG matching if available
+                for variant in _channel_name_variants(name):
+                    ref_tvg_id = reference_tvg_id_by_name.get(variant, "")
+                    if ref_tvg_id:
+                        tvg_id = ref_tvg_id
+                        break
             else:
                 ref_url = ""
                 for variant in _channel_name_variants(name):
@@ -1014,7 +1027,7 @@ def generate_m3u(
         )
 
     blocks = filtered_blocks
-    output_lines = ["#EXTM3U"]
+    output_lines = ['#EXTM3U url-tvg="https://epg.io.vn/epg.xml.gz"']
     for _, block in blocks:
         output_lines.extend(block)
     return "\n".join(output_lines) + "\n", count, unclassified_count, event_count
