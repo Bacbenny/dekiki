@@ -1388,7 +1388,7 @@ def health_check_and_refresh() -> int:
                 fresh_by_id[cid] = url
         if cid:
             for v in name_variants:
-                id_by_variant.setdefault(v, cid)
+                id_by_variant[v] = cid
     for ev in events:
         name = _first_text(ev, ("name", "title", "event_name", "label"), "")
         url = extract_stream_url(ev)
@@ -1401,7 +1401,7 @@ def health_check_and_refresh() -> int:
                 fresh_by_id[eid] = url
         if eid:
             for v in name_variants:
-                id_by_variant.setdefault(v, eid)
+                id_by_variant[v] = eid
 
     # Also build ID from tvg-id in playlist entries
     def _entry_tvg_id(header_line: str) -> str:
