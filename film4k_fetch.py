@@ -104,6 +104,11 @@ WORKER_GROUPS = {"VTVcab", "Sự Kiện TV360"}
 REFERENCE_STREAM_FALLBACKS = {
     "VTVcab 2 - Phim Việt HD": ("VTVcab", "ON Phim Việt"),
 }
+# Override tvg-id for film4k channels whose EPG ID is not in the reference playlist.
+# Key: normalized channel name variant, Value: EPG tvg-id.
+TVG_ID_OVERRIDES = {
+    "viegiaitri": "onviegiaitri",
+}
 
 
 class Film4kError(RuntimeError):
@@ -934,6 +939,9 @@ def generate_m3u(
                     ref_tvg_id = reference_tvg_id_by_name.get(variant, "")
                     if ref_tvg_id:
                         tvg_id = ref_tvg_id
+                        break
+                    if variant in TVG_ID_OVERRIDES:
+                        tvg_id = TVG_ID_OVERRIDES[variant]
                         break
             else:
                 ref_url = ""
