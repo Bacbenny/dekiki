@@ -1416,19 +1416,39 @@ def health_check_and_refresh() -> int:
         else:
             still_stale.append(entry)
 
-    # For any remaining stale entries, try worker resolution
+    # For any remaining stale entries, try the reference playlist (SCTV, Quốc Tế, etc.)
     if still_stale:
-        print(f"[health] {len(still_stale)} entries not matched by name/id; trying worker resolve.")
-        _resolve_remaining_via_worker(
-            [{"name": e["name"], "id": _entry_tvg_id(e["header_lines"][0])} for e in still_stale],
-            [],
-        )
-        for i, entry in enumerate(still_stale):
-            dummy = {"name": entry["name"], "id": _entry_tvg_id(entry["header_lines"][0])}
-            worker_url = extract_stream_url(dummy)
-            if worker_url and worker_url != entry["url"]:
-                entry["url"] = worker_url
-                refreshed += 1
+        print(f"[health] {len(still_stale)} entries not matched by Film4K API; trying reference playlist.")
+        try:
+            ref_groups, ref_channels, ref_entries, ref_tvg_ids = fetch_reference_order()
+            ref_by_variant: dict[str, str] = {}
+            for ref_entry in ref_entries:
+                url = ref_entry.get("url", "")
+                if not url:
+                    continue
+                for v in _channel_name_variants(ref_entry["name"]):
+                    ref_by_variant[v] = url
+            for entry in still_stale:
+                if extract_stream_url(entry) and entry.get("url") and "workers.dev" not in entry["url"]:
+                    continue
+                variants = _channel_name_variants(entry["name"])
+                new_url = next(
+                    (ref_by_variant.get(v) for v in variants if v in ref_by_variant),
+                    "",
+                )
+                if not new_url:
+                    stripped = _strip_vtvcab_prefix(entry["name"])
+                    if stripped != entry["name"]:
+                        stripped_variants = _channel_name_variants(stripped)
+                        new_url = next(
+                            (ref_by_variant.get(v) for v in stripped_variants if v in ref_by_variant),
+                            "",
+                        )
+                if new_url and new_url != entry["url"]:
+                    entry["url"] = new_url
+                    refreshed += 1
+        except (Film4kError, requests.RequestException) as error:
+            print(f"[health] Reference playlist fetch failed: {error}")
 
     if refreshed == 0:
         print("[health] Could not refresh any stale URLs from fresh API data.")
