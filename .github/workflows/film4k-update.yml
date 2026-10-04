@@ -42,5 +42,5 @@ jobs:
           else
             TIMESTAMP=$(TZ='Asia/Ho_Chi_Minh' date '+%Y-%m-%d %H:%M:%S ICT')
             git commit -m "cap nhat film4k.m3u luc ${TIMESTAMP} [skip ci]"
-            git push origin main
+            git push origin mainn
           fi
