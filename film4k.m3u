@@ -436,7 +436,7 @@ https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcworldnews.smil/manifest.mpd
 #KODIPROP:inputstream.adaptive.license_key=5014941a2c42379880b5edf72304c165:f3fa0fe3cd39a52f4eefd36ff7161e89
 https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcearth.smil/manifest.mpd
 #EXTINF:-1 tvg-id="9957" tvg-name="Bóng đá: FIFA ASEAN Cup 2026 - Tranh hạng 3: Malaysia vs Việt Nam, 16 giờ , ngày 5/10, Kênh TV360+ 10" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/02/21/1790950241151/a1c6b7cc152f_1280_720.jpg" group-title="Sự Kiện TV360",Bóng đá: FIFA ASEAN Cup 2026 - Tranh hạng 3: Malaysia vs Việt Nam, 16 giờ , ngày 5/10, Kênh TV360+ 10
-https://tr-netcdn.tv360.vn/netcdn-live/449/output/index.m3u8?timestamp=1791207450&wmkid=0&token=0bdeb81b001fb859a8dc8d4d3dec1978&minrate=0&maxrate=12000000&uid=294779473
+https://rr1-ateme.tv360.vn/live/eds/449/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ0OS9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MTIxOTQxNH0.gICyWu_4KHTTUkVJzBtrI8ESh5APHIkn5SFn8paeyMzL240aRw0nf_oFBZiy92wEoZ-de_A9-8IIflNk31SicQ&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="9867" tvg-name="Bóng đá: UEFA Nations League 2026/27 Lượt 4, Pháp vs Bỉ, 1 giờ 45 phút , ngày 6/10, kênh TV360+ 5" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/09/28/10/1790566417829/7d00ec8e2f18_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: UEFA Nations League 2026/27 Lượt 4, Pháp vs Bỉ, 1 giờ 45 phút , ngày 6/10, kênh TV360+ 5
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
@@ -490,7 +490,7 @@ https://rr1-ateme.tv360.vn/live/eds/370/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhb
 #EXTINF:-1 tvg-id="tv360plus9" tvg-name="TV360+ 9" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267283364/c30a206da84a_480_270.png" group-title="Sự Kiện TV360",TV360+ 9
 https://rr1-ateme.tv360.vn/live/eds/379/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzM3OS9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MTIwNzkyNH0.mwKE9PGbffNubabg784qCTR1xIwJennK-D3cyHNE5bJ6mdOshNSqrqB4iWkauUxicKWXbj7cEqmkdSoqD4tzDQ&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus10" tvg-name="TV360+ 10" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267388401/5f459b37721d_480_270.png" group-title="Sự Kiện TV360",TV360+ 10
-https://tr-netcdn.tv360.vn/netcdn-live/449/output/index.m3u8?timestamp=1791207450&wmkid=0&token=0bdeb81b001fb859a8dc8d4d3dec1978&minrate=0&maxrate=12000000&uid=294779473
+https://rr1-ateme.tv360.vn/live/eds/449/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ0OS9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MTIxOTQxNH0.gICyWu_4KHTTUkVJzBtrI8ESh5APHIkn5SFn8paeyMzL240aRw0nf_oFBZiy92wEoZ-de_A9-8IIflNk31SicQ&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus11" tvg-name="TV360+ 11" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267558745/5fc303f5ba08_480_270.png" group-title="Sự Kiện TV360",TV360+ 11
 https://rr1-ateme.tv360.vn/live/eds/450/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ1MC9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MTIwNjcxMn0.i-88En24msM43odNnVdwVDwn9wyksQxgHoKbb5RNjUMfcITgifFJ3sNIeyyoTpNp0uEKX9yxzP3p0aCy57Mp7Q&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus12" tvg-name="TV360+ 12" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267662370/76b4144bff34_480_270.png" group-title="Sự Kiện TV360",TV360+ 12
