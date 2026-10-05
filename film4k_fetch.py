@@ -101,9 +101,7 @@ REFERENCE_IMPORT_GROUPS = REFERENCE_REPLACE_GROUPS | REFERENCE_MERGE_GROUPS
 # Only these groups use Film4k Worker URLs; all other groups keep film4k metadata
 # (name, logo, tvg-id) but use stream URLs from the reference playlist
 WORKER_GROUPS = {"VTVcab", "Sự Kiện TV360"}
-REFERENCE_STREAM_FALLBACKS = {
-    "VTVcab 2 - Phim Việt HD": ("VTVcab", "ON Phim Việt"),
-}
+REFERENCE_STREAM_FALLBACKS: dict[str, tuple[str, str]] = {}
 # Override tvg-id for film4k channels whose EPG ID is not in the reference playlist.
 # Key: normalized channel name variant, Value: EPG tvg-id.
 TVG_ID_OVERRIDES = {
@@ -600,42 +598,6 @@ def _is_film4k_event(channel: dict) -> bool:
     } or _normalize_channel_name(name).startswith("tv360plus")
 
 
-def _reference_stream_fallback(
-    name: str,
-    group: str,
-    reference_entries: list[dict],
-) -> dict | None:
-    for source_name, (
-        source_group,
-        reference_name,
-    ) in REFERENCE_STREAM_FALLBACKS.items():
-        if group != source_group:
-            continue
-        if not set(_channel_name_variants(name)).intersection(
-            _channel_name_variants(source_name)
-        ):
-            continue
-
-        fallback = next(
-            (
-                entry
-                for entry in reference_entries
-                if entry["group"] == source_group
-                and set(_channel_name_variants(entry["name"])).intersection(
-                    _channel_name_variants(reference_name)
-                )
-            ),
-            None,
-        )
-        if fallback is None or not fallback["url"]:
-            raise Film4kError(
-                "Reference playlist is missing the fallback stream for: "
-                f"{source_name}"
-            )
-        return fallback
-    return None
-
-
 def _order_channels(
     channels: list[dict],
     reference_groups: list[str],
@@ -986,34 +948,6 @@ def generate_m3u(
                 ("tvg_id", "tvgId", "id", "channel_id", "channelId", "slug"),
                 name,
             )
-            reference_fallback = _reference_stream_fallback(
-                name,
-                group,
-                reference_entries,
-            )
-            if reference_fallback:
-                # Override tvg-id for EPG matching
-                for variant in _channel_name_variants(name):
-                    ref_tvg_id = reference_tvg_id_by_name.get(variant, "")
-                    if ref_tvg_id:
-                        tvg_id = ref_tvg_id
-                        break
-                    if variant in TVG_ID_OVERRIDES:
-                        tvg_id = TVG_ID_OVERRIDES[variant]
-                        break
-                lines.append(
-                    f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
-                    f'tvg-name="{_attribute(name)}" tvg-logo="{_attribute(logo)}" '
-                    f'group-title="{_attribute(group)}",{name}'
-                )
-                lines.extend(reference_fallback["lines"][1:])
-                count += 1
-                if channel.get("_film4k_is_event"):
-                    event_count += 1
-                if channel.get("_film4k_unclassified"):
-                    unclassified_count += 1
-                continue
-
             # For Worker groups: embed resolved stream URL directly for instant playback
             # For non-Worker groups: use reference playlist stream URL with film4k metadata
             if group in WORKER_GROUPS:
