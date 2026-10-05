@@ -785,11 +785,16 @@ def generate_m3u(
                     channel_clear_key = tv360_channel.get("_film4k_clear_key") or tv360_channel.get("clearKey")
                     if isinstance(channel_clear_key, dict):
                         event_record["_film4k_clear_key"] = channel_clear_key
-                worker_url = _worker_stream_url(
-                    event_record,
-                    is_event=not bool(channel_id),
-                )
-                if not worker_url:
+                # Use the actual stream_url from Worker events response
+                # This eliminates the Worker round-trip for instant playback
+                event_stream_url = extract_stream_url(event_record)
+                if not event_stream_url:
+                    # Fallback to Worker proxy URL
+                    event_stream_url = _worker_stream_url(
+                        event_record,
+                        is_event=not bool(channel_id),
+                    )
+                if not event_stream_url:
                     continue
                 lines.append(
                     f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
@@ -809,7 +814,7 @@ def generate_m3u(
                         lines.append("#KODIPROP:inputstream.adaptive.manifest_type=mpd")
                         lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
                         lines.append(f"#KODIPROP:inputstream.adaptive.license_key={key_id}:{key}")
-                lines.append(worker_url)
+                lines.append(event_stream_url)
                 count += 1
                 event_count += 1
 
@@ -977,13 +982,18 @@ def generate_m3u(
                     unclassified_count += 1
                 continue
 
-            # For Worker groups: use Worker stream URL + reference tvg-id for EPG
+            # For Worker groups: embed resolved stream URL directly for instant playback
             # For non-Worker groups: use reference playlist stream URL with film4k metadata
             if group in WORKER_GROUPS:
                 channel_id = _channel_id(channel)
                 if not channel_id:
                     continue
-                stream_url = _worker_stream_url(channel, is_event=False)
+                # Use the actual stream URL resolved by resolve_channel_streams
+                # This eliminates the Worker round-trip (302 redirect + API call)
+                stream_url = extract_stream_url(channel)
+                if not stream_url:
+                    # Fallback to Worker proxy URL if resolution failed
+                    stream_url = _worker_stream_url(channel, is_event=False)
                 if not stream_url:
                     continue
                 # Use reference tvg-id for EPG matching if available
