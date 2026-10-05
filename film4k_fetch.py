@@ -208,11 +208,13 @@ def fetch_channels() -> tuple[list[dict], str]:
 
 
 def fetch_events(cookie: str) -> list[dict]:
+    # Try the Worker endpoint first — it returns real sports events with proper
+    # title/stream_url/clearKey fields, already resolved from film4k.net API.
     try:
         response = requests.get(
-            f"{FILM4K_BASE}/api/tv/events?_={int(time.time() * 1000)}",
-            headers=_api_headers(cookie),
-            timeout=45,
+            f"{WORKER_BASE}/film4k/events",
+            headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+            timeout=30,
         )
         if response.ok:
             events = _unwrap_channels(response.json())
@@ -221,10 +223,11 @@ def fetch_events(cookie: str) -> list[dict]:
     except (requests.RequestException, ValueError):
         pass
 
+    # Fallback: film4k.net API directly
     response = requests.get(
-        f"{WORKER_BASE}/film4k/events",
-        headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
-        timeout=30,
+        f"{FILM4K_BASE}/api/tv/events?_={int(time.time() * 1000)}",
+        headers=_api_headers(cookie),
+        timeout=45,
     )
     if not response.ok:
         raise Film4kError(
@@ -733,6 +736,19 @@ def generate_m3u(
             for variant in _channel_name_variants(entry["name"]):
                 reference_tvg_id_by_name.setdefault(variant, entry["tvg_id"])
 
+    # Track TV360+ numbers used by events to avoid duplicates
+    event_tv360_numbers: set[str] = set()
+    for event in events:
+        event_name = _first_text(
+            event,
+            ("name", "title", "event_name", "label"),
+        )
+        event_channel_match = re.search(
+            r"tv360\s\+\s*(\d+)", event_name, re.IGNORECASE
+        )
+        if event_channel_match:
+            event_tv360_numbers.add(event_channel_match.group(1))
+
     for group in reference_groups:
         if group == "Sự Kiện TV360" and events:
             for event in events:
@@ -825,6 +841,31 @@ def generate_m3u(
             continue
 
         group_channels = film4k_channels_by_group.get(group, [])
+        # For Sự Kiện TV360: skip TV360+ channels already covered by events
+        if group == "Sự Kiện TV360" and event_tv360_numbers:
+            group_channels = [
+                ch for ch in group_channels
+                if not any(
+                    re.search(
+                        r"tv360\s\+\s*(\d+)",
+                        _first_text(
+                            ch,
+                            ("name", "title", "channel_name", "channelName", "label"),
+                            "",
+                        ),
+                        re.IGNORECASE,
+                    )
+                    and re.search(
+                        r"tv360\s\+\s*(\d+)",
+                        _first_text(
+                            ch,
+                            ("name", "title", "channel_name", "channelName", "label"),
+                            "",
+                        ),
+                        re.IGNORECASE,
+                    ).group(1) in event_tv360_numbers
+                )
+            ]
         group_items: list[tuple[tuple[int, int, int], str, dict]] = []
         if group in REFERENCE_MERGE_GROUPS:
             group_reference_entries = reference_entries_by_group.get(group, [])
