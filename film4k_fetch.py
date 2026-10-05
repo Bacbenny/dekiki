@@ -336,6 +336,37 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
     return resolved
 
 
+def _pre_resolve_worker_streams(channels: list[dict]) -> dict[str, str]:
+    """Pre-resolve stream URLs via the Worker's 302 redirect for instant playback.
+    Returns a mapping of channel_id -> direct stream URL."""
+    mapping: dict[str, str] = {}
+
+    def _resolve_one(channel: dict) -> None:
+        channel_id = _channel_id(channel)
+        if not channel_id or channel_id.startswith("ants:"):
+            return
+        if extract_stream_url(channel):
+            mapping[channel_id] = extract_stream_url(channel)
+            return
+        try:
+            response = requests.get(
+                f"{WORKER_BASE}/film4k/stream/channel/{quote(channel_id, safe='')}",
+                headers={"User-Agent": USER_AGENT},
+                allow_redirects=False,
+                timeout=15,
+            )
+            if response.status_code in (301, 302, 303, 307, 308):
+                location = response.headers.get("Location", "")
+                if location and _is_http_url(location):
+                    mapping[channel_id] = location
+        except requests.RequestException:
+            pass
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        list(executor.map(_resolve_one, channels))
+    return mapping
+
+
 def resolve_channel_streams(channels: list[dict], cookie: str) -> list[dict]:
     """Resolve channel records that do not include a stream URL, as the Worker does."""
     with ThreadPoolExecutor(max_workers=8) as executor:
@@ -679,6 +710,7 @@ def generate_m3u(
     reference_groups: list[str],
     reference_channels: dict[str, tuple[int, int, str]],
     reference_entries: list[dict],
+    worker_stream_map: dict[str, str] | None = None,
 ) -> tuple[str, int, int, int]:
     lines = ["#EXTM3U url-tvg=\"https://epg.io.vn/epg.xml.gz\""]
     count = 0
@@ -988,11 +1020,14 @@ def generate_m3u(
                 channel_id = _channel_id(channel)
                 if not channel_id:
                     continue
-                # Use the actual stream URL resolved by resolve_channel_streams
-                # This eliminates the Worker round-trip (302 redirect + API call)
-                stream_url = extract_stream_url(channel)
+                # Use pre-resolved stream URL from Worker (302 redirect) for instant playback
+                # Falls back to Worker proxy URL if pre-resolution failed
+                stream_url = ""
+                if worker_stream_map and channel_id in worker_stream_map:
+                    stream_url = worker_stream_map[channel_id]
                 if not stream_url:
-                    # Fallback to Worker proxy URL if resolution failed
+                    stream_url = extract_stream_url(channel)
+                if not stream_url:
                     stream_url = _worker_stream_url(channel, is_event=False)
                 if not stream_url:
                     continue
@@ -1130,6 +1165,7 @@ def main() -> int:
                 and not _channel_id(channel).startswith("ants:")
             ]
         resolved_channels = resolve_channel_streams(channels, cookie)
+        worker_stream_map = _pre_resolve_worker_streams(resolved_channels)
         reference_groups, reference_channels, reference_entries = (
             fetch_reference_order()
         )
@@ -1139,6 +1175,7 @@ def main() -> int:
             reference_groups,
             reference_channels,
             reference_entries,
+            worker_stream_map,
         )
         write_playlist(content)
     except (Film4kError, requests.RequestException, OSError) as error:
