@@ -33,54 +33,51 @@ https://live.fptplay53.net/fnxhd2/quocphongvnhd_vhls.smil/chunklist_b5000000.m3u
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=3f65c107c9904ca98ddd22671d5c89c3:e3c6fbe4cae8bbf13ed6a7be8e66aa55
-https://fo-hlc.tv360.vn/bpk-tv/221/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMTQsInVyaSI6Ii9icGstdHYvMjIxL291dHB1dC9pbmRleC5tcGQifQ.J6mPdiHw5g5S4MVBQmFw4Z-aqDFKRhea5T2vLtaj_3U&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/221/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MjMsInVyaSI6Ii9icGstdHYvMjIxL291dHB1dC9pbmRleC5tcGQifQ.wR0pZ5dIWw_rDN9D30DYeFkIzedNt122QvnapYaNFOs&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="onsportsplus" tvg-name="VTVcab 6 - On Sports +" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650447548/72acfa0eca2c_480_270.png" group-title="VTVcab",VTVcab 6 - On Sports +
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=3ace637564945aa781240ac83152af30:45bde9320c88ffe42f582081bd5893e1
-https://fo-hlc.tv360.vn/bpk-tv/216/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjAsInVyaSI6Ii9icGstdHYvMjE2L291dHB1dC9pbmRleC5tcGQifQ.KpvFtceTLdOVOeLI0BKmk2IchfJn65cNkAXzoabVj1Y&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/216/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzIsInVyaSI6Ii9icGstdHYvMjE2L291dHB1dC9pbmRleC5tcGQifQ.71pcrB5SvGVZb6npWGLfKzmoOm84oy-kA2UrupUFAfc&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="onfootball" tvg-name="VTVcab 16 - On Football HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650260303/bc7fe5334315_480_270.png" group-title="VTVcab",VTVcab 16 - On Football HD
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=ee81a4d6a5545cbf82eba5cc5e47bd5b:2f1620db6eac3991f9d39eb8fad8d8dd
-https://rr1-ateme.tv360.vn/live/eds/222/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzIyMi9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjA3NjAzfQ.SXylLViYRLVLlsm9_i98BUbxt9SMUeLOzJKm250eDi3kKPO1K-eyV88vVHJ8rs97cTNXcSYE8jVhBXz4Lo_WMg&screen=MHL&uid=294779473
+#KODIPROP:inputstream.adaptive.license_key=2d33c568722543eab2c1f0ba5318a176:6e2743f51b802707dc84b46d1f044cef
+https://fo-hlc.tv360.vn/bpk-tv/222/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk1NTEsInVyaSI6Ii9icGstdHYvMjIyL291dHB1dC9pbmRleC5tcGQifQ.-hNUbdlZ7xkPhBnOQo8MBASnONFS0muV5TKHJ4Knba4&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="onsportsnews" tvg-name="VTVcab 18 - On Sports News" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650363143/71956aa35c78_480_270.png" group-title="VTVcab",VTVcab 18 - On Sports News
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=6e3eb0ec2ef65728b2907635010dabe9:0257b51347a6f1cbad65e380d3330038
-https://rr1-ateme.tv360.vn/live/eds/223/DASH_DRM_MHL_2s_event/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzIyMy9EQVNIX0RSTV9NSExfMnNfZXZlbnQvIiwiZXhwIjoxNzkxMjA4MDE0fQ.jOSsAKB2OM8KOSkqOYWalz_noOx9g_WkSEDhp_0Xhl5Z2lWv_RnjaMn57G8DFpzhofnfaQbA4InsX_vI7_hEgQ&screen=MHL&uid=294779473
+https://prv.film4k.net/live/tv360/170/manifest.mpd
 #EXTINF:-1 tvg-id="onviegiaitri" tvg-name="VTVcab 1 - Vie Giải Trí HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2024/01/02/23/1704211446236/d1503bd3566e_480_270.png" group-title="VTVcab",VTVcab 1 - Vie Giải Trí HD
-https://fo-hlc.tv360.vn/bpk-tv/211/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjAsInVyaSI6Ii9icGstdHYvMjExL291dHB1dC9pbmRleC5tM3U4In0.KcsclyHBJTLJBpnWHAU8AkbU25tEEbRoWnNLIuMOl3c&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/211/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzIsInVyaSI6Ii9icGstdHYvMjExL291dHB1dC9pbmRleC5tM3U4In0.SYBOc0BsYCRavsBFQKjmAyudAYPo2q2k-lyTDjDfOKM&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="onphimviet" tvg-name="VTVcab 2 - Phim Việt HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2021/09/07/16/1631007494845/516efb158133_480_270.png" group-title="VTVcab",VTVcab 2 - Phim Việt HD
-https://lsm-g12.tv360.vn:18443/348.m3u8?AdaptiveType=HLS&VOD_RequestID=jKQSNY7t2gBBBDpQnm9ycYEZmIkztQgIDouHhU4EV5QHmHyxtzJC6zWRfeEcXCNmbyFJkej+8MdUyLMlzFrTTLhy4bwdaKLTnMclxZ4WxpbPTX2sQ50FayyTBhjCCZoEmAJ7qFLbYBGfFtsSEMDjrVn+x5Cco4rBi5xz3E0WeBsmBbnYB6rQ2XWgMlweQj6YyLhJ0fw3KDvJVKwRJvjCfw==&uid=294779473
+https://lsm-g11.tv360.vn:18443/348.m3u8?AdaptiveType=HLS&VOD_RequestID=jKQSNY7t2gBBBDpQnm9ycYEZmIkztQgIDouHhU4EV5Qwz4PcFHU926+rnnu7N5f45+m+1nRoT+/AFBONiyfzIjIbql1o6fhqqPw7hPbxB+2CuLLPZ8M63eICRHF2pO/KhVsaDQs+4ILVcbkg6sWrYoruPAiRB5pbMMIRKGd4l5kBGklQJ3jCx7+11YZMSMAR7okhMQM8PZsQ13uljOpOew==&uid=294779473
 #EXTINF:-1 tvg-id="onmovies" tvg-name="Vtvcab 4 – On Movies" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/02/16/16/1676540062912/f21d4df5b545_480_270.png" group-title="VTVcab",Vtvcab 4 – On Movies
-https://fo-hlc.tv360.vn/bpk-tv/346/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjYsInVyaSI6Ii9icGstdHYvMzQ2L291dHB1dC9pbmRleC5tM3U4In0.5_VfHsg0sN95qVx62Mrv_P1Sw9CsMnrkNI6arSeN1WY&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/346/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzUsInVyaSI6Ii9icGstdHYvMzQ2L291dHB1dC9pbmRleC5tM3U4In0.GldA9Fgr8wpEi0rBPJpt7NAQgagZtyf9DWoLIW2twvs&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="onechannel" tvg-name="VTVcab 5 - E Channel HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/15/1689755306897/935d4d4cde0d_480_270.png" group-title="VTVcab",VTVcab 5 - E Channel HD
-https://fo-hlc.tv360.vn/bpk-tv/212/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjYsInVyaSI6Ii9icGstdHYvMjEyL291dHB1dC9pbmRleC5tM3U4In0.u_o9vbwGsn5iLOYPpd4Fx0e_JTwiX4cpiSMLB4_tFlM&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/212/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzUsInVyaSI6Ii9icGstdHYvMjEyL291dHB1dC9pbmRleC5tM3U4In0.hlApUxZgw70P7ScUlD2b2BpJ8eSvl-ku0hs9_cScnfo&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="ono2tv" tvg-name="O2TV" tvg-logo="https://img-zlr1.tv360.vn/image1/2024/08/06/23/1722961565788/ba3ae8e7865d_480_270.png" group-title="VTVcab",O2TV
 https://rr1-ateme.tv360.vn/live/eds/218/HLS_Clean_MHL_6s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzIxOC9ITFNfQ2xlYW5fTUhMXzZzLyIsImV4cCI6MTc5MTIwODM0NH0.Oq8keFQockEArabqBR7i2hQ_IZiC3gKTrhN0h5JL2q0ZOW1DbMt8eZ6bxq7xERl38wk-ayMODfR_iauehr52og&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="onbibi" tvg-name="VTVcab 8 Bibi SD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/08/1689731979485/df22eff3c261_480_270.png" group-title="VTVcab",VTVcab 8 Bibi SD
-https://fo-hlc.tv360.vn/bpk-tv/263/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjAsInVyaSI6Ii9icGstdHYvMjYzL291dHB1dC9pbmRleC5tM3U4In0.1rowcsb4MN9xf5N9lzCWxsO44nhafzFCdUlmyUa4n98&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/263/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzUsInVyaSI6Ii9icGstdHYvMjYzL291dHB1dC9pbmRleC5tM3U4In0.5Wp9h5QMunJ4G79WcgteZLm_4V8vLYWKVx2EdgVoT7o&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="oninfotv" tvg-name="VTVcab 9 - InfoTV HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/09/1689732099410/a13853e5de55_480_270.png" group-title="VTVcab",VTVcab 9 - InfoTV HD
-https://fo-hlc.tv360.vn/bpk-tv/349/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjksInVyaSI6Ii9icGstdHYvMzQ5L291dHB1dC9pbmRleC5tM3U4In0.--06XQqBjnTrbLfGCWmlz3f_UC82NuOJYS_nXbxkxmE&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/349/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzgsInVyaSI6Ii9icGstdHYvMzQ5L291dHB1dC9pbmRleC5tM3U4In0.VlrNq3_ooXUsiA1pwiN_HgDIo0_MudCnApWibAwl7pM&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="oncine" tvg-name="VTVcab10 - On Cine HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2021/09/07/17/1631009339636/95e9bc61877c_480_270.png" group-title="VTVcab",VTVcab10 - On Cine HD
-https://fo-hlc.tv360.vn/bpk-tv/226/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjAsInVyaSI6Ii9icGstdHYvMjI2L291dHB1dC9pbmRleC5tM3U4In0.WqYo81eHaQO63BPH06o80mmYwcomkwGMumzyAu3VaAw&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/226/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzIsInVyaSI6Ii9icGstdHYvMjI2L291dHB1dC9pbmRleC5tM3U4In0.pIxvou4h9S8AhP9CyLMJav5ZjznE_OL0Y5gka4F_MMM&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="onstyle" tvg-name="VTVcab 12 - StyleTV HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/09/1689732221934/7138a2e2ade1_480_270.png" group-title="VTVcab",VTVcab 12 - StyleTV HD
-https://fo-hlc.tv360.vn/bpk-tv/219/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjYsInVyaSI6Ii9icGstdHYvMjE5L291dHB1dC9pbmRleC5tM3U4In0.wdfUpXyInKSgOTpWHs2zVhkKsrfTcxdE25z5Gx4Kvd4&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/219/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzUsInVyaSI6Ii9icGstdHYvMjE5L291dHB1dC9pbmRleC5tM3U4In0.e9i2mtR9C1v6_a0KWQ7pI9ABkhpi87ld9BdeLyN2RzQ&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="onmusic" tvg-name="VTVcab15 – On Music" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/20/10/1689822524259/0f3a4d1ebfaf_480_270.png" group-title="VTVcab",VTVcab15 – On Music
-https://fo-hlc.tv360.vn/bpk-tv/220/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjYsInVyaSI6Ii9icGstdHYvMjIwL291dHB1dC9pbmRleC5tM3U4In0.B8hSKvm-_rJEVF5xMkojLJD4P_hBi__r6lgqW332-MA&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/220/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzgsInVyaSI6Ii9icGstdHYvMjIwL291dHB1dC9pbmRleC5tM3U4In0.oVtsphs6Iolak8VEgWg69uI2keXnkelsLz3WLa62ihk&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="ontrending" tvg-name="Vtvcab17 – Trending TV" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/16/1689759248732/ebe66c03d7f6_480_270.png" group-title="VTVcab",Vtvcab17 – Trending TV
-https://fo-hlc.tv360.vn/bpk-tv/350/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjYsInVyaSI6Ii9icGstdHYvMzUwL291dHB1dC9pbmRleC5tM3U4In0.fhWOTmQgl7Jo9JhlbBWQpxVVJNmLxyDbX7czBQ5SqLU&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/350/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzgsInVyaSI6Ii9icGstdHYvMzUwL291dHB1dC9pbmRleC5tM3U4In0.Ab7N35Vq7gQl3mjnpYC104HC4Jj6-kWQyGb8xUK11To&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="onviedramas" tvg-name="VTVcab19 – Vie Dramas" tvg-logo="https://img-zlr1.tv360.vn/image1/2024/01/03/07/1704241415128/050934936855_480_270.png" group-title="VTVcab",VTVcab19 – Vie Dramas
-https://fo-hlc.tv360.vn/bpk-tv/339/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjAsInVyaSI6Ii9icGstdHYvMzM5L291dHB1dC9pbmRleC5tM3U4In0.2Wh4G6DYtVPCuaMbBMt6eQSnZWkO7aDdxOCRel1t-nU&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/339/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzUsInVyaSI6Ii9icGstdHYvMzM5L291dHB1dC9pbmRleC5tM3U4In0.fqR62KwcL4wUHz78xxKhWxWSJcW_VorGzBXuqlFM9fg&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="onvfamily" tvg-name="VTVcab 20 - V Family HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/09/1689732486538/904f55c861b5_480_270.png" group-title="VTVcab",VTVcab 20 - V Family HD
-https://fo-hlc.tv360.vn/bpk-tv/351/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjksInVyaSI6Ii9icGstdHYvMzUxL291dHB1dC9pbmRleC5tM3U4In0.st1mMlk5SDATPfpu0u0PQ3jkcpSOVmpLYJhZxMZVyxM&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/351/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzgsInVyaSI6Ii9icGstdHYvMzUxL291dHB1dC9pbmRleC5tM3U4In0.By0lAm5IMkt6UM6cm0TGh648c1SqLDCukuYcq82sMv0&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="onkids" tvg-name="VTVcab 21- Cartoon Kids HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2025/07/21/14/1753083917555/313a5cc8943c_480_270.png" group-title="VTVcab",VTVcab 21- Cartoon Kids HD
-https://fo-hlc.tv360.vn/bpk-tv/234/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjYsInVyaSI6Ii9icGstdHYvMjM0L291dHB1dC9pbmRleC5tM3U4In0.us5ZD2UjrBkTT_MnxFF4a_yZR1oeTJja58ivpU9PLpM&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/234/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzUsInVyaSI6Ii9icGstdHYvMjM0L291dHB1dC9pbmRleC5tM3U4In0.Bp2caCfaf_QCDN7G8dAK_QsMIc_l2MUmjBGItrJNUXY&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="onlife" tvg-name="VTVcab 22 - Life TV HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/09/1689732652862/f124f55c3587_480_270.png" group-title="VTVcab",VTVcab 22 - Life TV HD
-https://fo-hlc.tv360.vn/bpk-tv/347/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMjksInVyaSI6Ii9icGstdHYvMzQ3L291dHB1dC9pbmRleC5tM3U4In0.viCqNjSDKj4IBRdozLORH7ZvpHDfqXFE4I-aElSS7Sk&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/347/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzgsInVyaSI6Ii9icGstdHYvMzQ3L291dHB1dC9pbmRleC5tM3U4In0.mUNfS7_1C1-GykfsaORz3gKxRBWAjhc6pvkPC5_WjrI&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="ongolf" tvg-name="VTVcab 23 - Golf Channel" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650320416/f57f4fd63788_480_270.png" group-title="VTVcab",VTVcab 23 - Golf Channel
-https://fo-hlc.tv360.vn/bpk-tv/289/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDgwMTQsInVyaSI6Ii9icGstdHYvMjg5L291dHB1dC9pbmRleC5tM3U4In0.DKti1UiHtlMqKBM6kCvTMTZAIvsIc0KE1JsKyUv3WdI&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/289/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MzIsInVyaSI6Ii9icGstdHYvMjg5L291dHB1dC9pbmRleC5tM3U4In0.E8jXme8JogO0ihomuUnqaj2Tyf-R2p3oQP6WumnlUM8&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="360phimaumy" tvg-name="Phim Âu Mỹ" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/09/08/1775697767861/9a6dc88794cf_480_270.png" group-title="VTVcab",Phim Âu Mỹ
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
@@ -435,108 +432,108 @@ https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcworldnews.smil/manifest.mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=5014941a2c42379880b5edf72304c165:f3fa0fe3cd39a52f4eefd36ff7161e89
 https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcearth.smil/manifest.mpd
-#EXTINF:-1 tvg-id="9957" tvg-name="Bóng đá: FIFA ASEAN Cup 2026 - Tranh hạng 3: Malaysia vs Việt Nam, 16 giờ , ngày 5/10, Kênh TV360+ 10" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/02/21/1790950241151/a1c6b7cc152f_1280_720.jpg" group-title="Sự Kiện TV360",Bóng đá: FIFA ASEAN Cup 2026 - Tranh hạng 3: Malaysia vs Việt Nam, 16 giờ , ngày 5/10, Kênh TV360+ 10
+#EXTINF:-1 tvg-id="9957" tvg-name="Bóng đá: FIFA ASEAN Cup 2026 - Chung kết: Indonesia vs Thái Lan, 20 giờ , ngày 5/10, Kênh TV360+ 10" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/02/21/1790951007471/24cdaf8fe065_1280_720.jpg" group-title="Sự Kiện TV360",Bóng đá: FIFA ASEAN Cup 2026 - Chung kết: Indonesia vs Thái Lan, 20 giờ , ngày 5/10, Kênh TV360+ 10
 https://rr1-ateme.tv360.vn/live/eds/449/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ0OS9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MTIxOTQxNH0.gICyWu_4KHTTUkVJzBtrI8ESh5APHIkn5SFn8paeyMzL240aRw0nf_oFBZiy92wEoZ-de_A9-8IIflNk31SicQ&screen=MHL&uid=294779473
+#EXTINF:-1 tvg-id="2458" tvg-name="Bóng đá Giao Hữu Quốc Tế 2026: Argentina vs Benin, 6 giờ , ngày 7/10, Kênh TV360+ 4" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/05/16/1791192559710/ffe6c299f7d1_1280_720.jpg" group-title="Sự Kiện TV360",Bóng đá Giao Hữu Quốc Tế 2026: Argentina vs Benin, 6 giờ , ngày 7/10, Kênh TV360+ 4
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=70d033252d025d719ba70a37acc0f5c8:6ca465d8b3018f1604da6d43d3395a6d
+https://fo-hlc.tv360.vn/bpk-tv/201/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjg5MTUsInVyaSI6Ii9icGstdHYvMjAxL291dHB1dC9pbmRleC5tcGQifQ.jDpQzVbEVj1SGY0b33nBf_aKiWLeK0Z_dHM1uX8OnWg&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="9867" tvg-name="Bóng đá: UEFA Nations League 2026/27 Lượt 4, Pháp vs Bỉ, 1 giờ 45 phút , ngày 6/10, kênh TV360+ 5" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/09/28/10/1790566417829/7d00ec8e2f18_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: UEFA Nations League 2026/27 Lượt 4, Pháp vs Bỉ, 1 giờ 45 phút , ngày 6/10, kênh TV360+ 5
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=edfa094d8ac55cf98f5867128a926aa7:0e10fa6099105e2e0a7ce1e34e9c0230
-https://rr1-ateme.tv360.vn/live/eds/367/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzM2Ny9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjA3MzEyfQ.Fh9YRQ2UY6iOe2tUbFwvP-FwZ6-07Qvy4WH8CmoLGy8hIyb8phTGJU0CcVybcSQs5G2YatwY-U2U4NaaVcsHQg&screen=MHL&uid=294779473
-#EXTINF:-1 tvg-id="2458" tvg-name="Bóng đá: UEFA Nations League 2026/27 Lượt 4, Italy vs Thổ Nhĩ Kỳ, 1giờ 45 phút, ngày 6/10, kênh TV360+ 4" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/09/28/10/1790566807536/6de4ab86150e_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: UEFA Nations League 2026/27 Lượt 4, Italy vs Thổ Nhĩ Kỳ, 1giờ 45 phút, ngày 6/10, kênh TV360+ 4
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=70d033252d025d719ba70a37acc0f5c8:6ca465d8b3018f1604da6d43d3395a6d
-https://fo-hlc.tv360.vn/bpk-tv/201/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDczMTIsInVyaSI6Ii9icGstdHYvMjAxL291dHB1dC9pbmRleC5tcGQifQ.TM1gUCc7C6sWf-FwX28dIChWXmKrl2SwhiO4caiZMWM&minrate=0&maxrate=12000000&uid=294779473
+https://rr1-ateme.tv360.vn/live/eds/367/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzM2Ny9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjI4OTE1fQ.NcLd3I6qm28E-oQHB3btWy6rbywMQUF5fDO9LZ2CtHtbcwu7b4eVtKZXwOzaD8wkDMkzRvr0V_2yTva0LCeYpA&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus1" tvg-name="TV360+ 1" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266760359/ba1ca843cd06_480_270.png" group-title="Sự Kiện TV360",TV360+ 1
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=62cd425595ba45b0a3f80290510308b4:2fc95e0a371cd0ba343bc1d120dd9713
-https://fo-hlc.tv360.vn/bpk-tv/198/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDc5MTgsInVyaSI6Ii9icGstdHYvMTk4L291dHB1dC9pbmRleC5tcGQifQ.U7Uk5kVKZ_QIw_PPkXSCz4ss-T17TmZHqP9TqjtGsqY&minrate=0&maxrate=12000000&uid=294779473
+#KODIPROP:inputstream.adaptive.license_key=47404f622db3536c867b2545581aadb4:9fbdc12cfe74564fd4329baa6a6d1968
+https://rr1-ateme.tv360.vn/live/eds/198/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzE5OC9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjI5NTE4fQ.xrwF5-yh75K7Fp4pR-fmwr9o7thkGtPPJmlRC87hJhYkxUu5CKGit51euZ7dxEAdWmYlbWDeJESKOsO80NddcQ&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus2" tvg-name="TV360+ 2" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266826697/9647033848f3_480_270.png" group-title="Sự Kiện TV360",TV360+ 2
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=2c24f672f7715433a83953e74ae564b1:10a63f9f2ccd81dfc4a05263c2fd1575
-https://rr1-ateme.tv360.vn/live/eds/199/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzE5OS9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjA3OTE4fQ.fHmlaSPwRt_82bhg8Ywsaf3g9zOpPjjROg19BDJEHf_-Jo6qw1RgHgLMDdHnlh_h6VSfVqGlxnUbDfA73Bfo5w&screen=MHL&uid=294779473
+https://rr1-ateme.tv360.vn/live/eds/199/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzE5OS9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjI5NTE4fQ.fnSHm0Pa_M_niQ39KW9t40l_oumODhnDAvzVG75NSN_ahlSMoiwxsxcUiyEy-nb32Nc4VzMNw3GRVCP4dP0Zog&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus3" tvg-name="TV360+ 3" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266894249/af82cd28fcda_480_270.png" group-title="Sự Kiện TV360",TV360+ 3
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=8405a15e96b35497bde131a29e7fb67e:adb30d908915cf14760880240961a5ed
-https://rr1-ateme.tv360.vn/live/eds/200/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzIwMC9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjA3OTE4fQ.QXn4fJLlOyiUd8jm7Wgyz6gO4DtgcOVpNtOwNBSdOzaoNkoNf2W9duUD4HvtBaFqY4i-UIAmTIabjqMqoIjSBQ&screen=MHL&uid=294779473
+https://rr1-ateme.tv360.vn/live/eds/200/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzIwMC9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjI5NTE4fQ.kBDdkl_7iuMAR5BJBfumivgL3t9Dcl42lkdFtT-XMuLedWSXp-I7HxJRIjTcOFA2Ks2Ewe5VyPSFA9V3fOiQGQ&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus4" tvg-name="TV360+ 4" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266956801/9a85754a5bd9_480_270.png" group-title="Sự Kiện TV360",TV360+ 4
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=70d033252d025d719ba70a37acc0f5c8:6ca465d8b3018f1604da6d43d3395a6d
-https://fo-hlc.tv360.vn/bpk-tv/201/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDczMTIsInVyaSI6Ii9icGstdHYvMjAxL291dHB1dC9pbmRleC5tcGQifQ.TM1gUCc7C6sWf-FwX28dIChWXmKrl2SwhiO4caiZMWM&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/201/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjg5MTUsInVyaSI6Ii9icGstdHYvMjAxL291dHB1dC9pbmRleC5tcGQifQ.jDpQzVbEVj1SGY0b33nBf_aKiWLeK0Z_dHM1uX8OnWg&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus5" tvg-name="TV360+ 5" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267019948/634cdb439c75_480_270.png" group-title="Sự Kiện TV360",TV360+ 5
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=edfa094d8ac55cf98f5867128a926aa7:0e10fa6099105e2e0a7ce1e34e9c0230
-https://rr1-ateme.tv360.vn/live/eds/367/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzM2Ny9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjA3MzEyfQ.Fh9YRQ2UY6iOe2tUbFwvP-FwZ6-07Qvy4WH8CmoLGy8hIyb8phTGJU0CcVybcSQs5G2YatwY-U2U4NaaVcsHQg&screen=MHL&uid=294779473
+https://rr1-ateme.tv360.vn/live/eds/367/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzM2Ny9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjI4OTE1fQ.NcLd3I6qm28E-oQHB3btWy6rbywMQUF5fDO9LZ2CtHtbcwu7b4eVtKZXwOzaD8wkDMkzRvr0V_2yTva0LCeYpA&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus6" tvg-name="TV360+ 6" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267080314/d06a99b5bd9c_480_270.png" group-title="Sự Kiện TV360",TV360+ 6
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=3b0f9e1892864641aa17f02b2e7b0b2d:6c06f96a6296d05442466d5b09e58192
-https://fo-hlc.tv360.vn/bpk-tv/368/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDc5MjcsInVyaSI6Ii9icGstdHYvMzY4L291dHB1dC9pbmRleC5tcGQifQ.ZpxL4g00FGNQd9-IJccT4xQRNMzdtHFh7YunPvzsHQY&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/368/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk1OTksInVyaSI6Ii9icGstdHYvMzY4L291dHB1dC9pbmRleC5tcGQifQ.CLp0jOQWzabemHYBd6-IoJT5O_n7aA073dqJmMc-CTI&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus7" tvg-name="TV360+ 7" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/177626714329/4631db40bb03_480_270.png" group-title="Sự Kiện TV360",TV360+ 7
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=072f0a0d4eda40cbb04dfadf521a2b9f:2fb11373b36e018573d3b07132df050e
-https://fo-hlc.tv360.vn/bpk-tv/369/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDc5MjQsInVyaSI6Ii9icGstdHYvMzY5L291dHB1dC9pbmRleC5tcGQifQ.XEjvSY0yBwy0tPwLNPD8VF2vJJ9JfYxYiiX4WcLrWrc&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/369/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk1OTksInVyaSI6Ii9icGstdHYvMzY5L291dHB1dC9pbmRleC5tcGQifQ.HdGiQ6D-WX5G5n1uRyMv9Z-NlXaPS2oCtnWliK_p0OA&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus8" tvg-name="TV360+ 8" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267211780/516c4028c806_480_270.png" group-title="Sự Kiện TV360",TV360+ 8
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=1a08bd3a8c565cdfa4e01a0273915f40:d956d96ac3799d42441f582ec12f10df
-https://rr1-ateme.tv360.vn/live/eds/370/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzM3MC9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjA3OTI0fQ.YuL1j52HPPs4rupDhYxoQ8t2Qs3k59XKPZs_n2aUeo8PjfiUSSUhLYEyxwQPfNJEZFCN14naVyMgAvNJDj4txQ&screen=MHL&uid=294779473
+#KODIPROP:inputstream.adaptive.license_key=72a793a108f04d68858f2075616b6b98:76650cf89c991b0d26e9c50de2087891
+https://fo-hlc.tv360.vn/bpk-tv/370/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk1OTksInVyaSI6Ii9icGstdHYvMzcwL291dHB1dC9pbmRleC5tcGQifQ.EMy6Toytal6Vh68SzY-lZVFodbe-3_OtCTa9APE8BD8&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus9" tvg-name="TV360+ 9" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267283364/c30a206da84a_480_270.png" group-title="Sự Kiện TV360",TV360+ 9
-https://rr1-ateme.tv360.vn/live/eds/379/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzM3OS9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MTIwNzkyNH0.mwKE9PGbffNubabg784qCTR1xIwJennK-D3cyHNE5bJ6mdOshNSqrqB4iWkauUxicKWXbj7cEqmkdSoqD4tzDQ&screen=MHL&uid=294779473
+https://rr1-ateme.tv360.vn/live/eds/379/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzM3OS9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MTIyOTU5OX0.Z1VRDI9zviixxvpvVmrlJe0k25GJ3krLZMGeSBhgNLUx9x7Dher2luPfsYa1Xq_ZrluPZjPe4r1G_pYzpJ5SZQ&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus10" tvg-name="TV360+ 10" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267388401/5f459b37721d_480_270.png" group-title="Sự Kiện TV360",TV360+ 10
 https://rr1-ateme.tv360.vn/live/eds/449/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ0OS9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MTIxOTQxNH0.gICyWu_4KHTTUkVJzBtrI8ESh5APHIkn5SFn8paeyMzL240aRw0nf_oFBZiy92wEoZ-de_A9-8IIflNk31SicQ&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus11" tvg-name="TV360+ 11" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267558745/5fc303f5ba08_480_270.png" group-title="Sự Kiện TV360",TV360+ 11
-https://rr1-ateme.tv360.vn/live/eds/450/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ1MC9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MTIwNjcxMn0.i-88En24msM43odNnVdwVDwn9wyksQxgHoKbb5RNjUMfcITgifFJ3sNIeyyoTpNp0uEKX9yxzP3p0aCy57Mp7Q&screen=MHL&uid=294779473
+https://rr1-ateme.tv360.vn/live/eds/450/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ1MC9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MTIyOTUyNH0.6Bf7PnzeV92sqh2LvtB84OPmx4TZtUlyYrvlWFJ67ouT2kz22_XekStk6-jr1WG5lTmR-EDoigCwN1YoD1Fk4A&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus12" tvg-name="TV360+ 12" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267662370/76b4144bff34_480_270.png" group-title="Sự Kiện TV360",TV360+ 12
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=5a5dd595f9ae5299b5003e0d4e3e98f5:d9023b3b15ecbcc8115a49f576ed0799
-https://rr1-ateme.tv360.vn/live/eds/465/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ2NS9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjA2NzE1fQ.UoLTfGdA0tmGB6U07dx9t9sPOG-BalYUDncJ3tJoJSQ6yU2tslLpMKdeKzSrAG_bs81bHkUYesE5iWvm_PU4cg&screen=MHL&uid=294779473
+https://rr1-ateme.tv360.vn/live/eds/465/DASH_DRM_MHL_2s/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ2NS9EQVNIX0RSTV9NSExfMnMvIiwiZXhwIjoxNzkxMjI4OTMwfQ.8SNd_i8jaFkSMpddfTREQKwnennY0ce2ZgAJ0jFuwm5RuTzrJtLQUHLZ5mHMbJs7CnKFmBeLs61OYHR6TEQULA&screen=MHL&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus13" tvg-name="TV360+ 13" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/05/15/01/1778782670293/dd4067f28084_480_270.png" group-title="Sự Kiện TV360",TV360+ 13
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=856f291af35a5db7b7d0c944b32993b9:aa3547547f084fe4c9ea5206effb6b78
-https://fo-hlc.tv360.vn/bpk-tv/471/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDc5MzMsInVyaSI6Ii9icGstdHYvNDcxL291dHB1dC9pbmRleC5tcGQifQ.2eFauVqqTzw0LShGcMZNiUtheDNDEXOXKvibOdQ7eLU&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/471/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk1OTksInVyaSI6Ii9icGstdHYvNDcxL291dHB1dC9pbmRleC5tcGQifQ._8iz8lX76yFZ5afb_62iH3wS2u14utsfRbdaJdFjJ1c&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus14" tvg-name="TV360+ 14" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/05/15/01/177878325467/bbecb3ccb477_480_270.png" group-title="Sự Kiện TV360",TV360+ 14
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=e57b008cedba5d12a192e66152bb61ca:a4b58d543b1c042f8b399f268040b623
-https://fo-hlc.tv360.vn/bpk-tv/472/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDc5MzMsInVyaSI6Ii9icGstdHYvNDcyL291dHB1dC9pbmRleC5tcGQifQ.VjlmICvEeKpSzs-EDi2xxqWQ5AxbRJPoJPF3F6e5_r8&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/472/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk1OTksInVyaSI6Ii9icGstdHYvNDcyL291dHB1dC9pbmRleC5tcGQifQ.pEZNkEBlWvzECCgBSbCTp2UY5BotV14OSwyoiq0NiqQ&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="tv360plus15" tvg-name="TV360+ 15" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/05/15/01/1778783528367/ddfa21d56253_480_270.png" group-title="Sự Kiện TV360",TV360+ 15
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=c305b22dfd6d55e3998ab279cc98e0d3:12998335c7da89877aa1b1d50f1ec174
-https://fo-hlc.tv360.vn/bpk-tv/473/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMDc5MzMsInVyaSI6Ii9icGstdHYvNDczL291dHB1dC9pbmRleC5tcGQifQ.psyVHtIx4I2wFpxWj5wPgOBhbpNJ8BZMI_cRlx5VAfA&minrate=0&maxrate=12000000&uid=294779473
+https://fo-hlc.tv360.vn/bpk-tv/473/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTEyMjk2MDIsInVyaSI6Ii9icGstdHYvNDczL291dHB1dC9pbmRleC5tcGQifQ.BNS5_owzk2EIeZzGctoyIQ36YPa6f0xbauwnumPG_uA&minrate=0&maxrate=12000000&uid=294779473
 #EXTINF:-1 tvg-id="9904" tvg-name="TV360" tvg-logo="https://img-zlr1.tv360.vn/image1/2025/09/17/17/175810574912/a5f8181388ab_480_270.png" group-title="Sự Kiện TV360",TV360
-https://rr1-ateme.tv360.vn/live/eds/427/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQyNy9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MTIwNzkzM30.q154koLh4kTA-Ir-0fa8xe4dRBvIzHKtjAT6z_EEFR72de8HdHlcx2SPgpCRuF66NOqdXyAHKXRA5gTPbuQHHw&screen=MHL&uid=294779473
+https://prv.film4k.net/live/tv360/9904/manifest.mpd
 #EXTINF:-1 tvg-id="9965" tvg-name="YFEST" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/02/16/1790933604362/06aaada73ab3_480_270.png" group-title="Sự Kiện TV360",YFEST
-https://livestream-evg8.tv360.vn/E3jx3suJ1fktLFL7x6WSJQ/1791272733/manifest/livestream-04/master.m3u8?manifestfilter=video_bitrate:1-12767168&uid=294779473
+https://livestream-evg8.tv360.vn/Hj85yUkox6SIeEFQIJa5IQ/1791294405/manifest/livestream-04/master.m3u8?manifestfilter=video_bitrate:1-12767168&uid=294779473
 #EXTINF:-1 tvg-id="10014" tvg-name="360 C1 Châu Âu" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/177626841934/e289a43bd190_480_270.png" group-title="Sự Kiện TV360",360 C1 Châu Âu
-https://tr1-netcdn.tv360.vn/video1/2025/08/28/15/fe74bdee/fe74bdee-5004-429f-8cad-385aa161a352_6.m3u8?timestamp=1791189900&token=8d1293fb786e9d2f80639509f0bc4694&uid=294779473
+https://tr1-netcdn.tv360.vn/video1/2025/09/17/17/dd2bbbd0/dd2bbbd0-1447-4732-b7ea-235b3b1be2c9_6.m3u8?timestamp=1791211920&token=af0e4ce4519e0494061d4bdbe975e775&uid=294779473
 #EXTINF:-1 tvg-id="10015" tvg-name="360 C2 Châu Âu" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/23/1776269925378/3875f76de1cd_480_270.png" group-title="Sự Kiện TV360",360 C2 Châu Âu
-https://tr1-netcdn.tv360.vn/video1/2026/02/20/06/5f6c1b31/5b15c8/h264/master.m3u8?timestamp=1791197100&token=fb9198f0222ccefdea5e61d0d2ed582b&uid=294779473
+https://rr2-ateme.tv360.vn/video1/2026/02/11/14/e318e615/bbb02b/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDI2LzAyLzExLzE0L2UzMThlNjE1L2JiYjAyYi9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIyOTU2MH0.y1PN8YVhIb_-t4ZF7l68UKVoM559ohD9bOPYqL-UoJZbaZmq3zjR67BYbDRk5RvLdJDRGSakMACTPQquP1VcPQ&uid=294779473
 #EXTINF:-1 tvg-id="10016" tvg-name="360 C3 Châu Âu" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/23/1776269965595/9f150757c9e3_480_270.png" group-title="Sự Kiện TV360",360 C3 Châu Âu
-https://tr1-netcdn.tv360.vn/video1/2026/05/11/09/9811389b/32a0f5/h264/master.m3u8?timestamp=1791197100&token=35895d4e4c8099fd0f109ca0d2b8eacb&uid=294779473
+https://tr1-netcdn.tv360.vn/video1/2026/04/17/10/00ddb929/12e79b/h264/master.m3u8?timestamp=1791218760&token=afaf4329717536cf975da175e2bd392b&uid=294779473
 #EXTINF:-1 tvg-id="10017" tvg-name="360 Thể Thao Châu Á" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/16/00/1776274695415/4b2703dbb4c4_480_270.png" group-title="Sự Kiện TV360",360 Thể Thao Châu Á
-https://rr2-ateme.tv360.vn/video1/2026/01/13/03/011210f8/04d0e8/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDI2LzAxLzEzLzAzLzAxMTIxMGY4LzA0ZDBlOC9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIwNzkwMH0.sabeY6MAc6ubgvDvpppQ_vCqbmxzuW3W25JTPN56R8UdTDRkO2eWH600T-riuMPFOz4QeqDO3Fm3doG-Bo2C5g&uid=294779473
+https://rr2-ateme.tv360.vn/video1/2026/01/14/02/7d9aaca8/d7f25c/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDI2LzAxLzE0LzAyLzdkOWFhY2E4L2Q3ZjI1Yy9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIyOTU2MH0.eouLXOeqYEuVS7J1pyJ88K5UTTb3bRnIXlwUJQmnXtXqfp_1LMZQJ94yymq5C4oOS_jBUcXOAsQOkN2LJA_nOQ&uid=294779473
 #EXTINF:-1 tvg-id="10018" tvg-name="360 Công Thức 1" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/23/1776269172914/ceaa765c5dbe_480_270.png" group-title="Sự Kiện TV360",360 Công Thức 1
-https://tr1-netcdn.tv360.vn/video1/2026/06/08/22/87e993f0/f30df5/h264/master.m3u8?timestamp=1791197100&token=9b93aa330c78e63bc304122bdd99aab1&uid=294779473
+https://tr1-netcdn.tv360.vn/video1/2026/06/06/23/eab7b6c6/56179f/h264/master.m3u8?timestamp=1791218760&token=533d7610e59e56894bd673d243c2d365&uid=294779473
 #EXTINF:-1 tvg-id="10019" tvg-name="360 Bundesliga" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/16/08/1776301510855/e14eaed5c4d8_480_270.png" group-title="Sự Kiện TV360",360 Bundesliga
-https://rr2-ateme.tv360.vn/video1/2026/08/30/03/b37f202c/96c160/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDI2LzA4LzMwLzAzL2IzN2YyMDJjLzk2YzE2MC9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIwNzkwMH0.l04WQe7I5c9N7afCrR53i9Nt87xc7rQAlUzb66cyxq9fur9jeBbXeNvWMIV8eRjANJlEFRALK-9ho-T5CmYBfg&uid=294779473
+https://tr1-netcdn.tv360.vn/video1/2026/08/30/00/310123f8/dc70fe/h264/master.m3u8?timestamp=1791218760&token=40f961f28a3f335864860a699d11359f&uid=294779473
 #EXTINF:-1 tvg-id="10020" tvg-name="360 Golf" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/16/14/1776326073777/e6e315b781fb_480_270.png" group-title="Sự Kiện TV360",360 Golf
-https://rr2-ateme.tv360.vn/video1/2026/04/23/20/f5658155/9147b1/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDI2LzA0LzIzLzIwL2Y1NjU4MTU1LzkxNDdiMS9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIwNzkwMH0.nNnKQKU2wIuw3Pe4iDMvxNcOIJsE0E-2hdRfewfz6RObXoibNqU6H2mh-xLly8l8MF0m6JcZKM4mAe261HRSBw&uid=294779473
+https://rr2-ateme.tv360.vn/video1/2026/04/24/18/496c6406/774c54/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDI2LzA0LzI0LzE4LzQ5NmM2NDA2Lzc3NGM1NC9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIyOTU2MH0.ZRbJzr7xcqot-Hac06OCTd1Rl7G6Ms-Lmk8ThXQYB0A-LsKYXaf_TMyNFYLBZ3jy1j2jeKV4hrUgAZ0EHLxVEA&uid=294779473
 #EXTINF:-1 tvg-id="10021" tvg-name="360 Tennis" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/16/15/177632805669/a8c9881d6b08_480_270.png" group-title="Sự Kiện TV360",360 Tennis
-https://rr2-ateme.tv360.vn/video1/2026/01/18/22/421947e1/ce910a/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDI2LzAxLzE4LzIyLzQyMTk0N2UxL2NlOTEwYS9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIwNzkwMH0.g5Aj4yE5SIDKt4XSKsveklR0KW-osnez8DyUsq2YPqzeuLOi5i9_kxC20FfVTm--tDFBWKf__dW3xy0Qcbzipg&uid=294779473
+https://tr1-netcdn.tv360.vn/video1/2026/01/21/16/287be9e3/956d2c/h264/master.m3u8?timestamp=1791218760&token=5430504812a3aa8e07bb4808bd212239&uid=294779473
 #EXTINF:-1 tvg-id="10008" tvg-name="360 Hoa Ngữ" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/09/08/1775697736867/3854900b7263_480_270.png" group-title="Sự Kiện TV360",360 Hoa Ngữ
-https://tr1-netcdn.tv360.vn/video1/2022/01/10/17/ade00594/4f4df5/h264/master.m3u8?timestamp=1791197100&token=3f5af3e972ef2788587bb6331a4aa8e2&uid=294779473
+https://tr1-netcdn.tv360.vn/video1/2025/09/10/16/ffa9f6f7/fbfdcd/h264/master.m3u8?timestamp=1791218760&token=0bc7408b2987f64eccc6ef9c1fe2b698&uid=294779473
 #EXTINF:-1 tvg-id="10009" tvg-name="360 Hành động Châu Á" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/08/10/1775617851169/1f38a5af77c1_480_270.png" group-title="Sự Kiện TV360",360 Hành động Châu Á
-https://tr1-netcdn.tv360.vn/video1/2026/07/28/10/99cc47f7/4900ab/h264/master.m3u8?timestamp=1791197100&token=6eb21f1ee43c786f69da7a4fa99fbae7&uid=294779473
+https://rr2-ateme.tv360.vn/video1/2025/11/28/11/90d163d8/1512e4/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDI1LzExLzI4LzExLzkwZDE2M2Q4LzE1MTJlNC9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIyNzM0MH0.RcnoolLmn1pzNIwsZv8JRupI9HJCjrsxZmOl68j1MqawgCkzD-6erPAnOIpoAZyh7MYHyFiV2qURkE2gyps_yw&uid=294779473
 #EXTINF:-1 tvg-id="10010" tvg-name="360 K-Drama" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/09/21/1775744591740/79928f9b003f_480_270.png" group-title="Sự Kiện TV360",360 K-Drama
 https://tr1-netcdn.tv360.vn/video1/2025/07/09/23/17f6a570/960aca/h264/master.m3u8?timestamp=1791202920&token=9bd33dc0b2d303312c816dc277ec528e&uid=294779473
 #EXTINF:-1 tvg-id="10011" tvg-name="360 Hài -Tình cảm" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/13/13/1776063183880/03439dc9da19_480_270.png" group-title="Sự Kiện TV360",360 Hài -Tình cảm
@@ -545,16 +542,16 @@ https://rr2-ateme.tv360.vn/video1/2024/02/01/09/03d63cf1/c0cb27/h264/master.m3u8
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=5bb39d74926c45d196587e2dc26ab6c2:8fba7d57829c271c6c20a3ff3af11de9
-https://rr2-ateme.tv360.vn/video1/2022/01/28/17/7216eb83/dee8e9/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDIyLzAxLzI4LzE3LzcyMTZlYjgzL2RlZThlOS9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIwMDcwMH0.OoIU28203h7IQjInlcsKSh9Pq2ozPBWgCgXCFNogZ7Lj6sukznpv5XsBewzbKvwhXKo1gi0v7ZiXpNnhrqH2RQ&uid=294779473
+https://tr1-netcdn.tv360.vn/video1/2021/07/23/16/684ef1e5/4d2970/h264/master.m3u8?timestamp=1791211920&token=c3522792e55951c9049d30dde06225fb&uid=294779473
 #EXTINF:-1 tvg-id="10013" tvg-name="360 Anime" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/13/13/1776063223569/462daff06d9d_480_270.png" group-title="Sự Kiện TV360",360 Anime
-https://rr2-ateme.tv360.vn/video1/2026/03/30/12/659ecb62/e89e44/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDI2LzAzLzMwLzEyLzY1OWVjYjYyL2U4OWU0NC9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIwMjUwMH0.gi_PlU_4sWR-aYssj54lITLUEdnXfLY3ubjOWsfnmO0FZGJN3eud27jHFC_-RGeYwkWkXZmcvUb6T2Iw_-P0ow&uid=294779473
+https://rr2-ateme.tv360.vn/video1/2026/04/24/15/af0a85bb/b44d8c/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDI2LzA0LzI0LzE1L2FmMGE4NWJiL2I0NGQ4Yy9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIyNDUyMH0.nyKvrcH2pSh0DaMqwOK46rqiB2qkdKV6Xm0oqk-T6MsZxalosXMdsqZTlUZcwnx4FICtse5vyMMy12MUdUVLwQ&uid=294779473
 #EXTINF:-1 tvg-id="10045" tvg-name="360 Thiếu Nhi" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/06/18/13/1781765362332/737c1501b0c5_480_270.png" group-title="Sự Kiện TV360",360 Thiếu Nhi
-https://rr2-ateme.tv360.vn/video1/2026/01/09/00/0ff72ff5/950c5c/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDI2LzAxLzA5LzAwLzBmZjcyZmY1Lzk1MGM1Yy9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIwNzkwMH0.i30JIC0MunS3sm5YwNeNM21wtkQ8HaXJpxllkHZ0NgylYrZFQ2L7Vok9pFcKKLfUrmiKmf1YSv4Eb-yceszJWg&uid=294779473
+https://tr1-netcdn.tv360.vn/video1/2026/04/17/18/03f39b59/4afbba/h264/master.m3u8?timestamp=1791218760&token=302ef0aca6a30aa9971e24b65a40cd22&uid=294779473
 #EXTINF:-1 tvg-id="10055" tvg-name="360 Phim 4K" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/07/30/10/1785382803894/362700e9107b_480_270.png" group-title="Sự Kiện TV360",360 Phim 4K
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=f235e24690cd44febbcb27689f83c599:ada209f91f94276dcf6d76a506a03c8e
-https://tr1-netcdn.tv360.vn/video1/2024/10/02/11/4634c088/91746c/h264/stream.mpd?timestamp=1791198540&token=ea6b41c2a18c5f833e361d8b1dadd817&uid=294779473
+https://rr2-ateme.tv360.vn/video1/2024/09/24/13/048eacc9/cfec24/h264/master.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL3ZpZGVvMS8yMDI0LzA5LzI0LzEzLzA0OGVhY2M5L2NmZWMyNC9oMjY0LyIsIm1ldGhvZCI6IkdFVCIsImV4cCI6MTc5MTIyNzQ2MH0.m3rmOdibp-23v2pJRwx4GSCLSVU3xTAO5tTheX0AM_SHwIH8Mm1mEw0YysW_hEoWuRqwtyVMr7dVeGhSrTeJaQ&uid=294779473
 #EXTINF:-1 group-title="Sự Kiện VTVPrime" tvg-logo="https://vtvprime.vn/sideLogoBig.png", VTVPrime 1
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
