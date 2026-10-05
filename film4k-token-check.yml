@@ -1,0 +1,139 @@
+name: Kiem tra token Film4k
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  check-token:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check token expiry in current m3u
+        id: check
+        run: |
+          python3 - <<'PYEOF'
+          import base64, json, re, sys, urllib.request, datetime, os
+
+          URL = "https://raw.githubusercontent.com/Bacbenny/dekiki/main/film4k.m3u"
+
+          def jwt_exp(token: str) -> int | None:
+              parts = token.split(".")
+              if len(parts) < 2:
+                  return None
+              payload = parts[1]
+              payload += "=" * (-len(payload) % 4)
+              try:
+                  data = json.loads(base64.urlsafe_b64decode(payload))
+                  return data.get("exp")
+              except Exception:
+                  return None
+
+          try:
+              req = urllib.request.Request(URL, headers={"User-Agent": "token-check/1.0"})
+              content = urllib.request.urlopen(req, timeout=15).read().decode("utf-8")
+          except Exception as e:
+              print(f"Cannot fetch m3u: {e}")
+              print("expired=true" >> open(os.environ["GITHUB_OUTPUT"], "a"))
+              sys.exit(0)
+
+          if not content.strip():
+              print("m3u is empty — trigger update")
+              with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                  f.write("expired=true\n")
+              sys.exit(0)
+
+          now = datetime.datetime.now(datetime.timezone.utc).timestamp()
+          earliest = None
+          checked = 0
+
+          for line in content.splitlines():
+              if not line.startswith("http"):
+                  continue
+
+              # JWT auth= param (fo-hlc, bpk-tv)
+              m = re.search(r'[?&]auth=(eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)', line)
+              if m:
+                  exp = jwt_exp(m.group(1))
+                  if exp:
+                      checked += 1
+                      if earliest is None or exp < earliest:
+                          earliest = exp
+                  continue
+
+              # cdntoken= JWT param (rr1-ateme, rr2-ateme)
+              m = re.search(r'[?&]cdntoken=(eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)', line)
+              if m:
+                  exp = jwt_exp(m.group(1))
+                  if exp:
+                      checked += 1
+                      if earliest is None or exp < earliest:
+                          earliest = exp
+                  continue
+
+              # timestamp= param (tr-netcdn, tr1-netcdn)
+              m = re.search(r'[?&]timestamp=(\d+)', line)
+              if m:
+                  ts = int(m.group(1))
+                  checked += 1
+                  if earliest is None or ts < earliest:
+                      earliest = ts
+                  continue
+
+          if checked == 0:
+              print("No tokens found in m3u — trigger update")
+              with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                  f.write("expired=true\n")
+              sys.exit(0)
+
+          if earliest is None:
+              print("Could not parse any token — trigger update")
+              with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                  f.write("expired=true\n")
+              sys.exit(0)
+
+          remaining = earliest - now
+          earliest_str = datetime.datetime.fromtimestamp(
+              earliest, tz=datetime.timezone.utc
+          ).strftime("%Y-%m-%d %H:%M UTC")
+
+          print(f"Checked {checked} tokens")
+          print(f"Earliest expiry: {earliest_str}")
+          print(f"Remaining: {remaining/60:.0f} minutes")
+
+          # Trigger update if less than 90 minutes remaining
+          threshold = 90 * 60
+          expired = remaining < threshold
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"expired={'true' if expired else 'false'}\n")
+              f.write(f"remaining={remaining:.0f}\n")
+
+          if expired:
+              print(f"Tokens expire in {remaining/60:.0f} min — triggering update")
+          else:
+              print(f"Tokens still valid for {remaining/60:.0f} min — skipping")
+          PYEOF
+
+      - name: Trigger update workflow
+        if: steps.check.outputs.expired == 'true'
+        run: |
+          curl -sL -X POST \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/film4k-update.yml/dispatches" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -d '{"ref":"main"}'
+          echo "Triggered film4k-update.yml"
