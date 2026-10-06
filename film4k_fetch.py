@@ -309,19 +309,27 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
         return channel
 
     try:
-        response = requests.get(
-            f"{FILM4K_BASE}/api/tv/{quote(channel_id, safe='')}/stream"
-            f"?_={int(time.time() * 1000)}",
-            headers=_api_headers(cookie),
-            timeout=45,
-        )
-        if not response.ok:
-            return fallback_channel
-        payload = response.json()
+        stream_url = ""
+        payload: object = {}
+        for path in (
+            f"/api/tv/{quote(channel_id, safe='')}/stream",
+            f"/api/tv/channels/{quote(channel_id, safe='')}/stream",
+            f"/api/tv/channel/{quote(channel_id, safe='')}/stream",
+        ):
+            response = requests.get(
+                f"{FILM4K_BASE}{path}?_={int(time.time() * 1000)}",
+                headers=_api_headers(cookie),
+                timeout=45,
+            )
+            if response.ok:
+                payload = response.json()
+                stream_url = extract_stream_url(payload) if isinstance(payload, dict) else ""
+                if stream_url:
+                    break
     except (requests.RequestException, ValueError):
         return fallback_channel
 
-    stream_url = extract_stream_url(payload) if isinstance(payload, dict) else ""
+    stream_url = stream_url or (extract_stream_url(payload) if isinstance(payload, dict) else "")
     if not stream_url:
         return fallback_channel
 
