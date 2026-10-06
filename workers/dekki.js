@@ -6,18 +6,20 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type,Authorization",
 };
 
-// --- Cache TTLs (seconds) ---
-const SESSION_TTL = 240;        // 4 minutes — session cookie shared across isolates via KV
-const STREAM_TTL = 60;          // Cloudflare KV requires at least 60 seconds
-const CATALOG_TTL = 60;         // 1 minute — channel/event catalog cache
-const EDGE_CACHE_TTL = 30;      // 30 seconds — Cloudflare edge caches the 302 redirect
+// JWT from TV360 lives ~5 hours. We pre-warm every 55 minutes via cron,
+// so KV always holds a fresh JWT well before the old one expires.
+const SESSION_TTL = 240;    // 4 min — session cookie kept in KV across isolates
+const STREAM_TTL = 3300;    // 55 min — matches cron pre-warm cadence
+const CATALOG_TTL = 60;     // 1 min — channel list cache
 
-// --- KV namespace binding (configured in wrangler.toml) ---
-// FILM4K_KV is bound via Cloudflare dashboard or wrangler.toml
 const KV = typeof FILM4K_KV !== "undefined" ? FILM4K_KV : null;
 
-// --- L1 in-memory cache (per-isolate, ultra-fast) ---
+// Per-isolate L1 cache
 const memCache = new Map();
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
 
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -33,6 +35,8 @@ function apiHeaders(cookie) {
     Referer: `${FILM4K_BASE}/`,
     Origin: FILM4K_BASE,
     Cookie: cookie,
+    "Cache-Control": "no-cache",
+    Pragma: "no-cache",
   };
 }
 
@@ -43,12 +47,13 @@ function unwrap(payload, keys) {
     if (Array.isArray(payload[key])) return payload[key];
   }
   if (Array.isArray(payload.data)) return payload.data;
-  return Object.values(payload).filter((value) => value && typeof value === "object" && !Array.isArray(value));
+  return Object.values(payload).filter((v) => v && typeof v === "object" && !Array.isArray(v));
 }
 
 function text(item, keys, fallback = "") {
   for (const key of keys) {
-    if (item && item[key] !== undefined && item[key] !== null && String(item[key]).trim()) return String(item[key]).trim();
+    if (item && item[key] !== undefined && item[key] !== null && String(item[key]).trim())
+      return String(item[key]).trim();
   }
   return fallback;
 }
@@ -61,20 +66,15 @@ function streamOf(value, depth = 0) {
   if (depth > 6 || value === null || value === undefined) return "";
   if (typeof value === "string" && /^https?:\/\//i.test(value)) return value;
   if (Array.isArray(value)) {
-    for (const child of value) {
-      const found = streamOf(child, depth + 1);
-      if (found) return found;
-    }
+    for (const child of value) { const f = streamOf(child, depth + 1); if (f) return f; }
     return "";
   }
   if (typeof value !== "object") return "";
   for (const key of ["url", "stream_url", "streamUrl", "link", "playbackUrl", "playback_url", "manifest", "src", "stream", "hls", "m3u8", "mpd"]) {
-    const found = streamOf(value[key], depth + 1);
-    if (found) return found;
+    const f = streamOf(value[key], depth + 1); if (f) return f;
   }
   for (const key of ["sources", "streams", "qualities", "resolutions", "playlists", "source", "data"]) {
-    const found = streamOf(value[key], depth + 1);
-    if (found) return found;
+    const f = streamOf(value[key], depth + 1); if (f) return f;
   }
   return "";
 }
@@ -87,10 +87,7 @@ function sessionCookie(setCookie) {
 function clearKeyOf(value, depth = 0) {
   if (depth > 6 || value === null || value === undefined) return null;
   if (Array.isArray(value)) {
-    for (const child of value) {
-      const found = clearKeyOf(child, depth + 1);
-      if (found) return found;
-    }
+    for (const child of value) { const f = clearKeyOf(child, depth + 1); if (f) return f; }
     return null;
   }
   if (typeof value !== "object") return null;
@@ -101,19 +98,19 @@ function clearKeyOf(value, depth = 0) {
     if (keyId && key) return { keyId: String(keyId), key: String(key) };
   }
   for (const child of Object.values(value)) {
-    const found = clearKeyOf(child, depth + 1);
-    if (found) return found;
+    const f = clearKeyOf(child, depth + 1); if (f) return f;
   }
   return null;
 }
 
-// ─── Session cookie: L1 (Map) → L2 (KV) → login ───
-async function login() {
-  // L1: in-memory
-  const memSession = memCache.get("session");
-  if (memSession && Date.now() - memSession.ts < SESSION_TTL * 1000) return memSession.cookie;
+// ---------------------------------------------------------------------------
+// Auth: L1 → L2 (KV) → login
+// ---------------------------------------------------------------------------
 
-  // L2: KV (shared across all isolates)
+async function login() {
+  const mem = memCache.get("session");
+  if (mem && Date.now() - mem.ts < SESSION_TTL * 1000) return mem.cookie;
+
   if (KV) {
     const kvCookie = await KV.get("session:cookie");
     if (kvCookie) {
@@ -122,17 +119,13 @@ async function login() {
     }
   }
 
-  // Login to film4k.net
   const username = typeof FILM4K_USERNAME !== "undefined" ? FILM4K_USERNAME : "";
   const password = typeof FILM4K_PASSWORD !== "undefined" ? FILM4K_PASSWORD : "";
-  if (!username || !password) throw new Error("Film4k secrets are not configured");
+  if (!username || !password) throw new Error("Film4k secrets not configured");
+
   const response = await fetch(`${FILM4K_BASE}/api/auth/signin`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "User-Agent": USER_AGENT,
-      "Cache-Control": "no-cache",
-    },
+    headers: { "Content-Type": "application/json", "User-Agent": USER_AGENT },
     body: JSON.stringify({ email: username, password }),
     redirect: "manual",
   });
@@ -140,25 +133,21 @@ async function login() {
   const cookie = sessionCookie(response.headers.get("set-cookie"));
   if (!cookie) throw new Error("Film4k login returned no session cookie");
 
-  // Store in L1 + L2
   memCache.set("session", { ts: Date.now(), cookie });
-  if (KV) await KV.put("session:cookie", cookie, { expirationTtl: SESSION_TTL });
+  if (KV) await KV.put("session:cookie", cookie, { expirationTtl: SESSION_TTL * 2 });
   return cookie;
 }
 
 async function apiJson(path, cookie) {
-  const response = await fetch(`${FILM4K_BASE}${path}`, {
-    headers: {
-      ...apiHeaders(cookie),
-      "Cache-Control": "no-cache",
-      Pragma: "no-cache",
-    },
-  });
+  const response = await fetch(`${FILM4K_BASE}${path}`, { headers: apiHeaders(cookie) });
   if (!response.ok) throw new Error(`Film4k API failed: ${response.status}`);
   return response.json();
 }
 
-// ─── Event details: try all 3 API paths in PARALLEL (was sequential) ───
+// ---------------------------------------------------------------------------
+// Event stream resolution (tries 3 API paths in parallel)
+// ---------------------------------------------------------------------------
+
 async function eventDetails(event, cookie) {
   const id = idOf(event);
   if (!id) return event;
@@ -184,8 +173,33 @@ async function eventDetails(event, cookie) {
   return event;
 }
 
+// ---------------------------------------------------------------------------
+// Channel stream resolution (tries 3 API paths in parallel)
+// ---------------------------------------------------------------------------
+
+async function resolveChannelStream(id, cookie) {
+  const paths = [
+    `/api/tv/${encodeURIComponent(id)}/stream`,
+    `/api/tv/channels/${encodeURIComponent(id)}/stream`,
+    `/api/tv/channel/${encodeURIComponent(id)}/stream`,
+  ];
+  const results = await Promise.allSettled(
+    paths.map((path) => apiJson(`${path}?_=${Date.now()}`, cookie))
+  );
+  for (const result of results) {
+    if (result.status === "fulfilled") {
+      const stream = streamOf(result.value);
+      if (stream) return { stream, clearKey: clearKeyOf(result.value) };
+    }
+  }
+  return { stream: "", clearKey: null };
+}
+
+// ---------------------------------------------------------------------------
+// Catalog
+// ---------------------------------------------------------------------------
+
 async function loadCatalog() {
-  // L1
   const cached = memCache.get("catalog");
   if (cached && Date.now() - cached.ts < CATALOG_TTL * 1000) return cached.data;
 
@@ -198,20 +212,22 @@ async function loadCatalog() {
   const channels = unwrap(channelsPayload, ["channels", "data", "items", "results"]);
   const eventRecords = rawEvents.length
     ? rawEvents
-    : channels.filter((channel) => {
-        if (String(channel.id || "").startsWith("ants:")) return false;
-        const groupText = `${channel.group || ""} ${channel.category || ""}`;
-        const name = String(channel.name || channel.title || "");
+    : channels.filter((ch) => {
+        if (String(ch.id || "").startsWith("ants:")) return false;
+        const groupText = `${ch.group || ""} ${ch.category || ""}`;
+        const name = String(ch.name || ch.title || "");
         return /event|sự kiện|sukien|trực tiếp|tructiep/i.test(groupText)
           || /^TV360\+\s*\d+/i.test(name);
       });
-  // Event details already parallelized inside eventDetails (3 paths in parallel)
-  // plus all events resolved in parallel here
-  const events = await Promise.all(eventRecords.map((event) => eventDetails(event, cookie)));
+  const events = await Promise.all(eventRecords.map((ev) => eventDetails(ev, cookie)));
   const data = { cookie, events, channels };
   memCache.set("catalog", { ts: Date.now(), data });
   return data;
 }
+
+// ---------------------------------------------------------------------------
+// Playlist
+// ---------------------------------------------------------------------------
 
 function m3uAttribute(value) {
   return String(value || "").replace(/[\r\n"]/g, " ").trim();
@@ -244,73 +260,130 @@ async function playlist(request) {
   });
 }
 
-// ─── Stream resolution: L1 (Map) → L2 (KV) → API → cache in both ───
+// ---------------------------------------------------------------------------
+// Stream resolution: L1 → L2 (KV, pre-warmed by cron) → live API
+// ---------------------------------------------------------------------------
+
 async function resolveStream(kind, id) {
   const cacheKey = `stream:${kind}:${id}`;
 
-  // L1: in-memory (sub-millisecond)
+  // L1: in-memory
   const memHit = memCache.get(cacheKey);
   if (memHit && Date.now() - memHit.ts < STREAM_TTL * 1000) {
     return Response.redirect(memHit.url, 302);
   }
 
-  // L2: KV (1-5ms, shared across all edge isolates)
+  // L2: KV — should always be warm thanks to cron pre-warm
   if (KV) {
-    const kvUrl = await KV.get(cacheKey);
-    if (kvUrl) {
-      // Promote to L1
-      memCache.set(cacheKey, { ts: Date.now(), url: kvUrl });
-      return Response.redirect(kvUrl, 302);
+    const kvEntry = await KV.getWithMetadata(cacheKey);
+    if (kvEntry && kvEntry.value) {
+      memCache.set(cacheKey, { ts: Date.now(), url: kvEntry.value });
+      return Response.redirect(kvEntry.value, 302);
     }
   }
 
-  // Cache miss — resolve from film4k.net API
+  // Cache miss — fetch fresh JWT from API
   const cookie = await login();
   let stream = "";
+  let clearKey = null;
 
   if (kind === "event") {
-    stream = streamOf(await eventDetails({ id }, cookie));
+    const details = await eventDetails({ id }, cookie);
+    stream = streamOf(details);
+    clearKey = details.clearKey || null;
   } else {
-    const paths = [
-      `/api/tv/${encodeURIComponent(id)}/stream`,
-      `/api/tv/channels/${encodeURIComponent(id)}/stream`,
-      `/api/tv/channel/${encodeURIComponent(id)}/stream`,
-    ];
-    const results = await Promise.allSettled(
-      paths.map((path) => apiJson(`${path}?_=${Date.now()}`, cookie))
-    );
-    for (const result of results) {
-      if (result.status === "fulfilled") {
-        stream = streamOf(result.value);
-        if (stream) break;
-      }
-    }
+    const result = await resolveChannelStream(id, cookie);
+    stream = result.stream;
+    clearKey = result.clearKey;
   }
 
-  // Fallback: search catalog for pre-resolved stream_url
+  // Last resort: search catalog
   if (!stream) {
     const catalog = await loadCatalog();
     const records = kind === "event" ? catalog.events : catalog.channels;
-    const item = records.find((candidate) => idOf(candidate) === id);
+    const item = records.find((c) => idOf(c) === id);
     stream = streamOf(item);
   }
 
   if (!stream) return jsonResponse({ error: "Film4k stream is unavailable" }, 502);
 
-  // Store in L1 + L2
   memCache.set(cacheKey, { ts: Date.now(), url: stream });
   if (KV) await KV.put(cacheKey, stream, { expirationTtl: STREAM_TTL });
 
-  // 302 with edge cache header — Cloudflare CDN caches this redirect
   return new Response(null, {
     status: 302,
-    headers: {
-      Location: stream,
-      "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
-      ...CORS_HEADERS,
-    },
+    headers: { Location: stream, "Cache-Control": "no-store", ...CORS_HEADERS },
   });
 }
+
+// ---------------------------------------------------------------------------
+// Cron pre-warm: called every 55 minutes by Cloudflare Cron Triggers.
+// Fetches a fresh JWT for every channel and stores it in KV so that
+// stream requests are always served from cache (near 0ms, never stale).
+// ---------------------------------------------------------------------------
+
+async function preWarm() {
+  if (!KV) return { ok: false, reason: "KV not bound" };
+
+  const cookie = await login();
+  // Force fresh login — invalidate cached session so we always use a new JWT
+  memCache.delete("session");
+  if (KV) await KV.delete("session:cookie");
+  const freshCookie = await login();
+
+  const channelsPayload = await apiJson(`/api/tv/channels?_=${Date.now()}`, freshCookie).catch(() => null);
+  if (!channelsPayload) return { ok: false, reason: "channels API failed" };
+  const channels = unwrap(channelsPayload, ["channels", "data", "items", "results"]);
+
+  const eventsPayload = await apiJson(`/api/tv/events?_=${Date.now()}`, freshCookie).catch(() => null);
+  const rawEvents = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
+  const events = await Promise.all(rawEvents.map((ev) => eventDetails(ev, freshCookie)));
+
+  // Resolve channel streams in parallel, store each into KV
+  const channelResults = await Promise.allSettled(
+    channels
+      .filter((ch) => !String(idOf(ch) || "").startsWith("ants:"))
+      .map(async (ch) => {
+        const id = idOf(ch);
+        if (!id) return null;
+        const { stream } = await resolveChannelStream(id, freshCookie);
+        if (!stream) return null;
+        const cacheKey = `stream:channel:${id}`;
+        await KV.put(cacheKey, stream, { expirationTtl: STREAM_TTL });
+        memCache.set(cacheKey, { ts: Date.now(), url: stream });
+        return id;
+      })
+  );
+
+  // Resolve event streams and store into KV
+  const eventResults = await Promise.allSettled(
+    events.map(async (ev) => {
+      const id = idOf(ev);
+      if (!id) return null;
+      const stream = streamOf(ev);
+      if (!stream) return null;
+      const cacheKey = `stream:event:${id}`;
+      await KV.put(cacheKey, stream, { expirationTtl: STREAM_TTL });
+      memCache.set(cacheKey, { ts: Date.now(), url: stream });
+      return id;
+    })
+  );
+
+  const warmedChannels = channelResults.filter((r) => r.status === "fulfilled" && r.value).length;
+  const warmedEvents = eventResults.filter((r) => r.status === "fulfilled" && r.value).length;
+
+  // Update catalog cache
+  memCache.set("catalog", {
+    ts: Date.now(),
+    data: { cookie: freshCookie, events, channels },
+  });
+
+  return { ok: true, channels: warmedChannels, events: warmedEvents };
+}
+
+// ---------------------------------------------------------------------------
+// Request handler
+// ---------------------------------------------------------------------------
 
 async function handle(request) {
   if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS_HEADERS });
@@ -350,8 +423,6 @@ async function handle(request) {
     return jsonResponse({ events: catalog.events, count: catalog.events.length });
   }
 
-  // Pre-resolve stream URLs for all channels — used by film4k_fetch.py
-  // to embed direct stream URLs in the m3u for instant playback (no Worker round-trip)
   if (url.pathname === "/film4k/streams" && request.method === "GET") {
     const catalog = await loadCatalog();
     const cookie = catalog.cookie;
@@ -359,14 +430,8 @@ async function handle(request) {
       catalog.channels.map(async (ch) => {
         const id = idOf(ch);
         if (!id || String(id).startsWith("ants:")) return null;
-        try {
-          const payload = await apiJson(`/api/tv/${encodeURIComponent(id)}/stream?_=${Date.now()}`, cookie);
-          const stream = streamOf(payload);
-          const clearKey = clearKeyOf(payload);
-          return { id, stream_url: stream, clearKey: clearKey || null };
-        } catch (_) {
-          return { id, stream_url: "", clearKey: null };
-        }
+        const { stream, clearKey } = await resolveChannelStream(id, cookie);
+        return stream ? { id, stream_url: stream, clearKey: clearKey || null } : null;
       })
     );
     const mapping = {};
@@ -376,10 +441,15 @@ async function handle(request) {
     return jsonResponse({ streams: mapping, count: Object.keys(mapping).length });
   }
 
+  // Manual trigger for pre-warm (also called by cron)
+  if (url.pathname === "/film4k/prewarm" && request.method === "GET") {
+    const result = await preWarm();
+    return jsonResponse(result);
+  }
+
   if (url.pathname === "/film4k/cache/clear" && request.method === "GET") {
     memCache.clear();
     if (KV) {
-      // KV clear is best-effort — list and delete stream: keys
       try {
         const list = await KV.list({ prefix: "stream:" });
         await Promise.all(list.keys.map((k) => KV.delete(k.name)));
@@ -396,6 +466,25 @@ async function handle(request) {
   return jsonResponse({ error: "Not found" }, 404);
 }
 
+// ---------------------------------------------------------------------------
+// Entry points
+// ---------------------------------------------------------------------------
+
 addEventListener("fetch", (event) => {
-  event.respondWith(handle(event.request).catch((error) => jsonResponse({ error: "Film4k request failed", detail: String(error.message || error) }, 502)));
+  event.respondWith(
+    handle(event.request).catch((err) =>
+      jsonResponse({ error: "Film4k request failed", detail: String(err.message || err) }, 502)
+    )
+  );
+});
+
+// Cloudflare Cron Trigger — runs every 55 minutes (configured in deploy_workers.py)
+addEventListener("scheduled", (event) => {
+  event.waitUntil(
+    preWarm().then((result) => {
+      console.log(`[cron] pre-warm complete: channels=${result.channels} events=${result.events}`);
+    }).catch((err) => {
+      console.error(`[cron] pre-warm failed: ${err.message || err}`);
+    })
+  );
 });
