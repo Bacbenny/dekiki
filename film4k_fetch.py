@@ -954,15 +954,11 @@ def generate_m3u(
                 channel_id = _channel_id(channel)
                 if not channel_id:
                     continue
-                # Use pre-resolved stream URL from Worker (302 redirect) for instant playback
-                # Falls back to Worker proxy URL if pre-resolution failed
-                stream_url = ""
-                if worker_stream_map and channel_id in worker_stream_map:
-                    stream_url = worker_stream_map[channel_id]
+                # Keep a stable Worker URL in the playlist so expiring JWTs are
+                # resolved at playback time instead of being stored in the m3u.
+                stream_url = _worker_stream_url(channel, is_event=False)
                 if not stream_url:
-                    stream_url = extract_stream_url(channel)
-                if not stream_url:
-                    stream_url = _worker_stream_url(channel, is_event=False)
+                    stream_url = worker_stream_map.get(channel_id, "") if worker_stream_map else ""
                 if not stream_url:
                     continue
                 # Use reference tvg-id for EPG matching if available
