@@ -84,7 +84,7 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/169
 #EXTINF:-1 tvg-id="360phimaumy" tvg-name="Phim Âu Mỹ" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/09/08/1775697767861/9a6dc88794cf_480_270.png" group-title="VTVcab",Phim Âu Mỹ
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=c79b2189926f483f94be41269d40bf8c:703c5ec88d83e258bc5ea380386fc57a
+#KODIPROP:inputstream.adaptive.license_key=0e90d149d6cc4b5a9bd106fde1948507:6b70e1fb6f26482b29f29aa8c9ef7084
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9903
 #EXTINF:-1 tvg-id="360hoathinh" tvg-name="Hoạt hình" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/08/03/16/178574886930/9daa0ca42fd8_480_270.png" group-title="VTVcab",Hoạt hình
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9934
@@ -457,25 +457,101 @@ https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcworldnews.smil/manifest.mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=5014941a2c42379880b5edf72304c165:f3fa0fe3cd39a52f4eefd36ff7161e89
 https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcearth.smil/manifest.mpd
-#EXTINF:-1 tvg-id="2458" tvg-name="Bóng đá Giao Hữu Quốc Tế 2026: Argentina vs Benin, 6 giờ , ngày 7/10, Kênh TV360+ 4" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/05/16/1791192559710/ffe6c299f7d1_1280_720.jpg" group-title="Sự Kiện TV360",Bóng đá Giao Hữu Quốc Tế 2026: Argentina vs Benin, 6 giờ , ngày 7/10, Kênh TV360+ 4
+#EXTINF:-1 tvg-id="2554" tvg-name="TV360+ 1" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266760359/ba1ca843cd06_480_270.png" group-title="Sự Kiện TV360",TV360+ 1
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=62cd425595ba45b0a3f80290510308b4:2fc95e0a371cd0ba343bc1d120dd9713
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2554
+#EXTINF:-1 tvg-id="1" tvg-name="TV360+ 2" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266826697/9647033848f3_480_270.png" group-title="Sự Kiện TV360",TV360+ 2
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=2c24f672f7715433a83953e74ae564b1:10a63f9f2ccd81dfc4a05263c2fd1575
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/1
+#EXTINF:-1 tvg-id="148" tvg-name="TV360+ 3" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266894249/af82cd28fcda_480_270.png" group-title="Sự Kiện TV360",TV360+ 3
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=8405a15e96b35497bde131a29e7fb67e:adb30d908915cf14760880240961a5ed
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/148
+#EXTINF:-1 tvg-id="2458" tvg-name="TV360+ 4" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266956801/9a85754a5bd9_480_270.png" group-title="Sự Kiện TV360",TV360+ 4
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=70d033252d025d719ba70a37acc0f5c8:6ca465d8b3018f1604da6d43d3395a6d
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2458
-#EXTINF:-1 tvg-id="9867" tvg-name="Bóng đá: UEFA Nations League 2026/27 Lượt 4, Croatia vs Tây Ban Nha, 1 giờ 45 phút , ngày 7/10, kênh TV360+ 5" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/09/28/10/1790567523350/7dafa9e55f2a_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: UEFA Nations League 2026/27 Lượt 4, Croatia vs Tây Ban Nha, 1 giờ 45 phút , ngày 7/10, kênh TV360+ 5
+#EXTINF:-1 tvg-id="9867" tvg-name="TV360+ 5" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267019948/634cdb439c75_480_270.png" group-title="Sự Kiện TV360",TV360+ 5
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=edfa094d8ac55cf98f5867128a926aa7:0e10fa6099105e2e0a7ce1e34e9c0230
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9867
+#EXTINF:-1 tvg-id="9868" tvg-name="TV360+ 6" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267080314/d06a99b5bd9c_480_270.png" group-title="Sự Kiện TV360",TV360+ 6
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=3b0f9e1892864641aa17f02b2e7b0b2d:6c06f96a6296d05442466d5b09e58192
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9868
+#EXTINF:-1 tvg-id="9869" tvg-name="TV360+ 7" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/177626714329/4631db40bb03_480_270.png" group-title="Sự Kiện TV360",TV360+ 7
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=072f0a0d4eda40cbb04dfadf521a2b9f:2fb11373b36e018573d3b07132df050e
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9869
+#EXTINF:-1 tvg-id="9870" tvg-name="TV360+ 8" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267211780/516c4028c806_480_270.png" group-title="Sự Kiện TV360",TV360+ 8
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=1a08bd3a8c565cdfa4e01a0273915f40:d956d96ac3799d42441f582ec12f10df
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9870
+#EXTINF:-1 tvg-id="9887" tvg-name="TV360+ 9" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267283364/c30a206da84a_480_270.png" group-title="Sự Kiện TV360",TV360+ 9
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9887
+#EXTINF:-1 tvg-id="9957" tvg-name="TV360+ 10" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267388401/5f459b37721d_480_270.png" group-title="Sự Kiện TV360",TV360+ 10
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9957
+#EXTINF:-1 tvg-id="9958" tvg-name="TV360+ 11" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267558745/5fc303f5ba08_480_270.png" group-title="Sự Kiện TV360",TV360+ 11
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9958
+#EXTINF:-1 tvg-id="10001" tvg-name="TV360+ 12" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267662370/76b4144bff34_480_270.png" group-title="Sự Kiện TV360",TV360+ 12
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=5a5dd595f9ae5299b5003e0d4e3e98f5:d9023b3b15ecbcc8115a49f576ed0799
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10001
+#EXTINF:-1 tvg-id="10022" tvg-name="TV360+ 13" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/05/15/01/1778782670293/dd4067f28084_480_270.png" group-title="Sự Kiện TV360",TV360+ 13
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=856f291af35a5db7b7d0c944b32993b9:aa3547547f084fe4c9ea5206effb6b78
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10022
+#EXTINF:-1 tvg-id="10023" tvg-name="TV360+ 14" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/05/15/01/177878325467/bbecb3ccb477_480_270.png" group-title="Sự Kiện TV360",TV360+ 14
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=e57b008cedba5d12a192e66152bb61ca:a4b58d543b1c042f8b399f268040b623
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10023
+#EXTINF:-1 tvg-id="10024" tvg-name="TV360+ 15" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/05/15/01/1778783528367/ddfa21d56253_480_270.png" group-title="Sự Kiện TV360",TV360+ 15
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=c305b22dfd6d55e3998ab279cc98e0d3:12998335c7da89877aa1b1d50f1ec174
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10024
+#EXTINF:-1 tvg-id="9904" tvg-name="TV360" tvg-logo="https://img-zlr1.tv360.vn/image1/2025/09/17/17/175810574912/a5f8181388ab_480_270.png" group-title="Sự Kiện TV360",TV360
+https://dekki.bacbenny95.workers.dev/film4k/stream/event/9904
+#EXTINF:-1 tvg-id="9965" tvg-name="YFEST" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/02/16/1790933604362/06aaada73ab3_480_270.png" group-title="Sự Kiện TV360",YFEST
+https://dekki.bacbenny95.workers.dev/film4k/stream/event/9965
+#EXTINF:-1 tvg-id="10014" tvg-name="360 C1 Châu Âu" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/177626841934/e289a43bd190_480_270.png" group-title="Sự Kiện TV360",360 C1 Châu Âu
+https://dekki.bacbenny95.workers.dev/film4k/stream/event/10014
+#EXTINF:-1 tvg-id="10015" tvg-name="360 C2 Châu Âu" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/23/1776269925378/3875f76de1cd_480_270.png" group-title="Sự Kiện TV360",360 C2 Châu Âu
+https://dekki.bacbenny95.workers.dev/film4k/stream/event/10015
+#EXTINF:-1 tvg-id="10016" tvg-name="360 C3 Châu Âu" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/23/1776269965595/9f150757c9e3_480_270.png" group-title="Sự Kiện TV360",360 C3 Châu Âu
+https://dekki.bacbenny95.workers.dev/film4k/stream/event/10016
+#EXTINF:-1 tvg-id="10017" tvg-name="360 Thể Thao Châu Á" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/16/00/1776274695415/4b2703dbb4c4_480_270.png" group-title="Sự Kiện TV360",360 Thể Thao Châu Á
+https://dekki.bacbenny95.workers.dev/film4k/stream/event/10017
+#EXTINF:-1 tvg-id="10018" tvg-name="360 Công Thức 1" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/23/1776269172914/ceaa765c5dbe_480_270.png" group-title="Sự Kiện TV360",360 Công Thức 1
+https://dekki.bacbenny95.workers.dev/film4k/stream/event/10018
+#EXTINF:-1 tvg-id="10019" tvg-name="360 Bundesliga" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/16/08/1776301510855/e14eaed5c4d8_480_270.png" group-title="Sự Kiện TV360",360 Bundesliga
+https://dekki.bacbenny95.workers.dev/film4k/stream/event/10019
+#EXTINF:-1 tvg-id="10020" tvg-name="360 Golf" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/16/14/1776326073777/e6e315b781fb_480_270.png" group-title="Sự Kiện TV360",360 Golf
+https://dekki.bacbenny95.workers.dev/film4k/stream/event/10020
+#EXTINF:-1 tvg-id="10021" tvg-name="360 Tennis" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/16/15/177632805669/a8c9881d6b08_480_270.png" group-title="Sự Kiện TV360",360 Tennis
+https://dekki.bacbenny95.workers.dev/film4k/stream/event/10021
 #EXTINF:-1 tvg-id="tv360plus1" tvg-name="TV360+ 1" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266760359/ba1ca843cd06_480_270.png" group-title="Sự Kiện TV360",TV360+ 1
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=47404f622db3536c867b2545581aadb4:9fbdc12cfe74564fd4329baa6a6d1968
+#KODIPROP:inputstream.adaptive.license_key=62cd425595ba45b0a3f80290510308b4:2fc95e0a371cd0ba343bc1d120dd9713
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2554
 #EXTINF:-1 tvg-id="tv360plus2" tvg-name="TV360+ 2" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266826697/9647033848f3_480_270.png" group-title="Sự Kiện TV360",TV360+ 2
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=c17f1b571e985f15817351163763bf64:61951ba946496cbfeede334b54a182f8
+#KODIPROP:inputstream.adaptive.license_key=2c24f672f7715433a83953e74ae564b1:10a63f9f2ccd81dfc4a05263c2fd1575
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/1
 #EXTINF:-1 tvg-id="tv360plus3" tvg-name="TV360+ 3" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266894249/af82cd28fcda_480_270.png" group-title="Sự Kiện TV360",TV360+ 3
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
