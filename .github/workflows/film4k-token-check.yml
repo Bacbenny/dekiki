@@ -29,7 +29,7 @@ jobs:
           python3 - <<'PYEOF'
           import base64, json, re, sys, urllib.request, datetime, os
 
-          URL = "https://raw.githubusercontent.com/Bacbenny/dekiki/main/film4k.m3u"
+          URL = "https://raw.githubusercontent.com/Bacbenny/dekiki/main/film4k.m3u?cache_bust=" + str(int(datetime.datetime.now(datetime.timezone.utc).timestamp()))
 
           def jwt_exp(token: str) -> int | None:
               parts = token.split(".")
@@ -48,7 +48,8 @@ jobs:
               content = urllib.request.urlopen(req, timeout=15).read().decode("utf-8")
           except Exception as e:
               print(f"Cannot fetch m3u: {e}")
-              print("expired=true" >> open(os.environ["GITHUB_OUTPUT"], "a"))
+              with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                  f.write("expired=true\n")
               sys.exit(0)
 
           if not content.strip():
