@@ -466,10 +466,11 @@ async function handle(request) {
     return jsonResponse({ streams: mapping, count: Object.keys(mapping).length });
   }
 
-  // Manual trigger for pre-warm (also called by cron)
+  // Manual trigger for pre-warm — fire-and-forget to avoid HTTP timeout
   if (url.pathname === "/film4k/prewarm" && request.method === "GET") {
-    const result = await preWarm();
-    return jsonResponse(result);
+    preWarm().then((r) => console.log(`[prewarm] channels=${r.channels} events=${r.events}`))
+             .catch((e) => console.error(`[prewarm] ${e.message || e}`));
+    return jsonResponse({ ok: true, message: "pre-warm started in background" });
   }
 
   if (url.pathname === "/film4k/cache/clear" && request.method === "GET") {
