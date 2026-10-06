@@ -341,38 +341,6 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
     return resolved
 
 
-def _pre_resolve_worker_streams(channels: list[dict]) -> dict[str, str]:
-    """Pre-resolve stream URLs via the Worker's 302 redirect for instant playback.
-    Returns a mapping of channel_id -> direct stream URL."""
-    mapping: dict[str, str] = {}
-
-    def _resolve_one(channel: dict) -> None:
-        channel_id = _channel_id(channel)
-        if not channel_id or channel_id.startswith("ants:"):
-            return
-        fallback_url = extract_stream_url(channel)
-        try:
-            response = requests.get(
-                f"{WORKER_BASE}/film4k/stream/channel/{quote(channel_id, safe='')}",
-                headers={"User-Agent": USER_AGENT},
-                allow_redirects=False,
-                timeout=15,
-            )
-            if response.status_code in (301, 302, 303, 307, 308):
-                location = response.headers.get("Location", "")
-                if location and _is_http_url(location):
-                    mapping[channel_id] = location
-                    return
-        except requests.RequestException:
-            pass
-        if fallback_url:
-            mapping[channel_id] = fallback_url
-
-    with ThreadPoolExecutor(max_workers=8) as executor:
-        list(executor.map(_resolve_one, channels))
-    return mapping
-
-
 def resolve_channel_streams(channels: list[dict], cookie: str) -> list[dict]:
     """Resolve channel records that do not include a stream URL, as the Worker does."""
     with ThreadPoolExecutor(max_workers=8) as executor:
@@ -680,7 +648,6 @@ def generate_m3u(
     reference_groups: list[str],
     reference_channels: dict[str, tuple[int, int, str]],
     reference_entries: list[dict],
-    worker_stream_map: dict[str, str] | None = None,
 ) -> tuple[str, int, int, int]:
     lines = ["#EXTM3U url-tvg=\"https://epg.io.vn/epg.xml.gz\""]
     count = 0
@@ -787,14 +754,10 @@ def generate_m3u(
                     channel_clear_key = tv360_channel.get("_film4k_clear_key") or tv360_channel.get("clearKey")
                     if isinstance(channel_clear_key, dict):
                         event_record["_film4k_clear_key"] = channel_clear_key
-                event_stream_url = extract_stream_url(event_record)
-                if not event_stream_url and worker_stream_map and channel_id:
-                    event_stream_url = worker_stream_map.get(channel_id, "")
-                if not event_stream_url:
-                    event_stream_url = _worker_stream_url(
-                        event_record,
-                        is_event=not bool(channel_id),
-                    )
+                event_stream_url = _worker_stream_url(
+                    event_record,
+                    is_event=not bool(channel_id),
+                )
                 if not event_stream_url:
                     continue
                 lines.append(
@@ -955,18 +918,11 @@ def generate_m3u(
                 ("tvg_id", "tvgId", "id", "channel_id", "channelId", "slug"),
                 name,
             )
-            # Embed JWT directly for instant playback (no Worker round-trip).
-            # Token is refreshed every 15 min by cron + token-check, with a
-            # 90-min safety threshold — JWT lives ~5 hours so always fresh.
             if group in WORKER_GROUPS:
                 channel_id = _channel_id(channel)
                 if not channel_id:
                     continue
-                stream_url = extract_stream_url(channel)
-                if not stream_url and worker_stream_map:
-                    stream_url = worker_stream_map.get(channel_id, "")
-                if not stream_url:
-                    stream_url = _worker_stream_url(channel, is_event=False)
+                stream_url = _worker_stream_url(channel, is_event=False)
                 if not stream_url:
                     continue
                 for variant in _channel_name_variants(name):
@@ -978,14 +934,17 @@ def generate_m3u(
                         tvg_id = TVG_ID_OVERRIDES[variant]
                         break
             else:
-                ref_url = ""
-                for variant in _channel_name_variants(name):
-                    ref_url = reference_stream_by_name.get(variant, "")
-                    if ref_url:
-                        break
-                if not ref_url:
-                    continue
-                stream_url = ref_url
+                channel_id = _channel_id(channel)
+                stream_url = _worker_stream_url(channel, is_event=False) if channel_id else ""
+                if not stream_url:
+                    ref_url = ""
+                    for variant in _channel_name_variants(name):
+                        ref_url = reference_stream_by_name.get(variant, "")
+                        if ref_url:
+                            break
+                    if not ref_url:
+                        continue
+                    stream_url = ref_url
                 for variant in _channel_name_variants(name):
                     ref_tvg_id = reference_tvg_id_by_name.get(variant, "")
                     if ref_tvg_id:
@@ -1089,36 +1048,6 @@ def write_playlist(content: str) -> None:
     os.replace(temp_file, OUTPUT_FILE)
 
 
-def _resolve_event_streams(events: list[dict]) -> list[dict]:
-    """Pre-resolve JWT stream URLs for events via the Worker 302 redirect."""
-    def _resolve_one(event: dict) -> dict:
-        event_id = _channel_id(event)
-        if not event_id:
-            return event
-        existing = extract_stream_url(event)
-        if existing and ("auth=eyJ" in existing or "cdntoken=eyJ" in existing):
-            return event
-        try:
-            response = requests.get(
-                f"{WORKER_BASE}/film4k/stream/event/{quote(event_id, safe='')}",
-                headers={"User-Agent": USER_AGENT},
-                allow_redirects=False,
-                timeout=15,
-            )
-            if response.status_code in (301, 302, 303, 307, 308):
-                location = response.headers.get("Location", "")
-                if location and _is_http_url(location):
-                    resolved = dict(event)
-                    resolved["url"] = location
-                    return resolved
-        except requests.RequestException:
-            pass
-        return event
-
-    with ThreadPoolExecutor(max_workers=8) as executor:
-        return list(executor.map(_resolve_one, events))
-
-
 def main() -> int:
     max_retries = 3
     for attempt in range(1, max_retries + 1):
@@ -1132,9 +1061,7 @@ def main() -> int:
                     if _is_film4k_event(channel)
                     and not _channel_id(channel).startswith("ants:")
                 ]
-            events = _resolve_event_streams(events)
             resolved_channels = resolve_channel_streams(channels, cookie)
-            worker_stream_map = _pre_resolve_worker_streams(resolved_channels)
             reference_groups, reference_channels, reference_entries = (
                 fetch_reference_order()
             )
@@ -1144,7 +1071,6 @@ def main() -> int:
                 reference_groups,
                 reference_channels,
                 reference_entries,
-                worker_stream_map,
             )
             write_playlist(content)
             break
