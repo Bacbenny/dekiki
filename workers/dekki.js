@@ -128,9 +128,14 @@ async function login() {
   if (!username || !password) throw new Error("Film4k secrets are not configured");
   const response = await fetch(`${FILM4K_BASE}/api/auth/signin`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "User-Agent": USER_AGENT },
+    headers: {
+      "Content-Type": "application/json",
+      "User-Agent": USER_AGENT,
+      "Cache-Control": "no-cache",
+    },
     body: JSON.stringify({ email: username, password }),
     redirect: "manual",
+    cache: "no-store",
   });
   if (!response.ok && response.status !== 302) throw new Error(`Film4k login failed: ${response.status}`);
   const cookie = sessionCookie(response.headers.get("set-cookie"));
@@ -143,7 +148,10 @@ async function login() {
 }
 
 async function apiJson(path, cookie) {
-  const response = await fetch(`${FILM4K_BASE}${path}`, { headers: apiHeaders(cookie) });
+  const response = await fetch(`${FILM4K_BASE}${path}`, {
+    headers: apiHeaders(cookie),
+    cache: "no-store",
+  });
   if (!response.ok) throw new Error(`Film4k API failed: ${response.status}`);
   return response.json();
 }
@@ -286,7 +294,7 @@ async function resolveStream(kind, id) {
     status: 302,
     headers: {
       Location: stream,
-      "Cache-Control": `public, max-age=${EDGE_CACHE_TTL}`,
+      "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
       ...CORS_HEADERS,
     },
   });
@@ -328,6 +336,32 @@ async function handle(request) {
   if (url.pathname === "/film4k/events" && request.method === "GET") {
     const catalog = await loadCatalog();
     return jsonResponse({ events: catalog.events, count: catalog.events.length });
+  }
+
+  // Pre-resolve stream URLs for all channels — used by film4k_fetch.py
+  // to embed direct stream URLs in the m3u for instant playback (no Worker round-trip)
+  if (url.pathname === "/film4k/streams" && request.method === "GET") {
+    const catalog = await loadCatalog();
+    const cookie = catalog.cookie;
+    const results = await Promise.all(
+      catalog.channels.map(async (ch) => {
+        const id = idOf(ch);
+        if (!id || String(id).startsWith("ants:")) return null;
+        try {
+          const payload = await apiJson(`/api/tv/${encodeURIComponent(id)}/stream?_=${Date.now()}`, cookie);
+          const stream = streamOf(payload);
+          const clearKey = clearKeyOf(payload);
+          return { id, stream_url: stream, clearKey: clearKey || null };
+        } catch (_) {
+          return { id, stream_url: "", clearKey: null };
+        }
+      })
+    );
+    const mapping = {};
+    for (const r of results) {
+      if (r && r.stream_url) mapping[r.id] = { url: r.stream_url, clearKey: r.clearKey };
+    }
+    return jsonResponse({ streams: mapping, count: Object.keys(mapping).length });
   }
 
   if (url.pathname === "/film4k/cache/clear" && request.method === "GET") {
