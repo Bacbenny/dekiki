@@ -116,8 +116,8 @@ jobs:
           print(f"Earliest expiry: {earliest_str}")
           print(f"Remaining: {remaining/60:.0f} minutes")
 
-          # Trigger update if less than 90 minutes remaining
-          threshold = 90 * 60
+          # Trigger update if less than 60 minutes remaining
+          threshold = 60 * 60
           expired = remaining < threshold
           with open(os.environ["GITHUB_OUTPUT"], "a") as f:
               f.write(f"expired={'true' if expired else 'false'}\n")
