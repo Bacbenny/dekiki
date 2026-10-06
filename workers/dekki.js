@@ -8,7 +8,7 @@ const CORS_HEADERS = {
 
 // --- Cache TTLs (seconds) ---
 const SESSION_TTL = 240;        // 4 minutes — session cookie shared across isolates via KV
-const STREAM_TTL = 45;          // 45 seconds — stream URL cached to skip API round-trip
+const STREAM_TTL = 60;          // Cloudflare KV requires at least 60 seconds
 const CATALOG_TTL = 60;         // 1 minute — channel/event catalog cache
 const EDGE_CACHE_TTL = 30;      // 30 seconds — Cloudflare edge caches the 302 redirect
 
@@ -271,10 +271,20 @@ async function resolveStream(kind, id) {
   if (kind === "event") {
     stream = streamOf(await eventDetails({ id }, cookie));
   } else {
-    try {
-      const payload = await apiJson(`/api/tv/${encodeURIComponent(id)}/stream?_=${Date.now()}`, cookie);
-      stream = streamOf(payload);
-    } catch (_) {}
+    const paths = [
+      `/api/tv/${encodeURIComponent(id)}/stream`,
+      `/api/tv/channels/${encodeURIComponent(id)}/stream`,
+      `/api/tv/channel/${encodeURIComponent(id)}/stream`,
+    ];
+    const results = await Promise.allSettled(
+      paths.map((path) => apiJson(`${path}?_=${Date.now()}`, cookie))
+    );
+    for (const result of results) {
+      if (result.status === "fulfilled") {
+        stream = streamOf(result.value);
+        if (stream) break;
+      }
+    }
   }
 
   // Fallback: search catalog for pre-resolved stream_url
