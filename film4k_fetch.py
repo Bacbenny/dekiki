@@ -343,9 +343,7 @@ def _pre_resolve_worker_streams(channels: list[dict]) -> dict[str, str]:
         channel_id = _channel_id(channel)
         if not channel_id or channel_id.startswith("ants:"):
             return
-        if extract_stream_url(channel):
-            mapping[channel_id] = extract_stream_url(channel)
-            return
+        fallback_url = extract_stream_url(channel)
         try:
             response = requests.get(
                 f"{WORKER_BASE}/film4k/stream/channel/{quote(channel_id, safe='')}",
@@ -357,8 +355,11 @@ def _pre_resolve_worker_streams(channels: list[dict]) -> dict[str, str]:
                 location = response.headers.get("Location", "")
                 if location and _is_http_url(location):
                     mapping[channel_id] = location
+                    return
         except requests.RequestException:
             pass
+        if fallback_url:
+            mapping[channel_id] = fallback_url
 
     with ThreadPoolExecutor(max_workers=8) as executor:
         list(executor.map(_resolve_one, channels))
