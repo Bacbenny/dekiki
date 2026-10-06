@@ -303,8 +303,7 @@ def _clear_key(payload: object) -> dict[str, str] | None:
 
 
 def _resolve_one_channel(channel: dict, cookie: str) -> dict:
-    if extract_stream_url(channel):
-        return channel
+    fallback_channel = channel
     channel_id = _channel_id(channel)
     if not channel_id:
         return channel
@@ -317,14 +316,14 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
             timeout=45,
         )
         if not response.ok:
-            return channel
+            return fallback_channel
         payload = response.json()
     except (requests.RequestException, ValueError):
-        return channel
+        return fallback_channel
 
     stream_url = extract_stream_url(payload) if isinstance(payload, dict) else ""
     if not stream_url:
-        return channel
+        return fallback_channel
 
     resolved = dict(channel)
     resolved["url"] = stream_url
