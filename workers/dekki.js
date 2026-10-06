@@ -135,7 +135,6 @@ async function login() {
     },
     body: JSON.stringify({ email: username, password }),
     redirect: "manual",
-    cache: "no-store",
   });
   if (!response.ok && response.status !== 302) throw new Error(`Film4k login failed: ${response.status}`);
   const cookie = sessionCookie(response.headers.get("set-cookie"));
@@ -149,8 +148,11 @@ async function login() {
 
 async function apiJson(path, cookie) {
   const response = await fetch(`${FILM4K_BASE}${path}`, {
-    headers: apiHeaders(cookie),
-    cache: "no-store",
+    headers: {
+      ...apiHeaders(cookie),
+      "Cache-Control": "no-cache",
+      Pragma: "no-cache",
+    },
   });
   if (!response.ok) throw new Error(`Film4k API failed: ${response.status}`);
   return response.json();
