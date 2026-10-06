@@ -1089,34 +1089,72 @@ def write_playlist(content: str) -> None:
     os.replace(temp_file, OUTPUT_FILE)
 
 
+def _resolve_event_streams(events: list[dict]) -> list[dict]:
+    """Pre-resolve JWT stream URLs for events via the Worker 302 redirect."""
+    def _resolve_one(event: dict) -> dict:
+        event_id = _channel_id(event)
+        if not event_id:
+            return event
+        existing = extract_stream_url(event)
+        if existing and ("auth=eyJ" in existing or "cdntoken=eyJ" in existing):
+            return event
+        try:
+            response = requests.get(
+                f"{WORKER_BASE}/film4k/stream/event/{quote(event_id, safe='')}",
+                headers={"User-Agent": USER_AGENT},
+                allow_redirects=False,
+                timeout=15,
+            )
+            if response.status_code in (301, 302, 303, 307, 308):
+                location = response.headers.get("Location", "")
+                if location and _is_http_url(location):
+                    resolved = dict(event)
+                    resolved["url"] = location
+                    return resolved
+        except requests.RequestException:
+            pass
+        return event
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        return list(executor.map(_resolve_one, events))
+
+
 def main() -> int:
-    try:
-        channels, cookie = fetch_channels()
-        events = fetch_events(cookie)
-        if not events:
-            events = [
-                channel
-                for channel in channels
-                if _is_film4k_event(channel)
-                and not _channel_id(channel).startswith("ants:")
-            ]
-        resolved_channels = resolve_channel_streams(channels, cookie)
-        worker_stream_map = _pre_resolve_worker_streams(resolved_channels)
-        reference_groups, reference_channels, reference_entries = (
-            fetch_reference_order()
-        )
-        content, playable_count, unclassified_count, event_count = generate_m3u(
-            resolved_channels,
-            events,
-            reference_groups,
-            reference_channels,
-            reference_entries,
-            worker_stream_map,
-        )
-        write_playlist(content)
-    except (Film4kError, requests.RequestException, OSError) as error:
-        print(f"[film4k] Update failed: {error}", file=sys.stderr)
-        return 1
+    max_retries = 3
+    for attempt in range(1, max_retries + 1):
+        try:
+            channels, cookie = fetch_channels()
+            events = fetch_events(cookie)
+            if not events:
+                events = [
+                    channel
+                    for channel in channels
+                    if _is_film4k_event(channel)
+                    and not _channel_id(channel).startswith("ants:")
+                ]
+            events = _resolve_event_streams(events)
+            resolved_channels = resolve_channel_streams(channels, cookie)
+            worker_stream_map = _pre_resolve_worker_streams(resolved_channels)
+            reference_groups, reference_channels, reference_entries = (
+                fetch_reference_order()
+            )
+            content, playable_count, unclassified_count, event_count = generate_m3u(
+                resolved_channels,
+                events,
+                reference_groups,
+                reference_channels,
+                reference_entries,
+                worker_stream_map,
+            )
+            write_playlist(content)
+            break
+        except (Film4kError, requests.RequestException, OSError) as error:
+            print(f"[film4k] Attempt {attempt}/{max_retries} failed: {error}", file=sys.stderr)
+            if attempt < max_retries:
+                time.sleep(10 * attempt)
+            else:
+                print("[film4k] All retries exhausted.", file=sys.stderr)
+                return 1
 
     print(
         f"[film4k] Created film4k.m3u with {playable_count} playable channels "
