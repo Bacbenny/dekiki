@@ -29,7 +29,7 @@ jobs:
 
       - name: Deploy Worker
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           FILM4K_USERNAME: ${{ secrets.FILM4K_USERNAME }}
           FILM4K_PASSWORD: ${{ secrets.FILM4K_PASSWORD }}
         run: python deploy_workers.py
