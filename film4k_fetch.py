@@ -302,6 +302,28 @@ def _clear_key(payload: object) -> dict[str, str] | None:
     return None
 
 
+def _fetch_worker_clear_key(channel_id: str, is_event: bool = False) -> dict[str, str] | None:
+    """Ask the Worker for stream-info — it sees the same DRM/clearKey the player will get."""
+    kind = "event" if is_event else "channel"
+    try:
+        response = requests.get(
+            f"{WORKER_BASE}/film4k/stream-info/{kind}/{quote(channel_id, safe='')}",
+            headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+            timeout=15,
+        )
+        if response.ok:
+            data = response.json()
+            clear_key = data.get("clearKey")
+            if isinstance(clear_key, dict):
+                key_id = clear_key.get("keyId")
+                key = clear_key.get("key")
+                if isinstance(key_id, str) and isinstance(key, str) and key_id and key:
+                    return {"keyId": key_id, "key": key}
+    except (requests.RequestException, ValueError):
+        pass
+    return None
+
+
 def _resolve_one_channel(channel: dict, cookie: str) -> dict:
     fallback_channel = channel
     channel_id = _channel_id(channel)
@@ -336,6 +358,8 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
     resolved = dict(channel)
     resolved["url"] = stream_url
     clear_key = _clear_key(payload)
+    if not clear_key and not str(channel_id).startswith("ants:"):
+        clear_key = _fetch_worker_clear_key(str(channel_id))
     if clear_key:
         resolved["_film4k_clear_key"] = clear_key
     return resolved
@@ -960,7 +984,7 @@ def generate_m3u(
                 f'group-title="{_attribute(group)}",{name}'
             )
 
-            if group in WORKER_GROUPS:
+            if "dekki.bacbenny95.workers.dev" in stream_url or "/film4k/stream/" in stream_url:
                 clear_key = channel.get("_film4k_clear_key") or channel.get("clearKey")
                 if isinstance(clear_key, dict):
                     key_id = clear_key.get("keyId")

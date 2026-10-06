@@ -110,20 +110,16 @@ function clearKeyOf(value, depth = 0) {
 // Uses Promise.any — returns ASAP when the fastest path succeeds instead of
 // waiting for all paths to settle.
 async function raceStream(paths, cookie) {
-  const fetches = paths.map((path) =>
-    fetch(`${FILM4K_BASE}${path}`, { headers: apiHeaders(cookie) })
-      .then((r) => r.json())
-      .then((data) => {
-        const stream = streamOf(data);
-        if (!stream) throw new Error("no stream in response");
-        return { stream, clearKey: clearKeyOf(data) };
-      })
-  );
-  try {
-    return await Promise.any(fetches);
-  } catch {
-    return { stream: "", clearKey: null };
+  for (const path of paths) {
+    try {
+      const response = await fetch(`${FILM4K_BASE}${path}`, { headers: apiHeaders(cookie) });
+      if (!response.ok) continue;
+      const data = await response.json();
+      const stream = streamOf(data);
+      if (stream) return { stream, clearKey: clearKeyOf(data) };
+    } catch (_) {}
   }
+  return { stream: "", clearKey: null };
 }
 
 // Dedup wrapper: if the same key is already being fetched, reuse its promise.
@@ -442,6 +438,30 @@ async function handle(request) {
   }
 
   if (url.pathname === "/film4k/playlist.m3u" && request.method === "GET") return playlist(request);
+
+  // JSON endpoint — returns stream URL + clearKey for a channel/event.
+  // Used by film4k_fetch.py (GitHub Actions) to get the same DRM info the Worker sees.
+  const infoMatch = url.pathname.match(/^\/film4k\/stream-info\/(event|channel)\/([^/]+)$/);
+  if (infoMatch && request.method === "GET") {
+    const kind = infoMatch[1];
+    const id = decodeURIComponent(infoMatch[2]);
+    const cacheKey = `stream:${kind}:${id}`;
+    const memHit = memCache.get(cacheKey);
+    if (streamCacheIsFresh(memHit)) {
+      return jsonResponse({ ok: true, id, kind, stream_url: memHit.url, clearKey: null, cached: true });
+    }
+    const cookie = await login();
+    const r = kind === "event"
+      ? { stream: streamOf(await eventDetails({ id }, cookie)), clearKey: null }
+      : await resolveChannelStream(id, cookie);
+    if (r.stream) {
+      memCache.set(cacheKey, { ts: Date.now(), url: r.stream });
+      const ttl = streamCacheTtl(r.stream);
+      if (KV && ttl > 0) await KV.put(cacheKey, r.stream, { expirationTtl: ttl });
+    }
+    if (!r.stream) return jsonResponse({ ok: false, id, kind, error: "stream unavailable" }, 502);
+    return jsonResponse({ ok: true, id, kind, stream_url: r.stream, clearKey: r.clearKey || null, cached: false });
+  }
 
   if (url.pathname === "/film4k/events" && request.method === "GET") {
     const catalog = await loadCatalog();
