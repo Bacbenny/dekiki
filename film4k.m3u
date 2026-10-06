@@ -84,8 +84,8 @@ https://fo-hlc.tv360.vn/bpk-tv/289/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsIn
 #EXTINF:-1 tvg-id="360phimaumy" tvg-name="Phim Âu Mỹ" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/09/08/1775697767861/9a6dc88794cf_480_270.png" group-title="VTVcab",Phim Âu Mỹ
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=a268913e11ab4656b2a8b36430f62e98:ddd3b4b890c6f3f54ea1790837a46c87
-https://tr1-netcdn.tv360.vn/video1/2025/11/19/17/9b58fbeb/6b6fe3/h264/dash/stream.mpd?timestamp=1791262620&token=dc1c2abe1d36617736268cc1214869ec&uid=294779473
+#KODIPROP:inputstream.adaptive.license_key=b0599a34c52540219c5c38ac863c0199:ea72b57301535d912ed14ff77a558a30
+https://tr1-netcdn.tv360.vn/video1/2025/10/24/00/c213a589/26fa49/h264/dash/stream.mpd?timestamp=1791270120&token=81f98d0061e9f683707e7b9d0144de79&uid=294779473
 #EXTINF:-1 tvg-id="360hoathinh" tvg-name="Hoạt hình" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/08/03/16/178574886930/9daa0ca42fd8_480_270.png" group-title="VTVcab",Hoạt hình
 https://tr1-netcdn.tv360.vn/video1/2025/05/18/23/699d54fe-e1ff-4d2e-9e16-2e24d3206e78/a7aac9/h264/master.m3u8?timestamp=1791264120&token=106c0e7902b121326e4cd3ca0018a9da&uid=294779473
 #EXTINF:-1 tvg-id="sctv15hd" group-title="SCTV" tvg-logo="https://s7774.cdn.mytvnet.vn/vimages/c5/52/26/64/4d/d2/c5264-psctv15ssportt2-channel-unkn.png", SCTV15
