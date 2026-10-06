@@ -2,7 +2,7 @@ name: Cap nhat Film4k channel M3U
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/15 * * * *"
   workflow_dispatch: {}
 
 concurrency:
