@@ -6,18 +6,21 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type,Authorization",
 };
 
-// JWT from TV360 lives ~5 hours. Pre-warm every 55 min via cron.
-// KV TTL is 4 hours so entries survive even if cron fails a few cycles.
+// JWT from TV360 lives ~5 hours.
 const SESSION_TTL = 600;     // 10 min — session cookie in mem cache
-const KV_SESSION_TTL = 1200; // 20 min — session cookie in KV
-const STREAM_TTL = 14400;    // 4 hours — KV stream cache (JWT lives ~5h)
-const CATALOG_TTL = 60;      // 1 min — channel list cache
-const EDGE_CACHE = 30;       // 30 sec — edge cache for 302 redirects
+const STREAM_TTL = 14400;    // 4 hours — stream URL cache (JWT lives ~5h)
+const CATALOG_TTL = 120;     // 2 min — channel list cache
+const EDGE_CACHE_302 = 300;  // 5 min — edge cache for 302 redirects on cache hits
 
 const KV = typeof FILM4K_KV !== "undefined" ? FILM4K_KV : null;
 
 // Per-isolate L1 cache
 const memCache = new Map();
+
+// In-flight request deduplication — when two requests for the same channel
+// arrive simultaneously, only the first triggers an API call; the second
+// awaits the same promise. Critical without KV to avoid login storms.
+const inFlight = new Map();
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -123,6 +126,14 @@ async function raceStream(paths, cookie) {
   }
 }
 
+// Dedup wrapper: if the same key is already being fetched, reuse its promise.
+function dedup(key, fn) {
+  if (inFlight.has(key)) return inFlight.get(key);
+  const promise = fn().finally(() => inFlight.delete(key));
+  inFlight.set(key, promise);
+  return promise;
+}
+
 // ---------------------------------------------------------------------------
 // Auth: L1 → L2 (KV) → login
 // ---------------------------------------------------------------------------
@@ -139,23 +150,29 @@ async function login() {
     }
   }
 
-  const username = typeof FILM4K_USERNAME !== "undefined" ? FILM4K_USERNAME : "";
-  const password = typeof FILM4K_PASSWORD !== "undefined" ? FILM4K_PASSWORD : "";
-  if (!username || !password) throw new Error("Film4k secrets not configured");
+  return dedup("login", async () => {
+    // Double-check after entering dedup — another request may have logged in
+    const mem2 = memCache.get("session");
+    if (mem2 && Date.now() - mem2.ts < SESSION_TTL * 1000) return mem2.cookie;
 
-  const response = await fetch(`${FILM4K_BASE}/api/auth/signin`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "User-Agent": USER_AGENT },
-    body: JSON.stringify({ email: username, password }),
-    redirect: "manual",
+    const username = typeof FILM4K_USERNAME !== "undefined" ? FILM4K_USERNAME : "";
+    const password = typeof FILM4K_PASSWORD !== "undefined" ? FILM4K_PASSWORD : "";
+    if (!username || !password) throw new Error("Film4k secrets not configured");
+
+    const response = await fetch(`${FILM4K_BASE}/api/auth/signin`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "User-Agent": USER_AGENT },
+      body: JSON.stringify({ email: username, password }),
+      redirect: "manual",
+    });
+    if (!response.ok && response.status !== 302) throw new Error(`Film4k login failed: ${response.status}`);
+    const cookie = sessionCookie(response.headers.get("set-cookie"));
+    if (!cookie) throw new Error("Film4k login returned no session cookie");
+
+    memCache.set("session", { ts: Date.now(), cookie });
+    if (KV) await KV.put("session:cookie", cookie, { expirationTtl: 1200 });
+    return cookie;
   });
-  if (!response.ok && response.status !== 302) throw new Error(`Film4k login failed: ${response.status}`);
-  const cookie = sessionCookie(response.headers.get("set-cookie"));
-  if (!cookie) throw new Error("Film4k login returned no session cookie");
-
-  memCache.set("session", { ts: Date.now(), cookie });
-  if (KV) await KV.put("session:cookie", cookie, { expirationTtl: KV_SESSION_TTL });
-  return cookie;
 }
 
 async function apiJson(path, cookie) {
@@ -206,26 +223,31 @@ async function loadCatalog() {
   const cached = memCache.get("catalog");
   if (cached && Date.now() - cached.ts < CATALOG_TTL * 1000) return cached.data;
 
-  const cookie = await login();
-  const [eventsPayload, channelsPayload] = await Promise.all([
-    apiJson(`/api/tv/events`, cookie).catch(() => null),
-    apiJson(`/api/tv/channels`, cookie),
-  ]);
-  const rawEvents = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
-  const channels = unwrap(channelsPayload, ["channels", "data", "items", "results"]);
-  const eventRecords = rawEvents.length
-    ? rawEvents
-    : channels.filter((ch) => {
-        if (String(ch.id || "").startsWith("ants:")) return false;
-        const groupText = `${ch.group || ""} ${ch.category || ""}`;
-        const name = String(ch.name || ch.title || "");
-        return /event|sự kiện|sukien|trực tiếp|tructiep/i.test(groupText)
-          || /^TV360\+\s*\d+/i.test(name);
-      });
-  const events = await Promise.all(eventRecords.map((ev) => eventDetails(ev, cookie)));
-  const data = { cookie, events, channels };
-  memCache.set("catalog", { ts: Date.now(), data });
-  return data;
+  return dedup("catalog", async () => {
+    const cached2 = memCache.get("catalog");
+    if (cached2 && Date.now() - cached2.ts < CATALOG_TTL * 1000) return cached2.data;
+
+    const cookie = await login();
+    const [eventsPayload, channelsPayload] = await Promise.all([
+      apiJson(`/api/tv/events`, cookie).catch(() => null),
+      apiJson(`/api/tv/channels`, cookie),
+    ]);
+    const rawEvents = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
+    const channels = unwrap(channelsPayload, ["channels", "data", "items", "results"]);
+    const eventRecords = rawEvents.length
+      ? rawEvents
+      : channels.filter((ch) => {
+          if (String(ch.id || "").startsWith("ants:")) return false;
+          const groupText = `${ch.group || ""} ${ch.category || ""}`;
+          const name = String(ch.name || ch.title || "");
+          return /event|sự kiện|sukien|trực tiếp|tructiep/i.test(groupText)
+            || /^TV360\+\s*\d+/i.test(name);
+        });
+    const events = await Promise.all(eventRecords.map((ev) => eventDetails(ev, cookie)));
+    const data = { cookie, events, channels };
+    memCache.set("catalog", { ts: Date.now(), data });
+    return data;
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -264,14 +286,12 @@ async function playlist(request) {
 }
 
 // ---------------------------------------------------------------------------
-// Stream resolution: L1 → L2 (KV) → live API
+// Stream resolution: L1 (mem) → L2 (KV) → live API with dedup
 // ---------------------------------------------------------------------------
 
 function redirectResponse(url, fromCache) {
   const headers = { Location: url, ...CORS_HEADERS };
-  // Allow edge caching for cache hits — reduces Worker invocations.
-  // Cache misses use no-store since the URL might not be optimal yet.
-  headers["Cache-Control"] = fromCache ? `public, max-age=${EDGE_CACHE}` : "no-store";
+  headers["Cache-Control"] = fromCache ? `public, max-age=${EDGE_CACHE_302}` : "no-store";
   return new Response(null, { status: 302, headers });
 }
 
@@ -284,7 +304,7 @@ async function resolveStream(kind, id) {
     return redirectResponse(memHit.url, true);
   }
 
-  // L2: KV — should always be warm thanks to cron pre-warm (~50ms)
+  // L2: KV if available (~50ms)
   if (KV) {
     const kvEntry = await KV.getWithMetadata(cacheKey);
     if (kvEntry && kvEntry.value) {
@@ -293,30 +313,32 @@ async function resolveStream(kind, id) {
     }
   }
 
-  // Cache miss — fetch fresh JWT from API
-  const cookie = await login();
-  const result = kind === "event"
-    ? { stream: streamOf(await eventDetails({ id }, cookie)), clearKey: null }
-    : await resolveChannelStream(id, cookie);
+  // Cache miss — dedup so parallel requests for same channel share one API call
+  const result = await dedup(cacheKey, async () => {
+    const cookie = await login();
+    const r = kind === "event"
+      ? { stream: streamOf(await eventDetails({ id }, cookie)), clearKey: null }
+      : await resolveChannelStream(id, cookie);
+
+    if (r.stream) {
+      memCache.set(cacheKey, { ts: Date.now(), url: r.stream });
+      if (KV) await KV.put(cacheKey, r.stream, { expirationTtl: STREAM_TTL });
+    }
+    return r;
+  });
 
   if (!result.stream) return jsonResponse({ error: "Film4k stream is unavailable" }, 502);
-
-  memCache.set(cacheKey, { ts: Date.now(), url: result.stream });
-  if (KV) await KV.put(cacheKey, result.stream, { expirationTtl: STREAM_TTL });
-
   return redirectResponse(result.stream, false);
 }
 
 // ---------------------------------------------------------------------------
 // Cron pre-warm: called every 55 minutes by Cloudflare Cron Triggers.
-// Fetches a fresh JWT for every channel and stores it in KV so that
-// stream requests are always served from cache (near 0ms, never stale).
+// Pre-resolves all stream URLs into mem cache (and KV if bound) so that
+// the first viewer request is always a cache hit.
 // ---------------------------------------------------------------------------
 
 async function preWarm() {
-  if (!KV) return { ok: false, reason: "KV not bound" };
-
-  // Single fresh login — no need to invalidate existing session
+  // Fresh login for new JWT
   memCache.delete("session");
   if (KV) await KV.delete("session:cookie");
   const freshCookie = await login();
@@ -329,38 +351,49 @@ async function preWarm() {
   const rawEvents = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
   const events = await Promise.all(rawEvents.map((ev) => eventDetails(ev, freshCookie)));
 
-  // Resolve channel streams in parallel, store each into KV
-  const channelResults = await Promise.allSettled(
-    channels
-      .filter((ch) => !String(idOf(ch) || "").startsWith("ants:"))
-      .map(async (ch) => {
-        const id = idOf(ch);
-        if (!id) return null;
-        const { stream } = await resolveChannelStream(id, freshCookie);
+  // Resolve channel streams in parallel — batch to avoid overwhelming the API
+  const eligible = channels.filter((ch) => {
+    const cid = String(idOf(ch) || "");
+    return cid && !cid.startsWith("ants:");
+  });
+
+  const BATCH = 10;
+  let warmedChannels = 0;
+  for (let i = 0; i < eligible.length; i += BATCH) {
+    const batch = eligible.slice(i, i + BATCH);
+    const results = await Promise.allSettled(
+      batch.map(async (ch) => {
+        const cid = idOf(ch);
+        if (!cid) return null;
+        const { stream } = await resolveChannelStream(cid, freshCookie);
         if (!stream) return null;
-        const cacheKey = `stream:channel:${id}`;
-        await KV.put(cacheKey, stream, { expirationTtl: STREAM_TTL });
+        const cacheKey = `stream:channel:${cid}`;
         memCache.set(cacheKey, { ts: Date.now(), url: stream });
-        return id;
+        if (KV) await KV.put(cacheKey, stream, { expirationTtl: STREAM_TTL });
+        return cid;
       })
-  );
+    );
+    warmedChannels += results.filter((r) => r.status === "fulfilled" && r.value).length;
+  }
 
-  // Resolve event streams and store into KV
-  const eventResults = await Promise.allSettled(
-    events.map(async (ev) => {
-      const id = idOf(ev);
-      if (!id) return null;
-      const stream = streamOf(ev);
-      if (!stream) return null;
-      const cacheKey = `stream:event:${id}`;
-      await KV.put(cacheKey, stream, { expirationTtl: STREAM_TTL });
-      memCache.set(cacheKey, { ts: Date.now(), url: stream });
-      return id;
-    })
-  );
-
-  const warmedChannels = channelResults.filter((r) => r.status === "fulfilled" && r.value).length;
-  const warmedEvents = eventResults.filter((r) => r.status === "fulfilled" && r.value).length;
+  // Resolve event streams
+  let warmedEvents = 0;
+  for (let i = 0; i < events.length; i += BATCH) {
+    const batch = events.slice(i, i + BATCH);
+    const results = await Promise.allSettled(
+      batch.map(async (ev) => {
+        const eid = idOf(ev);
+        if (!eid) return null;
+        const stream = streamOf(ev);
+        if (!stream) return null;
+        const cacheKey = `stream:event:${eid}`;
+        memCache.set(cacheKey, { ts: Date.now(), url: stream });
+        if (KV) await KV.put(cacheKey, stream, { expirationTtl: STREAM_TTL });
+        return eid;
+      })
+    );
+    warmedEvents += results.filter((r) => r.status === "fulfilled" && r.value).length;
+  }
 
   // Update catalog cache
   memCache.set("catalog", {
@@ -385,6 +418,7 @@ async function handle(request) {
       worker: "film4k",
       kv_bound: !!KV,
       mem_keys: memCache.size,
+      inflight: inFlight.size,
       mem_has_session: memCache.has("session"),
       mem_has_catalog: memCache.has("catalog"),
     });
@@ -403,6 +437,7 @@ async function handle(request) {
       channels_keys: ch && typeof ch === "object" ? Object.keys(ch) : [],
       kv_bound: !!KV,
       mem_cache_size: memCache.size,
+      inflight: inFlight.size,
     });
   }
 
@@ -439,6 +474,7 @@ async function handle(request) {
 
   if (url.pathname === "/film4k/cache/clear" && request.method === "GET") {
     memCache.clear();
+    inFlight.clear();
     if (KV) {
       try {
         const list = await KV.list({ prefix: "stream:" });
