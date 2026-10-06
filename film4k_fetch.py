@@ -787,11 +787,10 @@ def generate_m3u(
                     channel_clear_key = tv360_channel.get("_film4k_clear_key") or tv360_channel.get("clearKey")
                     if isinstance(channel_clear_key, dict):
                         event_record["_film4k_clear_key"] = channel_clear_key
-                # Use the actual stream_url from Worker events response
-                # This eliminates the Worker round-trip for instant playback
                 event_stream_url = extract_stream_url(event_record)
+                if not event_stream_url and worker_stream_map and channel_id:
+                    event_stream_url = worker_stream_map.get(channel_id, "")
                 if not event_stream_url:
-                    # Fallback to Worker proxy URL
                     event_stream_url = _worker_stream_url(
                         event_record,
                         is_event=not bool(channel_id),
@@ -956,20 +955,20 @@ def generate_m3u(
                 ("tvg_id", "tvgId", "id", "channel_id", "channelId", "slug"),
                 name,
             )
-            # For Worker groups: embed resolved stream URL directly for instant playback
-            # For non-Worker groups: use reference playlist stream URL with film4k metadata
+            # Embed JWT directly for instant playback (no Worker round-trip).
+            # Token is refreshed every 15 min by cron + token-check, with a
+            # 90-min safety threshold — JWT lives ~5 hours so always fresh.
             if group in WORKER_GROUPS:
                 channel_id = _channel_id(channel)
                 if not channel_id:
                     continue
-                # Keep a stable Worker URL in the playlist so expiring JWTs are
-                # resolved at playback time instead of being stored in the m3u.
-                stream_url = _worker_stream_url(channel, is_event=False)
+                stream_url = extract_stream_url(channel)
+                if not stream_url and worker_stream_map:
+                    stream_url = worker_stream_map.get(channel_id, "")
                 if not stream_url:
-                    stream_url = worker_stream_map.get(channel_id, "") if worker_stream_map else ""
+                    stream_url = _worker_stream_url(channel, is_event=False)
                 if not stream_url:
                     continue
-                # Use reference tvg-id for EPG matching if available
                 for variant in _channel_name_variants(name):
                     ref_tvg_id = reference_tvg_id_by_name.get(variant, "")
                     if ref_tvg_id:
@@ -987,7 +986,6 @@ def generate_m3u(
                 if not ref_url:
                     continue
                 stream_url = ref_url
-                # Use reference tvg-id for EPG matching in non-Worker groups too
                 for variant in _channel_name_variants(name):
                     ref_tvg_id = reference_tvg_id_by_name.get(variant, "")
                     if ref_tvg_id:
