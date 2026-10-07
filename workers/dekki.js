@@ -26,6 +26,44 @@ const memCache = new Map();
 // awaits the same promise. Critical without KV to avoid login storms.
 const inFlight = new Map();
 
+async function kvGet(key) {
+  if (!KV) return null;
+  try {
+    return await KV.get(key);
+  } catch (_) {
+    console.warn("[kv] read failed; bypassing cache");
+    return null;
+  }
+}
+
+async function kvGetWithMetadata(key) {
+  if (!KV) return null;
+  try {
+    return await KV.getWithMetadata(key);
+  } catch (_) {
+    console.warn("[kv] stream-cache read failed; bypassing cache");
+    return null;
+  }
+}
+
+async function kvPut(key, value, options) {
+  if (!KV) return;
+  try {
+    await KV.put(key, value, options);
+  } catch (_) {
+    console.warn("[kv] write failed; continuing without cache");
+  }
+}
+
+async function kvDelete(key) {
+  if (!KV) return;
+  try {
+    await KV.delete(key);
+  } catch (_) {
+    console.warn("[kv] delete failed; continuing without cache");
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -185,10 +223,17 @@ async function raceStream(paths, cookie) {
     return await Promise.any(tasks);
   } catch (error) {
     const failures = Array.isArray(error && error.errors) ? error.errors : [error];
+    const authFailure = failures.some(
+      (failure) => failure && [401, 403].includes(failure.status)
+    );
     return {
       stream: "",
       clearKey: null,
-      authFailure: failures.some((failure) => failure && [401, 403].includes(failure.status)),
+      authFailure,
+      retryableFailure: failures.some((failure) => {
+        if (!failure || !Number.isFinite(failure.status)) return true;
+        return [408, 425, 429].includes(failure.status) || failure.status >= 500;
+      }),
     };
   }
 }
@@ -211,7 +256,7 @@ async function login(forceRefresh = false) {
     if (mem && Date.now() - mem.ts < SESSION_TTL * 1000) return mem.cookie;
 
     if (KV) {
-      const kvCookie = await KV.get("session:cookie");
+      const kvCookie = await kvGet("session:cookie");
       if (kvCookie) {
         memCache.set("session", { ts: Date.now(), cookie: kvCookie });
         return kvCookie;
@@ -241,19 +286,28 @@ async function login(forceRefresh = false) {
     if (!cookie) throw new Error("Film4k login returned no session cookie");
 
     memCache.set("session", { ts: Date.now(), cookie });
-    if (KV) await KV.put("session:cookie", cookie, { expirationTtl: 7200 });
+    await kvPut("session:cookie", cookie, { expirationTtl: 7200 });
     return cookie;
   });
 }
 
 async function refreshSession() {
   memCache.delete("session");
-  if (KV) {
-    try {
-      await KV.delete("session:cookie");
-    } catch (_) {}
-  }
+  await kvDelete("session:cookie");
   return login(true);
+}
+
+async function resolveStreamPaths(paths, cookie) {
+  let activeCookie = cookie;
+  let result = await raceStream(paths, activeCookie);
+  if (result.authFailure) {
+    activeCookie = await refreshSession();
+    result = await raceStream(paths, activeCookie);
+  }
+  if (result.stream || !result.retryableFailure) return result;
+
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return raceStream(paths, activeCookie);
 }
 
 async function apiJson(path, cookie, retry = true) {
@@ -277,10 +331,7 @@ async function eventDetails(event, cookie) {
     `/api/tv/event/${encodeURIComponent(id)}/stream`,
     `/api/tv/${encodeURIComponent(id)}/stream`,
   ];
-  let result = await raceStream(paths, cookie);
-  if (result.authFailure) {
-    result = await raceStream(paths, await refreshSession());
-  }
+  const result = await resolveStreamPaths(paths, cookie);
   if (result.stream) {
     const details = { ...event, stream_url: result.stream };
     if (result.clearKey) details.clearKey = result.clearKey;
@@ -299,11 +350,7 @@ async function resolveChannelStream(id, cookie) {
     `/api/tv/channels/${encodeURIComponent(id)}/stream`,
     `/api/tv/channel/${encodeURIComponent(id)}/stream`,
   ];
-  let result = await raceStream(paths, cookie);
-  if (result.authFailure) {
-    result = await raceStream(paths, await refreshSession());
-  }
-  return result;
+  return resolveStreamPaths(paths, cookie);
 }
 
 // ---------------------------------------------------------------------------
@@ -397,7 +444,7 @@ async function resolveStream(kind, id) {
 
   // L2: KV if available (~50ms)
   if (KV) {
-    const kvEntry = await KV.getWithMetadata(cacheKey);
+    const kvEntry = await kvGetWithMetadata(cacheKey);
     const cached = kvEntry && kvEntry.value
       ? { ts: Date.now(), url: kvEntry.value }
       : null;
@@ -405,7 +452,7 @@ async function resolveStream(kind, id) {
       memCache.set(cacheKey, cached);
       return redirectResponse(cached.url, true);
     }
-    if (kvEntry && kvEntry.value) await KV.delete(cacheKey);
+    if (kvEntry && kvEntry.value) await kvDelete(cacheKey);
   }
 
   // Cache miss — dedup so parallel requests for same channel share one API call
@@ -418,7 +465,7 @@ async function resolveStream(kind, id) {
     if (r.stream) {
       memCache.set(cacheKey, { ts: Date.now(), url: r.stream });
       const ttl = streamCacheTtl(r.stream);
-      if (KV && ttl > 0) await KV.put(cacheKey, r.stream, { expirationTtl: ttl });
+      if (ttl > 0) await kvPut(cacheKey, r.stream, { expirationTtl: ttl });
     }
     return r;
   });
@@ -436,7 +483,7 @@ async function resolveStream(kind, id) {
 async function preWarm() {
   // Fresh login for new JWT
   memCache.delete("session");
-  if (KV) await KV.delete("session:cookie");
+  await kvDelete("session:cookie");
   const freshCookie = await login();
 
   const channelsPayload = await apiJson(`/api/tv/channels`, freshCookie).catch(() => null);
@@ -466,7 +513,7 @@ async function preWarm() {
         const cacheKey = `${STREAM_CACHE_NAMESPACE}:channel:${cid}`;
         memCache.set(cacheKey, { ts: Date.now(), url: stream });
         const ttl = streamCacheTtl(stream);
-        if (KV && ttl > 0) await KV.put(cacheKey, stream, { expirationTtl: ttl });
+        if (ttl > 0) await kvPut(cacheKey, stream, { expirationTtl: ttl });
         return cid;
       })
     );
@@ -486,7 +533,7 @@ async function preWarm() {
         const cacheKey = `${STREAM_CACHE_NAMESPACE}:event:${eid}`;
         memCache.set(cacheKey, { ts: Date.now(), url: stream });
         const ttl = streamCacheTtl(stream);
-        if (KV && ttl > 0) await KV.put(cacheKey, stream, { expirationTtl: ttl });
+        if (ttl > 0) await kvPut(cacheKey, stream, { expirationTtl: ttl });
         return eid;
       })
     );
@@ -559,7 +606,7 @@ async function handle(request) {
     if (r.stream) {
       memCache.set(cacheKey, { ts: Date.now(), url: r.stream });
       const ttl = streamCacheTtl(r.stream);
-      if (KV && ttl > 0) await KV.put(cacheKey, r.stream, { expirationTtl: ttl });
+      if (ttl > 0) await kvPut(cacheKey, r.stream, { expirationTtl: ttl });
     }
     if (!r.stream) return jsonResponse({ ok: false, id, kind, error: "stream unavailable" }, 502);
     return jsonResponse({ ok: true, id, kind, stream_url: r.stream, clearKey: r.clearKey || null, cached: false });
