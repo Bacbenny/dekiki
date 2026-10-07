@@ -305,7 +305,7 @@ async function playlist(request) {
     if (line) lines.push(line);
   }
   return new Response(`${lines.join("\n")}\n`, {
-    headers: { ...CORS_HEADERS, "Content-Type": "application/x-mpegURL; charset=utf-8", "Cache-Control": "public, max-age=60" },
+    headers: { ...CORS_HEADERS, "Content-Type": "application/x-mpegURL; charset=utf-8", "Cache-Control": "no-store" },
   });
 }
 
@@ -315,7 +315,7 @@ async function playlist(request) {
 
 function redirectResponse(url, fromCache) {
   const headers = { Location: url, ...CORS_HEADERS };
-  headers["Cache-Control"] = fromCache ? `public, max-age=${EDGE_CACHE_302}` : "no-store";
+  headers["Cache-Control"] = "no-store";
   return new Response(null, { status: 302, headers });
 }
 
