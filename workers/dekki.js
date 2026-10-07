@@ -228,7 +228,14 @@ async function resolveChannelStream(id, cookie) {
     `/api/tv/channels/${encodeURIComponent(id)}/stream`,
     `/api/tv/channel/${encodeURIComponent(id)}/stream`,
   ];
-  return raceStream(paths, cookie);
+  const result = await raceStream(paths, cookie);
+  if (result.stream && /rr\d+-ateme\.tv360\.vn/i.test(result.stream)) {
+    return {
+      ...result,
+      stream: `https://prv.film4k.net/live/tv360/${encodeURIComponent(id)}/manifest.mpd`,
+    };
+  }
+  return result;
 }
 
 // ---------------------------------------------------------------------------
