@@ -959,16 +959,20 @@ def generate_m3u(
                         break
             else:
                 channel_id = _channel_id(channel)
-                stream_url = _worker_stream_url(channel, is_event=False) if channel_id else ""
-                if not stream_url:
-                    ref_url = ""
-                    for variant in _channel_name_variants(name):
-                        ref_url = reference_stream_by_name.get(variant, "")
-                        if ref_url:
-                            break
-                    if not ref_url:
-                        continue
-                    stream_url = ref_url
+                direct_url = extract_stream_url(channel) or channel.get("url", "")
+                if direct_url and _is_http_url(direct_url):
+                    stream_url = direct_url
+                else:
+                    stream_url = _worker_stream_url(channel, is_event=False) if channel_id else ""
+                    if not stream_url:
+                        ref_url = ""
+                        for variant in _channel_name_variants(name):
+                            ref_url = reference_stream_by_name.get(variant, "")
+                            if ref_url:
+                                break
+                        if not ref_url:
+                            continue
+                        stream_url = ref_url
                 for variant in _channel_name_variants(name):
                     ref_tvg_id = reference_tvg_id_by_name.get(variant, "")
                     if ref_tvg_id:
