@@ -780,7 +780,7 @@ def generate_m3u(
                         event_record["_film4k_clear_key"] = channel_clear_key
                 event_stream_url = _worker_stream_url(
                     event_record,
-                    is_event=not bool(channel_id),
+                    is_event=True,
                 )
                 if not event_stream_url:
                     continue
