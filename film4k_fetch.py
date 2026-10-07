@@ -6,7 +6,8 @@ import re
 import sys
 import time
 import unicodedata
-from concurrent.futures import ThreadPoolExecutor
+import asyncio
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from urllib.parse import quote, urlsplit
 
@@ -324,42 +325,61 @@ def _fetch_worker_clear_key(channel_id: str, is_event: bool = False) -> dict[str
     return None
 
 
+def _try_stream_path(channel_id: str, path: str, cookie: str) -> tuple[object, str]:
+    try:
+        response = requests.get(
+            f"{FILM4K_BASE}{path}?_={int(time.time() * 1000)}",
+            headers=_api_headers(cookie),
+            timeout=30,
+        )
+        if response.ok:
+            payload = response.json()
+            stream_url = extract_stream_url(payload) if isinstance(payload, dict) else ""
+            if stream_url:
+                return payload, stream_url
+            return payload, ""
+    except (requests.RequestException, ValueError):
+        pass
+    return None, ""
+
+
 def _resolve_one_channel(channel: dict, cookie: str) -> dict:
     fallback_channel = channel
     channel_id = _channel_id(channel)
     if not channel_id:
         return channel
 
-    try:
-        stream_url = ""
-        payload: object = {}
-        for path in (
-            f"/api/tv/{quote(channel_id, safe='')}/stream",
-            f"/api/tv/channels/{quote(channel_id, safe='')}/stream",
-            f"/api/tv/channel/{quote(channel_id, safe='')}/stream",
-        ):
-            response = requests.get(
-                f"{FILM4K_BASE}{path}?_={int(time.time() * 1000)}",
-                headers=_api_headers(cookie),
-                timeout=45,
-            )
-            if response.ok:
-                payload = response.json()
-                stream_url = extract_stream_url(payload) if isinstance(payload, dict) else ""
-                if stream_url:
-                    break
-    except (requests.RequestException, ValueError):
-        return fallback_channel
+    cid = quote(channel_id, safe="")
+    paths = [
+        f"/api/tv/{cid}/stream",
+        f"/api/tv/channels/{cid}/stream",
+        f"/api/tv/channel/{cid}/stream",
+    ]
 
-    stream_url = stream_url or (extract_stream_url(payload) if isinstance(payload, dict) else "")
+    payload: object = None
+    stream_url = ""
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        futures = {
+            pool.submit(_try_stream_path, channel_id, path, cookie): path
+            for path in paths
+        }
+        for future in as_completed(futures):
+            result_payload, result_url = future.result()
+            if result_url:
+                payload = result_payload
+                stream_url = result_url
+                break
+            if result_payload is not None and payload is None:
+                payload = result_payload
+
+    if not stream_url and payload is not None:
+        stream_url = extract_stream_url(payload) if isinstance(payload, dict) else ""
     if not stream_url:
         return fallback_channel
 
     resolved = dict(channel)
     resolved["url"] = stream_url
     clear_key = _clear_key(payload)
-    if not clear_key and not str(channel_id).startswith("ants:"):
-        clear_key = _fetch_worker_clear_key(str(channel_id))
     if clear_key:
         resolved["_film4k_clear_key"] = clear_key
     return resolved
@@ -778,10 +798,14 @@ def generate_m3u(
                     channel_clear_key = tv360_channel.get("_film4k_clear_key") or tv360_channel.get("clearKey")
                     if isinstance(channel_clear_key, dict):
                         event_record["_film4k_clear_key"] = channel_clear_key
-                event_stream_url = _worker_stream_url(
-                    event_record,
-                    is_event=True,
-                )
+                event_direct_url = extract_stream_url(event_record) or event_record.get("url", "")
+                if event_direct_url and _is_http_url(event_direct_url):
+                    event_stream_url = event_direct_url
+                else:
+                    event_stream_url = _worker_stream_url(
+                        event_record,
+                        is_event=True,
+                    )
                 if not event_stream_url:
                     continue
                 lines.append(
@@ -946,7 +970,11 @@ def generate_m3u(
                 channel_id = _channel_id(channel)
                 if not channel_id:
                     continue
-                stream_url = _worker_stream_url(channel, is_event=False)
+                direct_url = extract_stream_url(channel) or channel.get("url", "")
+                if direct_url and _is_http_url(direct_url):
+                    stream_url = direct_url
+                else:
+                    stream_url = _worker_stream_url(channel, is_event=False)
                 if not stream_url:
                     continue
                 for variant in _channel_name_variants(name):
@@ -988,26 +1016,25 @@ def generate_m3u(
                 f'group-title="{_attribute(group)}",{name}'
             )
 
-            if "dekki.bacbenny95.workers.dev" in stream_url or "/film4k/stream/" in stream_url:
-                clear_key = channel.get("_film4k_clear_key") or channel.get("clearKey")
-                if isinstance(clear_key, dict):
-                    key_id = clear_key.get("keyId")
-                    key = clear_key.get("key")
-                    if (
-                        isinstance(key_id, str)
-                        and isinstance(key, str)
-                        and key_id
-                        and key
-                    ):
-                        lines.append(
-                            "#KODIPROP:inputstream.adaptive.manifest_type=mpd"
-                        )
-                        lines.append(
-                            "#KODIPROP:inputstream.adaptive.license_type=clearkey"
-                        )
-                        lines.append(
-                            f"#KODIPROP:inputstream.adaptive.license_key={key_id}:{key}"
-                        )
+            clear_key = channel.get("_film4k_clear_key") or channel.get("clearKey")
+            if isinstance(clear_key, dict):
+                key_id = clear_key.get("keyId")
+                key = clear_key.get("key")
+                if (
+                    isinstance(key_id, str)
+                    and isinstance(key, str)
+                    and key_id
+                    and key
+                ):
+                    lines.append(
+                        "#KODIPROP:inputstream.adaptive.manifest_type=mpd"
+                    )
+                    lines.append(
+                        "#KODIPROP:inputstream.adaptive.license_type=clearkey"
+                    )
+                    lines.append(
+                        f"#KODIPROP:inputstream.adaptive.license_key={key_id}:{key}"
+                    )
 
             lines.append(stream_url)
             count += 1
