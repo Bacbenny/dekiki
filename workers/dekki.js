@@ -323,10 +323,14 @@ async function resolveStream(kind, id) {
   // L2: KV if available (~50ms)
   if (KV) {
     const kvEntry = await KV.getWithMetadata(cacheKey);
-    if (kvEntry && kvEntry.value) {
-      memCache.set(cacheKey, { ts: Date.now(), url: kvEntry.value });
-      return redirectResponse(kvEntry.value, true);
+    const cached = kvEntry && kvEntry.value
+      ? { ts: Date.now(), url: kvEntry.value }
+      : null;
+    if (streamCacheIsFresh(cached)) {
+      memCache.set(cacheKey, cached);
+      return redirectResponse(cached.url, true);
     }
+    if (kvEntry && kvEntry.value) await KV.delete(cacheKey);
   }
 
   // Cache miss — dedup so parallel requests for same channel share one API call
