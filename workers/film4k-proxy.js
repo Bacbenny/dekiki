@@ -28,12 +28,19 @@ async function handleRequest(request) {
 
     // /fetch-all — login + get channels in one call
     if (path === "/fetch-all") {
+      var username =
+        typeof FILM4K_USERNAME !== "undefined" ? FILM4K_USERNAME : "";
+      var password =
+        typeof FILM4K_PASSWORD !== "undefined" ? FILM4K_PASSWORD : "";
+      if (!username || !password) {
+        return jsonResp({ error: "Film4k credentials are not configured" }, 503);
+      }
       var loginRes = await fetch(API_BASE + "/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json", "User-Agent": UA },
         body: JSON.stringify({
-          email: "dvdvbac@gmail.com",
-          password: "Bac12345",
+          email: username,
+          password: password,
         }),
       });
 

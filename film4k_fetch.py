@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Fetch Film4K TV channels using the sign-in/session flow used by dekiiptv95."""
 
+import base64
+import json
 import os
 import re
 import sys
@@ -9,7 +11,7 @@ import unicodedata
 import asyncio
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from urllib.parse import quote, urlsplit
+from urllib.parse import parse_qsl, quote, urlsplit
 
 import requests
 
@@ -99,8 +101,8 @@ REFERENCE_NAME_ALIASES = {
 REFERENCE_REPLACE_GROUPS = {"SCTV", "Quốc Tế", "Sự Kiện VTVPrime"}
 REFERENCE_MERGE_GROUPS: set[str] = set()
 REFERENCE_IMPORT_GROUPS = REFERENCE_REPLACE_GROUPS | REFERENCE_MERGE_GROUPS
-# Only these groups use Film4k Worker URLs; all other groups keep film4k metadata
-# (name, logo, tvg-id) but use stream URLs from the reference playlist
+# These groups keep special reference ordering; all API-backed channels use
+# Film4k Worker URLs before considering any direct stream URL.
 WORKER_GROUPS = {"VTVcab", "Sự Kiện TV360"}
 REFERENCE_STREAM_FALLBACKS: dict[str, tuple[str, str]] = {}
 # Override tvg-id for film4k channels whose EPG ID is not in the reference playlist.
@@ -121,6 +123,23 @@ def _is_http_url(value: object) -> bool:
         return False
     parsed = urlsplit(value.strip())
     return parsed.scheme in ("http", "https") and bool(parsed.netloc)
+
+
+def _has_expiring_jwt(value: str) -> bool:
+    """Return true when a URL query contains a JWT with an expiry claim."""
+    for _, token in parse_qsl(urlsplit(value).query, keep_blank_values=True):
+        parts = token.split(".")
+        if len(parts) != 3:
+            continue
+        payload = parts[1]
+        payload += "=" * (-len(payload) % 4)
+        try:
+            claims = json.loads(base64.urlsafe_b64decode(payload))
+        except Exception:
+            continue
+        if isinstance(claims, dict) and isinstance(claims.get("exp"), (int, float)):
+            return True
+    return False
 
 
 def _session_cookie(set_cookie: str) -> str:
@@ -798,14 +817,19 @@ def generate_m3u(
                     channel_clear_key = tv360_channel.get("_film4k_clear_key") or tv360_channel.get("clearKey")
                     if isinstance(channel_clear_key, dict):
                         event_record["_film4k_clear_key"] = channel_clear_key
-                event_direct_url = extract_stream_url(event_record) or event_record.get("url", "")
-                if event_direct_url and _is_http_url(event_direct_url):
-                    event_stream_url = event_direct_url
+                if tv360_channel and channel_id:
+                    event_stream_url = _worker_stream_url(tv360_channel)
                 else:
                     event_stream_url = _worker_stream_url(
                         event_record,
                         is_event=True,
                     )
+                if not event_stream_url:
+                    event_direct_url = (
+                        extract_stream_url(event_record) or event_record.get("url", "")
+                    )
+                    if event_direct_url and _is_http_url(event_direct_url):
+                        event_stream_url = event_direct_url
                 if not event_stream_url:
                     continue
                 lines.append(
@@ -970,11 +994,15 @@ def generate_m3u(
                 channel_id = _channel_id(channel)
                 if not channel_id:
                     continue
-                direct_url = extract_stream_url(channel) or channel.get("url", "")
-                if direct_url and _is_http_url(direct_url):
-                    stream_url = direct_url
-                else:
-                    stream_url = _worker_stream_url(channel, is_event=False)
+                stream_url = (
+                    _worker_stream_url(channel)
+                    if not channel_id.startswith("ants:")
+                    else ""
+                )
+                if not stream_url:
+                    direct_url = extract_stream_url(channel) or channel.get("url", "")
+                    if direct_url and _is_http_url(direct_url):
+                        stream_url = direct_url
                 if not stream_url:
                     continue
                 for variant in _channel_name_variants(name):
@@ -987,12 +1015,16 @@ def generate_m3u(
                         break
             else:
                 channel_id = _channel_id(channel)
-                direct_url = extract_stream_url(channel) or channel.get("url", "")
-                if direct_url and _is_http_url(direct_url):
-                    stream_url = direct_url
-                else:
-                    stream_url = _worker_stream_url(channel, is_event=False) if channel_id else ""
-                    if not stream_url:
+                stream_url = (
+                    _worker_stream_url(channel)
+                    if channel_id and not channel_id.startswith("ants:")
+                    else ""
+                )
+                if not stream_url:
+                    direct_url = extract_stream_url(channel) or channel.get("url", "")
+                    if direct_url and _is_http_url(direct_url):
+                        stream_url = direct_url
+                    else:
                         ref_url = ""
                         for variant in _channel_name_variants(name):
                             ref_url = reference_stream_by_name.get(variant, "")
@@ -1094,7 +1126,15 @@ def generate_m3u(
     output_lines = ['#EXTM3U url-tvg="https://epg.io.vn/epg.xml.gz"']
     for _, block in blocks:
         output_lines.extend(block)
-    return "\n".join(output_lines) + "\n", count, unclassified_count, event_count
+    content = "\n".join(output_lines) + "\n"
+    if any(
+        line.startswith(("http://", "https://")) and _has_expiring_jwt(line)
+        for line in output_lines
+    ):
+        raise Film4kError(
+            "Generated playlist still contains an expiring JWT URL; refusing to publish it"
+        )
+    return content, count, unclassified_count, event_count
 
 
 def write_playlist(content: str) -> None:

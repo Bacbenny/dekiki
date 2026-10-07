@@ -6,12 +6,14 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type,Authorization",
 };
 
-// JWT from TV360 lives ~5 hours.
-const SESSION_TTL = 7200;    // 2 hours — JWT lives ~5h, no need to re-login every 10 min
-const STREAM_TTL = 14400;    // 4 hours — stream URL cache (JWT lives ~5h)
+// Keep a bounded cache for URLs without a parseable expiry. JWT URLs are
+// cached only until their own expiry minus a safety margin.
+const SESSION_TTL = 7200;
+const STREAM_TTL = 14400;
+const UNKNOWN_STREAM_TTL = 180;
 const CATALOG_TTL = 120;     // 2 min — channel list cache
 const EDGE_CACHE_302 = 300;  // 5 min — edge cache for 302 redirects on cache hits
-const TOKEN_SAFETY_WINDOW = 30;
+const TOKEN_SAFETY_WINDOW = 120;
 const STREAM_CACHE_NAMESPACE = "stream:v3";
 
 const KV = typeof FILM4K_KV !== "undefined" ? FILM4K_KV : null;
@@ -89,23 +91,59 @@ function sessionCookie(setCookie) {
   return match ? match[1] : "";
 }
 
-function streamCacheTtl(streamUrl) {
+function jwtExpiration(token) {
+  const parts = String(token || "").split(".");
+  if (parts.length !== 3) return null;
   try {
-    const token = new URL(streamUrl).searchParams.get("auth");
-    if (!token) return STREAM_TTL;
-    const payload = token.split(".")[1];
-    if (!payload) return STREAM_TTL;
-    const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
-    const decoded = JSON.parse(atob(normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=")));
-    if (!Number.isFinite(decoded.exp)) return STREAM_TTL;
-    return Math.max(0, Math.min(STREAM_TTL, decoded.exp - Math.floor(Date.now() / 1000) - TOKEN_SAFETY_WINDOW));
+    const payload = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+    const decoded = JSON.parse(atob(payload.padEnd(Math.ceil(payload.length / 4) * 4, "=")));
+    return Number.isFinite(decoded.exp) ? decoded.exp : null;
   } catch (_) {
-    return STREAM_TTL;
+    return null;
   }
 }
 
+function streamExpiry(streamUrl) {
+  try {
+    const url = new URL(streamUrl);
+    const expiries = [];
+    for (const [key, value] of url.searchParams.entries()) {
+      const normalizedKey = key.toLowerCase().replace(/[-.]/g, "_");
+      const jwtExp = jwtExpiration(value);
+      if (jwtExp !== null) expiries.push(jwtExp);
+
+      if (["exp", "expires", "expiry", "expires_at", "expiration", "timestamp"].includes(normalizedKey)) {
+        const parsed = Number(value);
+        if (Number.isFinite(parsed)) {
+          const seconds = parsed > 1e12 ? parsed / 1000 : parsed;
+          if (seconds >= 1e9) expiries.push(seconds);
+        }
+      }
+    }
+    return expiries.length ? Math.min(...expiries) : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function streamCacheTtl(streamUrl) {
+  const expiresAt = streamExpiry(streamUrl);
+  if (expiresAt === null) return UNKNOWN_STREAM_TTL;
+  return Math.max(
+    0,
+    Math.min(
+      STREAM_TTL,
+      expiresAt - Math.floor(Date.now() / 1000) - TOKEN_SAFETY_WINDOW
+    )
+  );
+}
+
 function streamCacheIsFresh(entry) {
-  return Boolean(entry && streamCacheTtl(entry.url) > 0 && Date.now() - entry.ts < STREAM_TTL * 1000);
+  if (!entry || Date.now() - entry.ts >= STREAM_TTL * 1000) return false;
+  const ageSeconds = (Date.now() - entry.ts) / 1000;
+  const expiresAt = streamExpiry(entry.url);
+  if (expiresAt === null) return ageSeconds < UNKNOWN_STREAM_TTL;
+  return expiresAt - Math.floor(Date.now() / 1000) - TOKEN_SAFETY_WINDOW > 0;
 }
 
 function clearKeyOf(value, depth = 0) {
@@ -133,7 +171,11 @@ function clearKeyOf(value, depth = 0) {
 async function raceStream(paths, cookie) {
   const tasks = paths.map(async (path) => {
     const response = await fetch(`${FILM4K_BASE}${path}`, { headers: apiHeaders(cookie) });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) {
+      throw Object.assign(new Error(`HTTP ${response.status}`), {
+        status: response.status,
+      });
+    }
     const data = await response.json();
     const stream = streamOf(data);
     if (!stream) throw new Error("no stream in response");
@@ -141,8 +183,13 @@ async function raceStream(paths, cookie) {
   });
   try {
     return await Promise.any(tasks);
-  } catch (_) {
-    return { stream: "", clearKey: null };
+  } catch (error) {
+    const failures = Array.isArray(error && error.errors) ? error.errors : [error];
+    return {
+      stream: "",
+      clearKey: null,
+      authFailure: failures.some((failure) => failure && [401, 403].includes(failure.status)),
+    };
   }
 }
 
@@ -158,22 +205,26 @@ function dedup(key, fn) {
 // Auth: L1 → L2 (KV) → login
 // ---------------------------------------------------------------------------
 
-async function login() {
-  const mem = memCache.get("session");
-  if (mem && Date.now() - mem.ts < SESSION_TTL * 1000) return mem.cookie;
+async function login(forceRefresh = false) {
+  if (!forceRefresh) {
+    const mem = memCache.get("session");
+    if (mem && Date.now() - mem.ts < SESSION_TTL * 1000) return mem.cookie;
 
-  if (KV) {
-    const kvCookie = await KV.get("session:cookie");
-    if (kvCookie) {
-      memCache.set("session", { ts: Date.now(), cookie: kvCookie });
-      return kvCookie;
+    if (KV) {
+      const kvCookie = await KV.get("session:cookie");
+      if (kvCookie) {
+        memCache.set("session", { ts: Date.now(), cookie: kvCookie });
+        return kvCookie;
+      }
     }
   }
 
-  return dedup("login", async () => {
+  return dedup(forceRefresh ? "login:refresh" : "login", async () => {
     // Double-check after entering dedup — another request may have logged in
-    const mem2 = memCache.get("session");
-    if (mem2 && Date.now() - mem2.ts < SESSION_TTL * 1000) return mem2.cookie;
+    if (!forceRefresh) {
+      const mem2 = memCache.get("session");
+      if (mem2 && Date.now() - mem2.ts < SESSION_TTL * 1000) return mem2.cookie;
+    }
 
     const username = typeof FILM4K_USERNAME !== "undefined" ? FILM4K_USERNAME : "";
     const password = typeof FILM4K_PASSWORD !== "undefined" ? FILM4K_PASSWORD : "";
@@ -195,8 +246,21 @@ async function login() {
   });
 }
 
-async function apiJson(path, cookie) {
+async function refreshSession() {
+  memCache.delete("session");
+  if (KV) {
+    try {
+      await KV.delete("session:cookie");
+    } catch (_) {}
+  }
+  return login(true);
+}
+
+async function apiJson(path, cookie, retry = true) {
   const response = await fetch(`${FILM4K_BASE}${path}`, { headers: apiHeaders(cookie) });
+  if (retry && (response.status === 401 || response.status === 403)) {
+    return apiJson(path, await refreshSession(), false);
+  }
   if (!response.ok) throw new Error(`Film4k API failed: ${response.status}`);
   return response.json();
 }
@@ -213,7 +277,10 @@ async function eventDetails(event, cookie) {
     `/api/tv/event/${encodeURIComponent(id)}/stream`,
     `/api/tv/${encodeURIComponent(id)}/stream`,
   ];
-  const result = await raceStream(paths, cookie);
+  let result = await raceStream(paths, cookie);
+  if (result.authFailure) {
+    result = await raceStream(paths, await refreshSession());
+  }
   if (result.stream) {
     const details = { ...event, stream_url: result.stream };
     if (result.clearKey) details.clearKey = result.clearKey;
@@ -232,7 +299,10 @@ async function resolveChannelStream(id, cookie) {
     `/api/tv/channels/${encodeURIComponent(id)}/stream`,
     `/api/tv/channel/${encodeURIComponent(id)}/stream`,
   ];
-  const result = await raceStream(paths, cookie);
+  let result = await raceStream(paths, cookie);
+  if (result.authFailure) {
+    result = await raceStream(paths, await refreshSession());
+  }
   return result;
 }
 

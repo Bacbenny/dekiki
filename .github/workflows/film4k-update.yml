@@ -1,8 +1,7 @@
 name: Cap nhat Film4k channel M3U
 
 on:
-  schedule:
-    - cron: "*/15 * * * *"
+  workflow_call: {}
   workflow_dispatch: {}
 
 concurrency:
@@ -29,6 +28,11 @@ jobs:
       - name: Install dependencies
         run: |
           pip install requests
+
+      - name: Run playlist URL tests
+        run: |
+          python3 -m unittest discover -s tests -v
+          node tests/test_worker_cache.js
 
       - name: Sign in and fetch Film4k channels
         env:
