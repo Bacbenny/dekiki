@@ -7,7 +7,7 @@ const CORS_HEADERS = {
 };
 
 // JWT from TV360 lives ~5 hours.
-const SESSION_TTL = 600;     // 10 min — session cookie in mem cache
+const SESSION_TTL = 7200;    // 2 hours — JWT lives ~5h, no need to re-login every 10 min
 const STREAM_TTL = 14400;    // 4 hours — stream URL cache (JWT lives ~5h)
 const CATALOG_TTL = 120;     // 2 min — channel list cache
 const EDGE_CACHE_302 = 300;  // 5 min — edge cache for 302 redirects on cache hits
@@ -127,20 +127,23 @@ function clearKeyOf(value, depth = 0) {
   return null;
 }
 
-// Race multiple fetches and return the first successful result with a stream.
-// Uses Promise.any — returns ASAP when the fastest path succeeds instead of
-// waiting for all paths to settle.
+// Race multiple fetches in parallel and return the first successful result.
+// Uses Promise.any — all paths fire simultaneously; the fastest winner is
+// returned ASAP instead of waiting for each path sequentially.
 async function raceStream(paths, cookie) {
-  for (const path of paths) {
-    try {
-      const response = await fetch(`${FILM4K_BASE}${path}`, { headers: apiHeaders(cookie) });
-      if (!response.ok) continue;
-      const data = await response.json();
-      const stream = streamOf(data);
-      if (stream) return { stream, clearKey: clearKeyOf(data) };
-    } catch (_) {}
+  const tasks = paths.map(async (path) => {
+    const response = await fetch(`${FILM4K_BASE}${path}`, { headers: apiHeaders(cookie) });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    const stream = streamOf(data);
+    if (!stream) throw new Error("no stream in response");
+    return { stream, clearKey: clearKeyOf(data) };
+  });
+  try {
+    return await Promise.any(tasks);
+  } catch (_) {
+    return { stream: "", clearKey: null };
   }
-  return { stream: "", clearKey: null };
 }
 
 // Dedup wrapper: if the same key is already being fetched, reuse its promise.
@@ -187,7 +190,7 @@ async function login() {
     if (!cookie) throw new Error("Film4k login returned no session cookie");
 
     memCache.set("session", { ts: Date.now(), cookie });
-    if (KV) await KV.put("session:cookie", cookie, { expirationTtl: 1200 });
+    if (KV) await KV.put("session:cookie", cookie, { expirationTtl: 7200 });
     return cookie;
   });
 }
@@ -230,12 +233,6 @@ async function resolveChannelStream(id, cookie) {
     `/api/tv/channel/${encodeURIComponent(id)}/stream`,
   ];
   const result = await raceStream(paths, cookie);
-  if (result.stream && !/(?:bpk-token|prv\.film4k\.net)/i.test(result.stream)) {
-    return {
-      ...result,
-      stream: `https://prv.film4k.net/live/tv360/${encodeURIComponent(id)}/manifest.mpd`,
-    };
-  }
   return result;
 }
 
