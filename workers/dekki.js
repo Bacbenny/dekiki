@@ -11,6 +11,7 @@ const SESSION_TTL = 600;     // 10 min — session cookie in mem cache
 const STREAM_TTL = 14400;    // 4 hours — stream URL cache (JWT lives ~5h)
 const CATALOG_TTL = 120;     // 2 min — channel list cache
 const EDGE_CACHE_302 = 300;  // 5 min — edge cache for 302 redirects on cache hits
+const TOKEN_SAFETY_WINDOW = 30;
 
 const KV = typeof FILM4K_KV !== "undefined" ? FILM4K_KV : null;
 
@@ -85,6 +86,25 @@ function streamOf(value, depth = 0) {
 function sessionCookie(setCookie) {
   const match = String(setCookie || "").match(/(?:^|,\s*)([^=;,\s]+=[^;]*)/);
   return match ? match[1] : "";
+}
+
+function streamCacheTtl(streamUrl) {
+  try {
+    const token = new URL(streamUrl).searchParams.get("auth");
+    if (!token) return STREAM_TTL;
+    const payload = token.split(".")[1];
+    if (!payload) return STREAM_TTL;
+    const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+    const decoded = JSON.parse(atob(normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=")));
+    if (!Number.isFinite(decoded.exp)) return STREAM_TTL;
+    return Math.max(0, Math.min(STREAM_TTL, decoded.exp - Math.floor(Date.now() / 1000) - TOKEN_SAFETY_WINDOW));
+  } catch (_) {
+    return STREAM_TTL;
+  }
+}
+
+function streamCacheIsFresh(entry) {
+  return Boolean(entry && streamCacheTtl(entry.url) > 0 && Date.now() - entry.ts < STREAM_TTL * 1000);
 }
 
 function clearKeyOf(value, depth = 0) {
@@ -296,7 +316,7 @@ async function resolveStream(kind, id) {
 
   // L1: in-memory (instant, ~0ms)
   const memHit = memCache.get(cacheKey);
-  if (memHit && Date.now() - memHit.ts < STREAM_TTL * 1000) {
+  if (streamCacheIsFresh(memHit)) {
     return redirectResponse(memHit.url, true);
   }
 
@@ -318,7 +338,8 @@ async function resolveStream(kind, id) {
 
     if (r.stream) {
       memCache.set(cacheKey, { ts: Date.now(), url: r.stream });
-      if (KV) await KV.put(cacheKey, r.stream, { expirationTtl: STREAM_TTL });
+      const ttl = streamCacheTtl(r.stream);
+      if (KV && ttl > 0) await KV.put(cacheKey, r.stream, { expirationTtl: ttl });
     }
     return r;
   });
@@ -365,7 +386,8 @@ async function preWarm() {
         if (!stream) return null;
         const cacheKey = `stream:channel:${cid}`;
         memCache.set(cacheKey, { ts: Date.now(), url: stream });
-        if (KV) await KV.put(cacheKey, stream, { expirationTtl: STREAM_TTL });
+        const ttl = streamCacheTtl(stream);
+        if (KV && ttl > 0) await KV.put(cacheKey, stream, { expirationTtl: ttl });
         return cid;
       })
     );
@@ -384,7 +406,8 @@ async function preWarm() {
         if (!stream) return null;
         const cacheKey = `stream:event:${eid}`;
         memCache.set(cacheKey, { ts: Date.now(), url: stream });
-        if (KV) await KV.put(cacheKey, stream, { expirationTtl: STREAM_TTL });
+        const ttl = streamCacheTtl(stream);
+        if (KV && ttl > 0) await KV.put(cacheKey, stream, { expirationTtl: ttl });
         return eid;
       })
     );
