@@ -84,9 +84,14 @@ def deploy() -> None:
         "FILM4K_USERNAME": os.environ.get("FILM4K_USERNAME", ""),
         "FILM4K_PASSWORD": os.environ.get("FILM4K_PASSWORD", ""),
     }
+    missing = [name for name, value in secrets.items() if not value]
+    if missing:
+        raise RuntimeError(
+            f"Missing GitHub secrets: {missing}. "
+            "Add FILM4K_USERNAME and FILM4K_PASSWORD to repo secrets before deploying."
+        )
     for name, value in secrets.items():
-        if value:
-            bindings.append({"type": "plain_text", "name": name, "text": value})
+        bindings.append({"type": "plain_text", "name": name, "text": value})
 
     metadata = json.dumps({"body_part": "main", "bindings": bindings})
     response = requests.put(
