@@ -12,6 +12,7 @@ const STREAM_TTL = 14400;    // 4 hours — stream URL cache (JWT lives ~5h)
 const CATALOG_TTL = 120;     // 2 min — channel list cache
 const EDGE_CACHE_302 = 300;  // 5 min — edge cache for 302 redirects on cache hits
 const TOKEN_SAFETY_WINDOW = 30;
+const STREAM_CACHE_NAMESPACE = "stream:v3";
 
 const KV = typeof FILM4K_KV !== "undefined" ? FILM4K_KV : null;
 
@@ -319,7 +320,7 @@ function redirectResponse(url, fromCache) {
 }
 
 async function resolveStream(kind, id) {
-  const cacheKey = `stream:${kind}:${id}`;
+  const cacheKey = `${STREAM_CACHE_NAMESPACE}:${kind}:${id}`;
 
   // L1: in-memory (instant, ~0ms)
   const memHit = memCache.get(cacheKey);
@@ -395,7 +396,7 @@ async function preWarm() {
         if (!cid) return null;
         const { stream } = await resolveChannelStream(cid, freshCookie);
         if (!stream) return null;
-        const cacheKey = `stream:channel:${cid}`;
+        const cacheKey = `${STREAM_CACHE_NAMESPACE}:channel:${cid}`;
         memCache.set(cacheKey, { ts: Date.now(), url: stream });
         const ttl = streamCacheTtl(stream);
         if (KV && ttl > 0) await KV.put(cacheKey, stream, { expirationTtl: ttl });
@@ -415,7 +416,7 @@ async function preWarm() {
         if (!eid) return null;
         const stream = streamOf(ev);
         if (!stream) return null;
-        const cacheKey = `stream:event:${eid}`;
+        const cacheKey = `${STREAM_CACHE_NAMESPACE}:event:${eid}`;
         memCache.set(cacheKey, { ts: Date.now(), url: stream });
         const ttl = streamCacheTtl(stream);
         if (KV && ttl > 0) await KV.put(cacheKey, stream, { expirationTtl: ttl });
@@ -479,7 +480,7 @@ async function handle(request) {
   if (infoMatch && request.method === "GET") {
     const kind = infoMatch[1];
     const id = decodeURIComponent(infoMatch[2]);
-    const cacheKey = `stream:${kind}:${id}`;
+    const cacheKey = `${STREAM_CACHE_NAMESPACE}:${kind}:${id}`;
     const memHit = memCache.get(cacheKey);
     if (streamCacheIsFresh(memHit)) {
       return jsonResponse({ ok: true, id, kind, stream_url: memHit.url, clearKey: null, cached: true });
