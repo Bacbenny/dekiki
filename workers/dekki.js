@@ -12,7 +12,6 @@ const STREAM_TTL = 14400;    // 4 hours — stream URL cache (JWT lives ~5h)
 const CATALOG_TTL = 120;     // 2 min — channel list cache
 const EDGE_CACHE_302 = 300;  // 5 min — edge cache for 302 redirects on cache hits
 const TOKEN_SAFETY_WINDOW = 30;
-const STREAM_VALIDATION_TTL = 60;
 
 const KV = typeof FILM4K_KV !== "undefined" ? FILM4K_KV : null;
 
@@ -108,30 +107,6 @@ function streamCacheIsFresh(entry) {
   return Boolean(entry && streamCacheTtl(entry.url) > 0 && Date.now() - entry.ts < STREAM_TTL * 1000);
 }
 
-async function streamIsReachable(url) {
-  try {
-    const response = await fetch(url, {
-      headers: {
-        "User-Agent": USER_AGENT,
-        Referer: `${FILM4K_BASE}/`,
-      },
-      redirect: "follow",
-    });
-    if (response.body) await response.body.cancel();
-    return response.ok;
-  } catch (_) {
-    return false;
-  }
-}
-
-async function usableCachedStream(entry) {
-  if (!streamCacheIsFresh(entry)) return false;
-  if (entry.validatedAt && Date.now() - entry.validatedAt < STREAM_VALIDATION_TTL * 1000) return true;
-  if (!(await streamIsReachable(entry.url))) return false;
-  entry.validatedAt = Date.now();
-  return true;
-}
-
 function clearKeyOf(value, depth = 0) {
   if (depth > 6 || value === null || value === undefined) return null;
   if (Array.isArray(value)) {
@@ -161,7 +136,7 @@ async function raceStream(paths, cookie) {
       if (!response.ok) continue;
       const data = await response.json();
       const stream = streamOf(data);
-      if (stream && await streamIsReachable(stream)) return { stream, clearKey: clearKeyOf(data) };
+      if (stream) return { stream, clearKey: clearKeyOf(data) };
     } catch (_) {}
   }
   return { stream: "", clearKey: null };
@@ -341,7 +316,7 @@ async function resolveStream(kind, id) {
 
   // L1: in-memory (instant, ~0ms)
   const memHit = memCache.get(cacheKey);
-  if (await usableCachedStream(memHit)) {
+  if (streamCacheIsFresh(memHit)) {
     return redirectResponse(memHit.url, true);
   }
 
@@ -351,7 +326,7 @@ async function resolveStream(kind, id) {
     const cached = kvEntry && kvEntry.value
       ? { ts: Date.now(), url: kvEntry.value }
       : null;
-    if (await usableCachedStream(cached)) {
+    if (streamCacheIsFresh(cached)) {
       memCache.set(cacheKey, cached);
       return redirectResponse(cached.url, true);
     }
@@ -366,7 +341,7 @@ async function resolveStream(kind, id) {
       : await resolveChannelStream(id, cookie);
 
     if (r.stream) {
-      memCache.set(cacheKey, { ts: Date.now(), validatedAt: Date.now(), url: r.stream });
+      memCache.set(cacheKey, { ts: Date.now(), url: r.stream });
       const ttl = streamCacheTtl(r.stream);
       if (KV && ttl > 0) await KV.put(cacheKey, r.stream, { expirationTtl: ttl });
     }
@@ -499,7 +474,7 @@ async function handle(request) {
     const id = decodeURIComponent(infoMatch[2]);
     const cacheKey = `stream:${kind}:${id}`;
     const memHit = memCache.get(cacheKey);
-    if (await usableCachedStream(memHit)) {
+    if (streamCacheIsFresh(memHit)) {
       return jsonResponse({ ok: true, id, kind, stream_url: memHit.url, clearKey: null, cached: true });
     }
     const cookie = await login();
@@ -507,7 +482,7 @@ async function handle(request) {
       ? { stream: streamOf(await eventDetails({ id }, cookie)), clearKey: null }
       : await resolveChannelStream(id, cookie);
     if (r.stream) {
-      memCache.set(cacheKey, { ts: Date.now(), validatedAt: Date.now(), url: r.stream });
+      memCache.set(cacheKey, { ts: Date.now(), url: r.stream });
       const ttl = streamCacheTtl(r.stream);
       if (KV && ttl > 0) await KV.put(cacheKey, r.stream, { expirationTtl: ttl });
     }
