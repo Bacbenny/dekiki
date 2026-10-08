@@ -29,47 +29,65 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9951
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/20
 #EXTINF:-1 tvg-id="qpvnhd" tvg-name="QPVN HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2020_09_23/1600822254297/3c150355b7f8_480_270.png" group-title="Thiết Yếu",QPVN HD
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/19
-#EXTINF:-1 tvg-id="176" tvg-name="VTVcab 3 - On Sports" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650417399/08d4190f7711_480_270.png" group-title="VTVCab",VTVcab 3 - On Sports
+#EXTINF:-1 tvg-id="176" tvg-name="VTVcab 3 - On Sports" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650417399/08d4190f7711_480_270.png" group-title="VTVcab",VTVcab 3 - On Sports
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=3f65c107c9904ca98ddd22671d5c89c3:e3c6fbe4cae8bbf13ed6a7be8e66aa55
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/173
-#EXTINF:-1 tvg-id="177" tvg-name="VTVcab 6 - On Sports +" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650447548/72acfa0eca2c_480_270.png" group-title="VTVCab",VTVcab 6 - On Sports +
+#EXTINF:-1 tvg-id="177" tvg-name="VTVcab 6 - On Sports +" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650447548/72acfa0eca2c_480_270.png" group-title="VTVcab",VTVcab 6 - On Sports +
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=3ace637564945aa781240ac83152af30:45bde9320c88ffe42f582081bd5893e1
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/183
-#EXTINF:-1 tvg-id="178" tvg-name="VTVcab 16 - On Football HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650260303/bc7fe5334315_480_270.png" group-title="VTVCab",VTVcab 16 - On Football HD
+#EXTINF:-1 tvg-id="178" tvg-name="VTVcab 16 - On Football HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650260303/bc7fe5334315_480_270.png" group-title="VTVcab",VTVcab 16 - On Football HD
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=2d33c568722543eab2c1f0ba5318a176:6e2743f51b802707dc84b46d1f044cef
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/174
-#EXTINF:-1 tvg-id="11" tvg-name="VTVcab 22 - Life TV HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/09/1689732652862/f124f55c3587_480_270.png" group-title="VTVCab",VTVcab 22 - Life TV HD
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/188
-#EXTINF:-1 tvg-id="12" tvg-name="VTVcab 21- Cartoon Kids HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2025/07/21/14/1753083917555/313a5cc8943c_480_270.png" group-title="VTVCab",VTVcab 21- Cartoon Kids HD
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/179
-#EXTINF:-1 tvg-id="17" tvg-name="VTVcab 1 - Vie Giải Trí HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2024/01/02/23/1704211446236/d1503bd3566e_480_270.png" group-title="VTVCab",VTVcab 1 - Vie Giải Trí HD
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/180
-#EXTINF:-1 tvg-id="13" tvg-name="VTVcab 2 - Phim Việt HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2021/09/07/16/1631007494845/516efb158133_480_270.png" group-title="VTVCab",VTVcab 2 - Phim Việt HD
+#EXTINF:-1 tvg-id="170" tvg-name="VTVcab 18 - On Sports News" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650363143/71956aa35c78_480_270.png" group-title="VTVcab",VTVcab 18 - On Sports News
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=eba8070754254c998ff3bf92baf36aeb:5598aacdcf1ea73272cb2d89d951e053
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/170
+#EXTINF:-1 tvg-id="13" tvg-name="VTVcab 2 - Phim Việt HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2021/09/07/16/1631007494845/516efb158133_480_270.png" group-title="VTVcab",VTVcab 2 - Phim Việt HD
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/175
-#EXTINF:-1 tvg-id="14" tvg-name="Vtvcab 4 – On Movies" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/02/16/16/1676540062912/f21d4df5b545_480_270.png" group-title="VTVCab",Vtvcab 4 – On Movies
+#EXTINF:-1 tvg-id="17" tvg-name="VTVcab 1 - Vie Giải Trí HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2024/01/02/23/1704211446236/d1503bd3566e_480_270.png" group-title="VTVcab",VTVcab 1 - Vie Giải Trí HD
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/180
+#EXTINF:-1 tvg-id="14" tvg-name="Vtvcab 4 – On Movies" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/02/16/16/1676540062912/f21d4df5b545_480_270.png" group-title="VTVcab",Vtvcab 4 – On Movies
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/181
-#EXTINF:-1 tvg-id="15" tvg-name="VTVcab 5 - E Channel HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/15/1689755306897/935d4d4cde0d_480_270.png" group-title="VTVCab",VTVcab 5 - E Channel HD
+#EXTINF:-1 tvg-id="15" tvg-name="VTVcab 5 - E Channel HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/15/1689755306897/935d4d4cde0d_480_270.png" group-title="VTVcab",VTVcab 5 - E Channel HD
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/182
-#EXTINF:-1 tvg-id="18" tvg-name="VTVcab 20 - V Family HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/09/1689732486538/904f55c861b5_480_270.png" group-title="VTVCab",VTVcab 20 - V Family HD
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/187
-#EXTINF:-1 tvg-id="20" tvg-name="O2TV" tvg-logo="https://img-zlr1.tv360.vn/image1/2024/08/06/23/1722961565788/ba3ae8e7865d_480_270.png" group-title="VTVCab",O2TV
+#EXTINF:-1 tvg-id="20" tvg-name="O2TV" tvg-logo="https://img-zlr1.tv360.vn/image1/2024/08/06/23/1722961565788/ba3ae8e7865d_480_270.png" group-title="VTVcab",O2TV
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/136
-#EXTINF:-1 tvg-id="21" tvg-name="VTVcab 8 Bibi SD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/08/1689731979485/df22eff3c261_480_270.png" group-title="VTVCab",VTVcab 8 Bibi SD
+#EXTINF:-1 tvg-id="21" tvg-name="VTVcab 8 Bibi SD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/08/1689731979485/df22eff3c261_480_270.png" group-title="VTVcab",VTVcab 8 Bibi SD
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/178
-#EXTINF:-1 tvg-id="23" tvg-name="VTVcab10 - On Cine HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2021/09/07/17/1631009339636/95e9bc61877c_480_270.png" group-title="VTVCab",VTVcab10 - On Cine HD
+#EXTINF:-1 tvg-id="189" tvg-name="VTVcab 9 - InfoTV HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/09/1689732099410/a13853e5de55_480_270.png" group-title="VTVcab",VTVcab 9 - InfoTV HD
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/189
+#EXTINF:-1 tvg-id="23" tvg-name="VTVcab10 - On Cine HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2021/09/07/17/1631009339636/95e9bc61877c_480_270.png" group-title="VTVcab",VTVcab10 - On Cine HD
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/176
-#EXTINF:-1 tvg-id="25" tvg-name="VTVcab15 – On Music" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/20/10/1689822524259/0f3a4d1ebfaf_480_270.png" group-title="VTVCab",VTVcab15 – On Music
+#EXTINF:-1 tvg-id="184" tvg-name="VTVcab 12 - StyleTV HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/09/1689732221934/7138a2e2ade1_480_270.png" group-title="VTVcab",VTVcab 12 - StyleTV HD
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/184
+#EXTINF:-1 tvg-id="25" tvg-name="VTVcab15 – On Music" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/20/10/1689822524259/0f3a4d1ebfaf_480_270.png" group-title="VTVcab",VTVcab15 – On Music
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/185
-#EXTINF:-1 tvg-id="27" tvg-name="VTVcab19 – Vie Dramas" tvg-logo="https://img-zlr1.tv360.vn/image1/2024/01/03/07/1704241415128/050934936855_480_270.png" group-title="VTVCab",VTVcab19 – Vie Dramas
+#EXTINF:-1 tvg-id="186" tvg-name="Vtvcab17 – Trending TV" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/16/1689759248732/ebe66c03d7f6_480_270.png" group-title="VTVcab",Vtvcab17 – Trending TV
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/186
+#EXTINF:-1 tvg-id="27" tvg-name="VTVcab19 – Vie Dramas" tvg-logo="https://img-zlr1.tv360.vn/image1/2024/01/03/07/1704241415128/050934936855_480_270.png" group-title="VTVcab",VTVcab19 – Vie Dramas
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/177
-#EXTINF:-1 tvg-id="19" tvg-name="VTVcab 23 - Golf Channel" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650320416/f57f4fd63788_480_270.png" group-title="VTVCab",VTVcab 23 - Golf Channel
+#EXTINF:-1 tvg-id="18" tvg-name="VTVcab 20 - V Family HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/09/1689732486538/904f55c861b5_480_270.png" group-title="VTVcab",VTVcab 20 - V Family HD
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/187
+#EXTINF:-1 tvg-id="12" tvg-name="VTVcab 21- Cartoon Kids HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2025/07/21/14/1753083917555/313a5cc8943c_480_270.png" group-title="VTVcab",VTVcab 21- Cartoon Kids HD
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/179
+#EXTINF:-1 tvg-id="11" tvg-name="VTVcab 22 - Life TV HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/09/1689732652862/f124f55c3587_480_270.png" group-title="VTVcab",VTVcab 22 - Life TV HD
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/188
+#EXTINF:-1 tvg-id="19" tvg-name="VTVcab 23 - Golf Channel" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650320416/f57f4fd63788_480_270.png" group-title="VTVcab",VTVcab 23 - Golf Channel
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/169
+#EXTINF:-1 tvg-id="360phimaumy" tvg-name="Phim Âu Mỹ" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/09/08/1775697767861/9a6dc88794cf_480_270.png" group-title="VTVcab",Phim Âu Mỹ
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9903
+#EXTINF:-1 tvg-id="360hoathinh" tvg-name="Hoạt hình" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/08/03/16/178574886930/9daa0ca42fd8_480_270.png" group-title="VTVcab",Hoạt hình
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=9cda1e0f47c4494eb1e677e7af97d862:a35d078004282cb6a888921d26e398df
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9934
 #EXTINF:-1 tvg-id="sctv15hd" group-title="SCTV" tvg-logo="https://s7774.cdn.mytvnet.vn/vimages/c5/52/26/64/4d/d2/c5264-psctv15ssportt2-channel-unkn.png", SCTV15
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -625,21 +643,3 @@ https://livevliatmcdw.seenow.vn/live/data8/SKSS1/Live_DASHDRM/SKSS1.mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=ca0576ec419f490789860894bb50c977:25d2e703eee38718240e7038d1908fef
 https://livevliatmcdw.seenow.vn/live/data8/SKSS2/Live_DASHDRM/SKSS2.mpd
-#EXTINF:-1 tvg-id="360phimaumy" tvg-name="Phim Âu Mỹ" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/09/08/1775697767861/9a6dc88794cf_480_270.png" group-title="VTVcab",Phim Âu Mỹ
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9903
-#EXTINF:-1 tvg-id="360hoathinh" tvg-name="Hoạt hình" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/08/03/16/178574886930/9daa0ca42fd8_480_270.png" group-title="VTVcab",Hoạt hình
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=9cda1e0f47c4494eb1e677e7af97d862:a35d078004282cb6a888921d26e398df
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9934
-#EXTINF:-1 tvg-id="170" tvg-name="VTVcab 18 - On Sports News" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650363143/71956aa35c78_480_270.png" group-title="VTVcab",VTVcab 18 - On Sports News
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=eba8070754254c998ff3bf92baf36aeb:5598aacdcf1ea73272cb2d89d951e053
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/170
-#EXTINF:-1 tvg-id="184" tvg-name="VTVcab 12 - StyleTV HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/09/1689732221934/7138a2e2ade1_480_270.png" group-title="VTVcab",VTVcab 12 - StyleTV HD
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/184
-#EXTINF:-1 tvg-id="186" tvg-name="Vtvcab17 – Trending TV" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/16/1689759248732/ebe66c03d7f6_480_270.png" group-title="VTVcab",Vtvcab17 – Trending TV
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/186
-#EXTINF:-1 tvg-id="189" tvg-name="VTVcab 9 - InfoTV HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/07/19/09/1689732099410/a13853e5de55_480_270.png" group-title="VTVcab",VTVcab 9 - InfoTV HD
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/189
