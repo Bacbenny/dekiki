@@ -333,18 +333,27 @@ def _channel_id(channel: dict) -> str:
     )
 
 
-def _clear_key(payload: object) -> dict[str, str] | None:
+def _clear_key(payload: object, depth: int = 0) -> dict[str, str] | None:
+    if depth > 6 or payload is None:
+        return None
+    if isinstance(payload, list):
+        for child in payload:
+            found = _clear_key(child, depth + 1)
+            if found:
+                return found
+        return None
     if not isinstance(payload, dict):
         return None
-    clear_key = payload.get("clearKey")
-    if not isinstance(clear_key, dict) and isinstance(payload.get("data"), dict):
-        clear_key = payload["data"].get("clearKey")
-    if not isinstance(clear_key, dict):
-        return None
-    key_id = clear_key.get("keyId")
-    key = clear_key.get("key")
-    if isinstance(key_id, str) and isinstance(key, str) and key_id and key:
-        return {"keyId": key_id, "key": key}
+    candidate = payload.get("clearKey") or payload.get("clear_key")
+    if isinstance(candidate, dict):
+        key_id = candidate.get("keyId") or candidate.get("key_id")
+        key = candidate.get("key")
+        if isinstance(key_id, str) and isinstance(key, str) and key_id and key:
+            return {"keyId": key_id, "key": key}
+    for child in payload.values():
+        found = _clear_key(child, depth + 1)
+        if found:
+            return found
     return None
 
 
@@ -401,8 +410,9 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
         f"/api/tv/channel/{cid}/stream",
     ]
 
-    payload: object = None
-    stream_url = ""
+    best_payload: object = None
+    best_stream_url = ""
+    best_clear_key: dict[str, str] | None = None
     with ThreadPoolExecutor(max_workers=3) as pool:
         futures = {
             pool.submit(_try_stream_path, channel_id, path, cookie): path
@@ -411,22 +421,32 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
         for future in as_completed(futures):
             result_payload, result_url = future.result()
             if result_url:
-                payload = result_payload
-                stream_url = result_url
-                break
-            if result_payload is not None and payload is None:
-                payload = result_payload
+                result_clear_key = _clear_key(result_payload)
+                if result_clear_key:
+                    best_payload = result_payload
+                    best_stream_url = result_url
+                    best_clear_key = result_clear_key
+                    break
+                if not best_stream_url:
+                    best_payload = result_payload
+                    best_stream_url = result_url
+                    best_clear_key = result_clear_key
+            elif result_payload is not None and best_payload is None:
+                best_payload = result_payload
 
-    if not stream_url and payload is not None:
-        stream_url = extract_stream_url(payload) if isinstance(payload, dict) else ""
-    if not stream_url:
+    if not best_stream_url and best_payload is not None:
+        best_stream_url = extract_stream_url(best_payload) if isinstance(best_payload, dict) else ""
+    if not best_stream_url:
         return fallback_channel
 
     resolved = dict(channel)
-    resolved["url"] = stream_url
-    clear_key = _clear_key(payload)
-    if clear_key:
-        resolved["_film4k_clear_key"] = clear_key
+    resolved["url"] = best_stream_url
+    if not best_clear_key:
+        best_clear_key = _clear_key(best_payload)
+    if not best_clear_key:
+        best_clear_key = _fetch_worker_clear_key(channel_id)
+    if best_clear_key:
+        resolved["_film4k_clear_key"] = best_clear_key
     return resolved
 
 
@@ -444,33 +464,50 @@ def _resolve_one_event(event: dict, cookie: str) -> dict:
     if not event_id:
         return event
 
+    raw_event_id = event_id
     event_id = quote(event_id, safe="")
     paths = [
         f"/api/tv/events/{event_id}/stream",
         f"/api/tv/event/{event_id}/stream",
         f"/api/tv/{event_id}/stream",
     ]
-    payload: object = None
+    best_payload: object = None
+    best_stream_url = ""
+    best_clear_key: dict[str, str] | None = None
     with ThreadPoolExecutor(max_workers=3) as pool:
         futures = [
-            pool.submit(_try_stream_path, event_id, path, cookie)
+            pool.submit(_try_stream_path, raw_event_id, path, cookie)
             for path in paths
         ]
         for future in as_completed(futures):
             result_payload, stream_url = future.result()
-            if stream_url:
-                payload = result_payload
+            result_clear_key = _clear_key(result_payload)
+            if stream_url and result_clear_key:
+                best_payload = result_payload
+                best_stream_url = stream_url
+                best_clear_key = result_clear_key
                 break
-            if result_payload is not None and (
-                payload is None or _clear_key(result_payload)
+            if stream_url and not best_stream_url:
+                best_payload = result_payload
+                best_stream_url = stream_url
+                best_clear_key = result_clear_key
+            elif result_payload is not None and (
+                best_payload is None or result_clear_key
             ):
-                payload = result_payload
+                best_payload = result_payload
+                if not best_clear_key:
+                    best_clear_key = result_clear_key
 
-    clear_key = _clear_key(payload)
-    if not clear_key:
+    if not best_clear_key:
+        best_clear_key = _clear_key(best_payload)
+    if not best_clear_key:
+        best_clear_key = _fetch_worker_clear_key(raw_event_id, is_event=True)
+    if not best_clear_key:
         return event
     resolved = dict(event)
-    resolved["_film4k_clear_key"] = clear_key
+    if best_stream_url:
+        resolved["url"] = best_stream_url
+    resolved["_film4k_clear_key"] = best_clear_key
     return resolved
 
 

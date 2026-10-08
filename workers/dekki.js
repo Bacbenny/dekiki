@@ -458,9 +458,15 @@ async function resolveStream(kind, id) {
   // Cache miss — dedup so parallel requests for same channel share one API call
   const result = await dedup(cacheKey, async () => {
     const cookie = await login();
-    const r = kind === "event"
-      ? { stream: streamOf(await eventDetails({ id }, cookie)), clearKey: null }
-      : await resolveChannelStream(id, cookie);
+    let r;
+    if (kind === "event") {
+      const details = await eventDetails({ id }, cookie);
+      const stream = streamOf(details);
+      const clearKey = clearKeyOf(details) || (details.clearKey || null);
+      r = { stream, clearKey };
+    } else {
+      r = await resolveChannelStream(id, cookie);
+    }
 
     if (r.stream) {
       memCache.set(cacheKey, { ts: Date.now(), url: r.stream });
@@ -600,9 +606,15 @@ async function handle(request) {
       return jsonResponse({ ok: true, id, kind, stream_url: memHit.url, clearKey: null, cached: true });
     }
     const cookie = await login();
-    const r = kind === "event"
-      ? { stream: streamOf(await eventDetails({ id }, cookie)), clearKey: null }
-      : await resolveChannelStream(id, cookie);
+    let r;
+    if (kind === "event") {
+      const details = await eventDetails({ id }, cookie);
+      const stream = streamOf(details);
+      const clearKey = clearKeyOf(details) || (details.clearKey || null);
+      r = { stream, clearKey };
+    } else {
+      r = await resolveChannelStream(id, cookie);
+    }
     if (r.stream) {
       memCache.set(cacheKey, { ts: Date.now(), url: r.stream });
       const ttl = streamCacheTtl(r.stream);
