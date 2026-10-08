@@ -1,5 +1,6 @@
 import base64
 import json
+import re
 import sys
 import types
 import unittest
@@ -86,6 +87,87 @@ class Film4kPlaylistTests(unittest.TestCase):
         )
 
         self.assertIn('group-title="VTVcab"', playlist)
+
+    def test_reference_vtvcab_capitalization_is_canonicalized(self):
+        reference = "\n".join(
+            [
+                "#EXTM3U",
+                '#EXTINF:-1 tvg-id="onsports" tvg-name="On Sports" '
+                'tvg-logo="https://cdn.example/logo.png" group-title="VTVCab",'
+                "VTVcab 3 - On Sports",
+                "https://cdn.example/reference.mpd",
+            ]
+        )
+
+        groups, _, entries = film4k_fetch.parse_reference_playlist(reference)
+
+        self.assertEqual(groups, ["VTVcab"])
+        self.assertEqual(entries[0]["group"], "VTVcab")
+        self.assertIn('group-title="VTVcab"', entries[0]["lines"][0])
+
+    def test_vtvcab_channels_keep_the_original_order_and_group_position(self):
+        channels = [
+            {
+                "id": "life-tv",
+                "name": "VTVcab 22 - Life TV HD",
+                "group": "kenhvtvcab",
+                "logo": "https://cdn.example/life.png",
+            },
+            {
+                "id": "on-football",
+                "name": "VTVcab 16 - On Football HD",
+                "group": "kenhvtvcab",
+                "logo": "https://cdn.example/football.png",
+            },
+            {
+                "id": "on-sports",
+                "name": "VTVcab 3 - On Sports",
+                "group": "kenhvtvcab",
+                "logo": "https://cdn.example/sports.png",
+            },
+            {
+                "id": "on-sports-news",
+                "name": "VTVcab 18 - On Sports News",
+                "group": "kenhvtvcab",
+                "logo": "https://cdn.example/news.png",
+            },
+            {
+                "id": "htv-7",
+                "name": "HTV7",
+                "group": "kenhhtv",
+                "logo": "https://cdn.example/htv7.png",
+            },
+        ]
+
+        playlist, _, _, _ = film4k_fetch.generate_m3u(
+            channels, [], ["VTV", "Thiết Yếu", "VTVCab", "HTV"], {}, []
+        )
+        entries = []
+        for block in playlist.split("#EXTINF:")[1:]:
+            header, *rest = block.splitlines()
+            group = re.search(r'group-title="([^"]*)"', header).group(1)
+            if group.casefold() == "vtvcab":
+                entries.append(header.split(",", 1)[-1])
+        groups = [
+            re.search(r'group-title="([^"]*)"', line).group(1)
+            for line in playlist.splitlines()
+            if line.startswith("#EXTINF")
+        ]
+
+        self.assertEqual(
+            entries,
+            [
+                "VTVcab 3 - On Sports",
+                "VTVcab 16 - On Football HD",
+                "VTVcab 18 - On Sports News",
+                "VTVcab 22 - Life TV HD",
+            ],
+        )
+        self.assertEqual(
+            [group for group in dict.fromkeys(groups) if group.casefold() == "vtvcab"],
+            ["VTVcab"],
+        )
+        self.assertLess(groups.index("VTVcab"), groups.index("HTV"))
 
     def test_unmapped_event_uses_its_fresh_clear_key(self):
         fresh_key = {"keyId": "b" * 32, "key": "2" * 32}

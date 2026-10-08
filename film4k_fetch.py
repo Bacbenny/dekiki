@@ -104,6 +104,32 @@ REFERENCE_IMPORT_GROUPS = REFERENCE_REPLACE_GROUPS | REFERENCE_MERGE_GROUPS
 # These groups keep special reference ordering; all API-backed channels use
 # Film4k Worker URLs before considering any direct stream URL.
 WORKER_GROUPS = {"VTVcab", "Sự Kiện TV360"}
+# Preserve the established VTVcab channel positions when the reference feed
+# changes capitalization, ordering, or temporarily omits these channels.
+VTVCAB_CHANNEL_ORDER = (
+    "VTVcab 3 - On Sports",
+    "VTVcab 6 - On Sports +",
+    "VTVcab 16 - On Football HD",
+    "VTVcab 18 - On Sports News",
+    "VTVcab 1 - Vie Giải Trí HD",
+    "VTVcab 2 - Phim Việt HD",
+    "Vtvcab 4 – On Movies",
+    "VTVcab 5 - E Channel HD",
+    "O2TV",
+    "VTVcab 8 Bibi SD",
+    "VTVcab 9 - InfoTV HD",
+    "VTVcab10 - On Cine HD",
+    "VTVcab 12 - StyleTV HD",
+    "VTVcab15 – On Music",
+    "Vtvcab17 – Trending TV",
+    "VTVcab19 – Vie Dramas",
+    "VTVcab 20 - V Family HD",
+    "VTVcab 21- Cartoon Kids HD",
+    "VTVcab 22 - Life TV HD",
+    "VTVcab 23 - Golf Channel",
+    "Phim Âu Mỹ",
+    "Hoạt hình",
+)
 REFERENCE_STREAM_FALLBACKS: dict[str, tuple[str, str]] = {}
 # Override tvg-id for film4k channels whose EPG ID is not in the reference playlist.
 # Key: normalized channel name variant, Value: EPG tvg-id.
@@ -500,6 +526,13 @@ def _normalize_group(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", without_marks.replace("đ", "d"))
 
 
+def _canonical_reference_group(value: str) -> str:
+    group = value.strip()
+    if group.casefold() == "vtvcab":
+        return "VTVcab"
+    return group
+
+
 def _normalize_channel_name(value: str) -> str:
     decomposed = unicodedata.normalize("NFD", value.casefold().replace("+", " plus "))
     without_marks = "".join(
@@ -598,10 +631,18 @@ def parse_reference_playlist(
             if not group_match or not separator:
                 continue
 
-            group = group_match.group(1).strip()
+            original_group = group_match.group(1).strip()
+            group = _canonical_reference_group(original_group)
             name = name.strip()
             if not group or not name:
                 continue
+            if group != original_group:
+                line = re.sub(
+                    r'group-title="[^"]*"',
+                    f'group-title="{group}"',
+                    line,
+                    count=1,
+                )
             if group not in groups:
                 groups.append(group)
             group_index = groups.index(group)
@@ -711,6 +752,10 @@ def _order_channels(
     reference_channels: dict[str, tuple[int, int, str]],
 ) -> list[dict]:
     group_positions = {group: index for index, group in enumerate(reference_groups)}
+    vtvcab_order_by_variant: dict[str, int] = {}
+    for position, known_name in enumerate(VTVCAB_CHANNEL_ORDER):
+        for variant in _channel_name_variants(known_name):
+            vtvcab_order_by_variant.setdefault(variant, position)
     ordered: list[tuple[tuple[int, int, int, int], dict]] = []
 
     for input_index, channel in enumerate(channels):
@@ -719,10 +764,19 @@ def _order_channels(
             ("name", "title", "channel_name", "channelName", "label"),
             "Unknown",
         )
+        name_variants = _channel_name_variants(name)
+        vtvcab_rank = next(
+            (
+                vtvcab_order_by_variant[variant]
+                for variant in name_variants
+                if variant in vtvcab_order_by_variant
+            ),
+            None,
+        )
         match = next(
             (
                 reference_channels[variant]
-                for variant in _channel_name_variants(name)
+                for variant in name_variants
                 if variant in reference_channels
             ),
             None,
@@ -737,6 +791,11 @@ def _order_channels(
             group_index = group_positions[group]
             key = (group_index, -1, input_index, input_index)
             unclassified = False
+        elif vtvcab_rank is not None:
+            group = "VTVcab"
+            group_index = group_positions[group]
+            key = (group_index, 0, vtvcab_rank, input_index)
+            unclassified = False
         elif match:
             group_index, channel_index, group = match
             logo = _first_text(
@@ -750,7 +809,8 @@ def _order_channels(
                 key = (group_index, 0, channel_index, input_index)
                 unclassified = False
             else:
-                key = (group_index, 0, channel_index, input_index)
+                bucket = 1 if group == "VTVcab" else 0
+                key = (group_index, bucket, channel_index, input_index)
                 unclassified = False
         else:
             group = _fallback_group(channel)
@@ -780,7 +840,17 @@ def generate_m3u(
     reference_channels: dict[str, tuple[int, int, str]],
     reference_entries: list[dict],
 ) -> tuple[str, int, int, int]:
-    reference_groups = list(reference_groups)
+    reference_groups = list(
+        dict.fromkeys(_canonical_reference_group(group) for group in reference_groups)
+    )
+    reference_channels = {
+        variant: (position[0], position[1], _canonical_reference_group(position[2]))
+        for variant, position in reference_channels.items()
+    }
+    reference_entries = [
+        {**entry, "group": _canonical_reference_group(entry["group"])}
+        for entry in reference_entries
+    ]
     for required_group in ("Sự Kiện TV360", "VTVcab"):
         if required_group not in reference_groups:
             reference_groups.append(required_group)
