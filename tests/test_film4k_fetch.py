@@ -3,6 +3,7 @@ import json
 import sys
 import types
 import unittest
+from unittest.mock import patch
 
 try:
     import requests  # noqa: F401
@@ -71,6 +72,95 @@ class Film4kPlaylistTests(unittest.TestCase):
             film4k_fetch.Film4kError, "still contains an expiring JWT URL"
         ):
             film4k_fetch.generate_m3u([channel], [], self.groups, {}, [])
+
+    def test_vtvcab_group_is_kept_when_reference_playlist_omits_it(self):
+        channel = {
+            "id": "channel-174",
+            "name": "On Football",
+            "group": "kenhvtvcab",
+            "logo": "https://cdn.example/on-football.png",
+        }
+
+        playlist, _, _, _ = film4k_fetch.generate_m3u(
+            [channel], [], ["VTV", "Sự Kiện TV360"], {}, []
+        )
+
+        self.assertIn('group-title="VTVcab"', playlist)
+
+    def test_unmapped_event_uses_its_fresh_clear_key(self):
+        fresh_key = {"keyId": "b" * 32, "key": "2" * 32}
+        event = {
+            "id": "event-4",
+            "name": "Live event",
+            "_film4k_clear_key": fresh_key,
+        }
+
+        playlist, _, _, _ = film4k_fetch.generate_m3u(
+            [], [event], ["VTV"], {}, []
+        )
+        event_block = next(
+            block
+            for block in playlist.split("#EXTINF:")
+            if 'tvg-id="event-4"' in block
+        )
+
+        self.assertIn(f"{fresh_key['keyId']}:{fresh_key['key']}", event_block)
+
+    def test_mapped_event_uses_the_key_for_its_channel_resolver(self):
+        channel_key = {"keyId": "a" * 32, "key": "1" * 32}
+        event_key = {"keyId": "b" * 32, "key": "2" * 32}
+        channel = {
+            "id": "channel-4",
+            "name": "TV360 + 4",
+            "group": "kenhvtvcab",
+            "logo": "https://cdn.example/tv360-4.png",
+            "_film4k_clear_key": channel_key,
+        }
+        event = {
+            "id": "event-4",
+            "name": "TV360 + 4 - Live",
+            "_film4k_clear_key": event_key,
+        }
+
+        playlist, _, _, _ = film4k_fetch.generate_m3u(
+            [channel], [event], self.groups, {}, []
+        )
+        event_block = next(
+            block
+            for block in playlist.split("#EXTINF:")
+            if 'tvg-id="event-4"' in block
+        )
+
+        self.assertIn(f"{channel_key['keyId']}:{channel_key['key']}", event_block)
+        self.assertNotIn(f"{event_key['keyId']}:{event_key['key']}", event_block)
+
+    def test_event_stream_resolver_refreshes_clear_key(self):
+        fresh_key = {"keyId": "c" * 32, "key": "3" * 32}
+        payload = {
+            "url": "https://cdn.example/event.mpd",
+            "clearKey": fresh_key,
+        }
+        with patch.object(
+            film4k_fetch,
+            "_try_stream_path",
+            return_value=(payload, "https://cdn.example/event.mpd"),
+        ):
+            events = film4k_fetch.resolve_event_streams(
+                [{"id": "event-42"}], "test-session"
+            )
+
+        self.assertEqual(events[0]["_film4k_clear_key"], fresh_key)
+
+    def test_event_linked_to_channel_skips_redundant_event_stream_lookup(self):
+        event = {"id": "event-4", "name": "TV360 + 4 - Live"}
+        channel = {"id": "channel-4", "name": "TV360 + 4"}
+        with patch.object(film4k_fetch, "_try_stream_path") as fetch:
+            events = film4k_fetch.resolve_event_streams(
+                [event], "test-session", [channel]
+            )
+
+        fetch.assert_not_called()
+        self.assertEqual(events[0], event)
 
 
 if __name__ == "__main__":

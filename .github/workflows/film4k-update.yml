@@ -1,6 +1,8 @@
 name: Cap nhat Film4k channel M3U
 
 on:
+  schedule:
+    - cron: "0 * * * *"
   workflow_call: {}
   workflow_dispatch: {}
 

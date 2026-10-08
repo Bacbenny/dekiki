@@ -410,6 +410,74 @@ def resolve_channel_streams(channels: list[dict], cookie: str) -> list[dict]:
         return list(executor.map(lambda ch: _resolve_one_channel(ch, cookie), channels))
 
 
+def _resolve_one_event(event: dict, cookie: str) -> dict:
+    event_id = _first_text(
+        event,
+        ("id", "event_id", "eventId", "tvg_id", "tvgId", "slug"),
+    )
+    if not event_id:
+        return event
+
+    event_id = quote(event_id, safe="")
+    paths = [
+        f"/api/tv/events/{event_id}/stream",
+        f"/api/tv/event/{event_id}/stream",
+        f"/api/tv/{event_id}/stream",
+    ]
+    payload: object = None
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        futures = [
+            pool.submit(_try_stream_path, event_id, path, cookie)
+            for path in paths
+        ]
+        for future in as_completed(futures):
+            result_payload, stream_url = future.result()
+            if stream_url:
+                payload = result_payload
+                break
+            if result_payload is not None and (
+                payload is None or _clear_key(result_payload)
+            ):
+                payload = result_payload
+
+    clear_key = _clear_key(payload)
+    if not clear_key:
+        return event
+    resolved = dict(event)
+    resolved["_film4k_clear_key"] = clear_key
+    return resolved
+
+
+def resolve_event_streams(
+    events: list[dict], cookie: str, channels: list[dict] | None = None
+) -> list[dict]:
+    """Refresh event keys unless playback uses a mapped channel resolver."""
+    channel_numbers: set[str] = set()
+    for channel in channels or []:
+        channel_name = _first_text(
+            channel,
+            ("name", "title", "channel_name", "channelName", "label"),
+            "",
+        )
+        match = re.search(r"tv360\s*\+\s*(\d+)", channel_name, re.IGNORECASE)
+        if match:
+            channel_numbers.add(match.group(1))
+
+    def resolve(event: dict) -> dict:
+        event_name = _first_text(
+            event,
+            ("name", "title", "event_name", "label"),
+            "",
+        )
+        match = re.search(r"tv360\s*\+\s*(\d+)", event_name, re.IGNORECASE)
+        if match and match.group(1) in channel_numbers:
+            return event
+        return _resolve_one_event(event, cookie)
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        return list(executor.map(resolve, events))
+
+
 def _first_text(channel: dict, keys: tuple[str, ...], default: str = "") -> str:
     for key in keys:
         value = channel.get(key)
@@ -712,6 +780,11 @@ def generate_m3u(
     reference_channels: dict[str, tuple[int, int, str]],
     reference_entries: list[dict],
 ) -> tuple[str, int, int, int]:
+    reference_groups = list(reference_groups)
+    for required_group in ("Sự Kiện TV360", "VTVcab"):
+        if required_group not in reference_groups:
+            reference_groups.append(required_group)
+
     lines = ["#EXTM3U url-tvg=\"https://epg.io.vn/epg.xml.gz\""]
     count = 0
     event_count = 0
@@ -776,7 +849,7 @@ def generate_m3u(
             ("name", "title", "event_name", "label"),
         )
         event_channel_match = re.search(
-            r"tv360\s\+\s*(\d+)", event_name, re.IGNORECASE
+            r"tv360\s*\+\s*(\d+)", event_name, re.IGNORECASE
         )
         if event_channel_match:
             event_tv360_numbers.add(event_channel_match.group(1))
@@ -884,28 +957,18 @@ def generate_m3u(
         group_channels = film4k_channels_by_group.get(group, [])
         # For Sự Kiện TV360: skip TV360+ channels already covered by events
         if group == "Sự Kiện TV360" and event_tv360_numbers:
-            group_channels = [
-                ch for ch in group_channels
-                if not any(
-                    re.search(
-                        r"tv360\s\+\s*(\d+)",
-                        _first_text(
-                            ch,
-                            ("name", "title", "channel_name", "channelName", "label"),
-                            "",
-                        ),
-                        re.IGNORECASE,
-                    )
-                    and re.search(
-                        r"tv360\s\+\s*(\d+)",
-                        _first_text(
-                            ch,
-                            ("name", "title", "channel_name", "channelName", "label"),
-                            "",
-                        ),
-                        re.IGNORECASE,
-                    ).group(1) in event_tv360_numbers
+            def covered_by_event(channel: dict) -> bool:
+                channel_name = _first_text(
+                    channel,
+                    ("name", "title", "channel_name", "channelName", "label"),
+                    "",
                 )
+                match = re.search(r"tv360\s*\+\s*(\d+)", channel_name, re.IGNORECASE)
+                return bool(match and match.group(1) in event_tv360_numbers)
+
+            group_channels = [
+                channel for channel in group_channels
+                if not covered_by_event(channel)
             ]
         group_items: list[tuple[tuple[int, int, int], str, dict]] = []
         if group in REFERENCE_MERGE_GROUPS:
@@ -1157,6 +1220,7 @@ def main() -> int:
                     and not _channel_id(channel).startswith("ants:")
                 ]
             resolved_channels = resolve_channel_streams(channels, cookie)
+            events = resolve_event_streams(events, cookie, resolved_channels)
             reference_groups, reference_channels, reference_entries = (
                 fetch_reference_order()
             )
