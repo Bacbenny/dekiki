@@ -84,7 +84,7 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/169
 #EXTINF:-1 tvg-id="360phimaumy" tvg-name="Phim Âu Mỹ" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/09/08/1775697767861/9a6dc88794cf_480_270.png" group-title="VTVcab",Phim Âu Mỹ
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=08eedf41d04e4bb8988e86cbc2f08c7b:bdfa2df43f9354754143d4b77141db68
+#KODIPROP:inputstream.adaptive.license_key=07bacdecaeb8461e8c99ad6183ae17c0:1f72b835951b40c1113206823755b6df
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9903
 #EXTINF:-1 tvg-id="360hoathinh" tvg-name="Hoạt hình" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/08/03/16/178574886930/9daa0ca42fd8_480_270.png" group-title="VTVcab",Hoạt hình
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -472,26 +472,27 @@ https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcworldnews.smil/manifest.mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=5014941a2c42379880b5edf72304c165:f3fa0fe3cd39a52f4eefd36ff7161e89
 https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcearth.smil/manifest.mpd
-#EXTINF:-1 tvg-id="10001" tvg-name="Đua xe: Formula 1 Singapore Airlines Singapore Grand Prix 2026, Đua nước rút, 16 giờ , ngày 10/10, Kênh TV360+ 12" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/06/11/1791261050602/c12b8fbb8624_1280_720.jpg" group-title="Sự Kiện TV360",Đua xe: Formula 1 Singapore Airlines Singapore Grand Prix 2026, Đua nước rút, 16 giờ , ngày 10/10, Kênh TV360+ 12
+#EXTINF:-1 tvg-id="10001" tvg-name="Đua xe: Formula 1 Singapore Airlines Singapore Grand Prix 2026, Đua phân hạng, 20 giờ 30, ngày 10/10, Kênh TV360+ 12" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/10/19/1791634481158/bdbb8a25a9b5_1280_720.jpg" group-title="Sự Kiện TV360",Đua xe: Formula 1 Singapore Airlines Singapore Grand Prix 2026, Đua phân hạng, 20 giờ 30, ngày 10/10, Kênh TV360+ 12
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=5a5dd595f9ae5299b5003e0d4e3e98f5:d9023b3b15ecbcc8115a49f576ed0799
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10001
-#EXTINF:-1 tvg-id="9957" tvg-name="Bóng đá: VĐQG LPBank 2026/27 Vòng 3: Hoàng Anh Gia Lai vs SHB Đà Nẵng, 17 giờ , ngày 10/10, Kênh TV360+ 10" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/06/16/1791280190399/7a81737ef591_1280_720.jpg" group-title="Sự Kiện TV360",Bóng đá: VĐQG LPBank 2026/27 Vòng 3: Hoàng Anh Gia Lai vs SHB Đà Nẵng, 17 giờ , ngày 10/10, Kênh TV360+ 10
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9957
-#EXTINF:-1 tvg-id="10043" tvg-name="Bóng đá: VĐQG LPBank 2026/27 Vòng 3: Hải Phòng vs Thanh Hóa, 18 giờ , ngày 10/10, Kênh VTV6" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/06/17/1791281708296/721d7732c22e_1280_720.jpg" group-title="Sự Kiện TV360",Bóng đá: VĐQG LPBank 2026/27 Vòng 3: Hải Phòng vs Thanh Hóa, 18 giờ , ngày 10/10, Kênh VTV6
-https://dekki.bacbenny95.workers.dev/film4k/stream/event/10043
-#EXTINF:-1 tvg-id="33" tvg-name="Sự kiện: Chương trình nghệ thuật Bản giao hưởng Hà Nội, 20 giờ, ngày 10/10, kênh Hà nội 1" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/10/08/1791596251568/a979ca1f8352_1280_720.jpg" group-title="Sự Kiện TV360",Sự kiện: Chương trình nghệ thuật Bản giao hưởng Hà Nội, 20 giờ, ngày 10/10, kênh Hà nội 1
-https://dekki.bacbenny95.workers.dev/film4k/stream/event/33
 #EXTINF:-1 tvg-id="2458" tvg-name="Bóng đá: Bundesliga 2026/27- Vòng 5: Augsburg vs Bayern Munich, 20 giờ 30 phút, 10/10, Kênh TV360+ 4" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/07/11/1791347936359/10e54754e235_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: Bundesliga 2026/27- Vòng 5: Augsburg vs Bayern Munich, 20 giờ 30 phút, 10/10, Kênh TV360+ 4
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=70d033252d025d719ba70a37acc0f5c8:6ca465d8b3018f1604da6d43d3395a6d
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2458
+#EXTINF:-1 tvg-id="9867" tvg-name="Bóng đá: Bundesliga 2026/27- Vòng 5: Mainz 05 vs Bayer Leverkusen, 20 giờ 30 phút, 10/10, Kênh TV360+ 5" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/07/11/1791348186103/64caa71d994a_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: Bundesliga 2026/27- Vòng 5: Mainz 05 vs Bayer Leverkusen, 20 giờ 30 phút, 10/10, Kênh TV360+ 5
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=edfa094d8ac55cf98f5867128a926aa7:0e10fa6099105e2e0a7ce1e34e9c0230
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9867
+#EXTINF:-1 tvg-id="33" tvg-name="Sự kiện: Chương trình nghệ thuật Bản giao hưởng Hà Nội, 20 giờ, ngày 10/10, kênh Hà nội 1" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/10/08/1791596251568/a979ca1f8352_1280_720.jpg" group-title="Sự Kiện TV360",Sự kiện: Chương trình nghệ thuật Bản giao hưởng Hà Nội, 20 giờ, ngày 10/10, kênh Hà nội 1
+https://dekki.bacbenny95.workers.dev/film4k/stream/event/33
 #EXTINF:-1 tvg-id="tv360plus1" tvg-name="TV360+ 1" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266760359/ba1ca843cd06_480_270.png" group-title="Sự Kiện TV360",TV360+ 1
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=62cd425595ba45b0a3f80290510308b4:2fc95e0a371cd0ba343bc1d120dd9713
+#KODIPROP:inputstream.adaptive.license_key=47404f622db3536c867b2545581aadb4:9fbdc12cfe74564fd4329baa6a6d1968
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2554
 #EXTINF:-1 tvg-id="tv360plus2" tvg-name="TV360+ 2" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266826697/9647033848f3_480_270.png" group-title="Sự Kiện TV360",TV360+ 2
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -503,11 +504,6 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/1
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=8405a15e96b35497bde131a29e7fb67e:adb30d908915cf14760880240961a5ed
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/148
-#EXTINF:-1 tvg-id="tv360plus5" tvg-name="TV360+ 5" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267019948/634cdb439c75_480_270.png" group-title="Sự Kiện TV360",TV360+ 5
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=edfa094d8ac55cf98f5867128a926aa7:0e10fa6099105e2e0a7ce1e34e9c0230
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9867
 #EXTINF:-1 tvg-id="tv360plus6" tvg-name="TV360+ 6" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267080314/d06a99b5bd9c_480_270.png" group-title="Sự Kiện TV360",TV360+ 6
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
@@ -525,6 +521,8 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9869
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9870
 #EXTINF:-1 tvg-id="tv360plus9" tvg-name="TV360+ 9" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267283364/c30a206da84a_480_270.png" group-title="Sự Kiện TV360",TV360+ 9
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9887
+#EXTINF:-1 tvg-id="tv360plus10" tvg-name="TV360+ 10" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267388401/5f459b37721d_480_270.png" group-title="Sự Kiện TV360",TV360+ 10
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9957
 #EXTINF:-1 tvg-id="tv360plus11" tvg-name="TV360+ 11" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267558745/5fc303f5ba08_480_270.png" group-title="Sự Kiện TV360",TV360+ 11
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9958
 #EXTINF:-1 tvg-id="tv360plus13" tvg-name="TV360+ 13" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/05/15/01/1778782670293/dd4067f28084_480_270.png" group-title="Sự Kiện TV360",TV360+ 13
