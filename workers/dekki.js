@@ -14,7 +14,11 @@ const UNKNOWN_STREAM_TTL = 180;
 const CATALOG_TTL = 120;     // 2 min — channel list cache
 const EDGE_CACHE_302 = 300;  // 5 min — edge cache for 302 redirects on cache hits
 const TOKEN_SAFETY_WINDOW = 120;
-const STREAM_CACHE_NAMESPACE = "stream:v3";
+const STREAM_CACHE_NAMESPACE = "stream:v4";
+// The current Film4k OnFootball stream is channel ID 174. Its URL and ClearKey
+// must come from the same API response; other channels keep the fast first-hit path.
+const CLEARKEY_CHANNEL_IDS = new Set(["174"]);
+const CLEARKEY_LOOKUP_TIMEOUT_MS = 8000;
 
 const KV = typeof FILM4K_KV !== "undefined" ? FILM4K_KV : null;
 
@@ -164,21 +168,28 @@ function streamExpiry(streamUrl) {
   }
 }
 
-function streamCacheTtl(streamUrl) {
+function streamCacheTtl(streamUrl, kind = "", id = "") {
+  const maxTtl =
+    kind === "channel" && String(id) === "174" ? UNKNOWN_STREAM_TTL : STREAM_TTL;
   const expiresAt = streamExpiry(streamUrl);
-  if (expiresAt === null) return UNKNOWN_STREAM_TTL;
+  if (expiresAt === null) return Math.min(UNKNOWN_STREAM_TTL, maxTtl);
   return Math.max(
     0,
     Math.min(
-      STREAM_TTL,
+      maxTtl,
       expiresAt - Math.floor(Date.now() / 1000) - TOKEN_SAFETY_WINDOW
     )
   );
 }
 
-function streamCacheIsFresh(entry) {
+function streamCacheIsFresh(entry, kind = "", id = "") {
   if (!entry || Date.now() - entry.ts >= STREAM_TTL * 1000) return false;
   const ageSeconds = (Date.now() - entry.ts) / 1000;
+  if (
+    kind === "channel" &&
+    String(id) === "174" &&
+    ageSeconds >= UNKNOWN_STREAM_TTL
+  ) return false;
   const expiresAt = streamExpiry(entry.url);
   if (expiresAt === null) return ageSeconds < UNKNOWN_STREAM_TTL;
   return expiresAt - Math.floor(Date.now() / 1000) - TOKEN_SAFETY_WINDOW > 0;
@@ -191,11 +202,19 @@ function clearKeyOf(value, depth = 0) {
     return null;
   }
   if (typeof value !== "object") return null;
-  const candidate = value.clearKey || value.clear_key;
+  const candidate = value.clearKey || value.clear_key ||
+    (value.keyId || value.key_id ? value : null);
   if (candidate && typeof candidate === "object") {
-    const keyId = candidate.keyId || candidate.key_id;
-    const key = candidate.key;
-    if (keyId && key) return { keyId: String(keyId), key: String(key) };
+    const normalize = (raw, isKeyId = false) => {
+      let hex = String(raw || "").trim().toLowerCase();
+      if (isKeyId && hex.startsWith("urn:uuid:")) hex = hex.slice(9);
+      if (hex.startsWith("0x")) hex = hex.slice(2);
+      hex = hex.replace(/[{}-]/g, "");
+      return /^[0-9a-f]{32}$/.test(hex) ? hex : null;
+    };
+    const keyId = normalize(candidate.keyId || candidate.key_id, true);
+    const key = normalize(candidate.key);
+    if (keyId && key) return { keyId, key };
   }
   for (const child of Object.values(value)) {
     const f = clearKeyOf(child, depth + 1); if (f) return f;
@@ -203,38 +222,66 @@ function clearKeyOf(value, depth = 0) {
   return null;
 }
 
-// Race multiple fetches in parallel and return the first successful result.
-// Uses Promise.any — all paths fire simultaneously; the fastest winner is
-// returned ASAP instead of waiting for each path sequentially.
-async function raceStream(paths, cookie) {
+// Query paths in parallel, then prefer a valid URL+ClearKey pair in declared
+// endpoint order. Picking the fastest URL can mismatch a DRM key from another
+// endpoint and breaks playback for protected channels.
+function streamFailureResult(failures) {
+  const authFailure = failures.some(
+    (failure) => failure && [401, 403].includes(failure.status)
+  );
+  return {
+    stream: "",
+    clearKey: null,
+    authFailure,
+    retryableFailure: failures.some((failure) => {
+      if (!failure || !Number.isFinite(failure.status)) return true;
+      return [408, 425, 429].includes(failure.status) || failure.status >= 500;
+    }),
+  };
+}
+
+async function raceStream(paths, cookie, preferClearKey = false) {
   const tasks = paths.map(async (path) => {
-    const response = await fetch(`${FILM4K_BASE}${path}`, { headers: apiHeaders(cookie) });
-    if (!response.ok) {
-      throw Object.assign(new Error(`HTTP ${response.status}`), {
-        status: response.status,
-      });
+    const controller = preferClearKey ? new AbortController() : null;
+    const timeout = controller
+      ? setTimeout(() => controller.abort(), CLEARKEY_LOOKUP_TIMEOUT_MS)
+      : null;
+    try {
+      const options = { headers: apiHeaders(cookie) };
+      if (controller) options.signal = controller.signal;
+      const response = await fetch(`${FILM4K_BASE}${path}`, options);
+      if (!response.ok) {
+        throw Object.assign(new Error(`HTTP ${response.status}`), {
+          status: response.status,
+        });
+      }
+      const data = await response.json();
+      const stream = streamOf(data);
+      if (!stream) throw new Error("no stream in response");
+      return { stream, clearKey: clearKeyOf(data) };
+    } finally {
+      if (timeout) clearTimeout(timeout);
     }
-    const data = await response.json();
-    const stream = streamOf(data);
-    if (!stream) throw new Error("no stream in response");
-    return { stream, clearKey: clearKeyOf(data) };
   });
+  if (preferClearKey) {
+    const results = await Promise.allSettled(tasks);
+    const successful = results
+      .filter((result) => result.status === "fulfilled")
+      .map((result) => result.value);
+    if (successful.length) {
+      return successful.find((result) => result.clearKey) || successful[0];
+    }
+    return streamFailureResult(
+      results
+        .filter((result) => result.status === "rejected")
+        .map((result) => result.reason),
+    );
+  }
   try {
     return await Promise.any(tasks);
   } catch (error) {
     const failures = Array.isArray(error && error.errors) ? error.errors : [error];
-    const authFailure = failures.some(
-      (failure) => failure && [401, 403].includes(failure.status)
-    );
-    return {
-      stream: "",
-      clearKey: null,
-      authFailure,
-      retryableFailure: failures.some((failure) => {
-        if (!failure || !Number.isFinite(failure.status)) return true;
-        return [408, 425, 429].includes(failure.status) || failure.status >= 500;
-      }),
-    };
+    return streamFailureResult(failures);
   }
 }
 
@@ -297,17 +344,17 @@ async function refreshSession() {
   return login(true);
 }
 
-async function resolveStreamPaths(paths, cookie) {
+async function resolveStreamPaths(paths, cookie, preferClearKey = false) {
   let activeCookie = cookie;
-  let result = await raceStream(paths, activeCookie);
+  let result = await raceStream(paths, activeCookie, preferClearKey);
   if (result.authFailure) {
     activeCookie = await refreshSession();
-    result = await raceStream(paths, activeCookie);
+    result = await raceStream(paths, activeCookie, preferClearKey);
   }
   if (result.stream || !result.retryableFailure) return result;
 
   await new Promise((resolve) => setTimeout(resolve, 300));
-  return raceStream(paths, activeCookie);
+  return raceStream(paths, activeCookie, preferClearKey);
 }
 
 async function apiJson(path, cookie, retry = true) {
@@ -350,7 +397,7 @@ async function resolveChannelStream(id, cookie) {
     `/api/tv/channels/${encodeURIComponent(id)}/stream`,
     `/api/tv/channel/${encodeURIComponent(id)}/stream`,
   ];
-  return resolveStreamPaths(paths, cookie);
+  return resolveStreamPaths(paths, cookie, CLEARKEY_CHANNEL_IDS.has(String(id)));
 }
 
 // ---------------------------------------------------------------------------
@@ -438,7 +485,7 @@ async function resolveStream(kind, id) {
 
   // L1: in-memory (instant, ~0ms)
   const memHit = memCache.get(cacheKey);
-  if (streamCacheIsFresh(memHit)) {
+  if (streamCacheIsFresh(memHit, kind, id)) {
     return redirectResponse(memHit.url, true);
   }
 
@@ -448,7 +495,7 @@ async function resolveStream(kind, id) {
     const cached = kvEntry && kvEntry.value
       ? { ts: Date.now(), url: kvEntry.value }
       : null;
-    if (streamCacheIsFresh(cached)) {
+    if (streamCacheIsFresh(cached, kind, id)) {
       memCache.set(cacheKey, cached);
       return redirectResponse(cached.url, true);
     }
@@ -470,7 +517,7 @@ async function resolveStream(kind, id) {
 
     if (r.stream) {
       memCache.set(cacheKey, { ts: Date.now(), url: r.stream });
-      const ttl = streamCacheTtl(r.stream);
+      const ttl = streamCacheTtl(r.stream, kind, id);
       if (ttl > 0) await kvPut(cacheKey, r.stream, { expirationTtl: ttl });
     }
     return r;
@@ -518,7 +565,7 @@ async function preWarm() {
         if (!stream) return null;
         const cacheKey = `${STREAM_CACHE_NAMESPACE}:channel:${cid}`;
         memCache.set(cacheKey, { ts: Date.now(), url: stream });
-        const ttl = streamCacheTtl(stream);
+        const ttl = streamCacheTtl(stream, "channel", cid);
         if (ttl > 0) await kvPut(cacheKey, stream, { expirationTtl: ttl });
         return cid;
       })
@@ -538,7 +585,7 @@ async function preWarm() {
         if (!stream) return null;
         const cacheKey = `${STREAM_CACHE_NAMESPACE}:event:${eid}`;
         memCache.set(cacheKey, { ts: Date.now(), url: stream });
-        const ttl = streamCacheTtl(stream);
+        const ttl = streamCacheTtl(stream, "event", eid);
         if (ttl > 0) await kvPut(cacheKey, stream, { expirationTtl: ttl });
         return eid;
       })
@@ -601,10 +648,8 @@ async function handle(request) {
     const kind = infoMatch[1];
     const id = decodeURIComponent(infoMatch[2]);
     const cacheKey = `${STREAM_CACHE_NAMESPACE}:${kind}:${id}`;
-    const memHit = memCache.get(cacheKey);
-    if (streamCacheIsFresh(memHit)) {
-      return jsonResponse({ ok: true, id, kind, stream_url: memHit.url, clearKey: null, cached: true });
-    }
+    // Resolve fresh: stream URLs can be cached for playback, but ClearKeys
+    // rotate independently and must never be reported as null from a URL hit.
     const cookie = await login();
     let r;
     if (kind === "event") {
@@ -617,7 +662,7 @@ async function handle(request) {
     }
     if (r.stream) {
       memCache.set(cacheKey, { ts: Date.now(), url: r.stream });
-      const ttl = streamCacheTtl(r.stream);
+      const ttl = streamCacheTtl(r.stream, kind, id);
       if (ttl > 0) await kvPut(cacheKey, r.stream, { expirationTtl: ttl });
     }
     if (!r.stream) return jsonResponse({ ok: false, id, kind, error: "stream unavailable" }, 502);

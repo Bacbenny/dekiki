@@ -10,9 +10,11 @@ function createWorkerContext(bindings = {}) {
     URL,
     Date,
     atob,
+    AbortController,
     Request,
     Response,
     setTimeout,
+    clearTimeout,
     addEventListener() {},
     ...bindings,
   });
@@ -58,8 +60,93 @@ assert.equal(
   }),
   false,
 );
+assert.equal(
+  context.streamCacheIsFresh(
+    { url: authUrl, ts: Date.now() - 181_000 },
+    "channel",
+    "174",
+  ),
+  false,
+);
+assert.ok(context.streamCacheTtl(authUrl, "channel", "174") <= 180);
 
 (async () => {
+  const keyIdUuid = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
+  const workerKey = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
+  const normalizedKey = context.clearKeyOf({
+    clearKey: { keyId: `urn:uuid:${keyIdUuid}`, key: `0x${workerKey}` },
+  });
+  assert.equal(normalizedKey.keyId, "a".repeat(32));
+  assert.equal(normalizedKey.key, workerKey);
+  assert.equal(
+    context.clearKeyOf({ clearKey: { keyId: "bad", key: "bad" } }),
+    null,
+  );
+
+  const drmContext = createWorkerContext();
+  const pathKeys = {
+    "/api/tv/channels/174/stream": {
+      url: "https://cdn.example/key-first.mpd",
+      clearKey: { keyId: "a".repeat(32), key: "1".repeat(32) },
+    },
+    "/api/tv/channel/174/stream": {
+      url: "https://cdn.example/key-second.mpd",
+      clearKey: { keyId: "b".repeat(32), key: "2".repeat(32) },
+    },
+  };
+  drmContext.fetch = async (input) => {
+    const url = String(input);
+    const payload = Object.entries(pathKeys).find(([path]) => url.includes(path));
+    return new Response(
+      JSON.stringify(
+        payload
+          ? payload[1]
+          : { url: "https://cdn.example/no-key.mpd" },
+      ),
+      { status: 200, headers: { "content-type": "application/json" } },
+    );
+  };
+  const drmResult = await drmContext.resolveChannelStream("174", "session=valid");
+  assert.equal(drmResult.stream, "https://cdn.example/key-first.mpd");
+  assert.equal(drmResult.clearKey.keyId, "a".repeat(32));
+
+  const infoContext = createWorkerContext();
+  infoContext.FILM4K_USERNAME = "test-user";
+  infoContext.FILM4K_PASSWORD = "test-password";
+  vm.runInContext(
+    "memCache.set(STREAM_CACHE_NAMESPACE + ':channel:174', " +
+      "{ ts: Date.now(), url: 'https://cdn.example/old.mpd' })",
+    infoContext,
+  );
+  let streamInfoCalls = 0;
+  infoContext.fetch = async (input) => {
+    if (String(input).endsWith("/api/auth/signin")) {
+      return new Response(null, {
+        status: 200,
+        headers: { "set-cookie": "session=stream-info; Path=/" },
+      });
+    }
+    streamInfoCalls += 1;
+    return new Response(
+      JSON.stringify({
+        url: "https://cdn.example/fresh.mpd",
+        clearKey: {
+          keyId: `urn:uuid:${keyIdUuid}`,
+          key: `0x${workerKey}`,
+        },
+      }),
+      { status: 200, headers: { "content-type": "application/json" } },
+    );
+  };
+  const infoResponse = await infoContext.handle(
+    new Request("https://worker.example/film4k/stream-info/channel/174"),
+  );
+  const infoBody = await infoResponse.json();
+  assert.equal(infoBody.cached, false);
+  assert.equal(infoBody.stream_url, "https://cdn.example/fresh.mpd");
+  assert.equal(infoBody.clearKey.keyId, "a".repeat(32));
+  assert.ok(streamInfoCalls > 0);
+
   context.FILM4K_USERNAME = "test-user";
   context.FILM4K_PASSWORD = "test-password";
   const cookies = [];

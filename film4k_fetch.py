@@ -333,6 +333,18 @@ def _channel_id(channel: dict) -> str:
     )
 
 
+def _clear_key_value(value: object, *, key_id: bool = False) -> str | None:
+    if not isinstance(value, str):
+        return None
+    normalized = value.strip().lower()
+    if key_id and normalized.startswith("urn:uuid:"):
+        normalized = normalized[len("urn:uuid:") :]
+    if normalized.startswith("0x"):
+        normalized = normalized[2:]
+    normalized = normalized.strip("{}").replace("-", "")
+    return normalized if re.fullmatch(r"[0-9a-f]{32}", normalized) else None
+
+
 def _clear_key(payload: object, depth: int = 0) -> dict[str, str] | None:
     if depth > 6 or payload is None:
         return None
@@ -345,10 +357,17 @@ def _clear_key(payload: object, depth: int = 0) -> dict[str, str] | None:
     if not isinstance(payload, dict):
         return None
     candidate = payload.get("clearKey") or payload.get("clear_key")
+    if candidate is None and (
+        "keyId" in payload or "key_id" in payload
+    ):
+        candidate = payload
     if isinstance(candidate, dict):
-        key_id = candidate.get("keyId") or candidate.get("key_id")
-        key = candidate.get("key")
-        if isinstance(key_id, str) and isinstance(key, str) and key_id and key:
+        key_id = _clear_key_value(
+            candidate.get("keyId") or candidate.get("key_id"),
+            key_id=True,
+        )
+        key = _clear_key_value(candidate.get("key"))
+        if key_id and key:
             return {"keyId": key_id, "key": key}
     for child in payload.values():
         found = _clear_key(child, depth + 1)
@@ -357,8 +376,10 @@ def _clear_key(payload: object, depth: int = 0) -> dict[str, str] | None:
     return None
 
 
-def _fetch_worker_clear_key(channel_id: str, is_event: bool = False) -> dict[str, str] | None:
-    """Ask the Worker for stream-info — it sees the same DRM/clearKey the player will get."""
+def _fetch_worker_stream_info(
+    channel_id: str, is_event: bool = False
+) -> tuple[str, dict[str, str] | None]:
+    """Get a fresh URL/key pair from the Worker when direct API results lack a key."""
     kind = "event" if is_event else "channel"
     try:
         response = requests.get(
@@ -368,15 +389,14 @@ def _fetch_worker_clear_key(channel_id: str, is_event: bool = False) -> dict[str
         )
         if response.ok:
             data = response.json()
-            clear_key = data.get("clearKey")
-            if isinstance(clear_key, dict):
-                key_id = clear_key.get("keyId")
-                key = clear_key.get("key")
-                if isinstance(key_id, str) and isinstance(key, str) and key_id and key:
-                    return {"keyId": key_id, "key": key}
+            if isinstance(data, dict):
+                stream_url = data.get("stream_url", "")
+                clear_key = _clear_key(data)
+                if _is_http_url(stream_url) and clear_key:
+                    return stream_url, clear_key
     except (requests.RequestException, ValueError):
         pass
-    return None
+    return "", None
 
 
 def _try_stream_path(channel_id: str, path: str, cookie: str) -> tuple[object, str]:
@@ -410,7 +430,7 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
         f"/api/tv/channel/{cid}/stream",
     ]
 
-    best_payload: object = None
+    results: dict[str, tuple[object, str]] = {}
     best_stream_url = ""
     best_clear_key: dict[str, str] | None = None
     with ThreadPoolExecutor(max_workers=3) as pool:
@@ -419,32 +439,39 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
             for path in paths
         }
         for future in as_completed(futures):
-            result_payload, result_url = future.result()
-            if result_url:
-                result_clear_key = _clear_key(result_payload)
-                if result_clear_key:
-                    best_payload = result_payload
-                    best_stream_url = result_url
-                    best_clear_key = result_clear_key
-                    break
-                if not best_stream_url:
-                    best_payload = result_payload
-                    best_stream_url = result_url
-                    best_clear_key = result_clear_key
-            elif result_payload is not None and best_payload is None:
-                best_payload = result_payload
+            results[futures[future]] = future.result()
 
-    if not best_stream_url and best_payload is not None:
-        best_stream_url = extract_stream_url(best_payload) if isinstance(best_payload, dict) else ""
+    # Keep the same endpoint priority as the Worker. This prevents a fast
+    # non-DRM response from being paired with a key from another response.
+    for path in paths:
+        result_payload, result_url = results.get(path, (None, ""))
+        if result_url:
+            result_clear_key = _clear_key(result_payload)
+            if result_clear_key:
+                best_stream_url = result_url
+                best_clear_key = result_clear_key
+                break
+            if not best_stream_url:
+                best_stream_url = result_url
+
     if not best_stream_url:
+        worker_stream_url, worker_clear_key = _fetch_worker_stream_info(channel_id)
+        if worker_stream_url:
+            resolved = dict(channel)
+            resolved["url"] = worker_stream_url
+            if worker_clear_key:
+                resolved["_film4k_clear_key"] = worker_clear_key
+            return resolved
         return fallback_channel
 
     resolved = dict(channel)
     resolved["url"] = best_stream_url
     if not best_clear_key:
-        best_clear_key = _clear_key(best_payload)
-    if not best_clear_key:
-        best_clear_key = _fetch_worker_clear_key(channel_id)
+        worker_stream_url, worker_clear_key = _fetch_worker_stream_info(channel_id)
+        if worker_stream_url and worker_clear_key:
+            best_stream_url = worker_stream_url
+            best_clear_key = worker_clear_key
+            resolved["url"] = worker_stream_url
     if best_clear_key:
         resolved["_film4k_clear_key"] = best_clear_key
     return resolved
@@ -471,37 +498,35 @@ def _resolve_one_event(event: dict, cookie: str) -> dict:
         f"/api/tv/event/{event_id}/stream",
         f"/api/tv/{event_id}/stream",
     ]
-    best_payload: object = None
+    results: dict[str, tuple[object, str]] = {}
     best_stream_url = ""
     best_clear_key: dict[str, str] | None = None
     with ThreadPoolExecutor(max_workers=3) as pool:
-        futures = [
-            pool.submit(_try_stream_path, raw_event_id, path, cookie)
+        futures = {
+            pool.submit(_try_stream_path, raw_event_id, path, cookie): path
             for path in paths
-        ]
+        }
         for future in as_completed(futures):
-            result_payload, stream_url = future.result()
-            result_clear_key = _clear_key(result_payload)
-            if stream_url and result_clear_key:
-                best_payload = result_payload
-                best_stream_url = stream_url
-                best_clear_key = result_clear_key
-                break
-            if stream_url and not best_stream_url:
-                best_payload = result_payload
-                best_stream_url = stream_url
-                best_clear_key = result_clear_key
-            elif result_payload is not None and (
-                best_payload is None or result_clear_key
-            ):
-                best_payload = result_payload
-                if not best_clear_key:
-                    best_clear_key = result_clear_key
+            results[futures[future]] = future.result()
+
+    for path in paths:
+        result_payload, stream_url = results.get(path, (None, ""))
+        result_clear_key = _clear_key(result_payload)
+        if stream_url and result_clear_key:
+            best_stream_url = stream_url
+            best_clear_key = result_clear_key
+            break
+        if stream_url and not best_stream_url:
+            best_stream_url = stream_url
 
     if not best_clear_key:
-        best_clear_key = _clear_key(best_payload)
-    if not best_clear_key:
-        best_clear_key = _fetch_worker_clear_key(raw_event_id, is_event=True)
+        worker_stream_url, worker_clear_key = _fetch_worker_stream_info(
+            raw_event_id,
+            is_event=True,
+        )
+        if worker_stream_url and worker_clear_key:
+            best_stream_url = worker_stream_url
+            best_clear_key = worker_clear_key
     if not best_clear_key:
         return event
     resolved = dict(event)
@@ -565,9 +590,16 @@ def _normalize_group(value: str) -> str:
 
 def _canonical_reference_group(value: str) -> str:
     group = value.strip()
-    if group.casefold() == "vtvcab":
-        return "VTVcab"
-    return group
+    canonical_names = {
+        "vtvcab": "VTVcab",
+        "diaphuong": "Địa Phương",
+        "quocte": "Quốc Tế",
+        "sukientv360": "Sự Kiện TV360",
+        "sukienvtvprime": "Sự Kiện VTVPrime",
+        "thietyeu": "Thiết Yếu",
+        "sportuk": "SportUK",
+    }
+    return canonical_names.get(_normalize_group(group), group)
 
 
 def _normalize_channel_name(value: str) -> str:
@@ -994,8 +1026,8 @@ def generate_m3u(
                 channel_id = _channel_id(tv360_channel) if tv360_channel else ""
                 if tv360_channel and channel_id:
                     event_record["_stream_channel_id"] = channel_id
-                    channel_clear_key = tv360_channel.get("_film4k_clear_key") or tv360_channel.get("clearKey")
-                    if isinstance(channel_clear_key, dict):
+                    channel_clear_key = _clear_key(tv360_channel)
+                    if channel_clear_key:
                         event_record["_film4k_clear_key"] = channel_clear_key
                 if tv360_channel and channel_id:
                     event_stream_url = _worker_stream_url(tv360_channel)
@@ -1018,18 +1050,14 @@ def generate_m3u(
                     f'tvg-logo="{_attribute(logo)}" '
                     f'group-title="Sự Kiện TV360",{name}'
                 )
-                clear_key = (
-                    event_record.get("_film4k_clear_key")
-                    or event.get("clearKey")
-                    or event.get("clear_key")
-                )
-                if isinstance(clear_key, dict):
-                    key_id = clear_key.get("keyId") or clear_key.get("key_id")
-                    key = clear_key.get("key")
-                    if isinstance(key_id, str) and isinstance(key, str) and key_id and key:
-                        lines.append("#KODIPROP:inputstream.adaptive.manifest_type=mpd")
-                        lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
-                        lines.append(f"#KODIPROP:inputstream.adaptive.license_key={key_id}:{key}")
+                clear_key = _clear_key(event_record) or _clear_key(event)
+                if clear_key:
+                    lines.append("#KODIPROP:inputstream.adaptive.manifest_type=mpd")
+                    lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
+                    lines.append(
+                        f"#KODIPROP:inputstream.adaptive.license_key="
+                        f"{clear_key['keyId']}:{clear_key['key']}"
+                    )
                 lines.append(event_stream_url)
                 count += 1
                 event_count += 1
@@ -1212,31 +1240,25 @@ def generate_m3u(
                         tvg_id = TVG_ID_OVERRIDES[variant]
                         break
 
+            clear_key = _clear_key(channel)
+            if "onfootball" in _channel_name_variants(name) and not clear_key:
+                raise Film4kError(
+                    "On Football is missing a valid ClearKey; refusing to publish."
+                )
+
             lines.append(
                 f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
                 f'tvg-name="{_attribute(name)}" tvg-logo="{_attribute(logo)}" '
                 f'group-title="{_attribute(group)}",{name}'
             )
 
-            clear_key = channel.get("_film4k_clear_key") or channel.get("clearKey")
-            if isinstance(clear_key, dict):
-                key_id = clear_key.get("keyId")
-                key = clear_key.get("key")
-                if (
-                    isinstance(key_id, str)
-                    and isinstance(key, str)
-                    and key_id
-                    and key
-                ):
-                    lines.append(
-                        "#KODIPROP:inputstream.adaptive.manifest_type=mpd"
-                    )
-                    lines.append(
-                        "#KODIPROP:inputstream.adaptive.license_type=clearkey"
-                    )
-                    lines.append(
-                        f"#KODIPROP:inputstream.adaptive.license_key={key_id}:{key}"
-                    )
+            if clear_key:
+                lines.append("#KODIPROP:inputstream.adaptive.manifest_type=mpd")
+                lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
+                lines.append(
+                    f"#KODIPROP:inputstream.adaptive.license_key="
+                    f"{clear_key['keyId']}:{clear_key['key']}"
+                )
 
             lines.append(stream_url)
             count += 1

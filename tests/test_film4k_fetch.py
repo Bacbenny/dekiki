@@ -80,6 +80,7 @@ class Film4kPlaylistTests(unittest.TestCase):
             "name": "On Football",
             "group": "kenhvtvcab",
             "logo": "https://cdn.example/on-football.png",
+            "clearKey": {"keyId": "a" * 32, "key": "1" * 32},
         }
 
         playlist, _, _, _ = film4k_fetch.generate_m3u(
@@ -105,6 +106,130 @@ class Film4kPlaylistTests(unittest.TestCase):
         self.assertEqual(entries[0]["group"], "VTVcab")
         self.assertIn('group-title="VTVcab"', entries[0]["lines"][0])
 
+    def test_reference_dia_phuong_group_case_is_canonicalized(self):
+        reference = "\n".join(
+            [
+                "#EXTM3U",
+                '#EXTINF:-1 tvg-name="Reference Local" '
+                'tvg-logo="https://cdn.example/reference.png" '
+                'group-title="Địa phương",Reference Local',
+                "https://cdn.example/reference-local.m3u8",
+            ]
+        )
+        groups, reference_channels, entries = (
+            film4k_fetch.parse_reference_playlist(reference)
+        )
+        channel = {
+            "id": "local-1",
+            "name": "Local News",
+            "group": "kenhdiaphuong",
+            "logo": "https://cdn.example/local.png",
+        }
+
+        playlist, _, _, _ = film4k_fetch.generate_m3u(
+            [channel], [], groups, reference_channels, entries
+        )
+
+        self.assertIn("Địa Phương", groups)
+        self.assertIn('group-title="Địa Phương"', playlist)
+
+    def test_clear_key_is_normalized_and_malformed_values_are_rejected(self):
+        normalized = film4k_fetch._clear_key(
+            {
+                "clearKey": {
+                    "keyId": "urn:uuid:AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA",
+                    "key": "0xBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+                }
+            }
+        )
+
+        self.assertEqual(
+            normalized,
+            {"keyId": "a" * 32, "key": "b" * 32},
+        )
+        self.assertIsNone(
+            film4k_fetch._clear_key(
+                {"clearKey": {"keyId": "not-a-kid", "key": "not-a-key"}}
+            )
+        )
+
+    def test_onfootball_fails_closed_without_a_valid_clear_key(self):
+        channel = {
+            "id": "channel-174",
+            "name": "VTVcab 16 - On Football HD",
+            "group": "kenhvtvcab",
+            "logo": "https://cdn.example/on-football.png",
+        }
+
+        with self.assertRaisesRegex(
+            film4k_fetch.Film4kError, "On Football is missing a valid ClearKey"
+        ):
+            film4k_fetch.generate_m3u([channel], [], self.groups, {}, [])
+
+    def test_channel_resolver_keeps_url_and_clear_key_from_same_priority_path(self):
+        key_first = {"keyId": "a" * 32, "key": "1" * 32}
+        key_second = {"keyId": "b" * 32, "key": "2" * 32}
+
+        def resolve_path(channel_id, path, cookie):
+            if path.endswith("/stream") and "/channels/" not in path and "/channel/" not in path:
+                return (
+                    {"url": "https://cdn.example/no-key.mpd"},
+                    "https://cdn.example/no-key.mpd",
+                )
+            if "/channels/" in path:
+                return (
+                    {
+                        "url": "https://cdn.example/key-first.mpd",
+                        "clearKey": key_first,
+                    },
+                    "https://cdn.example/key-first.mpd",
+                )
+            return (
+                {
+                    "url": "https://cdn.example/key-second.mpd",
+                    "clearKey": key_second,
+                },
+                "https://cdn.example/key-second.mpd",
+            )
+
+        channel = {
+            "id": "174",
+            "name": "On Football",
+            "group": "kenhvtvcab",
+        }
+        with patch.object(film4k_fetch, "_try_stream_path", side_effect=resolve_path):
+            resolved = film4k_fetch._resolve_one_channel(channel, "test-session")
+
+        self.assertEqual(resolved["url"], "https://cdn.example/key-first.mpd")
+        self.assertEqual(resolved["_film4k_clear_key"], key_first)
+
+    def test_channel_resolver_uses_worker_url_with_its_fallback_key(self):
+        worker_key = {"keyId": "c" * 32, "key": "3" * 32}
+        channel = {
+            "id": "174",
+            "name": "On Football",
+            "group": "kenhvtvcab",
+        }
+        with (
+            patch.object(
+                film4k_fetch,
+                "_try_stream_path",
+                return_value=(
+                    {"url": "https://cdn.example/no-key.mpd"},
+                    "https://cdn.example/no-key.mpd",
+                ),
+            ),
+            patch.object(
+                film4k_fetch,
+                "_fetch_worker_stream_info",
+                return_value=("https://cdn.example/worker-pair.mpd", worker_key),
+            ),
+        ):
+            resolved = film4k_fetch._resolve_one_channel(channel, "test-session")
+
+        self.assertEqual(resolved["url"], "https://cdn.example/worker-pair.mpd")
+        self.assertEqual(resolved["_film4k_clear_key"], worker_key)
+
     def test_vtvcab_channels_keep_the_original_order_and_group_position(self):
         channels = [
             {
@@ -118,6 +243,7 @@ class Film4kPlaylistTests(unittest.TestCase):
                 "name": "VTVcab 16 - On Football HD",
                 "group": "kenhvtvcab",
                 "logo": "https://cdn.example/football.png",
+                "clearKey": {"keyId": "a" * 32, "key": "1" * 32},
             },
             {
                 "id": "on-sports",
