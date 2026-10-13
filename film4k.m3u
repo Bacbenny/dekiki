@@ -580,6 +580,9 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10013
 #EXTINF:-1 tvg-id="10045" tvg-name="360 Thiếu Nhi" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/06/18/13/1781765362332/737c1501b0c5_480_270.png" group-title="Sự Kiện TV360",360 Thiếu Nhi
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10045
 #EXTINF:-1 tvg-id="10055" tvg-name="360 Phim 4K" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/07/30/10/1785382803894/362700e9107b_480_270.png" group-title="Sự Kiện TV360",360 Phim 4K
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=f235e24690cd44febbcb27689f83c599:ada209f91f94276dcf6d76a506a03c8e
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10055
 #EXTINF:-1 group-title="Sự Kiện VTVPrime" tvg-logo="https://vtvprime.vn/sideLogoBig.png", VTVPrime 1
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
