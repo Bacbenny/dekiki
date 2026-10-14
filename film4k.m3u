@@ -84,7 +84,7 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/169
 #EXTINF:-1 tvg-id="360phimaumy" tvg-name="Phim Âu Mỹ" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/09/08/1775697767861/9a6dc88794cf_480_270.png" group-title="VTVcab",Phim Âu Mỹ
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=9eb83ac0ae4449068a8fef76e54f91c7:4c5ae4ba3a0fc97c64af2ea10cc35387
+#KODIPROP:inputstream.adaptive.license_key=4a62eaae61994aa6894f86fbfc1c7e26:0c44332b5e71d9c1d7f16aa4a7acd439
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9903
 #EXTINF:-1 tvg-id="360hoathinh" tvg-name="Hoạt hình" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/08/03/16/178574886930/9daa0ca42fd8_480_270.png" group-title="VTVcab",Hoạt hình
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -483,11 +483,6 @@ http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/9XRHZ7MZ9PNWS6/6564/inde
 http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/9XRHZ7MZ9PNWS6/9314/index.m3u8
 #EXTINF:-1 tvg-id="4578" tvg-name="Sky Sports Golf" tvg-logo="https://static.antsports.tv/tvlogo/sky-sports-golf.png" group-title="SportUK",Sky Sports Golf
 http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/9XRHZ7MZ9PNWS6/9293/index.m3u8
-#EXTINF:-1 tvg-id="2458" tvg-name="Bóng đá: AFC Champions League Two 2026/27 Lượt 2: Persib Bandung vs Thể Công - Viettel, 19 giờ 15 phút , ngày 14/10, Kênh TV360+ 4" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/07/17/1791370145570/3c378cd410e1_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: AFC Champions League Two 2026/27 Lượt 2: Persib Bandung vs Thể Công - Viettel, 19 giờ 15 phút , ngày 14/10, Kênh TV360+ 4
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=f6ae18fbe05a596da5c9ea312d3257e2:9e1eda8e6c4405c3751300309eb5822c
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2458
 #EXTINF:-1 tvg-id="1" tvg-name="Bóng đá: UEFA Champions League 2026/27: LASK vs Liverpool, 23 giờ 45 phút, ngày 14/10, Kênh TV360+ 2" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/13/18/1791891087358/12ab1bcf566f_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: UEFA Champions League 2026/27: LASK vs Liverpool, 23 giờ 45 phút, ngày 14/10, Kênh TV360+ 2
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
@@ -498,11 +493,11 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/1
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=47404f622db3536c867b2545581aadb4:9fbdc12cfe74564fd4329baa6a6d1968
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2554
-#EXTINF:-1 tvg-id="9867" tvg-name="Bóng đá: AFC Champions League Two 2026/27 Lượt 2: Nasaf vs Al Wahda, 20 giờ 45 phút , ngày 14/10, Kênh TV360+ 5" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/07/17/1791370696682/e99953a323dc_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: AFC Champions League Two 2026/27 Lượt 2: Nasaf vs Al Wahda, 20 giờ 45 phút , ngày 14/10, Kênh TV360+ 5
+#EXTINF:-1 tvg-id="2458" tvg-name="Bóng đá: UEFA Champions League 2026/27: Man City vs Paris SG, 2 giờ , ngày 15/10, TV360+ 4" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/14/08/1791940926580/19f5f9ce0105_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: UEFA Champions League 2026/27: Man City vs Paris SG, 2 giờ , ngày 15/10, TV360+ 4
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=edfa094d8ac55cf98f5867128a926aa7:0e10fa6099105e2e0a7ce1e34e9c0230
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9867
+#KODIPROP:inputstream.adaptive.license_key=f6ae18fbe05a596da5c9ea312d3257e2:9e1eda8e6c4405c3751300309eb5822c
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2458
 #EXTINF:-1 tvg-id="148" tvg-name="Bóng đá: UEFA Champions League 2026/27: Bodo/Glimt vs Borussia Dortmund, 2 giờ, ngày 15/10, Kênh TV360+ 3" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/13/18/179189227922/62005baefbe6_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: UEFA Champions League 2026/27: Bodo/Glimt vs Borussia Dortmund, 2 giờ, ngày 15/10, Kênh TV360+ 3
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
@@ -510,6 +505,11 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9867
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/148
 #EXTINF:-1 tvg-id="10009" tvg-name="Phim hành động Châu Á" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/14/14/1791964597255/f8c3e9d644b3_1280_720.png" group-title="Sự Kiện TV360",Phim hành động Châu Á
 https://dekki.bacbenny95.workers.dev/film4k/stream/event/10009
+#EXTINF:-1 tvg-id="tv360plus5" tvg-name="TV360+ 5" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267019948/634cdb439c75_480_270.png" group-title="Sự Kiện TV360",TV360+ 5
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=ad06f4610c564dc78f5955b71fa85fe8:0ebfe0ecc37ddb67b2bc9580e1b8fbed
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9867
 #EXTINF:-1 tvg-id="tv360plus6" tvg-name="TV360+ 6" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267080314/d06a99b5bd9c_480_270.png" group-title="Sự Kiện TV360",TV360+ 6
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
@@ -572,6 +572,9 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10020
 #EXTINF:-1 tvg-id="10021" tvg-name="360 Tennis" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/16/15/177632805669/a8c9881d6b08_480_270.png" group-title="Sự Kiện TV360",360 Tennis
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10021
 #EXTINF:-1 tvg-id="10008" tvg-name="360 Hoa Ngữ" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/09/08/1775697736867/3854900b7263_480_270.png" group-title="Sự Kiện TV360",360 Hoa Ngữ
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=fe82aca5f8ce4623bb6d901c199410c2:1400c6003bfcf029081c92f13983ebe2
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10008
 #EXTINF:-1 tvg-id="10009" tvg-name="360 Hành động Châu Á" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/08/10/1775617851169/1f38a5af77c1_480_270.png" group-title="Sự Kiện TV360",360 Hành động Châu Á
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10009
@@ -582,7 +585,7 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10011
 #EXTINF:-1 tvg-id="10012" tvg-name="360 Phim Kinh điển" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/13/13/1776063200976/6ced2ef539a4_480_270.png" group-title="Sự Kiện TV360",360 Phim Kinh điển
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=cf0a0f9973654ba7a6ac258769ab8393:edcd40e13d994e9ff17c755a423ec810
+#KODIPROP:inputstream.adaptive.license_key=72a5cd4f0c1b470bad5eb8dbd39ec0bd:6a5e926479e1faf3b83aa0378cc93973
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10012
 #EXTINF:-1 tvg-id="10013" tvg-name="360 Anime" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/13/13/1776063223569/462daff06d9d_480_270.png" group-title="Sự Kiện TV360",360 Anime
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10013
