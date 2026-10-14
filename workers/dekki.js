@@ -14,7 +14,7 @@ const UNKNOWN_STREAM_TTL = 180;
 const CATALOG_TTL = 120;     // 2 min — channel list cache
 const EDGE_CACHE_302 = 300;  // 5 min — edge cache for 302 redirects on cache hits
 const TOKEN_SAFETY_WINDOW = 120;
-const STREAM_CACHE_NAMESPACE = "stream:v4";
+const STREAM_CACHE_NAMESPACE = "stream:v5";
 // The current Film4k OnFootball stream is channel ID 174. Its URL and ClearKey
 // must come from the same API response; other channels keep the fast first-hit path.
 const CLEARKEY_CHANNEL_IDS = new Set(["174"]);

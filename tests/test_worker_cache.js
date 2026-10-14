@@ -135,7 +135,7 @@ assert.ok(context.streamCacheTtl(authUrl, "channel", "174") <= 180);
   assert.equal(noKeyCalls, 6, "the protected stream is retried once, then fails closed");
   assert.equal(
     vm.runInContext(
-      "memCache.has('stream:v4:channel:174')",
+      "memCache.has('stream:v5:channel:174')",
       noKeyContext,
     ),
     false,
