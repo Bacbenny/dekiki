@@ -268,8 +268,17 @@ async function raceStream(paths, cookie, preferClearKey = false) {
     const successful = results
       .filter((result) => result.status === "fulfilled")
       .map((result) => result.value);
+    const keyedResult = successful.find((result) => result.clearKey);
+    if (keyedResult) return keyedResult;
+    // A URL without its ClearKey can point at a different, non-playable
+    // provider path. Retry rather than redirecting a protected channel to it.
     if (successful.length) {
-      return successful.find((result) => result.clearKey) || successful[0];
+      return {
+        stream: "",
+        clearKey: null,
+        authFailure: false,
+        retryableFailure: true,
+      };
     }
     return streamFailureResult(
       results

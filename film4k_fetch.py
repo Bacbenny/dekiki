@@ -376,6 +376,13 @@ def _clear_key(payload: object, depth: int = 0) -> dict[str, str] | None:
     return None
 
 
+def _resolved_clear_key(payload: object) -> dict[str, str] | None:
+    """Prefer the key paired by the stream resolver over catalog metadata."""
+    if isinstance(payload, dict) and "_film4k_clear_key" in payload:
+        return _clear_key(payload["_film4k_clear_key"])
+    return _clear_key(payload)
+
+
 def _fetch_worker_stream_info(
     channel_id: str, is_event: bool = False
 ) -> tuple[str, dict[str, str] | None]:
@@ -419,8 +426,18 @@ def _try_stream_path(channel_id: str, path: str, cookie: str) -> tuple[object, s
 
 def _resolve_one_channel(channel: dict, cookie: str) -> dict:
     fallback_channel = channel
+    name = _first_text(
+        channel,
+        ("name", "title", "channel_name", "channelName", "label"),
+    )
+    requires_clear_key = any(
+        "onfootball" in _normalize_channel_name(variant)
+        for variant in _channel_name_variants(name)
+    )
     channel_id = _channel_id(channel)
     if not channel_id:
+        if requires_clear_key:
+            raise Film4kError("On Football has no stable channel ID; refusing to resolve it.")
         return channel
 
     cid = quote(channel_id, safe="")
@@ -461,6 +478,12 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
             resolved["url"] = worker_stream_url
             if worker_clear_key:
                 resolved["_film4k_clear_key"] = worker_clear_key
+            elif requires_clear_key:
+                resolved["_film4k_clear_key"] = None
+            return resolved
+        if requires_clear_key:
+            resolved = dict(channel)
+            resolved["_film4k_clear_key"] = None
             return resolved
         return fallback_channel
 
@@ -474,6 +497,10 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
             resolved["url"] = worker_stream_url
     if best_clear_key:
         resolved["_film4k_clear_key"] = best_clear_key
+    elif requires_clear_key:
+        # Do not let an older key embedded in the catalog survive a failed
+        # live stream lookup and get published beside an unrelated URL.
+        resolved["_film4k_clear_key"] = None
     return resolved
 
 
@@ -1026,7 +1053,7 @@ def generate_m3u(
                 channel_id = _channel_id(tv360_channel) if tv360_channel else ""
                 if tv360_channel and channel_id:
                     event_record["_stream_channel_id"] = channel_id
-                    channel_clear_key = _clear_key(tv360_channel)
+                    channel_clear_key = _resolved_clear_key(tv360_channel)
                     if channel_clear_key:
                         event_record["_film4k_clear_key"] = channel_clear_key
                 if tv360_channel and channel_id:
@@ -1050,7 +1077,7 @@ def generate_m3u(
                     f'tvg-logo="{_attribute(logo)}" '
                     f'group-title="Sự Kiện TV360",{name}'
                 )
-                clear_key = _clear_key(event_record) or _clear_key(event)
+                clear_key = _resolved_clear_key(event_record) or _resolved_clear_key(event)
                 if clear_key:
                     lines.append("#KODIPROP:inputstream.adaptive.manifest_type=mpd")
                     lines.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
@@ -1240,7 +1267,7 @@ def generate_m3u(
                         tvg_id = TVG_ID_OVERRIDES[variant]
                         break
 
-            clear_key = _clear_key(channel)
+            clear_key = _resolved_clear_key(channel)
             if "onfootball" in _channel_name_variants(name) and not clear_key:
                 raise Film4kError(
                     "On Football is missing a valid ClearKey; refusing to publish."

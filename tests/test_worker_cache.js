@@ -110,6 +110,38 @@ assert.ok(context.streamCacheTtl(authUrl, "channel", "174") <= 180);
   assert.equal(drmResult.stream, "https://cdn.example/key-first.mpd");
   assert.equal(drmResult.clearKey.keyId, "a".repeat(32));
 
+  const noKeyContext = createWorkerContext();
+  noKeyContext.FILM4K_USERNAME = "test-user";
+  noKeyContext.FILM4K_PASSWORD = "test-password";
+  let noKeyCalls = 0;
+  noKeyContext.fetch = async (input) => {
+    if (String(input).endsWith("/api/auth/signin")) {
+      return new Response(null, {
+        status: 200,
+        headers: { "set-cookie": "session=no-key; Path=/" },
+      });
+    }
+    noKeyCalls += 1;
+    return new Response(
+      JSON.stringify({ url: "https://prv.film4k.net/onfootball.mpd" }),
+      { status: 200, headers: { "content-type": "application/json" } },
+    );
+  };
+  const noKeyResponse = await noKeyContext.handle(
+    new Request("https://worker.example/film4k/stream/channel/174"),
+  );
+  assert.equal(noKeyResponse.status, 502);
+  assert.equal(noKeyResponse.headers.has("Location"), false);
+  assert.equal(noKeyCalls, 6, "the protected stream is retried once, then fails closed");
+  assert.equal(
+    vm.runInContext(
+      "memCache.has('stream:v4:channel:174')",
+      noKeyContext,
+    ),
+    false,
+    "a keyless protected stream must not be cached",
+  );
+
   const infoContext = createWorkerContext();
   infoContext.FILM4K_USERNAME = "test-user";
   infoContext.FILM4K_PASSWORD = "test-password";

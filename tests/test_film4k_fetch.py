@@ -169,6 +169,7 @@ class Film4kPlaylistTests(unittest.TestCase):
     def test_channel_resolver_keeps_url_and_clear_key_from_same_priority_path(self):
         key_first = {"keyId": "a" * 32, "key": "1" * 32}
         key_second = {"keyId": "b" * 32, "key": "2" * 32}
+        stale_catalog_key = {"keyId": "c" * 32, "key": "3" * 32}
 
         def resolve_path(channel_id, path, cookie):
             if path.endswith("/stream") and "/channels/" not in path and "/channel/" not in path:
@@ -196,12 +197,55 @@ class Film4kPlaylistTests(unittest.TestCase):
             "id": "174",
             "name": "On Football",
             "group": "kenhvtvcab",
+            "clearKey": stale_catalog_key,
         }
         with patch.object(film4k_fetch, "_try_stream_path", side_effect=resolve_path):
             resolved = film4k_fetch._resolve_one_channel(channel, "test-session")
 
         self.assertEqual(resolved["url"], "https://cdn.example/key-first.mpd")
         self.assertEqual(resolved["_film4k_clear_key"], key_first)
+        playlist, _, _, _ = film4k_fetch.generate_m3u(
+            [resolved], [], ["VTV", "VTVcab"], {}, []
+        )
+        self.assertIn(f"{key_first['keyId']}:{key_first['key']}", playlist)
+        self.assertNotIn(
+            f"{stale_catalog_key['keyId']}:{stale_catalog_key['key']}",
+            playlist,
+        )
+
+    def test_onfootball_does_not_publish_a_stale_catalog_key_after_resolution_fails(self):
+        stale_catalog_key = {"keyId": "c" * 32, "key": "3" * 32}
+        channel = {
+            "id": "174",
+            "name": "VTVcab 16 - On Football HD",
+            "group": "kenhvtvcab",
+            "clearKey": stale_catalog_key,
+        }
+        with (
+            patch.object(
+                film4k_fetch,
+                "_try_stream_path",
+                return_value=(
+                    {"url": "https://prv.film4k.net/onfootball.mpd"},
+                    "https://prv.film4k.net/onfootball.mpd",
+                ),
+            ),
+            patch.object(
+                film4k_fetch,
+                "_fetch_worker_stream_info",
+                return_value=("", None),
+            ),
+        ):
+            resolved = film4k_fetch._resolve_one_channel(channel, "test-session")
+
+        self.assertIsNone(resolved["_film4k_clear_key"])
+        with self.assertRaisesRegex(
+            film4k_fetch.Film4kError,
+            "On Football is missing a valid ClearKey",
+        ):
+            film4k_fetch.generate_m3u(
+                [resolved], [], ["VTV", "VTVcab"], {}, []
+            )
 
     def test_channel_resolver_uses_worker_url_with_its_fallback_key(self):
         worker_key = {"keyId": "c" * 32, "key": "3" * 32}
