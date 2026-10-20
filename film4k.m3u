@@ -487,24 +487,27 @@ http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/9XRHZ7MZ9PNWS6/9314/inde
 http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/9XRHZ7MZ9PNWS6/9310/index.m3u8
 #EXTINF:-1 tvg-id="4578" tvg-name="Sky Sports Golf" tvg-logo="" group-title="SportUK",Sky Sports Golf
 http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/9XRHZ7MZ9PNWS6/9293/index.m3u8
-#EXTINF:-1 tvg-id="10009" tvg-name="Phim hành động Châu Á" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/14/14/1791964597255/f8c3e9d644b3_1280_720.png" group-title="Sự Kiện TV360",Phim hành động Châu Á
-https://dekki.bacbenny95.workers.dev/film4k/stream/event/10009
-#EXTINF:-1 tvg-id="tv360plus1" tvg-name="TV360+ 1" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266760359/ba1ca843cd06_480_270.png" group-title="Sự Kiện TV360",TV360+ 1
+#EXTINF:-1 tvg-id="10024" tvg-name="Bi-a: Philippines Open Pool Championship 2026, Ngày 1, 11 giờ, ngày 20/10, Kênh TV360+ 15" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/19/14/1792396088443/47701d2a4026_1280_720.jpg" group-title="Sự Kiện TV360",Bi-a: Philippines Open Pool Championship 2026, Ngày 1, 11 giờ, ngày 20/10, Kênh TV360+ 15
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=fa4033841a70511c84a7fe7e0daf1a6a:237d5bce065aa40fc4c8839cd8827cd2
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10024
+#EXTINF:-1 tvg-id="2554" tvg-name="Bóng đá: UEFA Champions League 2026/27: Paris SG vs Barcelona, 2 giờ, ngày 21/10, Kênh TV360+ 1" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/16/17/1792146924602/d2242fb7f778_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: UEFA Champions League 2026/27: Paris SG vs Barcelona, 2 giờ, ngày 21/10, Kênh TV360+ 1
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=62cd425595ba45b0a3f80290510308b4:2fc95e0a371cd0ba343bc1d120dd9713
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2554
-#EXTINF:-1 tvg-id="tv360plus2" tvg-name="TV360+ 2" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266826697/9647033848f3_480_270.png" group-title="Sự Kiện TV360",TV360+ 2
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=2c24f672f7715433a83953e74ae564b1:10a63f9f2ccd81dfc4a05263c2fd1575
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/1
-#EXTINF:-1 tvg-id="tv360plus3" tvg-name="TV360+ 3" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266894249/af82cd28fcda_480_270.png" group-title="Sự Kiện TV360",TV360+ 3
+#EXTINF:-1 tvg-id="148" tvg-name="Bóng đá: UEFA Champions League 2026/27: Sabah vs Borussia Dortmund, 23 giờ 45 phút, ngày 20/10, Kênh TV360+ 3" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/16/17/179214629656/fe00ce0983ef_1280_720.jpg" group-title="Sự Kiện TV360",Bóng đá: UEFA Champions League 2026/27: Sabah vs Borussia Dortmund, 23 giờ 45 phút, ngày 20/10, Kênh TV360+ 3
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=8405a15e96b35497bde131a29e7fb67e:adb30d908915cf14760880240961a5ed
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/148
-#EXTINF:-1 tvg-id="tv360plus4" tvg-name="TV360+ 4" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266956801/9a85754a5bd9_480_270.png" group-title="Sự Kiện TV360",TV360+ 4
+#EXTINF:-1 tvg-id="1" tvg-name="Bóng đá: UEFA Champions League 2026/27: Liverpool vs Villarreal, 2 giờ, ngày 21/10, Kênh TV360+ 2" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/16/17/1792146567197/0a26cbf37f00_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: UEFA Champions League 2026/27: Liverpool vs Villarreal, 2 giờ, ngày 21/10, Kênh TV360+ 2
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=2c24f672f7715433a83953e74ae564b1:10a63f9f2ccd81dfc4a05263c2fd1575
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/1
+#EXTINF:-1 tvg-id="2458" tvg-name="Bóng đá: AFC Champions League Two 2026/27 Lượt 2: Man City vs AEK Athens, 2 giờ, ngày 21/10, Kênh TV360+ 4" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/16/11/1792124355487/18e99b1ede58_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: AFC Champions League Two 2026/27 Lượt 2: Man City vs AEK Athens, 2 giờ, ngày 21/10, Kênh TV360+ 4
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=f6ae18fbe05a596da5c9ea312d3257e2:9e1eda8e6c4405c3751300309eb5822c
@@ -550,11 +553,6 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10022
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=e57b008cedba5d12a192e66152bb61ca:a4b58d543b1c042f8b399f268040b623
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10023
-#EXTINF:-1 tvg-id="tv360plus15" tvg-name="TV360+ 15" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/05/15/01/1778783528367/ddfa21d56253_480_270.png" group-title="Sự Kiện TV360",TV360+ 15
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=fa4033841a70511c84a7fe7e0daf1a6a:237d5bce065aa40fc4c8839cd8827cd2
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10024
 #EXTINF:-1 tvg-id="9904" tvg-name="TV360" tvg-logo="https://img-zlr1.tv360.vn/image1/2025/09/17/17/175810574912/a5f8181388ab_480_270.png" group-title="Sự Kiện TV360",TV360
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9904
 #EXTINF:-1 tvg-id="9965" tvg-name="Livestream 01" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/09/18/1791545103696/96eed9b7eda2_480_270.png" group-title="Sự Kiện TV360",Livestream 01
