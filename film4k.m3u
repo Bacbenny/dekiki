@@ -42,7 +42,7 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/183
 #EXTINF:-1 tvg-id="178" tvg-name="VTVcab 16 - On Football HD" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650260303/bc7fe5334315_480_270.png" group-title="VTVcab",VTVcab 16 - On Football HD
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=2d33c568722543eab2c1f0ba5318a176:6e2743f51b802707dc84b46d1f044cef
+#KODIPROP:inputstream.adaptive.license_key=ee81a4d6a5545cbf82eba5cc5e47bd5b:2f1620db6eac3991f9d39eb8fad8d8dd
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/174
 #EXTINF:-1 tvg-id="170" tvg-name="VTVcab 18 - On Sports News" tvg-logo="https://img-zlr1.tv360.vn/image1/2023/04/28/09/1682650363143/71956aa35c78_480_270.png" group-title="VTVcab",VTVcab 18 - On Sports News
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -84,7 +84,7 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/169
 #EXTINF:-1 tvg-id="360phimaumy" tvg-name="Phim Âu Mỹ" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/09/08/1775697767861/9a6dc88794cf_480_270.png" group-title="VTVcab",Phim Âu Mỹ
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=6ecf28c730fb4e59846f3c3628ced393:92811f68b5e52abd3f77f11939594570
+#KODIPROP:inputstream.adaptive.license_key=172cb1671a9c470985a140ec36ec064f:b95c725a97d02c1f19d200fc81465623
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9903
 #EXTINF:-1 tvg-id="360hoathinh" tvg-name="Hoạt hình" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/08/03/16/178574886930/9daa0ca42fd8_480_270.png" group-title="VTVcab",Hoạt hình
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9934
@@ -478,16 +478,12 @@ http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/9XRHZ7MZ9PNWS6/6564/inde
 http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/9XRHZ7MZ9PNWS6/9314/index.m3u8
 #EXTINF:-1 tvg-id="4578" tvg-name="Sky Sports Golf" tvg-logo="" group-title="SportUK",Sky Sports Golf
 http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/9XRHZ7MZ9PNWS6/9293/index.m3u8
-#EXTINF:-1 tvg-id="9887" tvg-name="Bóng đá: VĐQG LPBank 2026/27 Vòng 5: Thể Công - Viettel vs Bắc Ninh,19 giờ 15 phút , ngày 23/10, Kênh TV360+ 9" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/22/09/1792634663446/336448d1ba21_1280_720.jpg" group-title="Sự Kiện TV360",Bóng đá: VĐQG LPBank 2026/27 Vòng 5: Thể Công - Viettel vs Bắc Ninh,19 giờ 15 phút , ngày 23/10, Kênh TV360+ 9
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9887
-#EXTINF:-1 tvg-id="10024" tvg-name="Bi-a: Philippines Open Pool Championship 2026, Ngày 4, 11 giờ, ngày 23/10, Kênh TV360+ 15" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/20/08/179245876883/8304b704d359_1280_720.jpg" group-title="Sự Kiện TV360",Bi-a: Philippines Open Pool Championship 2026, Ngày 4, 11 giờ, ngày 23/10, Kênh TV360+ 15
+#EXTINF:-1 tvg-id="10001" tvg-name="Đua xe: Formula 1 MSC Cruises United States Grand Prix 2026, Phiên đua tập 1, 0 giờ 30, ngày 24/10, Kênh TV360+ 12" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/21/16/1792575182961/964ec3bffd06_1280_720.jpg" group-title="Sự Kiện TV360",Đua xe: Formula 1 MSC Cruises United States Grand Prix 2026, Phiên đua tập 1, 0 giờ 30, ngày 24/10, Kênh TV360+ 12
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=fa4033841a70511c84a7fe7e0daf1a6a:237d5bce065aa40fc4c8839cd8827cd2
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10024
-#EXTINF:-1 tvg-id="9965" tvg-name="Show đồng hành thể thao: Khai cuộc Bundesliga, Kênh Livestream 01" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/23/17/179275273394/81fa67c85f6a_1280_720.jpg" group-title="Sự Kiện TV360",Show đồng hành thể thao: Khai cuộc Bundesliga, Kênh Livestream 01
-https://dekki.bacbenny95.workers.dev/film4k/stream/event/9965
-#EXTINF:-1 tvg-id="10001" tvg-name="Đua xe: Formula 1 MSC Cruises United States Grand Prix 2026, Phiên đua tập 1, 0 giờ 30, ngày 24/10, Kênh TV360+ 12" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/21/16/1792575182961/964ec3bffd06_1280_720.jpg" group-title="Sự Kiện TV360",Đua xe: Formula 1 MSC Cruises United States Grand Prix 2026, Phiên đua tập 1, 0 giờ 30, ngày 24/10, Kênh TV360+ 12
+#KODIPROP:inputstream.adaptive.license_key=6db5c5c963365f6fafa1a23b8a06bd67:1a0727fcea62de4e4471ebb0aaaec628
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10001
+#EXTINF:-1 tvg-id="10001" tvg-name="Đua xe: Formula 1 MSC Cruises United States Grand Prix 2026, Phiên đua tập 2, 4 giờ, ngày 24/10, Kênh TV360+ 12" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/21/16/1792575362545/4b59ef9f1e0a_1280_720.jpg" group-title="Sự Kiện TV360",Đua xe: Formula 1 MSC Cruises United States Grand Prix 2026, Phiên đua tập 2, 4 giờ, ngày 24/10, Kênh TV360+ 12
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=6db5c5c963365f6fafa1a23b8a06bd67:1a0727fcea62de4e4471ebb0aaaec628
@@ -527,13 +523,15 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9868
 #EXTINF:-1 tvg-id="tv360plus7" tvg-name="TV360+ 7" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/177626714329/4631db40bb03_480_270.png" group-title="Sự Kiện TV360",TV360+ 7
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=10244b0b86e45b5fa4d8089b24b5f566:b7bf64fad4622ec88e429409c2c9997d
+#KODIPROP:inputstream.adaptive.license_key=072f0a0d4eda40cbb04dfadf521a2b9f:2fb11373b36e018573d3b07132df050e
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9869
 #EXTINF:-1 tvg-id="tv360plus8" tvg-name="TV360+ 8" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267211780/516c4028c806_480_270.png" group-title="Sự Kiện TV360",TV360+ 8
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=1a08bd3a8c565cdfa4e01a0273915f40:d956d96ac3799d42441f582ec12f10df
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9870
+#EXTINF:-1 tvg-id="tv360plus9" tvg-name="TV360+ 9" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267283364/c30a206da84a_480_270.png" group-title="Sự Kiện TV360",TV360+ 9
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9887
 #EXTINF:-1 tvg-id="tv360plus10" tvg-name="TV360+ 10" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267388401/5f459b37721d_480_270.png" group-title="Sự Kiện TV360",TV360+ 10
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9957
 #EXTINF:-1 tvg-id="tv360plus11" tvg-name="TV360+ 11" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267558745/5fc303f5ba08_480_270.png" group-title="Sự Kiện TV360",TV360+ 11
@@ -548,6 +546,11 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10022
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=807890b3dba7517b90e568e8be4ddaa4:bb89427403116b132f9fbb34cd616347
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10023
+#EXTINF:-1 tvg-id="tv360plus15" tvg-name="TV360+ 15" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/05/15/01/1778783528367/ddfa21d56253_480_270.png" group-title="Sự Kiện TV360",TV360+ 15
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=fa4033841a70511c84a7fe7e0daf1a6a:237d5bce065aa40fc4c8839cd8827cd2
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10024
 #EXTINF:-1 tvg-id="9904" tvg-name="TV360" tvg-logo="https://img-zlr1.tv360.vn/image1/2025/09/17/17/175810574912/a5f8181388ab_480_270.png" group-title="Sự Kiện TV360",TV360
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9904
 #EXTINF:-1 tvg-id="9965" tvg-name="Livestream 01" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/09/18/1791545103696/96eed9b7eda2_480_270.png" group-title="Sự Kiện TV360",Livestream 01
