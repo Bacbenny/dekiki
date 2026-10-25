@@ -480,13 +480,16 @@ http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/9XRHZ7MZ9PNWS6/9293/inde
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=5a5dd595f9ae5299b5003e0d4e3e98f5:d9023b3b15ecbcc8115a49f576ed0799
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10001
-#EXTINF:-1 tvg-id="9957" tvg-name="Bóng đá: VĐQG LPBank 2026/27 Vòng 5: Ninh Bình vs Công an TP.HCM,18 giờ , ngày 25/10, Kênh TV360+ 10" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/22/09/1792635470376/5ac11402f160_1280_720.jpg" group-title="Sự Kiện TV360",Bóng đá: VĐQG LPBank 2026/27 Vòng 5: Ninh Bình vs Công an TP.HCM,18 giờ , ngày 25/10, Kênh TV360+ 10
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9957
 #EXTINF:-1 tvg-id="9867" tvg-name="Bóng đá: Bundesliga 2026/27 Vòng 7: Hoffenheim vs Bayer Leverkusen, 21 giờ 30 , ngày 25/10, Kênh TV360+ 5" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/21/16/179257383127/8d4ec3baa19e_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: Bundesliga 2026/27 Vòng 7: Hoffenheim vs Bayer Leverkusen, 21 giờ 30 , ngày 25/10, Kênh TV360+ 5
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=edfa094d8ac55cf98f5867128a926aa7:0e10fa6099105e2e0a7ce1e34e9c0230
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9867
+#EXTINF:-1 tvg-id="2458" tvg-name="Bóng đá: Bundesliga 2026/27 Vòng 7: Freiburg vs Bayern Munich, 23 giờ 30 , ngày 25/10, Kênh TV360+ 4" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/21/16/1792574178687/3396a63d5a89_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: Bundesliga 2026/27 Vòng 7: Freiburg vs Bayern Munich, 23 giờ 30 , ngày 25/10, Kênh TV360+ 4
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=f6ae18fbe05a596da5c9ea312d3257e2:9e1eda8e6c4405c3751300309eb5822c
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2458
 #EXTINF:-1 tvg-id="174" tvg-name="Bóng đá: VĐQG Tây Ban Nha Laliga 26/27 Vòng 10: Barcelona Vs Real Madrid, 3 giờ , ngày 26/10, Kênh On Football" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/23/12/1792733293971/21e0829efa6f_1280_720.jpg" group-title="Sự Kiện TV360",Bóng đá: VĐQG Tây Ban Nha Laliga 26/27 Vòng 10: Barcelona Vs Real Madrid, 3 giờ , ngày 26/10, Kênh On Football
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
@@ -494,11 +497,6 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9867
 https://dekki.bacbenny95.workers.dev/film4k/stream/event/174
 #EXTINF:-1 tvg-id="9934" tvg-name="Phim hoạt hình" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/15/15/1792054633803/a9a601bf9bf9_1280_720.jpg" group-title="Sự Kiện TV360",Phim hoạt hình
 https://dekki.bacbenny95.workers.dev/film4k/stream/event/9934
-#EXTINF:-1 tvg-id="2458" tvg-name="Bóng đá: Bundesliga 2026/27 Vòng 7: Freiburg vs Bayern Munich, 23 giờ 30 , ngày 25/10, Kênh TV360+ 4" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/10/21/16/1792574178687/3396a63d5a89_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: Bundesliga 2026/27 Vòng 7: Freiburg vs Bayern Munich, 23 giờ 30 , ngày 25/10, Kênh TV360+ 4
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=f6ae18fbe05a596da5c9ea312d3257e2:9e1eda8e6c4405c3751300309eb5822c
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2458
 #EXTINF:-1 tvg-id="tv360plus1" tvg-name="TV360+ 1" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776266760359/ba1ca843cd06_480_270.png" group-title="Sự Kiện TV360",TV360+ 1
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
@@ -531,6 +529,8 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9869
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9870
 #EXTINF:-1 tvg-id="tv360plus9" tvg-name="TV360+ 9" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267283364/c30a206da84a_480_270.png" group-title="Sự Kiện TV360",TV360+ 9
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9887
+#EXTINF:-1 tvg-id="tv360plus10" tvg-name="TV360+ 10" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267388401/5f459b37721d_480_270.png" group-title="Sự Kiện TV360",TV360+ 10
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9957
 #EXTINF:-1 tvg-id="tv360plus11" tvg-name="TV360+ 11" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/15/22/1776267558745/5fc303f5ba08_480_270.png" group-title="Sự Kiện TV360",TV360+ 11
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9958
 #EXTINF:-1 tvg-id="tv360plus13" tvg-name="TV360+ 13" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/05/15/01/1778782670293/dd4067f28084_480_270.png" group-title="Sự Kiện TV360",TV360+ 13
