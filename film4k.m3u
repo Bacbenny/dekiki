@@ -35,9 +35,6 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/19
 #KODIPROP:inputstream.adaptive.license_key=3f65c107c9904ca98ddd22671d5c89c3:e3c6fbe4cae8bbf13ed6a7be8e66aa55
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/173
 #EXTINF:-1 tvg-id="177" tvg-name="VTVcab 6 - On Sports +" tvg-logo="https://img-evg1.tv360.vn/image1/2023/04/28/09/1682650447548/72acfa0eca2c_480_270.png" group-title="VTVcab",VTVcab 6 - On Sports +
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=3ace637564945aa781240ac83152af30:45bde9320c88ffe42f582081bd5893e1
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/183
 #EXTINF:-1 tvg-id="178" tvg-name="VTVcab 16 - On Football HD" tvg-logo="https://img-evg1.tv360.vn/image1/2023/04/28/09/1682650260303/bc7fe5334315_480_270.png" group-title="VTVcab",VTVcab 16 - On Football HD
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
