@@ -153,7 +153,7 @@ class Film4kPlaylistTests(unittest.TestCase):
             )
         )
 
-    def test_onfootball_fails_closed_without_a_valid_clear_key(self):
+    def test_drm_channel_without_a_valid_clear_key_is_skipped(self):
         channel = {
             "id": "channel-174",
             "name": "VTVcab 16 - On Football HD",
@@ -162,7 +162,7 @@ class Film4kPlaylistTests(unittest.TestCase):
         }
 
         with self.assertRaisesRegex(
-            film4k_fetch.Film4kError, "is missing a valid ClearKey"
+            film4k_fetch.Film4kError, "could not be resolved to playable stream URLs"
         ):
             film4k_fetch.generate_m3u([channel], [], self.groups, {}, [])
 
@@ -240,12 +240,9 @@ class Film4kPlaylistTests(unittest.TestCase):
 
         self.assertIsNone(resolved["_film4k_clear_key"])
         with self.assertRaisesRegex(
-            film4k_fetch.Film4kError,
-            "is missing a valid ClearKey",
+            film4k_fetch.Film4kError, "could not be resolved to playable stream URLs"
         ):
-            film4k_fetch.generate_m3u(
-                [resolved], [], ["VTV", "VTVcab"], {}, []
-            )
+            film4k_fetch.generate_m3u([resolved], [], ["VTV", "VTVcab"], {}, [])
 
     def test_channel_resolver_uses_worker_url_with_its_fallback_key(self):
         worker_key = {"keyId": "c" * 32, "key": "3" * 32}
