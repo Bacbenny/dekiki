@@ -118,6 +118,23 @@ function idOf(item) {
   return text(item, ["id", "event_id", "channel_id", "channelId", "tvg_id", "tvgId", "slug", "code"]);
 }
 
+function recordKey(item) {
+  const id = idOf(item);
+  if (id) return `id:${id.toLowerCase()}`;
+  const name = text(item, ["name", "title", "event_name", "channel_name", "label"]);
+  return `name:${name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "")}`;
+}
+
+function uniqueRecords(items) {
+  const seen = new Set();
+  return items.filter((item) => {
+    const key = recordKey(item);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 function streamOf(value, depth = 0) {
   if (depth > 6 || value === null || value === undefined) return "";
   if (typeof value === "string" && /^https?:\/\//i.test(value)) return value;
@@ -451,7 +468,7 @@ async function loadCatalog() {
     ]);
     const rawEvents = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
     const channels = unwrap(channelsPayload, ["channels", "data", "items", "results"]);
-    const eventRecords = rawEvents.length
+    const eventRecords = uniqueRecords(rawEvents.length
       ? rawEvents
       : channels.filter((ch) => {
           if (String(ch.id || "").startsWith("ants:")) return false;
@@ -459,14 +476,14 @@ async function loadCatalog() {
           const name = String(ch.name || ch.title || "");
           return /event|sự kiện|sukien|trực tiếp|tructiep/i.test(groupText)
             || /^TV360\+\s*\d+/i.test(name);
-        });
+        }));
     // Use allSettled so one event failure doesn't discard all events.
     const eventResults = await Promise.allSettled(
       eventRecords.map((ev) => eventDetails(ev, cookie))
     );
-    const events = eventResults
+    const events = uniqueRecords(eventResults
       .filter((r) => r.status === "fulfilled")
-      .map((r) => r.value);
+      .map((r) => r.value));
     const data = { cookie, events, channels };
     memCache.set("catalog", { ts: Date.now(), data });
     return data;
@@ -494,11 +511,22 @@ async function playlist(request) {
   const catalog = await loadCatalog();
   const origin = new URL(request.url).origin;
   const lines = ["#EXTM3U"];
-  for (const item of catalog.events) {
+  const events = uniqueRecords(catalog.events);
+  const eventIds = new Set(events.map((item) => idOf(item)).filter(Boolean));
+  const eventNumbers = new Set(events.map((item) => {
+    const name = text(item, ["name", "title", "event_name", "label"]);
+    const match = name.match(/tv360\s*\+\s*(\d+)/i);
+    return match ? match[1] : "";
+  }).filter(Boolean));
+  for (const item of events) {
     const line = entry(item, "Sự Kiện TV360", "event", origin);
     if (line) lines.push(line);
   }
-  for (const item of catalog.channels) {
+  for (const item of uniqueRecords(catalog.channels)) {
+    const id = idOf(item);
+    const name = text(item, ["name", "title", "channel_name", "channelName", "label"]);
+    const match = name.match(/tv360\s*\+\s*(\d+)/i);
+    if (eventIds.has(id) || (match && eventNumbers.has(match[1]))) continue;
     const group = text(item, ["group", "category", "group_title"], "Film4k");
     const line = entry(item, group, "channel", origin);
     if (line) lines.push(line);
@@ -584,7 +612,7 @@ async function preWarm() {
   const eventsPayload = await apiJson(`/api/tv/events`, freshCookie).catch(() => null);
   const rawEvents = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
   const eventResults = await Promise.allSettled(rawEvents.map((ev) => eventDetails(ev, freshCookie)));
-  const events = eventResults.filter((r) => r.status === "fulfilled").map((r) => r.value);
+  const events = uniqueRecords(eventResults.filter((r) => r.status === "fulfilled").map((r) => r.value));
 
   // Resolve channel streams in parallel — batch to avoid overwhelming the API
   const eligible = channels.filter((ch) => {
