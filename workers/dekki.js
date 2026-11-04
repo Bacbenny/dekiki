@@ -19,11 +19,9 @@ const STREAM_CACHE_NAMESPACE = "stream:v5";
 // from the same API response. Other channels use dynamic detection: if any
 // endpoint returns a key, the keyed result is preferred over URL-only results.
 const CLEARKEY_CHANNEL_IDS = new Set([
-  "174",   // On Football
-  "173",   // On Sports
-  "183",   // On Sports +
-  "170",   // On Sports News
-  "9903",  // Phim Âu Mỹ
+  "170", "173", "174", "176", "177", "179", "180", "181", "182",
+  "183", "184", "185", "186", "187", "188", "189", "2458", "9903",
+  "10001", "10022", "10023", "10024", "10067",
 ]);
 const CLEARKEY_LOOKUP_TIMEOUT_MS = 8000;
 
@@ -119,9 +117,11 @@ function idOf(item) {
 }
 
 function recordKey(item) {
+  const name = text(item, ["name", "title", "event_name", "channel_name", "label"]);
+  const match = name.match(/tv360\s*\+\s*(\d+)/i);
+  if (match) return `tv360:${match[1]}`;
   const id = idOf(item);
   if (id) return `id:${id.toLowerCase()}`;
-  const name = text(item, ["name", "title", "event_name", "channel_name", "label"]);
   return `name:${name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "")}`;
 }
 
