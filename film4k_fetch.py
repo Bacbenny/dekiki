@@ -1316,9 +1316,8 @@ def generate_m3u(
 
             clear_key = _resolved_clear_key(channel)
             if requires_clear_key and not clear_key:
-                raise Film4kError(
-                    f"{name} is missing a valid ClearKey; refusing to publish."
-                )
+                print(f"[film4k] Skipping {name}: no valid ClearKey was resolved.", file=sys.stderr)
+                continue
 
             lines.append(
                 f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
