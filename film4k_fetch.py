@@ -254,14 +254,20 @@ def fetch_channels() -> tuple[list[dict], str]:
 def fetch_events(cookie: str) -> list[dict]:
     # Try the Worker endpoint first — it returns real sports events with proper
     # title/stream_url/clearKey fields, already resolved from film4k.net API.
+    # Use fresh=1 to bypass the 2-minute catalog cache, which can return stale
+    # or empty events if the API transiently failed during the last cache fill.
     try:
         response = requests.get(
-            f"{WORKER_BASE}/film4k/events",
+            f"{WORKER_BASE}/film4k/events?fresh=1",
             headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
             timeout=30,
         )
         if response.ok:
-            events = _unwrap_channels(response.json())
+            payload = response.json()
+            if isinstance(payload, dict):
+                events = _unwrap_channels(payload)
+            else:
+                events = _unwrap_channels(payload)
             if events:
                 return events
     except (requests.RequestException, ValueError):
@@ -506,8 +512,14 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
 
 def resolve_channel_streams(channels: list[dict], cookie: str) -> list[dict]:
     """Resolve channel records that do not include a stream URL, as the Worker does."""
+    def safe_resolve(ch: dict) -> dict:
+        try:
+            return _resolve_one_channel(ch, cookie)
+        except (requests.RequestException, Film4kError, OSError):
+            return ch
+
     with ThreadPoolExecutor(max_workers=8) as executor:
-        return list(executor.map(lambda ch: _resolve_one_channel(ch, cookie), channels))
+        return list(executor.map(safe_resolve, channels))
 
 
 def _resolve_one_event(event: dict, cookie: str) -> dict:
@@ -554,12 +566,13 @@ def _resolve_one_event(event: dict, cookie: str) -> dict:
         if worker_stream_url and worker_clear_key:
             best_stream_url = worker_stream_url
             best_clear_key = worker_clear_key
-    if not best_clear_key:
-        return event
+    # Even without a clear_key, return the event with its stream URL so it
+    # appears in the playlist. The Worker resolves the key at playback time.
     resolved = dict(event)
     if best_stream_url:
         resolved["url"] = best_stream_url
-    resolved["_film4k_clear_key"] = best_clear_key
+    if best_clear_key:
+        resolved["_film4k_clear_key"] = best_clear_key
     return resolved
 
 
@@ -587,7 +600,11 @@ def resolve_event_streams(
         match = re.search(r"tv360\s*\+\s*(\d+)", event_name, re.IGNORECASE)
         if match and match.group(1) in channel_numbers:
             return event
-        return _resolve_one_event(event, cookie)
+        try:
+            return _resolve_one_event(event, cookie)
+        except (requests.RequestException, Film4kError, OSError):
+            # One event failure must not discard all events.
+            return event
 
     with ThreadPoolExecutor(max_workers=8) as executor:
         return list(executor.map(resolve, events))

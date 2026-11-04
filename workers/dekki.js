@@ -15,9 +15,16 @@ const CATALOG_TTL = 120;     // 2 min — channel list cache
 const EDGE_CACHE_302 = 300;  // 5 min — edge cache for 302 redirects on cache hits
 const TOKEN_SAFETY_WINDOW = 120;
 const STREAM_CACHE_NAMESPACE = "stream:v5";
-// The current Film4k OnFootball stream is channel ID 174. Its URL and ClearKey
-// must come from the same API response; other channels keep the fast first-hit path.
-const CLEARKEY_CHANNEL_IDS = new Set(["174"]);
+// Channel IDs known to use DRM ClearKey. Their URL and ClearKey must come
+// from the same API response. Other channels use dynamic detection: if any
+// endpoint returns a key, the keyed result is preferred over URL-only results.
+const CLEARKEY_CHANNEL_IDS = new Set([
+  "174",   // On Football
+  "173",   // On Sports
+  "183",   // On Sports +
+  "170",   // On Sports News
+  "9903",  // Phim Âu Mỹ
+]);
 const CLEARKEY_LOOKUP_TIMEOUT_MS = 8000;
 
 const KV = typeof FILM4K_KV !== "undefined" ? FILM4K_KV : null;
@@ -240,6 +247,10 @@ function streamFailureResult(failures) {
   };
 }
 
+// Always collect all results and pick the best pair in endpoint order.
+// This prevents a fast URL-only response from one endpoint being paired
+// with a ClearKey from a different endpoint's response — the root cause
+// of intermittent KID/key mismatches on DRM channels.
 async function raceStream(paths, cookie, preferClearKey = false) {
   const tasks = paths.map(async (path) => {
     const controller = preferClearKey ? new AbortController() : null;
@@ -263,35 +274,47 @@ async function raceStream(paths, cookie, preferClearKey = false) {
       if (timeout) clearTimeout(timeout);
     }
   });
+
+  const results = await Promise.allSettled(tasks);
+  const successful = results
+    .filter((result) => result.status === "fulfilled")
+    .map((result) => result.value);
+  const failures = results
+    .filter((result) => result.status === "rejected")
+    .map((result) => result.reason);
+
+  // 1) Prefer the first result (in endpoint order) that has BOTH URL+key.
+  const keyedResult = successful.find((result) => result.clearKey);
+  if (keyedResult) return keyedResult;
+
+  // 2) Known DRM channel (preferClearKey): must have a key — fail closed.
   if (preferClearKey) {
-    const results = await Promise.allSettled(tasks);
-    const successful = results
-      .filter((result) => result.status === "fulfilled")
-      .map((result) => result.value);
-    const keyedResult = successful.find((result) => result.clearKey);
-    if (keyedResult) return keyedResult;
-    // A URL without its ClearKey can point at a different, non-playable
-    // provider path. Retry rather than redirecting a protected channel to it.
-    if (successful.length) {
-      return {
-        stream: "",
-        clearKey: null,
-        authFailure: false,
-        retryableFailure: true,
-      };
-    }
-    return streamFailureResult(
-      results
-        .filter((result) => result.status === "rejected")
-        .map((result) => result.reason),
-    );
+    return {
+      stream: "",
+      clearKey: null,
+      authFailure: false,
+      retryableFailure: true,
+    };
   }
-  try {
-    return await Promise.any(tasks);
-  } catch (error) {
-    const failures = Array.isArray(error && error.errors) ? error.errors : [error];
-    return streamFailureResult(failures);
+
+  // 3) Dynamic DRM detection: some endpoint returned a key but none paired
+  //    with a URL — mismatch risk, fail and retry.
+  const anyHasClearKey = successful.some((result) => result.clearKey);
+  if (anyHasClearKey) {
+    return {
+      stream: "",
+      clearKey: null,
+      authFailure: false,
+      retryableFailure: true,
+    };
   }
+
+  // 4) Non-DRM channel (no endpoint returned a key): accept first URL.
+  if (successful.length) {
+    return successful[0];
+  }
+
+  return streamFailureResult(failures);
 }
 
 // Dedup wrapper: if the same key is already being fetched, reuse its promise.
@@ -437,7 +460,13 @@ async function loadCatalog() {
           return /event|sự kiện|sukien|trực tiếp|tructiep/i.test(groupText)
             || /^TV360\+\s*\d+/i.test(name);
         });
-    const events = await Promise.all(eventRecords.map((ev) => eventDetails(ev, cookie)));
+    // Use allSettled so one event failure doesn't discard all events.
+    const eventResults = await Promise.allSettled(
+      eventRecords.map((ev) => eventDetails(ev, cookie))
+    );
+    const events = eventResults
+      .filter((r) => r.status === "fulfilled")
+      .map((r) => r.value);
     const data = { cookie, events, channels };
     memCache.set("catalog", { ts: Date.now(), data });
     return data;
@@ -554,7 +583,8 @@ async function preWarm() {
 
   const eventsPayload = await apiJson(`/api/tv/events`, freshCookie).catch(() => null);
   const rawEvents = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
-  const events = await Promise.all(rawEvents.map((ev) => eventDetails(ev, freshCookie)));
+  const eventResults = await Promise.allSettled(rawEvents.map((ev) => eventDetails(ev, freshCookie)));
+  const events = eventResults.filter((r) => r.status === "fulfilled").map((r) => r.value);
 
   // Resolve channel streams in parallel — batch to avoid overwhelming the API
   const eligible = channels.filter((ch) => {
@@ -679,6 +709,17 @@ async function handle(request) {
   }
 
   if (url.pathname === "/film4k/events" && request.method === "GET") {
+    // When fresh=1 is requested, bypass cache and fetch events directly
+    // from the API. This prevents stale/empty events from a transient
+    // API failure during the last catalog cache window.
+    if (url.searchParams.get("fresh") === "1") {
+      const cookie = await login();
+      const eventsPayload = await apiJson(`/api/tv/events`, cookie).catch(() => null);
+      const rawEvents = eventsPayload ? unwrap(eventsPayload, ["events", "data", "items", "results"]) : [];
+      const detailResults = await Promise.allSettled(rawEvents.map((ev) => eventDetails(ev, cookie)));
+      const freshEvents = detailResults.filter((r) => r.status === "fulfilled").map((r) => r.value);
+      return jsonResponse({ events: freshEvents, count: freshEvents.length });
+    }
     const catalog = await loadCatalog();
     return jsonResponse({ events: catalog.events, count: catalog.events.length });
   }
