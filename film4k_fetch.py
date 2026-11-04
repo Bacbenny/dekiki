@@ -131,6 +131,10 @@ VTVCAB_CHANNEL_ORDER = (
     "Hoạt hình",
 )
 REFERENCE_STREAM_FALLBACKS: dict[str, tuple[str, str]] = {}
+CLEARKEY_CHANNEL_IDS = {
+    "170", "173", "174", "183", "9903",
+    "10001", "10022", "10023", "10024", "10067",
+}
 # Override tvg-id for film4k channels whose EPG ID is not in the reference playlist.
 # Key: normalized channel name variant, Value: EPG tvg-id.
 TVG_ID_OVERRIDES = {
@@ -382,6 +386,13 @@ def _clear_key(payload: object, depth: int = 0) -> dict[str, str] | None:
     return None
 
 
+def _requires_clear_key(channel_id: str, name: str) -> bool:
+    return channel_id in CLEARKEY_CHANNEL_IDS or any(
+        any(token in _normalize_channel_name(variant) for token in ("onfootball",))
+        for variant in _channel_name_variants(name)
+    )
+
+
 def _resolved_clear_key(payload: object) -> dict[str, str] | None:
     """Prefer the key paired by the stream resolver over catalog metadata."""
     if isinstance(payload, dict) and "_film4k_clear_key" in payload:
@@ -436,11 +447,8 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
         channel,
         ("name", "title", "channel_name", "channelName", "label"),
     )
-    requires_clear_key = any(
-        "onfootball" in _normalize_channel_name(variant)
-        for variant in _channel_name_variants(name)
-    )
     channel_id = _channel_id(channel)
+    requires_clear_key = _requires_clear_key(channel_id, name)
     if not channel_id:
         if requires_clear_key:
             raise Film4kError("On Football has no stable channel ID; refusing to resolve it.")
@@ -841,6 +849,26 @@ def _fallback_group(channel: dict) -> str:
     return group
 
 
+def _event_dedupe_key(event: dict) -> str:
+    event_id = _first_text(event, ("id", "event_id", "eventId", "slug", "code"))
+    if event_id:
+        return f"id:{event_id.casefold()}"
+    name = _first_text(event, ("name", "title", "event_name", "label"))
+    return f"name:{_normalize_channel_name(name)}"
+
+
+def _deduplicate_events(events: list[dict]) -> list[dict]:
+    seen: set[str] = set()
+    unique: list[dict] = []
+    for event in events:
+        key = _event_dedupe_key(event)
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        unique.append(event)
+    return unique
+
+
 def _is_film4k_event(channel: dict) -> bool:
     source_group = _normalize_group(_channel_group(channel))
     name = _first_text(
@@ -953,6 +981,7 @@ def generate_m3u(
     reference_channels: dict[str, tuple[int, int, str]],
     reference_entries: list[dict],
 ) -> tuple[str, int, int, int]:
+    events = _deduplicate_events(events)
     reference_groups = list(
         dict.fromkeys(_canonical_reference_group(group) for group in reference_groups)
     )
@@ -1232,6 +1261,7 @@ def generate_m3u(
                 ("tvg_id", "tvgId", "id", "channel_id", "channelId", "slug"),
                 name,
             )
+            requires_clear_key = _requires_clear_key(_channel_id(channel), name)
             if group in WORKER_GROUPS:
                 channel_id = _channel_id(channel)
                 if not channel_id:
@@ -1285,9 +1315,9 @@ def generate_m3u(
                         break
 
             clear_key = _resolved_clear_key(channel)
-            if "onfootball" in _channel_name_variants(name) and not clear_key:
+            if requires_clear_key and not clear_key:
                 raise Film4kError(
-                    "On Football is missing a valid ClearKey; refusing to publish."
+                    f"{name} is missing a valid ClearKey; refusing to publish."
                 )
 
             lines.append(
