@@ -162,7 +162,7 @@ class Film4kPlaylistTests(unittest.TestCase):
         }
 
         with self.assertRaisesRegex(
-            film4k_fetch.Film4kError, "On Football is missing a valid ClearKey"
+            film4k_fetch.Film4kError, "is missing a valid ClearKey"
         ):
             film4k_fetch.generate_m3u([channel], [], self.groups, {}, [])
 
@@ -241,7 +241,7 @@ class Film4kPlaylistTests(unittest.TestCase):
         self.assertIsNone(resolved["_film4k_clear_key"])
         with self.assertRaisesRegex(
             film4k_fetch.Film4kError,
-            "On Football is missing a valid ClearKey",
+            "is missing a valid ClearKey",
         ):
             film4k_fetch.generate_m3u(
                 [resolved], [], ["VTV", "VTVcab"], {}, []
