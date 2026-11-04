@@ -132,7 +132,8 @@ VTVCAB_CHANNEL_ORDER = (
 )
 REFERENCE_STREAM_FALLBACKS: dict[str, tuple[str, str]] = {}
 CLEARKEY_CHANNEL_IDS = {
-    "170", "173", "174", "183", "9903",
+    "170", "173", "174", "176", "177", "179", "180", "181", "182",
+    "183", "184", "185", "186", "187", "188", "189", "2458", "9903",
     "10001", "10022", "10023", "10024", "10067",
 }
 # Override tvg-id for film4k channels whose EPG ID is not in the reference playlist.
@@ -256,10 +257,7 @@ def fetch_channels() -> tuple[list[dict], str]:
 
 
 def fetch_events(cookie: str) -> list[dict]:
-    # Try the Worker endpoint first — it returns real sports events with proper
-    # title/stream_url/clearKey fields, already resolved from film4k.net API.
-    # Use fresh=1 to bypass the 2-minute catalog cache, which can return stale
-    # or empty events if the API transiently failed during the last cache fill.
+    worker_events: list[dict] = []
     try:
         response = requests.get(
             f"{WORKER_BASE}/film4k/events?fresh=1",
@@ -267,31 +265,26 @@ def fetch_events(cookie: str) -> list[dict]:
             timeout=30,
         )
         if response.ok:
-            payload = response.json()
-            if isinstance(payload, dict):
-                events = _unwrap_channels(payload)
-            else:
-                events = _unwrap_channels(payload)
-            if events:
-                return events
+            worker_events = _unwrap_channels(response.json())
     except (requests.RequestException, ValueError):
         pass
 
-    # Fallback: film4k.net API directly
-    response = requests.get(
-        f"{FILM4K_BASE}/api/tv/events?_={int(time.time() * 1000)}",
-        headers=_api_headers(cookie),
-        timeout=45,
-    )
-    if not response.ok:
-        raise Film4kError(
-            f"Film4K events API returned HTTP {response.status_code}"
-        )
+    direct_events: list[dict] = []
     try:
-        payload = response.json()
-    except ValueError as error:
-        raise Film4kError("Film4K events API did not return JSON") from error
-    return _unwrap_channels(payload)
+        response = requests.get(
+            f"{FILM4K_BASE}/api/tv/events?_={int(time.time() * 1000)}",
+            headers=_api_headers(cookie),
+            timeout=45,
+        )
+        if response.ok:
+            direct_events = _unwrap_channels(response.json())
+    except (requests.RequestException, ValueError):
+        pass
+
+    events = _deduplicate_events([*worker_events, *direct_events])
+    if events:
+        return events
+    raise Film4kError("Film4K events API returned no event records")
 
 
 def _worker_stream_url(channel: dict, is_event: bool = False) -> str:
@@ -850,10 +843,13 @@ def _fallback_group(channel: dict) -> str:
 
 
 def _event_dedupe_key(event: dict) -> str:
+    name = _first_text(event, ("name", "title", "event_name", "label"))
+    channel_match = re.search(r"tv360\s*\+\s*(\d+)", name, re.IGNORECASE)
+    if channel_match:
+        return f"tv360:{channel_match.group(1)}"
     event_id = _first_text(event, ("id", "event_id", "eventId", "slug", "code"))
     if event_id:
         return f"id:{event_id.casefold()}"
-    name = _first_text(event, ("name", "title", "event_name", "label"))
     return f"name:{_normalize_channel_name(name)}"
 
 
