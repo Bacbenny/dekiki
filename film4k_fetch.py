@@ -135,6 +135,8 @@ CLEARKEY_CHANNEL_IDS = {
     "170", "173", "174", "183", "9903",
     "10001", "10022", "10023", "10024", "10067",
 }
+CLEARKEY_RESOLVE_RETRIES = 2
+CLEARKEY_RESOLVE_RETRY_DELAY_SECONDS = 5
 # Override tvg-id for film4k channels whose EPG ID is not in the reference playlist.
 # Key: normalized channel name variant, Value: EPG tvg-id.
 TVG_ID_OVERRIDES = {
@@ -507,6 +509,11 @@ def _resolve_one_channel(channel: dict, cookie: str) -> dict:
     return resolved
 
 
+def _missing_required_clear_key(channel: dict) -> bool:
+    name = _first_text(channel, ("name", "title", "channel_name", "channelName", "label"))
+    return _requires_clear_key(_channel_id(channel), name) and not _resolved_clear_key(channel)
+
+
 def resolve_channel_streams(channels: list[dict], cookie: str) -> list[dict]:
     """Resolve channel records that do not include a stream URL, as the Worker does."""
     def safe_resolve(ch: dict) -> dict:
@@ -516,7 +523,17 @@ def resolve_channel_streams(channels: list[dict], cookie: str) -> list[dict]:
             return ch
 
     with ThreadPoolExecutor(max_workers=8) as executor:
-        return list(executor.map(safe_resolve, channels))
+        resolved = list(executor.map(safe_resolve, channels))
+        for _ in range(CLEARKEY_RESOLVE_RETRIES):
+            pending = [i for i, ch in enumerate(resolved) if _missing_required_clear_key(ch)]
+            if not pending:
+                break
+            time.sleep(CLEARKEY_RESOLVE_RETRY_DELAY_SECONDS)
+            retried = list(executor.map(safe_resolve, [channels[i] for i in pending]))
+            for index, result in zip(pending, retried):
+                if not _missing_required_clear_key(result):
+                    resolved[index] = result
+    return resolved
 
 
 def _resolve_one_event(event: dict, cookie: str) -> dict:
