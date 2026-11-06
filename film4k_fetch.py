@@ -132,8 +132,7 @@ VTVCAB_CHANNEL_ORDER = (
 )
 REFERENCE_STREAM_FALLBACKS: dict[str, tuple[str, str]] = {}
 CLEARKEY_CHANNEL_IDS = {
-    "170", "173", "174", "176", "177", "179", "180", "181", "182",
-    "183", "184", "185", "186", "187", "188", "189", "2458", "9903",
+    "170", "173", "174", "183", "9903",
     "10001", "10022", "10023", "10024", "10067",
 }
 # Override tvg-id for film4k channels whose EPG ID is not in the reference playlist.
