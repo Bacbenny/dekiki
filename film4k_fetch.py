@@ -280,10 +280,7 @@ def fetch_events(cookie: str) -> list[dict]:
     except (requests.RequestException, ValueError):
         pass
 
-    events = _deduplicate_events([*worker_events, *direct_events])
-    if events:
-        return events
-    raise Film4kError("Film4K events API returned no event records")
+    return _deduplicate_events([*worker_events, *direct_events])
 
 
 def _worker_stream_url(channel: dict, is_event: bool = False) -> str:
