@@ -19,8 +19,7 @@ const STREAM_CACHE_NAMESPACE = "stream:v5";
 // from the same API response. Other channels use dynamic detection: if any
 // endpoint returns a key, the keyed result is preferred over URL-only results.
 const CLEARKEY_CHANNEL_IDS = new Set([
-  "170", "173", "174", "176", "177", "179", "180", "181", "182",
-  "183", "184", "185", "186", "187", "188", "189", "2458", "9903",
+  "170", "173", "174", "183", "9903",
   "10001", "10022", "10023", "10024", "10067",
 ]);
 const CLEARKEY_LOOKUP_TIMEOUT_MS = 8000;
