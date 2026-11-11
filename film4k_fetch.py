@@ -131,7 +131,38 @@ VTVCAB_CHANNEL_ORDER = (
     "Phim Âu Mỹ",
     "Hoạt hình",
 )
-REFERENCE_STREAM_FALLBACKS: dict[str, tuple[str, str]] = {}
+# Static VTVcab entries emitted when the Film4K API stops listing these
+# channels (names must match VTVCAB_CHANNEL_ORDER entries exactly).
+VTVCAB_FALLBACK_CHANNELS = (
+    {
+        "name": "VTVcab 3 - On Sports",
+        "tvg_id": "176",
+        "logo": "https://img-ali1.tv360.vn/image1/2023/04/28/09/1682650417399/08d4190f7711_480_270.png",
+        "stream": "https://livezenatm.vtvprime.vn/live/data8/THETHAO_HD/Live_DASHDRM/THETHAO_HD.mpd",
+        "clear_key": "f3d73b3a9b89462ebf7911004ea3b3b9:2e547a81ff90aa02648cb9e3f79e7339",
+    },
+    {
+        "name": "VTVcab 6 - On Sports +",
+        "tvg_id": "177",
+        "logo": "https://img-ali1.tv360.vn/image1/2023/04/28/09/1682650447548/72acfa0eca2c_480_270.png",
+        "stream": "https://livezenatm.vtvprime.vn/live/data8/HAY_TV/Live_DASHDRM/HAY_TV.mpd",
+        "clear_key": "f3d73b3a9b89462ebf7911004ea3b3b9:2e547a81ff90aa02648cb9e3f79e7339",
+    },
+    {
+        "name": "VTVcab 16 - On Football HD",
+        "tvg_id": "178",
+        "logo": "https://img-ali1.tv360.vn/image1/2023/04/28/09/1682650260303/bc7fe5334315_480_270.png",
+        "stream": "https://livevliatmcdw.seenow.vn/live/data8/BONGDA_HD/Live_DASHDRM/BONGDA_HD.mpd",
+        "clear_key": "f3d73b3a9b89462ebf7911004ea3b3b9:2e547a81ff90aa02648cb9e3f79e7339",
+    },
+    {
+        "name": "VTVcab 18 - On Sports News",
+        "tvg_id": "179",
+        "logo": "https://img-ali1.tv360.vn/image1/2023/04/28/09/1682650363143/71956aa35c78_480_270.png",
+        "stream": "https://livezenatm.vtvprime.vn/live/data8/THETHAO_TINTUC_HD/Live_DASHDRM/THETHAO_TINTUC_HD.mpd",
+        "clear_key": "f3d73b3a9b89462ebf7911004ea3b3b9:2e547a81ff90aa02648cb9e3f79e7339",
+    },
+)
 CLEARKEY_CHANNEL_IDS = {
     "170", "173", "174", "183", "9903",
     "10001", "10022", "10023", "10024", "10067",
@@ -1303,6 +1334,9 @@ def generate_m3u(
                 channel,
                 ("logo", "icon", "thumbnail", "tvg_logo", "image", "poster"),
             )
+            # Player devices treat relative logo paths as invalid URLs.
+            if logo.startswith("/"):
+                logo = f"{FILM4K_BASE}{logo}"
             tvg_id = _first_text(
                 channel,
                 ("tvg_id", "tvgId", "id", "channel_id", "channelId", "slug"),
@@ -1402,6 +1436,29 @@ def generate_m3u(
         raise Film4kError(
             "Film4K channels could not be resolved to playable stream URLs"
         )
+
+    # Re-add the four ON Sports channels whenever the Film4K API omits them.
+    emitted_names = {
+        line.split(",", 1)[-1].strip().casefold()
+        for line in lines
+        if line.startswith("#EXTINF")
+    }
+    for fallback in VTVCAB_FALLBACK_CHANNELS:
+        if fallback["name"].casefold() in emitted_names:
+            continue
+        lines.extend(
+            [
+                f'#EXTINF:-1 tvg-id="{fallback["tvg_id"]}" '
+                f'tvg-name="{_attribute(fallback["name"])}" '
+                f'tvg-logo="{_attribute(fallback["logo"])}" '
+                f'group-title="VTVcab",{fallback["name"]}',
+                "#KODIPROP:inputstream.adaptive.manifest_type=mpd",
+                "#KODIPROP:inputstream.adaptive.license_type=clearkey",
+                f"#KODIPROP:inputstream.adaptive.license_key={fallback['clear_key']}",
+                fallback["stream"],
+            ]
+        )
+        count += 1
 
     blocks: list[tuple[str, list[str]]] = []
     current_group = ""
