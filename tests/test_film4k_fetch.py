@@ -74,6 +74,30 @@ class Film4kPlaylistTests(unittest.TestCase):
         ):
             film4k_fetch.generate_m3u([channel], [], self.groups, {}, [])
 
+    def test_unknown_film4k_group_is_skipped_without_failing_the_playlist(self):
+        known = {
+            "id": "channel-1",
+            "name": "Known Channel",
+            "group": "kenhvtv",
+            "logo": "https://cdn.example/logo.png",
+            "url": "https://cdn.example/known.m3u8",
+        }
+        unknown = {
+            "id": "channel-2",
+            "name": "Unknown Group Channel",
+            "group": "Kênh lạ",
+            "logo": "https://cdn.example/logo2.png",
+            "url": "https://cdn.example/unknown.m3u8",
+        }
+
+        playlist, count, _, _ = film4k_fetch.generate_m3u(
+            [unknown, known], [], self.groups, {}, []
+        )
+
+        self.assertEqual(count, 1)
+        self.assertIn("Known Channel", playlist)
+        self.assertNotIn("Unknown Group Channel", playlist)
+
     def test_vtvcab_group_is_kept_when_reference_playlist_omits_it(self):
         channel = {
             "id": "channel-174",

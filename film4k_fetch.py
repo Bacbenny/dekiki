@@ -72,6 +72,7 @@ SOURCE_GROUPS = {
     "kenhdiaphuong": "Địa Phương",
     "kenhfm": "Địa Phương",
     "kenhquocte": "Quốc Tế",
+    "kenhnuocngoai": "Quốc Tế",
     "sukientructiep": "Sự Kiện TV360",
     "sukientv360": "Sự Kiện TV360",
     "sukien": "Sự Kiện TV360",
@@ -849,10 +850,7 @@ def _fallback_group(channel: dict) -> str:
     if source_group in {"thethao", "kenhthethao"}:
         return "Sự Kiện TV360"
 
-    group = SOURCE_GROUPS.get(source_group)
-    if not group:
-        raise Film4kError(f"Film4K channel group is not mapped: {_channel_group(channel)}")
-    return group
+    return SOURCE_GROUPS.get(source_group, "")
 
 
 def _event_dedupe_key(event: dict) -> str:
@@ -964,6 +962,12 @@ def _order_channels(
                 unclassified = False
         else:
             group = _fallback_group(channel)
+            if not group:
+                print(
+                    f"[film4k] Skipping {name}: unmapped Film4K group {_channel_group(channel)!r}.",
+                    file=sys.stderr,
+                )
+                continue
             if group not in group_positions:
                 raise Film4kError(
                     f"Reference playlist is missing the group: {group}"
