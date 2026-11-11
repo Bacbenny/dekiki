@@ -1014,6 +1014,8 @@ def generate_m3u(
     count = 0
     event_count = 0
     unclassified_count = 0
+    emitted_worker_ids: set[str] = set()
+    emitted_name_groups: set[tuple[str, str]] = set()
     if "SportUK" not in reference_groups:
         try:
             sport_position = reference_groups.index("Quốc Tế") + 1
@@ -1068,6 +1070,7 @@ def generate_m3u(
 
     # Track TV360+ numbers used by events to avoid duplicates
     event_tv360_numbers: set[str] = set()
+    event_worker_ids: set[str] = set()
     for event in events:
         event_name = _first_text(
             event,
@@ -1130,6 +1133,16 @@ def generate_m3u(
                         event_stream_url = event_direct_url
                 if not event_stream_url:
                     continue
+                event_worker_id = _channel_id(tv360_channel) if tv360_channel else _channel_id(event_record)
+                if event_worker_id in emitted_worker_ids:
+                    continue
+                name_key = (_normalize_channel_name(name), "Sự Kiện TV360")
+                if name_key in emitted_name_groups:
+                    continue
+                if event_worker_id:
+                    event_worker_ids.add(event_worker_id)
+                    emitted_worker_ids.add(event_worker_id)
+                emitted_name_groups.add(name_key)
                 lines.append(
                     f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
                     f'tvg-name="{_attribute(name)}" '
@@ -1176,8 +1189,8 @@ def generate_m3u(
             continue
 
         group_channels = film4k_channels_by_group.get(group, [])
-        # For Sự Kiện TV360: skip TV360+ channels already covered by events
-        if group == "Sự Kiện TV360" and event_tv360_numbers:
+        # Keep the event resolver when an event and channel share the same Worker ID.
+        if group == "Sự Kiện TV360" and (event_tv360_numbers or event_worker_ids):
             def covered_by_event(channel: dict) -> bool:
                 channel_name = _first_text(
                     channel,
@@ -1185,7 +1198,10 @@ def generate_m3u(
                     "",
                 )
                 match = re.search(r"tv360\s*\+\s*(\d+)", channel_name, re.IGNORECASE)
-                return bool(match and match.group(1) in event_tv360_numbers)
+                return bool(
+                    _channel_id(channel) in event_worker_ids
+                    or (match and match.group(1) in event_tv360_numbers)
+                )
 
             group_channels = [
                 channel for channel in group_channels
@@ -1327,6 +1343,13 @@ def generate_m3u(
                         tvg_id = TVG_ID_OVERRIDES[variant]
                         break
 
+            worker_id = channel_id if channel_id and not channel_id.startswith("ants:") else ""
+            name_key = (_normalize_channel_name(name), group)
+            if worker_id and worker_id in emitted_worker_ids:
+                continue
+            if name_key in emitted_name_groups:
+                continue
+
             clear_key = _resolved_clear_key(channel)
             if requires_clear_key and not clear_key:
                 print(f"[film4k] Skipping {name}: no valid ClearKey was resolved.", file=sys.stderr)
@@ -1347,6 +1370,9 @@ def generate_m3u(
                 )
 
             lines.append(stream_url)
+            if worker_id:
+                emitted_worker_ids.add(worker_id)
+            emitted_name_groups.add(name_key)
             count += 1
             if channel.get("_film4k_is_event"):
                 event_count += 1

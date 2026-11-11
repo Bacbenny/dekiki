@@ -360,6 +360,33 @@ class Film4kPlaylistTests(unittest.TestCase):
         )
         self.assertLess(groups.index("VTVcab"), groups.index("HTV"))
 
+    def test_sportuk_duplicate_name_is_emitted_once(self):
+        channels = [
+            {
+                "name": "TNT Sports 1",
+                "group": "film4k",
+                "url": "https://cdn.example/tnt-one.m3u8",
+            },
+            {
+                "name": "TNT Sports 1",
+                "group": "film4k",
+                "url": "https://cdn.example/tnt-two.m3u8",
+            },
+        ]
+
+        playlist, count, _, _ = film4k_fetch.generate_m3u(
+            channels, [], ["VTV", "VTVcab", "SportUK"], {}, []
+        )
+
+        self.assertEqual(count, 1)
+        self.assertEqual(
+            sum(
+                line.startswith("#EXTINF") and "TNT Sports 1" in line
+                for line in playlist.splitlines()
+            ),
+            1,
+        )
+
     def test_unmapped_event_uses_its_fresh_clear_key(self):
         fresh_key = {"keyId": "b" * 32, "key": "2" * 32}
         event = {
@@ -406,6 +433,27 @@ class Film4kPlaylistTests(unittest.TestCase):
 
         self.assertIn(f"{channel_key['keyId']}:{channel_key['key']}", event_block)
         self.assertNotIn(f"{event_key['keyId']}:{event_key['key']}", event_block)
+
+    def test_event_worker_id_deduplicates_matching_channel(self):
+        channel = {
+            "id": "9904",
+            "name": "TV360",
+            "group": "sukien",
+            "logo": "https://cdn.example/tv360.png",
+        }
+        event = {
+            "id": "9904",
+            "name": "TV360",
+        }
+
+        playlist, count, _, _ = film4k_fetch.generate_m3u(
+            [channel], [event], self.groups, {}, []
+        )
+
+        self.assertEqual(count, 1)
+        self.assertEqual(playlist.count('tvg-name="TV360"'), 1)
+        self.assertIn("/film4k/stream/event/9904", playlist)
+        self.assertNotIn("/film4k/stream/channel/9904", playlist)
 
     def test_event_stream_resolver_refreshes_clear_key(self):
         fresh_key = {"keyId": "c" * 32, "key": "3" * 32}
