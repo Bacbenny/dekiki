@@ -671,6 +671,23 @@ def _normalize_channel_name(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", without_marks.replace("đ", "d"))
 
 
+def _channel_identity_key(value: str) -> str:
+    normalized = _normalize_channel_name(value)
+    normalized = re.sub(r"(?:hd|sd|uhd|fhd|4k)$", "", normalized)
+    aliases = (
+        ("truyenhinhcongannhandanantv", "antv"),
+        ("kenhtruyenhinhcongannhandanantv", "antv"),
+        ("truyenhinhquocphongvietnamqpvn", "qpvn"),
+        ("kenhtruyenhinhquocphongvietnamqpvn", "qpvn"),
+        ("vtv5truyenhinhdantoc", "vtv5"),
+        ("kenhtruyenhinhdoingoaiquocgiavietnamtoday", "vietnamtoday"),
+    )
+    for alias, canonical in aliases:
+        if alias in normalized:
+            return canonical
+    return normalized
+
+
 def _channel_name_variants(value: str) -> list[str]:
     candidates = [value.strip()]
     without_quality = re.sub(
@@ -1015,7 +1032,7 @@ def generate_m3u(
     event_count = 0
     unclassified_count = 0
     emitted_worker_ids: set[str] = set()
-    emitted_name_groups: set[tuple[str, str]] = set()
+    emitted_name_keys: set[str] = set()
     if "SportUK" not in reference_groups:
         try:
             sport_position = reference_groups.index("Quốc Tế") + 1
@@ -1136,13 +1153,14 @@ def generate_m3u(
                 event_worker_id = _channel_id(tv360_channel) if tv360_channel else _channel_id(event_record)
                 if event_worker_id in emitted_worker_ids:
                     continue
-                name_key = (_normalize_channel_name(name), "Sự Kiện TV360")
-                if name_key in emitted_name_groups:
+                name_key = _channel_identity_key(name)
+                if name_key and name_key in emitted_name_keys:
                     continue
                 if event_worker_id:
                     event_worker_ids.add(event_worker_id)
                     emitted_worker_ids.add(event_worker_id)
-                emitted_name_groups.add(name_key)
+                if name_key:
+                    emitted_name_keys.add(name_key)
                 lines.append(
                     f'#EXTINF:-1 tvg-id="{_attribute(tvg_id)}" '
                     f'tvg-name="{_attribute(name)}" '
@@ -1344,10 +1362,10 @@ def generate_m3u(
                         break
 
             worker_id = channel_id if channel_id and not channel_id.startswith("ants:") else ""
-            name_key = (_normalize_channel_name(name), group)
+            name_key = _channel_identity_key(name)
             if worker_id and worker_id in emitted_worker_ids:
                 continue
-            if name_key in emitted_name_groups:
+            if name_key and name_key in emitted_name_keys:
                 continue
 
             clear_key = _resolved_clear_key(channel)
@@ -1372,7 +1390,8 @@ def generate_m3u(
             lines.append(stream_url)
             if worker_id:
                 emitted_worker_ids.add(worker_id)
-            emitted_name_groups.add(name_key)
+            if name_key:
+                emitted_name_keys.add(name_key)
             count += 1
             if channel.get("_film4k_is_event"):
                 event_count += 1

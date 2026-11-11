@@ -360,6 +360,66 @@ class Film4kPlaylistTests(unittest.TestCase):
         )
         self.assertLess(groups.index("VTVcab"), groups.index("HTV"))
 
+    def test_channel_aliases_are_deduplicated_across_groups(self):
+        channels = [
+            {
+                "id": "vtv5-main",
+                "name": "VTV5",
+                "group": "kenhvtv",
+                "logo": "https://cdn.example/vtv5.png",
+                "url": "https://cdn.example/vtv5.m3u8",
+            },
+            {
+                "id": "vtv5-alias",
+                "name": "VTV5-Truyền hình dân tộc",
+                "group": "kenhthietyeu",
+                "logo": "https://cdn.example/vtv5-alias.png",
+                "url": "https://cdn.example/vtv5-alias.m3u8",
+            },
+            {
+                "id": "antv-main",
+                "name": "ANTV",
+                "group": "kenhthietyeu",
+                "logo": "https://cdn.example/antv.png",
+                "url": "https://cdn.example/antv.m3u8",
+            },
+            {
+                "id": "antv-alias",
+                "name": "Truyền hình Công an nhân dân - ANTV",
+                "group": "kenhthietyeu",
+                "logo": "https://cdn.example/antv-alias.png",
+                "url": "https://cdn.example/antv-alias.m3u8",
+            },
+            {
+                "id": "htv7-main",
+                "name": "HTV7 HD",
+                "group": "kenhhtv",
+                "logo": "https://cdn.example/htv7.png",
+                "url": "https://cdn.example/htv7.m3u8",
+            },
+            {
+                "id": "htv7-alias",
+                "name": "HTV7",
+                "group": "kenhhtv",
+                "logo": "https://cdn.example/htv7-alias.png",
+                "url": "https://cdn.example/htv7-alias.m3u8",
+            },
+        ]
+
+        playlist, count, _, _ = film4k_fetch.generate_m3u(
+            channels,
+            [],
+            ["VTV", "Thiết Yếu", "HTV", "VTVcab", "Sự Kiện TV360"],
+            {},
+            [],
+        )
+        headers = [line for line in playlist.splitlines() if line.startswith("#EXTINF")]
+
+        self.assertEqual(count, 3)
+        self.assertEqual(sum("VTV5" in line for line in headers), 1)
+        self.assertEqual(sum("ANTV" in line for line in headers), 1)
+        self.assertEqual(sum("HTV7" in line for line in headers), 1)
+
     def test_sportuk_duplicate_name_is_emitted_once(self):
         channels = [
             {
