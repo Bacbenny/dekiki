@@ -1437,29 +1437,6 @@ def generate_m3u(
             "Film4K channels could not be resolved to playable stream URLs"
         )
 
-    # Re-add the four ON Sports channels whenever the Film4K API omits them.
-    emitted_names = {
-        line.split(",", 1)[-1].strip().casefold()
-        for line in lines
-        if line.startswith("#EXTINF")
-    }
-    for fallback in VTVCAB_FALLBACK_CHANNELS:
-        if fallback["name"].casefold() in emitted_names:
-            continue
-        lines.extend(
-            [
-                f'#EXTINF:-1 tvg-id="{fallback["tvg_id"]}" '
-                f'tvg-name="{_attribute(fallback["name"])}" '
-                f'tvg-logo="{_attribute(fallback["logo"])}" '
-                f'group-title="VTVcab",{fallback["name"]}',
-                "#KODIPROP:inputstream.adaptive.manifest_type=mpd",
-                "#KODIPROP:inputstream.adaptive.license_type=clearkey",
-                f"#KODIPROP:inputstream.adaptive.license_key={fallback['clear_key']}",
-                fallback["stream"],
-            ]
-        )
-        count += 1
-
     blocks: list[tuple[str, list[str]]] = []
     current_group = ""
     current_lines: list[str] = []
@@ -1517,6 +1494,58 @@ def generate_m3u(
     return content, count, unclassified_count, event_count
 
 
+def add_missing_vtvcab_fallbacks(content: str) -> tuple[str, int]:
+    """Re-insert ON Sports channels the Film4K API dropped, into the VTVcab group."""
+    lines = content.splitlines()
+    emitted = {
+        line.split(",", 1)[-1].strip().casefold()
+        for line in lines
+        if line.startswith("#EXTINF")
+    }
+    missing = [
+        fallback
+        for fallback in VTVCAB_FALLBACK_CHANNELS
+        if fallback["name"].casefold() not in emitted
+    ]
+    if not missing:
+        return content, 0
+
+    block_starts = [
+        index for index, line in enumerate(lines) if line.startswith("#EXTINF")
+    ]
+    last_vtvcab = max(
+        (
+            index
+            for index in block_starts
+            if 'group-title="VTVcab"' in lines[index]
+        ),
+        default=None,
+    )
+    if last_vtvcab is None:
+        return content, 0
+
+    end = last_vtvcab + 1
+    while end < len(lines) and not lines[end].startswith("#EXTINF"):
+        end += 1
+
+    inserted: list[str] = []
+    for fallback in missing:
+        inserted.extend(
+            [
+                f'#EXTINF:-1 tvg-id="{fallback["tvg_id"]}" '
+                f'tvg-name="{_attribute(fallback["name"])}" '
+                f'tvg-logo="{_attribute(fallback["logo"])}" '
+                f'group-title="VTVcab",{fallback["name"]}',
+                "#KODIPROP:inputstream.adaptive.manifest_type=mpd",
+                "#KODIPROP:inputstream.adaptive.license_type=clearkey",
+                f"#KODIPROP:inputstream.adaptive.license_key={fallback['clear_key']}",
+                fallback["stream"],
+            ]
+        )
+    lines = lines[:end] + inserted + lines[end:]
+    return "\n".join(lines) + "\n", len(missing)
+
+
 def write_playlist(content: str) -> None:
     temp_file = OUTPUT_FILE.with_suffix(".m3u.tmp")
     temp_file.write_text(content, encoding="utf-8")
@@ -1548,6 +1577,8 @@ def main() -> int:
                 reference_channels,
                 reference_entries,
             )
+            content, fallback_count = add_missing_vtvcab_fallbacks(content)
+            playable_count += fallback_count
             write_playlist(content)
             break
         except (Film4kError, requests.RequestException, OSError) as error:
