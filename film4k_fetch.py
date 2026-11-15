@@ -705,6 +705,21 @@ def _normalize_channel_name(value: str) -> str:
 def _channel_identity_key(value: str) -> str:
     normalized = _normalize_channel_name(value)
     normalized = re.sub(r"(?:hd|sd|uhd|fhd|4k)$", "", normalized)
+    # Extract the leading channel identifier (e.g., "vtv2", "vtvcab3") when a
+    # dash/colon separator follows the channel number, so the same channel
+    # from different sources (TV360 vs SCTV) shares one dedup key. Regional
+    # channels like "VTV5 Tay Nam Bo" use spaces, not dashes, so they keep
+    # distinct keys and are not collapsed.
+    separator_match = re.match(
+        r"^\s*(vtvcab\s*\d+|vtv\s*\d+)\s*[-–—:]\s*",
+        value,
+        flags=re.IGNORECASE,
+    )
+    if separator_match:
+        return _normalize_channel_name(re.sub(r"\s+", "", separator_match.group(1)))
+    exact_prefix_match = re.match(r"^(vtvcab\d+|vtv\d+)$", normalized)
+    if exact_prefix_match:
+        return exact_prefix_match.group(1)
     aliases = (
         ("truyenhinhcongannhandanantv", "antv"),
         ("kenhtruyenhinhcongannhandanantv", "antv"),
