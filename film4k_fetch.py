@@ -366,6 +366,11 @@ def _channel_id(channel: dict) -> str:
     )
 
 
+def _is_sctv_sourced(channel: dict) -> bool:
+    """Return true when the channel ID marks it as an SCTV relay."""
+    return _channel_id(channel).startswith("sctv:")
+
+
 def _clear_key_value(value: object, *, key_id: bool = False) -> str | None:
     if not isinstance(value, str):
         return None
@@ -1572,6 +1577,14 @@ def main() -> int:
     for attempt in range(1, max_retries + 1):
         try:
             channels, cookie = fetch_channels()
+            sctv_count = sum(1 for ch in channels if _is_sctv_sourced(ch))
+            if sctv_count:
+                channels = [ch for ch in channels if not _is_sctv_sourced(ch)]
+                print(
+                    f"[film4k] Dropped {sctv_count} SCTV-sourced channels "
+                    f"to avoid duplicates.",
+                    file=sys.stderr,
+                )
             events = fetch_events(cookie)
             if not events:
                 events = [
