@@ -1,4 +1,5 @@
 #EXTM3U url-tvg="https://epg.io.vn/epg.xml.gz"
+#EXTM3U x-tvg-url="http://epg.one/epg.xml.gz"
 #EXTINF:-1 tvg-id="vtv1hd" tvg-name="VTV1" tvg-logo="https://img-evg1.tv360.vn/image1/2026/09/10/15/1789027955396/02dce36fc3ff_480_270.png" group-title="VTV",VTV1
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2
 #EXTINF:-1 tvg-id="vtv2hd" tvg-name="VTV2" tvg-logo="https://img-evg1.tv360.vn/image1/2026/09/10/15/1789027996819/72d1db4aee30_480_270.png" group-title="VTV",VTV2
@@ -25,14 +26,6 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/8
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/98
 #EXTINF:-1 tvg-id="vietnamtoday" tvg-name="VIETNAM TODAY HD" tvg-logo="https://img-evg1.tv360.vn/image1/2025/12/05/09/1764903286193/46f72417f718_480_270.png" group-title="VTV",VIETNAM TODAY HD
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9951
-#EXTINF:-1 tvg-id="sctv:vtv2" tvg-name="VTV2- Kênh Khoa học và giáo dục" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/vtv2_efbf54b9.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTV",VTV2- Kênh Khoa học và giáo dục
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtv2
-#EXTINF:-1 tvg-id="sctv:vtv4" tvg-name="VTV4- Truyền hình đối ngoại" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/vtv4_0e6f90b2.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTV",VTV4- Truyền hình đối ngoại
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtv4
-#EXTINF:-1 tvg-id="sctv:vtv5_tnb" tvg-name="VTV5- Tây Nam Bộ- Tiếng dân tộc khu vực Tây Nam Bộ" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/z4377698296781-93ce7173fc5a0f8c76615c31e46e6e79_fb10c7bf.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTV",VTV5- Tây Nam Bộ- Tiếng dân tộc khu vực Tây Nam Bộ
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtv5_tnb
-#EXTINF:-1 tvg-id="sctv:vtv8" tvg-name="VTV8- Kênh Tổng hợp miền Trung - Tây Nguyên" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/vtv8_a48edffc.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTV",VTV8- Kênh Tổng hợp miền Trung - Tây Nguyên
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtv8
 #EXTINF:-1 tvg-id="antvhd" tvg-name="ANTV" tvg-logo="https://img-evg1.tv360.vn/image1/2020_09_23/1600822516608/b33963dc0df8_480_270.png" group-title="Thiết Yếu",ANTV
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/20
 #EXTINF:-1 tvg-id="qpvnhd" tvg-name="QPVN HD" tvg-logo="https://img-evg1.tv360.vn/image1/2020_09_23/1600822254297/3c150355b7f8_480_270.png" group-title="Thiết Yếu",QPVN HD
@@ -96,24 +89,8 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/169
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9903
 #EXTINF:-1 tvg-id="360hoathinh" tvg-name="Hoạt hình" tvg-logo="https://img-evg1.tv360.vn/image1/2026/08/03/16/178574886930/9daa0ca42fd8_480_270.png" group-title="VTVcab",Hoạt hình
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9934
-#EXTINF:-1 tvg-id="sctv:vtvcab2" tvg-name="VTVcab2 - Phim Truyện Việt Nam" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/kenh-2_ce40790f.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTVcab",VTVcab2 - Phim Truyện Việt Nam
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtvcab2
-#EXTINF:-1 tvg-id="sctv:vtvcab3" tvg-name="VTVcab3 - Thể thao" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/on-sports_756f7916.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTVcab",VTVcab3 - Thể thao
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtvcab3
-#EXTINF:-1 tvg-id="sctv:vtvcab4" tvg-name="VTVcab4" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/logo-on-movies-01_d2a5d26a.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTVcab",VTVcab4
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtvcab4
-#EXTINF:-1 tvg-id="sctv:vtvcab6" tvg-name="VTVcab6 - ON SPORT+" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/logo-on-sports_91c6373e.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTVcab",VTVcab6 - ON SPORT+
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtvcab6
 #EXTINF:-1 tvg-id="sctv:vtvcab7" tvg-name="VTVcab7" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/bo-logo-on-the-thao-van-hoa-xa-hoi-chuan-vtvcab-18-1_b13b7241.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTVcab",VTVcab7
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtvcab7
-#EXTINF:-1 tvg-id="sctv:vtvcab10" tvg-name="VTVcab10- Thế Giới Điện Ảnh" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/kenh-10_f448d047.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTVcab",VTVcab10- Thế Giới Điện Ảnh
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtvcab10
-#EXTINF:-1 tvg-id="sctv:vtvcab15" tvg-name="VTVCab15" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/bo-logo-on-the-thao-van-hoa-xa-hoi-chuan-vtvcab-22_42ecf324.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTVcab",VTVCab15
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtvcab15
-#EXTINF:-1 tvg-id="sctv:vtvcab16" tvg-name="VTVcab16 - Bóng đá" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/on-football_12c45260.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTVcab",VTVcab16 - Bóng đá
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtvcab16
-#EXTINF:-1 tvg-id="sctv:vtvcab17" tvg-name="VTVcab17 - Yeah1 TV" tvg-logo="https://imaginary.endpoint.cdn.sctvonline.vn/tenants/none_tenant/photos/logo-on-trendingtv-01_66ef5ac5.jpg?width=426&version=10&type=auto&s3_origin=https%3A%2F%2Fsctv-main-2.s3-hcm.cloud.cmctelecom.vn" group-title="VTVcab",VTVcab17 - Yeah1 TV
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/sctv%3Avtvcab17
 #EXTINF:-1 tvg-id="sctv15hd" group-title="SCTV" tvg-logo="https://s7774.cdn.mytvnet.vn/vimages/c5/52/26/64/4d/d2/c5264-psctv15ssportt2-channel-unkn.png", SCTV15
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -519,7 +496,6 @@ https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcworldnews.smil/manifest.mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=5014941a2c42379880b5edf72304c165:f3fa0fe3cd39a52f4eefd36ff7161e89
 https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcearth.smil/manifest.mpd
-#EXTM3U x-tvg-url="http://epg.one/epg.xml.gz"
 #EXTINF:-1 tvg-id="2889" tvg-name="TNT SPORTS 1" tvg-logo="https://tflix.su/logos/channels/tnt-sports-1-360cc1265a.png" group-title="SportUK",TNT SPORTS 1
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/tflix%3Af9df77ee5201fa7a6ab202fbb663b1da
 #EXTINF:-1 tvg-id="2890" tvg-name="TNT SPORTS 2" tvg-logo="https://tflix.su/logos/channels/tnt-sports-2-020f343d5f.png" group-title="SportUK",TNT SPORTS 2
