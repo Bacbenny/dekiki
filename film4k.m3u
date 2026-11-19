@@ -32,7 +32,7 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/19
 #EXTINF:-1 tvg-id="176" tvg-name="VTVcab 3 - On Sports" tvg-logo="https://img-evg1.tv360.vn/image1/2023/04/28/09/1682650417399/08d4190f7711_480_270.png" group-title="VTVcab",VTVcab 3 - On Sports
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=3f65c107c9904ca98ddd22671d5c89c3:e3c6fbe4cae8bbf13ed6a7be8e66aa55
+#KODIPROP:inputstream.adaptive.license_key=25c9cd9eb5fd5f56b00ec0314db71efa:4b61d2647eed187ce86a55f0ff7101a6
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/173
 #EXTINF:-1 tvg-id="177" tvg-name="VTVcab 6 - On Sports +" tvg-logo="https://img-evg1.tv360.vn/image1/2023/04/28/09/1682650447548/72acfa0eca2c_480_270.png" group-title="VTVcab",VTVcab 6 - On Sports +
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -42,12 +42,12 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/183
 #EXTINF:-1 tvg-id="178" tvg-name="VTVcab 16 - On Football HD" tvg-logo="https://img-evg1.tv360.vn/image1/2023/04/28/09/1682650260303/bc7fe5334315_480_270.png" group-title="VTVcab",VTVcab 16 - On Football HD
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=2d33c568722543eab2c1f0ba5318a176:6e2743f51b802707dc84b46d1f044cef
+#KODIPROP:inputstream.adaptive.license_key=ee81a4d6a5545cbf82eba5cc5e47bd5b:2f1620db6eac3991f9d39eb8fad8d8dd
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/174
 #EXTINF:-1 tvg-id="170" tvg-name="VTVcab 18 - On Sports News" tvg-logo="https://img-evg1.tv360.vn/image1/2023/04/28/09/1682650363143/71956aa35c78_480_270.png" group-title="VTVcab",VTVcab 18 - On Sports News
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=6e3eb0ec2ef65728b2907635010dabe9:0257b51347a6f1cbad65e380d3330038
+#KODIPROP:inputstream.adaptive.license_key=eba8070754254c998ff3bf92baf36aeb:5598aacdcf1ea73272cb2d89d951e053
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/170
 #EXTINF:-1 tvg-id="13" tvg-name="VTVcab 2 - Phim Việt HD" tvg-logo="https://img-evg1.tv360.vn/image1/2021/09/07/16/1631007494845/516efb158133_480_270.png" group-title="VTVcab",VTVcab 2 - Phim Việt HD
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/175
@@ -84,7 +84,7 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/169
 #EXTINF:-1 tvg-id="360phimaumy" tvg-name="Phim Âu Mỹ" tvg-logo="https://img-evg1.tv360.vn/image1/2026/04/09/08/1775697767861/9a6dc88794cf_480_270.png" group-title="VTVcab",Phim Âu Mỹ
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=23f5ba7c58bc4c8eaf0a036997a684b4:2e5b4721ca24f188ca055c8dd64de759
+#KODIPROP:inputstream.adaptive.license_key=8064f5f04d414f059aeeba09b856a720:e8fa900a4b14fdae63e541e39723217d
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9903
 #EXTINF:-1 tvg-id="360hoathinh" tvg-name="Hoạt hình" tvg-logo="https://img-evg1.tv360.vn/image1/2026/08/03/16/178574886930/9daa0ca42fd8_480_270.png" group-title="VTVcab",Hoạt hình
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9934
@@ -493,26 +493,23 @@ http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/9XRHZ7MZ9PNWS6/9293/inde
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=edfa094d8ac55cf98f5867128a926aa7:0e10fa6099105e2e0a7ce1e34e9c0230
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9867
+#EXTINF:-1 tvg-id="9887" tvg-name="Bóng đá: AFC Awards 2026: Lễ trao giải AFC năm 2026, 19 giờ , ngày 19/11, kênh TV360+ 9" tvg-logo="https://img-evg1.tv360.vn/image1/2026/11/18/11/1794975981507/c3a2f093143a_1280_720.jpg" group-title="Sự Kiện TV360",Bóng đá: AFC Awards 2026: Lễ trao giải AFC năm 2026, 19 giờ , ngày 19/11, kênh TV360+ 9
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9887
 #EXTINF:-1 tvg-id="10022" tvg-name="Bóng đá: FIFA U17 World Cup 2026: U17 New Caledonia vs U17 Ecuador, 20 giờ , ngày 19/11, kênh TV360+ 13" tvg-logo="https://img-evg1.tv360.vn/image1/2026/11/16/09/1794797383329/1bafdf93b5ec_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: FIFA U17 World Cup 2026: U17 New Caledonia vs U17 Ecuador, 20 giờ , ngày 19/11, kênh TV360+ 13
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=856f291af35a5db7b7d0c944b32993b9:aa3547547f084fe4c9ea5206effb6b78
+#KODIPROP:inputstream.adaptive.license_key=41ce0eac12eb58f69607df0d2eaff649:68c1d283bdd53500336f0db4900e2170
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/10022
 #EXTINF:-1 tvg-id="2458" tvg-name="Bóng đá: FIFA U17 World Cup 2026: U17 Hàn Quốc vs U17 Uganda, 20 giờ 30 phút , ngày 19/11, kênh TV360+ 4" tvg-logo="https://img-evg1.tv360.vn/image1/2026/11/16/10/1794798274887/92b21b161e1a_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: FIFA U17 World Cup 2026: U17 Hàn Quốc vs U17 Uganda, 20 giờ 30 phút , ngày 19/11, kênh TV360+ 4
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=f6ae18fbe05a596da5c9ea312d3257e2:9e1eda8e6c4405c3751300309eb5822c
+#KODIPROP:inputstream.adaptive.license_key=70d033252d025d719ba70a37acc0f5c8:6ca465d8b3018f1604da6d43d3395a6d
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2458
 #EXTINF:-1 tvg-id="9869" tvg-name="Bóng đá: FIFA U17 World Cup 2026 Lượt 1- Bảng D: U17 Ả Rập Xê Út vs U17 Uruguay, 21 giờ , ngày 19/11, kênh TV360+ 7" tvg-logo="https://img-evg1.tv360.vn/image1/2026/11/16/10/1794799437297/b558cfdf8336_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: FIFA U17 World Cup 2026 Lượt 1- Bảng D: U17 Ả Rập Xê Út vs U17 Uruguay, 21 giờ , ngày 19/11, kênh TV360+ 7
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=23512a8a75505839aa810d79832de351:9c07b3e707e330a77a4dbf5a63f9306f
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9869
-#EXTINF:-1 tvg-id="9870" tvg-name="Bóng đá: FIFA U17 World Cup 2026 Lượt 1- Bảng C: U17 Mozambique vs U17 Đan Mạch, 22 giờ , ngày 19/11, kênh TV360+ 8" tvg-logo="https://img-evg1.tv360.vn/image1/2026/11/16/10/1794799958940/47be4d2c6785_1280_720.png" group-title="Sự Kiện TV360",Bóng đá: FIFA U17 World Cup 2026 Lượt 1- Bảng C: U17 Mozambique vs U17 Đan Mạch, 22 giờ , ngày 19/11, kênh TV360+ 8
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=61ad3fc7fc925b7db48270e2b0165669:c397368031e9c215d86412fa0a14a565
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9870
 #EXTINF:-1 tvg-id="tv360plus1" tvg-name="TV360+ 1" tvg-logo="https://img-evg1.tv360.vn/image1/2026/04/15/22/1776266760359/ba1ca843cd06_480_270.png" group-title="Sự Kiện TV360",TV360+ 1
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
@@ -521,7 +518,7 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/2554
 #EXTINF:-1 tvg-id="tv360plus2" tvg-name="TV360+ 2" tvg-logo="https://img-evg1.tv360.vn/image1/2026/04/15/22/1776266826697/9647033848f3_480_270.png" group-title="Sự Kiện TV360",TV360+ 2
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=c17f1b571e985f15817351163763bf64:61951ba946496cbfeede334b54a182f8
+#KODIPROP:inputstream.adaptive.license_key=2c24f672f7715433a83953e74ae564b1:10a63f9f2ccd81dfc4a05263c2fd1575
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/1
 #EXTINF:-1 tvg-id="tv360plus3" tvg-name="TV360+ 3" tvg-logo="https://img-evg1.tv360.vn/image1/2026/04/15/22/1776266894249/af82cd28fcda_480_270.png" group-title="Sự Kiện TV360",TV360+ 3
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
@@ -531,10 +528,13 @@ https://dekki.bacbenny95.workers.dev/film4k/stream/channel/148
 #EXTINF:-1 tvg-id="tv360plus6" tvg-name="TV360+ 6" tvg-logo="https://img-evg1.tv360.vn/image1/2026/04/15/22/1776267080314/d06a99b5bd9c_480_270.png" group-title="Sự Kiện TV360",TV360+ 6
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=e1389121e18651169badabee05aef5ba:0b65b7091cd1474160e0de4ef106ac5d
+#KODIPROP:inputstream.adaptive.license_key=16ad8e2bda9c57e69e6eb115c92d7d0d:b1e8e45770999a9207e2dbd69c71e653
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9868
-#EXTINF:-1 tvg-id="tv360plus9" tvg-name="TV360+ 9" tvg-logo="https://img-evg1.tv360.vn/image1/2026/04/15/22/1776267283364/c30a206da84a_480_270.png" group-title="Sự Kiện TV360",TV360+ 9
-https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9887
+#EXTINF:-1 tvg-id="tv360plus8" tvg-name="TV360+ 8" tvg-logo="https://img-evg1.tv360.vn/image1/2026/04/15/22/1776267211780/516c4028c806_480_270.png" group-title="Sự Kiện TV360",TV360+ 8
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=61ad3fc7fc925b7db48270e2b0165669:c397368031e9c215d86412fa0a14a565
+https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9870
 #EXTINF:-1 tvg-id="tv360plus10" tvg-name="TV360+ 10" tvg-logo="https://img-evg1.tv360.vn/image1/2026/04/15/22/1776267388401/5f459b37721d_480_270.png" group-title="Sự Kiện TV360",TV360+ 10
 https://dekki.bacbenny95.workers.dev/film4k/stream/channel/9957
 #EXTINF:-1 tvg-id="tv360plus11" tvg-name="TV360+ 11" tvg-logo="https://img-evg1.tv360.vn/image1/2026/04/15/22/1776267558745/5fc303f5ba08_480_270.png" group-title="Sự Kiện TV360",TV360+ 11
