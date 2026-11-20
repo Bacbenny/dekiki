@@ -24,6 +24,15 @@ class Film4kPlaylistTests(unittest.TestCase):
     def setUp(self):
         self.groups = ["VTV", "VTVcab", "Sự Kiện TV360"]
 
+    def test_signin_headers_match_same_origin_browser_request(self):
+        headers = film4k_fetch._signin_headers()
+        self.assertEqual(headers["Accept"], "*/*")
+        self.assertEqual(headers["Origin"], film4k_fetch.FILM4K_BASE)
+        self.assertEqual(headers["Referer"], f"{film4k_fetch.FILM4K_BASE}/login")
+        self.assertEqual(headers["Sec-Fetch-Site"], "same-origin")
+        self.assertEqual(headers["Sec-Fetch-Mode"], "cors")
+        self.assertEqual(headers["Sec-Fetch-Dest"], "empty")
+
     def test_detects_jwt_expiry_in_any_query_parameter(self):
         jwt = make_jwt({"exp": 1_900_000_000})
         self.assertTrue(

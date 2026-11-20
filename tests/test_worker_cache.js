@@ -71,6 +71,25 @@ assert.equal(
 assert.ok(context.streamCacheTtl(authUrl, "channel", "174") <= 180);
 
 (async () => {
+  const signinContext = createWorkerContext();
+  signinContext.FILM4K_USERNAME = "test-user";
+  signinContext.FILM4K_PASSWORD = "test-password";
+  let signinInit;
+  signinContext.fetch = async (input, init = {}) => {
+    assert.ok(String(input).endsWith("/api/auth/signin"));
+    signinInit = init;
+    return new Response(null, {
+      status: 200,
+      headers: { "set-cookie": "session=browser; Path=/" },
+    });
+  };
+  await signinContext.login(true);
+  assert.equal(signinInit.headers.Origin, "https://film4k.net");
+  assert.equal(signinInit.headers.Referer, "https://film4k.net/login");
+  assert.equal(signinInit.headers["Sec-Fetch-Site"], "same-origin");
+  assert.equal(signinInit.headers["Sec-Fetch-Mode"], "cors");
+  assert.equal(signinInit.headers["Sec-Fetch-Dest"], "empty");
+
   const keyIdUuid = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
   const workerKey = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
   const normalizedKey = context.clearKeyOf({

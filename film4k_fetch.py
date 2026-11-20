@@ -231,6 +231,19 @@ def _unwrap_channels(payload: object, depth: int = 0) -> list[dict]:
     return []
 
 
+def _signin_headers() -> dict[str, str]:
+    """Match the same-origin headers sent by Film4K's current web login."""
+    return {
+        "Content-Type": "application/json",
+        "Accept": "*/*",
+        "User-Agent": USER_AGENT,
+        "Origin": FILM4K_BASE,
+        "Referer": f"{FILM4K_BASE}/login",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+    }
+
 def _api_headers(cookie: str) -> dict[str, str]:
     return {
         "Cookie": f"session={cookie}",
@@ -251,10 +264,7 @@ def fetch_channels() -> tuple[list[dict], str]:
 
     login = requests.post(
         f"{FILM4K_BASE}/api/auth/signin",
-        headers={
-            "Content-Type": "application/json",
-            "User-Agent": USER_AGENT,
-        },
+        headers=_signin_headers(),
         json={"email": USERNAME, "password": PASSWORD},
         allow_redirects=False,
         timeout=30,

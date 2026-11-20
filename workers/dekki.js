@@ -83,6 +83,19 @@ function jsonResponse(body, status = 200) {
   });
 }
 
+function signInHeaders() {
+  return {
+    "Content-Type": "application/json",
+    Accept: "*/*",
+    "User-Agent": USER_AGENT,
+    Origin: FILM4K_BASE,
+    Referer: FILM4K_BASE + "/login",
+    "Sec-Fetch-Dest": "empty",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-origin",
+  };
+}
+
 function apiHeaders(cookie) {
   return {
     Accept: "application/json",
@@ -372,7 +385,7 @@ async function login(forceRefresh = false) {
 
     const response = await fetch(`${FILM4K_BASE}/api/auth/signin`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", "User-Agent": USER_AGENT },
+      headers: signInHeaders(),
       body: JSON.stringify({ email: username, password }),
       redirect: "manual",
     });
